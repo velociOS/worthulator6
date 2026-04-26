@@ -1,0 +1,603 @@
+﻿"use client";
+
+import { useState, useEffect, useRef, Fragment } from "react";
+import { Slider } from "@/components/ui/slider";
+import { formatCurrency } from "@/src/lib/locale";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
+
+// -- Calculation logic --------------------------------------------
+
+type Breakdown = { label: string; value: number; color: "red" | "orange" | "gray" };
+
+interface CalcResult {
+  net: number;
+  breakdowns: Breakdown[];
+}
+
+function calculateUS(salary: number, filingStatus: string, stateTaxRate: number): CalcResult {
+  const brackets =
+    filingStatus === "married"
+      ? [
+          { up: 23_200,   rate: 0.10 },
+          { up: 94_300,   rate: 0.12 },
+          { up: 201_050,  rate: 0.22 },
+          { up: 383_900,  rate: 0.24 },
+          { up: 487_450,  rate: 0.32 },
+          { up: 731_200,  rate: 0.35 },
+          { up: Infinity, rate: 0.37 },
+        ]
+      : [
+          { up: 11_600,   rate: 0.10 },
+          { up: 47_150,   rate: 0.12 },
+          { up: 100_525,  rate: 0.22 },
+          { up: 191_950,  rate: 0.24 },
+          { up: 243_725,  rate: 0.32 },
+          { up: 609_350,  rate: 0.35 },
+          { up: Infinity, rate: 0.37 },
+        ];
+
+  let federal = 0;
+  let prev = 0;
+  for (const { up, rate } of brackets) {
+    if (salary <= prev) break;
+    federal += (Math.min(salary, up) - prev) * rate;
+    prev = up;
+  }
+
+  const socialSecurity = Math.min(salary, 168_600) * 0.062;
+  const medicare       = salary * 0.0145;
+  const stateTax       = salary * (stateTaxRate / 100);
+  const net            = Math.max(0, salary - federal - socialSecurity - medicare - stateTax);
+
+  return {
+    net,
+    breakdowns: [
+      { label: "Federal Income Tax",            value: federal,                    color: "red"    },
+      { label: `State Tax (${stateTaxRate}%)`,  value: stateTax,                   color: "orange" },
+      { label: "Social Security + Medicare",    value: socialSecurity + medicare,  color: "gray"   },
+    ],
+  };
+}
+
+function calculateUK(salary: number): CalcResult {
+  let personalAllowance = 12_570;
+  if (salary > 125_140)      personalAllowance = 0;
+  else if (salary > 100_000) personalAllowance = Math.max(0, 12_570 - (salary - 100_000) / 2);
+
+  const taxable = Math.max(0, salary - personalAllowance);
+
+  let incomeTax = 0;
+  if (taxable <= 37_700) {
+    incomeTax = taxable * 0.20;
+  } else if (taxable <= 125_140) {
+    incomeTax = 37_700 * 0.20 + (taxable - 37_700) * 0.40;
+  } else {
+    incomeTax = 37_700 * 0.20 + (125_140 - 37_700) * 0.40 + (taxable - 125_140) * 0.45;
+  }
+
+  const niPrimary = 12_570;
+  const niUpper   = 50_270;
+  let ni = 0;
+  if (salary > niPrimary) {
+    ni += (Math.min(salary, niUpper) - niPrimary) > 0
+      ? (Math.min(salary, niUpper) - niPrimary) * 0.08
+      : 0;
+    if (salary > niUpper) ni += (salary - niUpper) * 0.02;
+  }
+
+  const net = Math.max(0, salary - incomeTax - ni);
+
+  return {
+    net,
+    breakdowns: [
+      { label: "Income Tax",          value: incomeTax, color: "red"    },
+      { label: "National Insurance",  value: ni,        color: "orange" },
+    ],
+  };
+}
+
+// -- Salary percentile helper (approximate median data) ----------
+
+function getSalaryPercentile(salary: number, country: string): number {
+  const bands: [number, number][] = country === "US"
+    ? [[0,0],[20000,8],[30000,22],[40000,36],[50000,50],[65000,64],[80000,76],[100000,86],[125000,92],[150000,96],[500000,99]]
+    : [[0,0],[15000,8],[20000,18],[25000,32],[30000,45],[38000,58],[50000,74],[60000,82],[75000,90],[100000,97],[200000,99]];
+  for (let i = 1; i < bands.length; i++) {
+    if (salary <= bands[i][0]) {
+      const t = (salary - bands[i - 1][0]) / (bands[i][0] - bands[i - 1][0]);
+      return Math.round(bands[i - 1][1] + t * (bands[i][1] - bands[i - 1][1]));
+    }
+  }
+  return 99;
+}
+
+// -- Component ----------------------------------------------------
+
+type Country = "US" | "UK";
+
+export default function TakeHomePayCalculator() {
+  const [country,       setCountry]       = useState<Country>("US");
+  const [salary,        setSalary]        = useState<number>(50000);
+  const [salaryInput,   setSalaryInput]   = useState<string>("50000");
+  const [filingStatus,  setFilingStatus]  = useState<string>("single");
+  const [payFrequency,  setPayFrequency]  = useState<string>("yearly");
+  const [stateTaxRate,  setStateTaxRate]  = useState<number[]>([5]);
+  const [flash,         setFlash]         = useState<boolean>(false);
+  const [displayNet,    setDisplayNet]    = useState<number>(0);
+  const animRef                           = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Derive net early so hooks can reference it
+  const result: CalcResult =
+    country === "US"
+      ? calculateUS(salary, filingStatus, stateTaxRate[0])
+      : calculateUK(salary);
+
+  const { net, breakdowns } = result;
+  const monthly      = net / 12;
+  const weekly       = net / 52;
+  const pctNet           = salary > 0 ? Math.round((net / salary) * 100) : 0;
+  const sym              = country === "US" ? "$" : "£";
+  const totalDeducted    = salary - net;
+  const hourly           = net / 52 / 40;
+  const effectiveTaxRate = salary > 0 ? ((salary - net) / salary * 100).toFixed(1) : "0.0";
+  const salaryPercentile = getSalaryPercentile(salary, country);
+
+  useEffect(() => {
+    setFlash(true);
+    const t = setTimeout(() => setFlash(false), 450);
+    return () => clearTimeout(t);
+  }, [salary, stateTaxRate, country, filingStatus]);
+
+  // Animated count-up/down toward target net
+  useEffect(() => {
+    if (animRef.current) clearTimeout(animRef.current);
+    const target = net;
+    const diff = target - displayNet;
+    if (diff === 0) return;
+    const steps = 18;
+    let step = 0;
+    const tick = () => {
+      step++;
+      const progress = step / steps;
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setDisplayNet(Math.round(displayNet + diff * ease));
+      if (step < steps) animRef.current = setTimeout(tick, 16);
+      else setDisplayNet(target);
+    };
+    animRef.current = setTimeout(tick, 16);
+    return () => { if (animRef.current) clearTimeout(animRef.current); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [net]);
+
+  const chartData = [
+    { name: "Take-home", value: net > 0 ? net : 0, fill: "#34d399" },
+    ...breakdowns
+      .filter((b) => b.value > 0)
+      .map((b) => ({
+        name:  b.label,
+        value: b.value,
+        fill:  b.color === "red" ? "#fca5a5" : b.color === "orange" ? "#fdba74" : "#d1d5db",
+      })),
+  ];
+
+  return (
+    <div className="grid gap-8 lg:grid-cols-[2fr_3fr] lg:gap-10">
+
+      {/* INPUTS */}
+      <div className="flex flex-col gap-6 lg:sticky lg:top-6 lg:self-start">
+
+        {/* Country selector */}
+        <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+          <div className="border-b border-gray-100 px-6 py-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">Country</p>
+          </div>
+          <div className="grid grid-cols-2">
+            {(["US", "UK"] as Country[]).map((c) => (
+              <button
+                key={c}
+                onClick={() => setCountry(c)}
+                className={`py-3 text-sm font-semibold transition-all duration-150 first:border-r first:border-gray-100 ${
+                  country === c
+                    ? "bg-emerald-500 text-white"
+                    : "bg-white text-gray-500 hover:bg-gray-50"
+                }`}
+              >
+                {c === "US" ? "United States" : "United Kingdom"}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Annual Salary — mega slider */}
+        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+          <div className="flex items-start justify-between">
+            <div>
+              <label htmlFor="salary" className="block text-sm font-semibold text-gray-700">
+                Your gross salary
+              </label>
+              <p className="mt-0.5 text-xs text-gray-400">Before tax &amp; deductions</p>
+            </div>
+            {/* Editable number badge */}
+            <div className="relative">
+              <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-sm font-bold text-gray-400">
+                {sym}
+              </span>
+              <input
+                id="salary"
+                type="number"
+                min={0}
+                max={500000}
+                step={1000}
+                value={salaryInput}
+                onChange={(e) => {
+                  setSalaryInput(e.target.value);
+                  const v = Math.max(0, Math.min(500000, Number(e.target.value)));
+                  if (!isNaN(v)) setSalary(v);
+                }}
+                onBlur={() => setSalaryInput(String(salary))}
+                className="w-32 rounded-xl border border-gray-200 bg-gray-50 py-2 pl-7 pr-3 text-sm font-bold text-gray-900 focus:border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-100"
+              />
+            </div>
+          </div>
+
+          {/* Big drag slider */}
+          <div className="mt-5">
+            <Slider
+              min={0}
+              max={500000}
+              step={1000}
+              value={[salary]}
+              onValueChange={([v]) => { setSalary(v); setSalaryInput(String(v)); }}
+              className="h-3"
+            />
+            <div className="mt-2 flex justify-between text-xs text-gray-400">
+              <span>{sym}0</span>
+              <span>{sym}100k</span>
+              <span>{sym}200k</span>
+              <span>{sym}300k</span>
+              <span>{sym}400k</span>
+              <span>{sym}500k</span>
+            </div>
+            <p className="mt-2 text-xs text-gray-400">
+              National median: <span className="font-semibold text-gray-600">{country === "US" ? "$59k" : "\u00a334k"}</span>
+              {salary > 0 && (
+                <span className={`ml-2 font-semibold ${salaryPercentile >= 50 ? "text-emerald-600" : "text-gray-500"}`}>
+                  &middot; top {100 - salaryPercentile}% of earners
+                </span>
+              )}
+            </p>
+          </div>
+
+          {/* Quick-pick salary chips */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {(country === "US"
+              ? [30000, 50000, 75000, 100000, 150000]
+              : [25000, 35000, 50000, 75000, 100000]
+            ).map((v) => (
+              <button
+                key={v}
+                onClick={() => { setSalary(v); setSalaryInput(String(v)); }}
+                className={`rounded-full border px-3 py-1 text-xs font-semibold transition-all duration-150 ${
+                  salary === v
+                    ? "border-emerald-400 bg-emerald-50 text-emerald-700"
+                    : "border-gray-200 bg-gray-50 text-gray-500 hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-600"
+                }`}
+              >
+                {sym}{(v / 1000).toFixed(0)}k
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Filing Status + Pay Frequency */}
+        <div className="grid grid-cols-2 gap-4">
+          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+            <label htmlFor="filing-status" className="block text-sm font-semibold text-gray-700">
+              {country === "US" ? "Filing Status" : "Employment"}
+            </label>
+            <p className="mt-0.5 text-xs text-gray-400">{country === "US" ? "Affects your tax bracket" : "Employee (PAYE)"}</p>
+            <select
+              id="filing-status"
+              value={filingStatus}
+              onChange={(e) => setFilingStatus(e.target.value)}
+              className="mt-3 w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm font-medium text-gray-900 focus:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            >
+              {country === "US" ? (
+                <>
+                  <option value="single">Single</option>
+                  <option value="married">Married</option>
+                </>
+              ) : (
+                <option value="employee">Employee</option>
+              )}
+            </select>
+          </div>
+
+          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+            <label htmlFor="pay-frequency" className="block text-sm font-semibold text-gray-700">
+              Pay Frequency
+            </label>
+            <p className="mt-0.5 text-xs text-gray-400">When your payslip lands</p>
+            <select
+              id="pay-frequency"
+              value={payFrequency}
+              onChange={(e) => setPayFrequency(e.target.value)}
+              className="mt-3 w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm font-medium text-gray-900 focus:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            >
+              <option value="yearly">Yearly</option>
+              <option value="monthly">Monthly</option>
+              <option value="weekly">Weekly</option>
+            </select>
+          </div>
+        </div>
+
+        {/* State Tax - US only */}
+        {country === "US" && (
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold text-gray-700">State Income Tax</p>
+                <p className="mt-0.5 text-xs text-gray-400">Varies by state -- 0% (TX/FL) to 13% (CA)</p>
+              </div>
+              <span className="rounded-lg bg-gray-100 px-3 py-1.5 text-xl font-bold tracking-tight text-gray-700">
+                {stateTaxRate[0]}%
+              </span>
+            </div>
+            <div className="mt-4">
+              <Slider min={0} max={13} step={0.5} value={stateTaxRate} onValueChange={setStateTaxRate} />
+              <div className="mt-1.5 flex justify-between text-xs text-gray-400">
+                <span>0% (no state tax)</span>
+                <span>13% (CA)</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* UK info card */}
+        {country === "UK" && (
+          <div className="rounded-2xl border border-gray-200 bg-gray-50 p-5 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">UK Tax Rates 2024/25</p>
+            <ul className="mt-3 space-y-1.5 text-xs text-gray-500">
+              <li className="flex justify-between"><span>Personal Allowance</span><span className="font-semibold text-gray-700">12,570</span></li>
+              <li className="flex justify-between"><span>Basic rate (up to 50,270)</span><span className="font-semibold text-gray-700">20%</span></li>
+              <li className="flex justify-between"><span>Higher rate (up to 125k)</span><span className="font-semibold text-gray-700">40%</span></li>
+              <li className="flex justify-between"><span>Additional rate</span><span className="font-semibold text-gray-700">45%</span></li>
+              <li className="flex justify-between"><span>NI (employee, primary)</span><span className="font-semibold text-gray-700">8%</span></li>
+            </ul>
+          </div>
+        )}
+
+      </div>
+
+      {/* RESULTS */}
+      <div className="flex flex-col gap-4">
+
+        {/* Hero result */}
+        <div className="relative overflow-hidden rounded-2xl border border-white/8 bg-gray-950 p-8 shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+          <div className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-emerald-900/40 blur-3xl" />
+
+          <p className="relative text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
+            Your estimated take-home pay
+          </p>
+          <p className={`relative mt-3 text-[clamp(3.5rem,8vw,5.5rem)] font-bold leading-none tracking-[-0.04em] transition-all duration-500 ${flash ? "text-emerald-300 [text-shadow:0_0_40px_rgba(52,211,153,0.6)]" : "text-emerald-400 [text-shadow:0_0_20px_rgba(52,211,153,0.28)]"}`}>
+            {formatCurrency(displayNet, country)}
+          </p>
+          <div className="relative mt-3 flex flex-wrap items-center gap-2.5">
+            <p className="text-sm font-medium text-gray-400">per year &nbsp;&middot;&nbsp; <span className="font-bold text-white">{pctNet}%</span> of gross</p>
+            {salary > 0 && (
+              <span className="rounded-full border border-amber-500/25 bg-amber-500/10 px-2.5 py-0.5 text-xs font-semibold text-amber-300">
+                {effectiveTaxRate}% effective tax rate
+              </span>
+            )}
+          </div>
+          {salary > 0 && (
+            <p className="relative mt-2 text-sm font-medium text-emerald-400">
+              You earn more than approximately <span className="font-bold text-emerald-300">{salaryPercentile}%</span> of {country === "US" ? "US" : "UK"} workers.
+            </p>
+          )}
+          <p className="relative mt-1 text-xs text-gray-500">
+            Most people take home between <span className="font-semibold text-gray-300">60-70%</span> of their salary.
+          </p>
+
+          {/* Stacked colour bar */}
+          <div className="mt-6 flex h-3 w-full overflow-hidden rounded-full bg-white/8">
+            <div className="h-full bg-emerald-400 transition-all duration-700" style={{ width: `${pctNet}%` }} />
+            {breakdowns.map((b) => (
+              <div
+                key={b.label}
+                className={`h-full transition-all duration-700 ${b.color === "red" ? "bg-red-400" : b.color === "orange" ? "bg-orange-300" : "bg-gray-300"}`}
+                style={{ width: `${salary > 0 ? Math.round((b.value / salary) * 100) : 0}%` }}
+              />
+            ))}
+          </div>
+          <div className="mt-3 flex flex-wrap gap-4 text-xs text-gray-400">
+            <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-400" />Take-home</span>
+            {breakdowns.map((b) => (
+              <span key={b.label} className="flex items-center gap-1.5">
+                <span className={`h-2 w-2 rounded-full ${b.color === "red" ? "bg-red-400" : b.color === "orange" ? "bg-orange-300" : "bg-gray-300"}`} />
+                {b.label}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Donut Chart */}
+        {salary > 0 && (
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-lg">
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">Salary breakdown</p>
+            <div className="flex items-center gap-8">
+              <div className="relative shrink-0">
+                <PieChart width={140} height={140}>
+                  <Pie
+                    data={chartData}
+                    cx={70}
+                    cy={70}
+                    innerRadius={42}
+                    outerRadius={64}
+                    paddingAngle={2}
+                    dataKey="value"
+                    animationBegin={0}
+                    animationDuration={600}
+                    strokeWidth={0}
+                  >
+                    {chartData.map((entry) => (
+                      <Cell key={entry.name} fill={entry.fill} />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    formatter={(value) => [formatCurrency(Number(value), country), ""]}
+                    contentStyle={{ borderRadius: "10px", border: "1px solid #e5e7eb", fontSize: "12px", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}
+                  />
+                </PieChart>
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+                  <div className="text-center">
+                    <p className="text-[15px] font-bold leading-none text-gray-900">{pctNet}%</p>
+                    <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-wider text-gray-400">yours</p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-3">
+                {chartData.map((entry) => (
+                  <div key={entry.name} className="flex items-start gap-2.5">
+                    <span className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full" style={{ background: entry.fill }} />
+                    <div>
+                      <p className="text-xs font-semibold text-gray-700">{entry.name}</p>
+                      <p className="text-xs text-gray-400">{formatCurrency(entry.value, country)} &middot; {Math.round((entry.value / salary) * 100)}%</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Breakdown */}
+        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+          <p className="mb-5 text-sm font-semibold text-gray-700">Full breakdown</p>
+          <dl className="space-y-0">
+
+            {/* Gross */}
+            <div className="flex items-center justify-between rounded-xl bg-gray-50 px-4 py-3.5">
+              <dt className="flex items-center gap-2.5 text-sm text-gray-600">
+                <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-gray-300" />
+                Gross Income
+              </dt>
+              <dd className="text-sm font-semibold text-gray-900">{formatCurrency(salary, country)}</dd>
+            </div>
+
+            <div className="px-5 py-1 text-xs text-gray-300 select-none">&#8595;</div>
+
+            {/* Dynamic deduction rows */}
+            {breakdowns.map((b, i) => (
+              <Fragment key={b.label}>
+                <div className={`flex items-center justify-between rounded-xl border px-4 py-3.5 ${b.color === "red" ? "border-red-100 bg-red-50" : b.color === "orange" ? "border-orange-100 bg-orange-50" : "border-gray-200 bg-gray-50"}`}>
+                  <dt className="flex items-center gap-2.5 text-sm font-medium text-gray-700">
+                    <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${b.color === "red" ? "bg-red-400" : b.color === "orange" ? "bg-orange-400" : "bg-gray-400"}`} />
+                    {b.label}
+                  </dt>
+                  <dd className={`text-sm font-semibold ${b.color === "red" ? "text-red-500" : b.color === "orange" ? "text-orange-500" : "text-gray-500"}`}>
+                    -{formatCurrency(b.value, country)}
+                  </dd>
+                </div>
+                {i < breakdowns.length - 1 && (
+                  <div className="px-5 py-1 text-xs text-gray-300 select-none">&#8595;</div>
+                )}
+              </Fragment>
+            ))}
+
+            <div className="px-5 py-1 text-xs text-gray-300 select-none">&#8595;</div>
+
+            {/* Net */}
+            <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 px-4 py-3.5">
+              <dt className="flex flex-col gap-0.5">
+                <span className="flex items-center gap-2.5 text-sm font-bold tracking-tight text-gray-950">
+                  <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-emerald-400" />
+                  Net Income
+                </span>
+                <span className="ml-5 text-xs text-gray-400">What you actually take home</span>
+              </dt>
+              <dd className="text-xl font-bold tracking-tight text-emerald-600">{formatCurrency(net, country)}</dd>
+            </div>
+
+          </dl>
+        </div>
+
+        {/* Monthly / Weekly / Hourly */}
+        <div className="grid grid-cols-3 gap-3">
+          <div className="rounded-2xl border border-white/6 bg-gray-900 p-4 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Monthly</p>
+            <p className="mt-2 text-2xl font-bold tracking-[-0.03em] text-emerald-400">{formatCurrency(monthly, country)}</p>
+            <p className="mt-0.5 text-xs font-medium text-gray-500">per month</p>
+          </div>
+          <div className="rounded-2xl border border-white/6 bg-gray-900 p-4 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Weekly</p>
+            <p className="mt-2 text-2xl font-bold tracking-[-0.03em] text-emerald-400">{formatCurrency(weekly, country)}</p>
+            <p className="mt-0.5 text-xs font-medium text-gray-500">per week</p>
+          </div>
+          <div className="rounded-2xl border border-white/6 bg-gray-900 p-4 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Hourly</p>
+            <p className="mt-2 text-2xl font-bold tracking-[-0.03em] text-emerald-400">{formatCurrency(hourly, country)}</p>
+            <p className="mt-0.5 text-xs font-medium text-gray-500">est. per hour</p>
+          </div>
+        </div>
+
+        {/* Trust note */}
+        <div className="rounded-2xl border border-gray-200 bg-gray-50 px-5 py-4">
+          <p className="text-xs font-medium text-gray-500">
+            {country === "US"
+              ? "Estimate only. Does not account for deductions, credits, AMT, or state-specific rules. Not tax advice."
+              : "Estimate only. Based on 2024/25 rates. Does not account for pension, student loans, or personal circumstances. Not tax advice."}
+          </p>
+        </div>
+
+        {/* WHAT IF */}
+        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+          <p className="text-sm font-semibold text-gray-700">What if your salary changed?</p>
+          <p className="mt-1 text-xs leading-5 text-gray-400">
+            Try changing your salary -- small changes add up quickly. Hit a scenario below to see the impact instantly.
+          </p>
+
+          <div className="mt-4 grid grid-cols-2 gap-3">
+            {[
+              { label: "+10% raise",        s: "pos", apply: () => { const v = Math.min(500000, Math.round(salary * 1.1));    setSalary(v); setSalaryInput(String(v)); } },
+              { label: `+${sym}5,000`,      s: "pos", apply: () => { const v = Math.min(500000, salary + 5000);              setSalary(v); setSalaryInput(String(v)); } },
+              { label: `+${sym}10,000`,     s: "pos", apply: () => { const v = Math.min(500000, salary + 10000);             setSalary(v); setSalaryInput(String(v)); } },
+              { label: `-${sym}5,000`,      s: "neg", apply: () => { const v = Math.max(0, salary - 5000);                  setSalary(v); setSalaryInput(String(v)); } },
+              { label: "Reset to default",  s: "neu", apply: () => { setSalary(50000); setSalaryInput("50000"); }            },
+            ].map((scenario) => (
+              <button
+                key={scenario.label}
+                onClick={scenario.apply}
+                className={`rounded-xl border px-4 py-3 text-sm font-semibold transition-all duration-150 active:scale-95 hover:scale-[1.02] ${
+                  scenario.s === "pos"
+                    ? "border-gray-200 bg-gray-50 text-gray-700 hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700"
+                    : scenario.s === "neg"
+                    ? "border-gray-200 bg-gray-50 text-gray-700 hover:border-red-200 hover:bg-red-50 hover:text-red-600"
+                    : "border-gray-200 bg-gray-50 text-gray-500 hover:border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+                }`}
+              >
+                {scenario.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Live preview */}
+          <div className="mt-5 rounded-xl border border-white/7 bg-gray-950 px-5 py-4">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Live estimate</p>
+            <p className={`mt-1 text-3xl font-bold tracking-[-0.03em] transition-all duration-500 ${flash ? "text-emerald-300 [text-shadow:0_0_20px_rgba(52,211,153,0.5)]" : "text-emerald-400"}`}>
+              {formatCurrency(net, country)}<span className="ml-2 text-sm font-normal text-gray-500">/ year</span>
+            </p>
+            <p className="mt-0.5 text-sm text-gray-400">{formatCurrency(monthly, country)} / mo &nbsp;&middot;&nbsp; {formatCurrency(weekly, country)} / wk</p>
+            {salary > 0 && (
+              <p className="mt-2 text-xs text-gray-500">
+                About <span className="font-semibold text-gray-300">{Math.round((totalDeducted / salary) * 100)}%</span> is taken out -- {formatCurrency(totalDeducted, country)} per year.
+              </p>
+            )}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  );
+}

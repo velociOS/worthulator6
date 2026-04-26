@@ -1,0 +1,315 @@
+﻿import type { Metadata } from "next";
+import Link from "next/link";
+import TakeHomePayCalculator from "./TakeHomePayCalculator";
+
+export const metadata: Metadata = {
+  title: "Take Home Pay Calculator — Worthulator",
+  description:
+    "Estimate your take-home pay based on your salary, tax rate, and deductions. Get a clear annual, monthly, and weekly breakdown in seconds.",
+  robots: { index: true, follow: true },
+};
+
+const relatedTools = [
+  {
+    slug: "salary-breakdown",
+    name: "Salary Breakdown Calculator",
+    desc: "See how your salary splits into hourly, daily, and monthly figures.",
+    emoji: "💼",
+  },
+  {
+    slug: "budget-planner",
+    name: "Budget Planner",
+    desc: "Plan where your net income actually goes each month.",
+    emoji: "📋",
+  },
+  {
+    slug: "passive-income",
+    name: "Passive Income Calculator",
+    desc: "Estimate how much passive income you need to cover your lifestyle.",
+    emoji: "💸",
+  },
+];
+
+export default function TakeHomePayPage() {
+  return (
+    <main className="bg-white text-gray-900">
+
+      {/* HERO — 2-column */}
+      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
+        <div className="pointer-events-none absolute -top-32 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-emerald-50/80 blur-[80px]" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-gray-100/60 blur-3xl" />
+        <div className="relative mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-2">
+
+          {/* Left — copy */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
+              Money · Income Tools
+            </p>
+            <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
+              Take Home Pay Calculator
+              <span className="block mt-1 text-gray-400 font-semibold">see what you actually take home.</span>
+            </h1>
+            <p className="mt-5 max-w-lg text-lg leading-relaxed text-gray-500">
+              Estimate your net income with a clear breakdown of tax and deductions in seconds.
+            </p>
+          </div>
+
+          {/* Right — preview stat card */}
+          <div className="hidden lg:block">
+            <div className="rounded-2xl border border-gray-200 bg-gray-100 p-6 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">Example &middot; $50,000 salary</p>
+              <p className="mt-3 text-5xl font-bold tracking-[-0.04em] text-emerald-600">$32,500</p>
+              <p className="mt-1 text-sm text-gray-400">estimated take-home per year</p>
+              <div className="mt-5 flex h-2 w-full overflow-hidden rounded-full bg-gray-200">
+                <div className="h-full bg-emerald-400" style={{ width: "65%" }} />
+                <div className="h-full bg-red-400" style={{ width: "20%" }} />
+                <div className="h-full flex-1 bg-orange-300" />
+              </div>
+              <div className="mt-3 flex gap-4 text-xs text-gray-500">
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-400" />Take-home</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-red-400" />Tax</span>
+                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-orange-300" />Deductions</span>
+              </div>
+              <p className="mt-5 text-xs text-gray-400">65% of gross &mdash; adjust the sliders below to see yours</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* CALCULATOR */}
+      <section className="bg-white px-5 py-12 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-8 grid gap-3 sm:grid-cols-3">
+            {[
+              { stat: "60–70%",     label: "is what most people actually take home from their salary" },
+              { stat: "£/$ 4,000+", label: "lost to tax & deductions on an average salary every year" },
+              { stat: "25 secs",    label: "to see your exact breakdown with this tool"               },
+            ].map((item) => (
+              <div key={item.stat} className="group rounded-2xl border border-gray-200 bg-white px-6 py-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-gray-300 hover:shadow-xl">
+                <p className="text-3xl font-bold tracking-tight text-emerald-600 transition-transform duration-200 group-hover:scale-105">{item.stat}</p>
+                <p className="mt-1.5 text-xs leading-5 text-gray-500">{item.label}</p>
+              </div>
+            ))}
+          </div>
+          <TakeHomePayCalculator />
+        </div>
+      </section>
+
+      {/* INSIGHT STRIP */}
+      <div className="bg-gray-50 px-5 py-5 sm:px-8 lg:px-16">
+        <p className="mx-auto max-w-5xl text-sm font-medium text-gray-500">
+          Most people take home between{" "}
+          <span className="font-semibold text-gray-800">60–70% of their salary</span>{" "}
+          depending on their tax rate and deductions. See exactly where yours sits.
+        </p>
+      </div>
+
+      {/* WHAT THIS MEANS */}
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">What this means for you</h2>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-500">
+            Your gross salary is not the same as the money that reaches your bank account. Understanding the gap helps you plan better.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                icon: "📊",
+                title: "Gross vs net",
+                body: "Your gross salary is before deductions. Your net pay — take-home — is what you actually receive. The gap is often 25–40% of your earnings.",
+              },
+              {
+                icon: "📉",
+                title: "Small rates, big impact",
+                body: "A 5% change in tax rate on a £50,000 salary means £2,500 per year. Small percentage shifts compound significantly over a career.",
+              },
+              {
+                icon: "💡",
+                title: "Deductions add up",
+                body: "Pension, NI, and other deductions can seem small month to month — but they reduce your take-home by thousands per year.",
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+              >
+                <span className="text-2xl">{item.icon}</span>
+                <h3 className="mt-4 text-base font-semibold tracking-tight text-gray-900">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-gray-500">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* WHAT YOU CAN DO NEXT */}
+      <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">What you can do next</h2>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-500">
+            Once you know your take-home pay, here are the most useful next steps.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                step: "01",
+                title: "Reduce your deductions",
+                body: "Review pension, healthcare, and other voluntary deductions. Optimising these can meaningfully increase your monthly take-home.",
+                card: "bg-white border-gray-200",
+                label: "text-gray-400",
+              },
+              {
+                step: "02",
+                title: "Increase your income",
+                body: "Even a modest salary increase has a compounding effect. Use this calculator to see exactly how a raise changes your net pay.",
+                card: "bg-white border-gray-200",
+                label: "text-gray-400",
+              },
+              {
+                step: "03",
+                title: "Plan your budget",
+                body: "Now you know your real take-home, you can build a budget around actual numbers — not an estimate you later have to adjust.",
+                card: "bg-white border-gray-200",
+                label: "text-gray-400",
+              },
+            ].map((item) => (
+              <div
+                key={item.step}
+                className={`rounded-2xl border p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg ${item.card}`}
+              >
+                <span className={`text-xs font-bold uppercase tracking-widest ${item.label}`}>{item.step}</span>
+                <h3 className="mt-3 text-base font-semibold tracking-tight text-gray-900">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-gray-600">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">How it works</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                step: "1",
+                title: "Enter your salary",
+                body: "Type in your gross annual salary — the figure before tax and deductions.",
+              },
+              {
+                step: "2",
+                title: "Set your rates",
+                body: "Adjust the tax rate and other deductions (pension, NI, healthcare) using the sliders.",
+              },
+              {
+                step: "3",
+                title: "See your take-home",
+                body: "The tool instantly calculates your net pay and breaks it down by year, month, and week.",
+              },
+            ].map((item) => (
+              <div
+                key={item.step}
+                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+              >
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-sm font-bold text-gray-600">
+                  {item.step}
+                </span>
+                <h3 className="mt-4 text-base font-semibold tracking-tight text-gray-900">{item.title}</h3>
+                <p className="mt-2 text-sm leading-7 text-gray-500">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SEO CONTENT */}
+      <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-3xl space-y-8 text-gray-600">
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">What is take-home pay?</h2>
+            <p className="mt-4 leading-[1.85] text-gray-600">
+              Take-home pay — also called net pay — is the amount left in your bank account after
+              your employer has made deductions from your gross salary. It&apos;s the money you
+              actually have to spend, save, or invest.
+            </p>
+            <p className="mt-4 leading-7">
+              The difference between your gross salary and your take-home pay can be surprisingly
+              large. For many people, 25–40% of their gross income goes to tax and other
+              contributions before they ever see it. Understanding that gap is the first step to
+              managing your money better.
+            </p>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">How does tax affect take-home pay?</h2>
+            <p className="mt-4 leading-7">
+              Income tax is usually the biggest deduction from your salary. The rate you pay depends
+              on your total income and the tax rules in your country. In the US, federal income tax
+              rates range from 10% to 37% depending on your tax bracket. In the UK, the basic rate
+              is 20%, rising to 40% for higher earners.
+            </p>
+            <p className="mt-4 leading-7">
+              Most people also pay National Insurance (UK) or Social Security and Medicare taxes
+              (US) on top of income tax. These are often grouped as payroll deductions and they
+              reduce your take-home pay further. There may also be voluntary deductions — like
+              pension contributions or private health insurance — which are worth understanding even
+              if they reduce your monthly take-home, because they often provide long-term financial
+              benefits.
+            </p>
+          </div>
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">Why do estimates vary?</h2>
+            <p className="mt-4 leading-7">
+              Your actual take-home pay depends on more than just your salary and a flat tax rate.
+              Tax allowances, pension contributions, student loan repayments, benefit-in-kind
+              deductions, and employer-specific policies all play a role. Payroll is often more
+              nuanced than a simple percentage calculation.
+            </p>
+            <p className="mt-4 leading-7">
+              This tool is designed to give you a useful ballpark — a quick way to understand
+              roughly what you keep from each pound or dollar you earn. For an accurate figure,
+              check your payslip or speak to a payroll professional.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Important</p>
+            <p className="mt-2 text-sm leading-6 text-gray-500">
+              Estimates only. This tool does not account for personal allowances, tax codes,
+              student loans, benefits, or local tax rules. It is not financial or tax advice.
+              Always check your payslip and consult a qualified professional for accurate figures.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* RELATED TOOLS */}
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">Related tools</h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {relatedTools.map((tool) => (
+              <Link
+                key={tool.slug}
+                href={`/tools/${tool.slug}`}
+                className="group flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+              >
+                <span className="text-2xl">{tool.emoji}</span>
+                <div>
+                  <h3 className="text-sm font-semibold tracking-tight text-gray-900 group-hover:text-emerald-700">
+                    {tool.name}
+                  </h3>
+                  <p className="mt-1 text-sm leading-5 text-gray-500">{tool.desc}</p>
+                </div>
+                <span className="mt-auto text-xs font-semibold text-gray-400 transition-colors group-hover:text-emerald-600">
+                  Open tool →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+    </main>
+  );
+}
