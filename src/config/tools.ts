@@ -321,7 +321,10 @@ export const tools: Tool[] = [
   { name: "Life Insurance Needs Calculator",  slug: "life-insurance-needs",       tier: 1, category: "money", subcategory: "loans",     toolType: "calculator", popular: true  },
 
   // Investing
-  { name: "Compound Interest Calculator",         slug: "compound-interest",          tier: 2, category: "money", subcategory: "investing", toolType: "calculator", popular: true, status: "live"  },
+  {
+    name: "Compound Interest Calculator", slug: "compound-interest", tier: 2, category: "money", subcategory: "investing", toolType: "calculator", popular: true, status: "live",
+    description: "See how your money grows with compound interest. Enter your starting amount, interest rate, and time period to calculate total growth and final value instantly.",
+  },
   { name: "Investment Return Calculator",          slug: "investment-return",          tier: 2, category: "money", subcategory: "investing", toolType: "calculator", popular: true  },
   { name: "ETF Growth Calculator",                 slug: "etf-growth",                 tier: 2, category: "money", subcategory: "investing", toolType: "calculator"                 },
   { name: "Dividend Income Calculator",            slug: "dividend-income",            tier: 2, category: "money", subcategory: "investing", toolType: "calculator"                 },
@@ -344,7 +347,10 @@ export const tools: Tool[] = [
   // ══════════════════════════════════════════════════════════════════════════
 
   // Screen & Apps
-  { name: "Screen Time Impact Calculator",      slug: "screen-time-impact",         tier: 3, category: "time", subcategory: "screen",    toolType: "calculator", popular: true, status: "live"  },
+  {
+    name: "Screen Time Impact Calculator", slug: "screen-time-impact", tier: 3, category: "time", subcategory: "screen", toolType: "calculator", popular: true, status: "live",
+    description: "Find out how much of your life goes to screens. Calculate the real-world time and opportunity cost of your daily screen habits in minutes.",
+  },
   { name: "Social Media Time Value Calculator", slug: "social-media-time-value",    tier: 3, category: "time", subcategory: "screen",    toolType: "calculator", popular: true  },
   { name: "Time Wasted on Apps Tracker",        slug: "time-wasted-on-apps",        tier: 3, category: "time", subcategory: "screen",    toolType: "tracker",    popular: true  },
   { name: "Screen Time to Money Calculator",    slug: "screen-time-to-money",       tier: 3, category: "time", subcategory: "screen",    toolType: "calculator", popular: true  },
@@ -368,12 +374,18 @@ export const tools: Tool[] = [
   { name: "Weekly Habit Cost Calculator",          slug: "weekly-habit-cost",          tier: 3, category: "lifestyle", subcategory: "habits",        toolType: "calculator"                 },
   { name: "Monthly Habit Cost Calculator",         slug: "monthly-habit-cost",         tier: 3, category: "lifestyle", subcategory: "habits",        toolType: "calculator"                 },
   { name: "Lifetime Habit Cost Calculator",        slug: "lifetime-habit-cost",        tier: 3, category: "lifestyle", subcategory: "habits",        toolType: "calculator", popular: true  },
-  { name: "Subscription Cost Calculator",          slug: "subscription-cost",          tier: 2, category: "lifestyle", subcategory: "habits",        toolType: "calculator", popular: true, status: "live"  },
+  {
+    name: "Subscription Cost Calculator", slug: "subscription-cost", tier: 2, category: "lifestyle", subcategory: "habits", toolType: "calculator", popular: true, status: "live",
+    description: "Add up all your subscriptions and see what you're actually spending per year. Spot where your money quietly disappears every month.",
+  },
   { name: "Subscription Waste Detector",           slug: "subscription-waste-detector",tier: 3, category: "lifestyle", subcategory: "habits",        toolType: "tool",       popular: true  },
   { name: "Utility Cost Estimator",                slug: "utility-cost",               tier: 2, category: "lifestyle", subcategory: "habits",        toolType: "estimator"                  },
 
   // Food & Drink
-  { name: "Coffee Cost Over Lifetime Calculator",  slug: "coffee-cost-over-lifetime",  tier: 3, category: "lifestyle", subcategory: "food-drink",    toolType: "calculator", popular: true, status: "live" },
+  {
+    name: "Coffee Cost Over Lifetime Calculator", slug: "coffee-cost-over-lifetime", tier: 3, category: "lifestyle", subcategory: "food-drink", toolType: "calculator", popular: true, status: "live",
+    description: "Find out how much your daily coffee habit costs over a lifetime. See the true long-term financial impact of small, repeated daily spending.",
+  },
   { name: "Takeaway Spending Tracker",             slug: "takeaway-spending",          tier: 3, category: "lifestyle", subcategory: "food-drink",    toolType: "tracker",    popular: true },
   { name: "Alcohol Spending Tracker",              slug: "alcohol-spending",           tier: 3, category: "lifestyle", subcategory: "food-drink",    toolType: "tracker"                   },
 
@@ -382,7 +394,7 @@ export const tools: Tool[] = [
 
   // Travel & Leisure
   { name: "Holiday Budget Planner",                slug: "holiday-budget",             tier: 2, category: "lifestyle", subcategory: "travel",        toolType: "planner"                    },
-  { name: "Wedding Cost Estimator",                slug: "wedding-cost",               tier: 2, category: "lifestyle", subcategory: "travel",        toolType: "estimator"                  },
+  { name: "Wedding Budget Estimator",              slug: "wedding-cost",               tier: 2, category: "lifestyle", subcategory: "travel",        toolType: "estimator"                  },
 
   // ══════════════════════════════════════════════════════════════════════════
   // 💼 WORK & CAREER
@@ -426,7 +438,7 @@ export const tools: Tool[] = [
   { name: "Child Cost Estimator",                    slug: "child-cost",                 tier: 2, category: "home-living", subcategory: "household", toolType: "estimator"                  },
 
   // Family Costs
-  { name: "University Cost Estimator",               slug: "university-cost",            tier: 2, category: "home-living", subcategory: "family",    toolType: "estimator",  popular: true },
+  { name: "University Cost Estimator (Family)",      slug: "university-cost",            tier: 2, category: "home-living", subcategory: "family",    toolType: "estimator",  popular: true },
   { name: "Wedding Cost Estimator",                  slug: "wedding-cost-home",          tier: 2, category: "home-living", subcategory: "family",    toolType: "estimator"                  },
 
   // ══════════════════════════════════════════════════════════════════════════
@@ -451,7 +463,10 @@ export const tools: Tool[] = [
   { name: "Sleep Value Calculator",          slug: "sleep-value",                tier: 3, category: "health", subcategory: "sleep",    toolType: "calculator"                 },
   { name: "Gym Cost vs Usage Tool",          slug: "gym-cost-vs-usage",          tier: 3, category: "health", subcategory: "fitness",  toolType: "tool"                       },
   { name: "Health Insurance Cost Estimator", slug: "health-insurance-cost",      tier: 1, category: "health", subcategory: "insurance",toolType: "estimator"                  },
-  { name: "Smoking Cost Calculator",         slug: "smoking-cost",               tier: 3, category: "health", subcategory: "vices",    toolType: "calculator", popular: true, status: "live"  },
+  {
+    name: "Smoking Cost Calculator", slug: "smoking-cost", tier: 3, category: "health", subcategory: "vices", toolType: "calculator", popular: true, status: "live",
+    description: "Calculate how much smoking costs you per year and over a lifetime. See the real financial impact and what you could save by quitting.",
+  },
 
   // ══════════════════════════════════════════════════════════════════════════
   // 🎓 EDUCATION & STUDENTS
@@ -464,7 +479,10 @@ export const tools: Tool[] = [
   // 🧰 EVERYDAY TOOLS
   // ══════════════════════════════════════════════════════════════════════════
 
-  { name: "Percentage Calculator",   slug: "percentage-calculator",      tier: 3, category: "everyday", subcategory: "quick",     toolType: "calculator", status: "live"  },
+  {
+    name: "Percentage Calculator", slug: "percentage-calculator", tier: 3, category: "everyday", subcategory: "quick", toolType: "calculator", status: "live",
+    description: "Free percentage calculator — work out percentages, percentage changes, and what percentage one number is of another. Fast and instant results.",
+  },
   { name: "Tip Calculator",          slug: "tip-calculator",             tier: 3, category: "everyday", subcategory: "quick",     toolType: "calculator"                 },
   { name: "Currency Converter",      slug: "currency-converter",         tier: 3, category: "everyday", subcategory: "converters",toolType: "tool",       popular: true  },
   { name: "Unit Converter",          slug: "unit-converter",             tier: 3, category: "everyday", subcategory: "converters",toolType: "tool"                       },

@@ -3,7 +3,7 @@ import RelatedTools from "@/components/RelatedTools";
 import HourlyToSalaryCalculator from "./HourlyToSalaryCalculator";
 
 export const metadata: Metadata = {
-  title: "Hourly to Salary Calculator — Worthulator",
+  title: "Hourly to Salary Calculator | Worthulator",
   description:
     "Convert your hourly rate to an annual salary instantly. See your monthly, weekly, and daily income based on your hours and weeks worked.",
   alternates: { canonical: "https://worthulator.com/tools/hourly-to-salary-calculator" },

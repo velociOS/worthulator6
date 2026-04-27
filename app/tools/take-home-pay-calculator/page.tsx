@@ -3,7 +3,7 @@ import RelatedTools from "@/components/RelatedTools";
 import TakeHomePayCalculator from "./TakeHomePayCalculator";
 
 export const metadata: Metadata = {
-  title: "Take Home Pay Calculator — Worthulator",
+  title: "Take Home Pay Calculator | Worthulator",
   description:
     "Estimate your take-home pay based on your salary, tax rate, and deductions. Get a clear annual, monthly, and weekly breakdown in seconds.",
   alternates: { canonical: "https://worthulator.com/tools/take-home-pay-calculator" },

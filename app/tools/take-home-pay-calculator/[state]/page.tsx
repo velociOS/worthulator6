@@ -125,6 +125,84 @@ function buildInsight(code: StateCode, rate: number, name: string): string {
   return taxLevelTemplates[level](name, rate, nuance);
 }
 
+// ─── SEO content helpers ──────────────────────────────────────────────────────
+
+function buildTakeHomeSection(name: string, rate: number) {
+  const level = getTaxLevel(rate);
+  const p1 =
+    rate === 0
+      ? `${name} is one of the few US states with no state income tax. Your gross salary is only reduced by federal income tax and FICA contributions — Social Security (6.2%) and Medicare (1.45%).`
+      : `In ${name}, your gross salary is reduced by federal income tax, a ${rate}% state income tax, and FICA — Social Security at 6.2% and Medicare at 1.45%. Knowing all three helps you budget accurately.`;
+  const p2 =
+    rate === 0
+      ? `On a $50,000 salary, residents of ${name} typically keep around 65–68% as take-home pay. The exact amount depends on your federal bracket and filing status.`
+      : level === "low"
+      ? `On a $50,000 salary in ${name}, you typically keep around 62–65%. The ${rate}% state rate is below the national average, so most of your deductions come from federal tax.`
+      : level === "moderate"
+      ? `On a $50,000 salary in ${name}, you typically keep around 59–63%. Federal taxes account for the largest share, with the ${rate}% state rate adding a notable reduction.`
+      : `On a $50,000 salary in ${name}, you typically keep around 55–60%. Both federal and state taxes take a significant share at most income levels.`;
+  return { p1, p2 };
+}
+
+function buildHowTaxesSection(name: string, rate: number) {
+  const p1 = `All US workers pay federal income tax regardless of state — a progressive system from 10% on the lowest earnings up to 37% for the highest incomes. Social Security and Medicare add another 7.65% on top.`;
+  const p2 =
+    rate === 0
+      ? `${name} adds no state income tax on top of that. States without income tax — like Texas, Florida, and ${name} — typically fund public services through property taxes, sales taxes, or industry revenues instead.`
+      : `${name} adds a ${rate}% state income tax. Nine US states collect no income tax at all, which can mean a higher take-home at the same gross salary — though property and sales taxes may offset some of that difference.`;
+  return { p1, p2 };
+}
+
+function buildTaxLevelSection(name: string, rate: number) {
+  const level = getTaxLevel(rate);
+  const verdict =
+    level === "none" ? "No Income Tax" :
+    level === "low"  ? "Low Tax State" :
+    level === "moderate" ? "Moderate Tax State" : "Higher Tax State";
+  const p1 =
+    level === "none"
+      ? `${name} is one of 9 US states with no state income tax. Compared to states like California (13.3%) or New York (up to 10.9%), this translates to a noticeably higher take-home at the same salary.`
+      : level === "low"
+      ? `At ${rate}%, ${name} is below the national average for state income tax. Most US states charge between 3–6%, placing ${name} on the more favourable end of the spectrum.`
+      : level === "moderate"
+      ? `${name}'s ${rate}% rate sits roughly in the middle nationally — higher than no-tax states, but well below high-tax states like California or New Jersey.`
+      : `At ${rate}%, ${name} sits among the higher-taxing states in the US. Nine states charge no income tax at all, and many others fall below 5%.`;
+  const p2 = `State income tax is just one factor. Property taxes, sales taxes, and cost of living vary widely by state and can offset or amplify the impact of income tax on your real financial outcome.`;
+  return { verdict, p1, p2 };
+}
+
+function buildStateFAQs(name: string, rate: number) {
+  const level = getTaxLevel(rate);
+  const pct =
+    rate === 0 ? "65–68%" :
+    level === "low" ? "62–65%" :
+    level === "moderate" ? "59–63%" : "55–60%";
+  return [
+    {
+      q: `How much tax do I pay in ${name}?`,
+      a:
+        rate === 0
+          ? `${name} has no state income tax. You still pay federal income tax (10–37%), Social Security (6.2%), and Medicare (1.45%).`
+          : `In ${name} you pay a ${rate}% state income tax plus federal income tax (10–37%) and FICA — Social Security at 6.2% and Medicare at 1.45%.`,
+    },
+    {
+      q: `What percentage of my salary do I keep in ${name}?`,
+      a: `Most workers in ${name} take home approximately ${pct} of their gross salary after all deductions. The exact figure depends on your income level and filing status.`,
+    },
+    {
+      q: `Does ${name} have a state income tax?`,
+      a:
+        rate === 0
+          ? `No. ${name} is a no-income-tax state. Only federal income tax and FICA are deducted from your paycheck.`
+          : `Yes. ${name} charges a ${rate}% state income tax on earned income, in addition to federal obligations.`,
+    },
+    {
+      q: `How is take-home pay calculated in ${name}?`,
+      a: `Your gross salary is reduced by federal income tax (progressive brackets 10–37%), Social Security (6.2% up to $168,600), Medicare (1.45%)${rate > 0 ? `, and ${name} state income tax (${rate}%)` : ""}. The result is your estimated net pay.`,
+    },
+  ];
+}
+
 
 
 export default async function StateCalculatorPage({ params }: Props) {
@@ -135,6 +213,11 @@ export default async function StateCalculatorPage({ params }: Props) {
 
   const name = stateNames[code];
   const rate = stateTaxRates[code];
+
+  const sec1 = buildTakeHomeSection(name, rate);
+  const sec2 = buildHowTaxesSection(name, rate);
+  const sec3 = buildTaxLevelSection(name, rate);
+  const faqs = buildStateFAQs(name, rate);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -205,6 +288,67 @@ export default async function StateCalculatorPage({ params }: Props) {
           {buildInsight(code, rate, name)}
         </p>
       </div>
+
+      {/* SEO: TAKE HOME PAY IN STATE */}
+      <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+            Take Home Pay in {name}
+          </h2>
+          <div className="mt-4 max-w-2xl space-y-4">
+            <p className="text-base leading-7 text-gray-600">{sec1.p1}</p>
+            <p className="text-base leading-7 text-gray-600">{sec1.p2}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO: HOW TAXES WORK */}
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+            How Taxes Work in {name}
+          </h2>
+          <div className="mt-4 max-w-2xl space-y-4">
+            <p className="text-base leading-7 text-gray-600">{sec2.p1}</p>
+            <p className="text-base leading-7 text-gray-600">{sec2.p2}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO: TAX LEVEL */}
+      <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <div className="flex flex-wrap items-center gap-3">
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+              Is {name} a High-Tax State?
+            </h2>
+            <span className="rounded-full border border-gray-200 bg-gray-100 px-3 py-1 text-xs font-semibold text-gray-600">
+              {sec3.verdict}
+            </span>
+          </div>
+          <div className="mt-4 max-w-2xl space-y-4">
+            <p className="text-base leading-7 text-gray-600">{sec3.p1}</p>
+            <p className="text-base leading-7 text-gray-600">{sec3.p2}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO: FAQs */}
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+            Common Questions About {name} Take-Home Pay
+          </h2>
+          <dl className="mt-6 max-w-2xl divide-y divide-gray-200">
+            {faqs.map((faq) => (
+              <div key={faq.q} className="py-5 first:pt-0">
+                <dt className="text-sm font-semibold text-gray-900">{faq.q}</dt>
+                <dd className="mt-2 text-sm leading-6 text-gray-600">{faq.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
 
       {/* COMPARE WITH OTHER STATES */}
       <section className="border-t border-gray-100 bg-white px-5 py-10 sm:px-8 lg:px-16">

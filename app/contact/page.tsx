@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact — Worthulator",
+  title: "Contact | Worthulator",
   description:
     "Get in touch with Worthulator. Whether you've found a bug, have a tool idea, or want to work together — we're listening.",
   alternates: { canonical: "https://worthulator.com/contact" },

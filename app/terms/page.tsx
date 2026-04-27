@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms of Service — Worthulator",
+  title: "Terms of Service | Worthulator",
   description:
     "The terms governing your use of Worthulator. Plain language, no surprises.",
   alternates: { canonical: "https://worthulator.com/terms" },

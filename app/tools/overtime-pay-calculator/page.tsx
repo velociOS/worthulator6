@@ -3,7 +3,7 @@ import Link from "next/link";
 import OvertimePayCalculator from "./OvertimePayCalculator";
 
 export const metadata: Metadata = {
-  title: "Overtime Calculator (Time and a Half & Double Time) — Worthulator",
+  title: "Overtime Pay Calculator | Worthulator",
   description:
     "Calculate overtime pay, including time and a half and double time. See your weekly, monthly, and annual earnings instantly.",
   alternates: { canonical: "https://worthulator.com/tools/overtime-pay-calculator" },

@@ -1,160 +1,400 @@
-import Link from "next/link";
+"use client";
 
-const quickTools = [
+import Link from "next/link";
+import { motion } from "framer-motion";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as const, delay },
+  }),
+};
+
+// ─── DATA ────────────────────────────────────────────────────────────────────
+
+const featuredTools = [
   {
-    emoji: "📱",
-    title: "Screen Time Tool",
-    desc: "Estimate the value of time spent on your screen — and what it could be worth redirected.",
-    href: "/tools/screen-time-impact",
-    color: "bg-violet-50 border-violet-100",
-    accent: "text-violet-600",
+    emoji: "📅",
+    title: "Meeting Cost Calculator",
+    desc: "Find out how much your meetings are really costing.",
+    href: "/tools/meeting-cost-calculator",
+    tag: "Productivity",
+    tagColor: "bg-rose-50 text-rose-600",
+    preview: {
+      inputs: ["5 people", "$60k salary", "60 mins"],
+      result: "$1,200",
+      resultSub: "≈ $20 per minute",
+    },
   },
   {
-    emoji: "💳",
-    title: "Subscription Tool",
-    desc: "Tally your subscriptions and estimate what you could free up month by month.",
-    href: "/tools/subscription-cost",
-    color: "bg-sky-50 border-sky-100",
-    accent: "text-sky-600",
+    emoji: "🏠",
+    title: "Take Home Pay Calculator",
+    desc: "See what you actually earn after tax.",
+    href: "/tools/take-home-pay-calculator",
+    tag: "Income",
+    tagColor: "bg-sky-50 text-sky-600",
+    preview: {
+      inputs: ["$55,000/yr", "Standard tax", "No pension"],
+      result: "$3,200/mo",
+      resultSub: "After all deductions",
+    },
+  },
+  {
+    emoji: "📈",
+    title: "Compound Interest Calculator",
+    desc: "Visualise how your investments grow over time.",
+    href: "/tools/compound-interest",
+    tag: "Investments",
+    tagColor: "bg-violet-50 text-violet-600",
+    preview: {
+      inputs: ["$50,000", "7% return", "10 years"],
+      result: "$120,000",
+      resultSub: "↑ 140% growth",
+    },
   },
   {
     emoji: "💼",
-    title: "Salary Tool",
-    desc: "Break down your salary into daily and hourly estimates — and see what your time is really worth.",
-    href: "/tools/salary-breakdown",
-    color: "bg-emerald-50 border-emerald-100",
-    accent: "text-emerald-600",
-  },
-  {
-    emoji: "☕",
-    title: "Spending Tool",
-    desc: "Estimate how small daily spending habits add up — and what you might keep instead.",
-    href: "/tools/coffee-cost-over-lifetime",
-    color: "bg-amber-50 border-amber-100",
-    accent: "text-amber-600",
+    title: "Freelance Rate Calculator",
+    desc: "Calculate what you should charge per hour.",
+    href: "/tools/freelance-rate",
+    tag: "Work",
+    tagColor: "bg-emerald-50 text-emerald-600",
+    preview: {
+      inputs: ["$80k target", "48 weeks", "40 hrs/wk"],
+      result: "$41/hr",
+      resultSub: "Your recommended rate",
+    },
   },
 ];
 
 const categories = [
-  { label: "💰 Money", href: "/tools?category=money" },
-  { label: "⏱ Time", href: "/tools?category=time" },
-  { label: "🌿 Lifestyle", href: "/tools?category=lifestyle" },
-  { label: "💼 Work", href: "/tools?category=work-career" },
+  { emoji: "💰", label: "Money",           href: "/tools?category=money"       },
+  { emoji: "⏱️", label: "Time",            href: "/tools?category=time"        },
+  { emoji: "🧠", label: "Lifestyle",       href: "/tools?category=lifestyle"   },
+  { emoji: "💼", label: "Work & Career",   href: "/tools?category=work-career" },
+  { emoji: "🏠", label: "Home & Living",   href: "/tools?category=home-living" },
 ];
+
+const trustItems = [
+  {
+    icon: "⚡",
+    title: "Fast, no sign-up tools",
+    desc: "Open any calculator and get results instantly — no account, no email, no waiting.",
+  },
+  {
+    icon: "🎯",
+    title: "Built for real-world decisions",
+    desc: "Every tool is designed around the questions people actually ask about money.",
+  },
+  {
+    icon: "🔍",
+    title: "Designed to reveal hidden costs",
+    desc: "We show you what your time, habits, and choices are really worth — in numbers.",
+  },
+];
+
+// ─── PAGE ────────────────────────────────────────────────────────────────────
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#fafaf9]">
 
-      {/* ─── HERO ──────────────────────────────────────────────────── */}
-      <section className="px-5 pb-20 pt-24 sm:px-8 sm:pb-28 sm:pt-32 lg:px-16">
-        <div className="mx-auto max-w-5xl text-center">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-1.5 text-xs font-medium text-slate-500 shadow-sm">
+      {/* ─── HERO ──────────────────────────────────────────────────────────── */}
+      <motion.section
+        className="relative overflow-hidden bg-slate-950 px-6 pb-24 pt-24 sm:px-12 sm:pb-32 sm:pt-32 lg:px-20"
+        initial="hidden"
+        animate="visible"
+        variants={fadeUp}
+      >
+
+        {/* Background glows */}
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-1/2 overflow-hidden">
+          <div className="absolute -right-32 -top-16 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl" />
+          <div className="absolute right-16 top-40 h-72 w-72 rounded-full bg-sky-500/10 blur-3xl" />
+        </div>
+
+        <div className="relative mx-auto max-w-5xl">
+
+          {/* Badge */}
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            Estimates based on your numbers. Not financial advice.
+            Free · No sign-up required · Estimates only
           </div>
 
-          <h1 className="text-balance text-[clamp(2.4rem,6.5vw,5rem)] font-bold leading-none tracking-[-0.04em] text-slate-950">
-            Discover what you&apos;re worth.
-            <br />
-            <span className="text-slate-400">Then make it work harder.</span>
+          {/* Headline */}
+          <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+            See what your time, money, and decisions are{" "}
+            <span className="text-emerald-400">really worth.</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-lg text-lg leading-relaxed text-slate-500">
-            Worthulator tools help you estimate what you spend, what you earn, and what your time is worth — so you can make smarter everyday decisions.
+          {/* Subheadline */}
+          <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-400">
+            Instant calculators that break down salaries, investments, and real-world costs — so you can make smarter decisions fast.
           </p>
 
-          <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <Link
-              href="/tools"
-              className="inline-flex h-13 items-center justify-center rounded-2xl bg-slate-950 px-8 text-sm font-semibold text-white shadow-[0_8px_30px_rgba(15,23,42,0.2)] transition-all hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-[0_14px_40px_rgba(15,23,42,0.26)]"
-            >
-              Try a Tool →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── QUICK TOOLS ───────────────────────────────────────────── */}
-      <section className="px-5 pb-20 sm:px-8 sm:pb-28 lg:px-16">
-        <div className="mx-auto max-w-5xl">
-          <p className="mb-8 text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-            Popular tools
-          </p>
-
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {quickTools.map((tool) => (
-              <Link
-                key={tool.title}
-                href={tool.href}
-                className={`group flex flex-col gap-4 rounded-3xl border p-6 transition-all hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(15,23,42,0.1)] ${tool.color}`}
-              >
-                <span className="text-3xl">{tool.emoji}</span>
-                <div>
-                  <h3 className={`text-base font-semibold ${tool.accent}`}>
-                    {tool.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-6 text-slate-600">
-                    {tool.desc}
-                  </p>
-                </div>
-                <span className="mt-auto text-xs font-semibold text-slate-400 transition-all group-hover:text-slate-700">
-                  Open tool →
-                </span>
-              </Link>
+          {/* Benefit points */}
+          <ul className="mt-6 space-y-2">
+            {[
+              "Understand your real earnings",
+              "Spot hidden costs instantly",
+              "Make better financial decisions",
+            ].map((point) => (
+              <li key={point} className="flex items-center gap-2.5 text-sm text-slate-300">
+                <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">✓</span>
+                {point}
+              </li>
             ))}
-          </div>
-        </div>
-      </section>
+          </ul>
 
-      {/* ─── WOW SECTION ───────────────────────────────────────────── */}
-      <section className="mx-5 mb-20 overflow-hidden rounded-[2rem] bg-slate-950 px-8 py-16 text-white sm:mx-8 sm:mb-28 sm:px-14 sm:py-20 lg:mx-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex flex-col items-center gap-6 text-center lg:flex-row lg:items-end lg:justify-between lg:text-left">
+          {/* CTAs */}
+          <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            >
+              <Link
+                href="/tools"
+                className="inline-flex h-12 items-center justify-center rounded-xl bg-emerald-500 px-8 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-emerald-400"
+              >
+                Explore Calculators →
+              </Link>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 400, damping: 20 }}
+            >
+              <Link
+                href="/tools"
+                className="inline-flex h-12 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-8 text-sm font-semibold text-slate-300 transition-colors hover:border-white/20 hover:bg-white/10"
+              >
+                Browse all tools
+              </Link>
+            </motion.div>
+          </div>
+
+          {/* Stats strip */}
+          <div className="mt-14 flex flex-wrap gap-10 border-t border-white/10 pt-8">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-white/40">
-                Estimated value · screen time · 10 years · UK avg salary
+              <p className="text-2xl font-bold text-white">40+</p>
+              <p className="mt-0.5 text-xs text-slate-500">Financial tools</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">Free</p>
+              <p className="mt-0.5 text-xs text-slate-500">Always</p>
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-white">Instant</p>
+              <p className="mt-0.5 text-xs text-slate-500">Results in seconds</p>
+            </div>
+          </div>
+
+        </div>
+      </motion.section>
+
+      {/* ─── FEATURED CALCULATORS ──────────────────────────────────────────── */}
+      <motion.section
+        className="px-6 py-20 sm:px-12 sm:py-24 lg:px-20"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={fadeUp}
+        custom={0.1}
+      >
+        <div className="mx-auto max-w-6xl">
+
+          {/* Section header */}
+          <div className="mb-12 flex items-end justify-between">
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-400">
+                Most popular
               </p>
-              <p className="mt-4 text-[clamp(3.5rem,10vw,7rem)] font-bold leading-none tracking-[-0.05em] text-white">
-                £84,250
-              </p>
-              <p className="mt-4 max-w-md text-xl font-medium leading-[1.4] text-white/70">
-                That&apos;s the estimated worth of screen time over 10 years based on average earnings. What would you do with yours?
-              </p>
-              <p className="mt-3 text-xs text-white/30">For illustrative purposes only. Not financial advice.</p>
+              <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                Start with these
+              </h2>
             </div>
             <Link
-              href="/tools/screen-time-impact"
-              className="shrink-0 rounded-2xl bg-white px-7 py-4 text-sm font-semibold text-slate-950 transition-all hover:-translate-y-0.5 hover:bg-white/90 hover:shadow-[0_14px_40px_rgba(255,255,255,0.15)]"
+              href="/tools"
+              className="hidden text-sm font-semibold text-slate-500 underline-offset-4 hover:text-slate-900 hover:underline sm:block"
             >
-              Try the screen time tool →
+              View all →
             </Link>
           </div>
-        </div>
-      </section>
 
-      {/* ─── CATEGORIES ────────────────────────────────────────────── */}
-      <section className="px-5 pb-20 sm:px-8 sm:pb-28 lg:px-16">
-        <div className="mx-auto max-w-5xl">
-          <p className="mb-8 text-xs font-semibold uppercase tracking-[0.3em] text-slate-400">
-            Browse by category
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {categories.map((cat) => (
-              <Link
-                key={cat.label}
-                href={cat.href}
-                className="rounded-2xl border border-slate-200 bg-white px-6 py-4 text-base font-semibold text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:shadow-[0_10px_30px_rgba(15,23,42,0.09)]"
+          {/* Product cards */}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {featuredTools.map((tool) => (
+              <motion.div
+                key={tool.href}
+                whileHover={{ scale: 1.03, boxShadow: "0 24px 60px rgba(15,23,42,0.14)" }}
+                transition={{ type: "spring", stiffness: 300, damping: 22 }}
+                className="rounded-2xl"
               >
-                {cat.label}
+              <Link
+                href={tool.href}
+                className="group flex cursor-pointer flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-colors duration-200 hover:border-slate-300"
+              >
+                {/* Category tag */}
+                <span className={`mb-4 self-start rounded-lg px-2.5 py-1 text-xs font-semibold ${tool.tagColor}`}>
+                  {tool.tag}
+                </span>
+
+                {/* Mini calculator preview */}
+                <div className="mb-5 rounded-xl border border-slate-100 bg-slate-50 p-4">
+                  {/* Fake input chips */}
+                  <div className="mb-3 flex flex-wrap gap-1.5">
+                    {tool.preview.inputs.map((input) => (
+                      <span
+                        key={input}
+                        className="rounded-md border border-slate-200 bg-white px-2.5 py-1 text-xs text-slate-500 shadow-sm"
+                      >
+                        {input}
+                      </span>
+                    ))}
+                  </div>
+                  {/* Divider */}
+                  <div className="mb-3 border-t border-slate-200" />
+                  {/* Result */}
+                  <p className="text-xl font-bold tracking-tight text-slate-900">{tool.preview.result}</p>
+                  <p className="mt-0.5 text-xs font-medium text-slate-400">{tool.preview.resultSub}</p>
+                </div>
+
+                {/* Icon + Title */}
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">{tool.emoji}</span>
+                  <h3 className="text-sm font-bold leading-snug text-slate-900">
+                    {tool.title}
+                  </h3>
+                </div>
+
+                {/* Description */}
+                <p className="mt-2 text-xs leading-relaxed text-slate-400">
+                  {tool.desc}
+                </p>
+
+                {/* Link cue */}
+                <span className="mt-5 text-xs font-semibold text-slate-400 transition-colors duration-200 group-hover:text-slate-900">
+                  Check yours →
+                </span>
               </Link>
+              </motion.div>
             ))}
           </div>
+
+          {/* Mobile: view all */}
+          <div className="mt-8 text-center sm:hidden">
+            <Link
+              href="/tools"
+              className="text-sm font-semibold text-slate-500 underline-offset-4 hover:text-slate-900 hover:underline"
+            >
+              View all tools →
+            </Link>
+          </div>
+
+        </div>
+      </motion.section>
+
+      {/* ─── CATEGORY STRIP ────────────────────────────────────────────────── */}
+      <motion.section
+        className="border-y border-slate-100 bg-slate-50/60 px-6 py-16 sm:px-12 lg:px-20"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeUp}
+        custom={0.1}
+      >
+        <div className="mx-auto max-w-6xl">
+
+          <div className="mb-8">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Explore
+            </p>
+            <h2 className="text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+              Explore by category
+            </h2>
+          </div>
+
+          <div className="flex flex-wrap gap-3">
+            {categories.map((cat) => (
+              <motion.div
+                key={cat.label}
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              >
+                <Link
+                  href={cat.href}
+                  className="flex items-center gap-2.5 rounded-2xl border border-slate-200 bg-white px-5 py-3.5 text-sm font-semibold text-slate-700 shadow-sm transition-colors hover:border-slate-300 hover:shadow-md"
+                >
+                  <span className="text-base">{cat.emoji}</span>
+                  {cat.label}
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+        </div>
+      </motion.section>
+
+      {/* ─── TRUST / VALUE ─────────────────────────────────────────────────── */}
+      <section className="px-6 py-20 sm:px-12 sm:py-24 lg:px-20">
+        <div className="mx-auto max-w-6xl">
+
+          <div className="mb-12 text-center">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-slate-400">
+              Why Worthulator
+            </p>
+            <h2 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+              Why use Worthulator?
+            </h2>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-3">
+            {trustItems.map((item) => (
+              <div
+                key={item.title}
+                className="flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-8 shadow-sm"
+              >
+                <span className="text-3xl">{item.icon}</span>
+                <h3 className="text-base font-bold text-slate-900">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-slate-500">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
 
-      {/* ─── TRUST LINE ────────────────────────────────────────────── */}
-      <div className="border-t border-slate-100 px-5 py-6 text-center text-sm font-medium tracking-wide text-slate-400">
+      {/* ─── FINAL CTA ───────────────────────────────────────────────────────── */}
+      <section className="bg-slate-950 px-6 py-20 sm:px-12 sm:py-24 lg:px-20">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+            Start exploring and see what your numbers really mean
+          </h2>
+          <p className="mt-4 text-slate-400">
+            Every calculator is free, instant, and built to give you a clearer picture.
+          </p>
+          <motion.div
+            className="mt-8 inline-block"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ type: "spring", stiffness: 400, damping: 20 }}
+          >
+            <Link
+              href="/tools"
+              className="inline-flex h-12 items-center justify-center rounded-xl bg-emerald-500 px-10 text-sm font-semibold text-white shadow-lg transition-colors hover:bg-emerald-400"
+            >
+              Browse All Calculators →
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ─── FOOTER LINE ───────────────────────────────────────────────────── */}
+      <div className="border-t border-slate-100 px-6 py-6 text-center text-sm font-medium tracking-wide text-slate-400">
         Estimates only · Not financial advice · Always worth knowing your numbers.
       </div>
 

@@ -16,13 +16,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (status === "preview") {
     return {
-      title: `${pageTitle(tool)} — Coming Soon`,
+      title: `${pageTitle(tool)} — Coming Soon | Worthulator`,
       robots: { index: false, follow: true },
     };
   }
 
   return {
-    title: pageTitle(tool),
+    title: `${pageTitle(tool)} | Worthulator`,
     description: tool.description,
     alternates: { canonical: `https://worthulator.com/tools/${slug}` },
     robots: { index: true, follow: true },

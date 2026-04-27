@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy — Worthulator",
+  title: "Privacy Policy | Worthulator",
   description:
     "How Worthulator collects, uses, and protects your data. We keep it simple.",
   alternates: { canonical: "https://worthulator.com/privacy" },
