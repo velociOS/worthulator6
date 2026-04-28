@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import OvertimePayCalculator from "./OvertimePayCalculator";
+import OvertimePayCalculator from "./OvertimePayCalculatorLoader";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {

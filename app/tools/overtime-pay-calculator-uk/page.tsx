@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import OvertimePayCalculator from "../overtime-pay-calculator/OvertimePayCalculator";
+import OvertimePayCalculator from "../overtime-pay-calculator/OvertimePayCalculatorLoader";
 import LocaleSetter from "@/components/LocaleSetter";
 import RegionToggle from "@/components/RegionToggle";
 
@@ -271,6 +271,42 @@ export default function OvertimePayCalculatorUKPage() {
                 particular month, you may pay more tax on those earnings — though this typically
                 evens out across the tax year under PAYE. This calculator shows gross figures only.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">Frequently asked questions</h2>
+            <div className="mt-6 space-y-4">
+              {[
+                {
+                  q: "Do UK employers have to pay overtime?",
+                  a: "No — there is no legal minimum overtime rate in the UK. Employers must ensure total pay across all hours worked does not fall below the National Minimum Wage, but any premium for overtime hours above that is a contractual matter. Always check your employment contract or employee handbook.",
+                },
+                {
+                  q: "What is time and a half in the UK?",
+                  a: "Time and a half means you are paid 1.5× your normal hourly rate for overtime hours. For example, if your standard rate is £14/hr, time and a half is £21/hr. Some employers use double time (2×) for Sundays, Bank Holidays, or extended overnight shifts.",
+                },
+                {
+                  q: "Does working overtime affect my holiday pay in the UK?",
+                  a: "Possibly. Following UK employment tribunal rulings, regular and consistent voluntary overtime may need to be factored into holiday pay calculations. If you regularly work overtime, you may be entitled to holiday pay that reflects your typical earnings, not just your contracted hours.",
+                },
+                {
+                  q: "Is overtime pay taxable in the UK?",
+                  a: "Yes. Overtime pay is treated the same as regular pay under PAYE. It is subject to income tax and National Insurance contributions. If your overtime pushes you over a tax band threshold in a given month, you may pay a higher rate on the excess, but this usually self-corrects over the tax year.",
+                },
+                {
+                  q: "What is the maximum number of hours I can work per week in the UK?",
+                  a: "Under the Working Time Regulations 1998, workers cannot be required to work more than an average of 48 hours per week (averaged over 17 weeks) unless they sign a written opt-out agreement. There is no legal limit on hours for those who opt out, but employers must still protect workers\u2019 health and safety.",
+                },
+              ].map((item) => (
+                <div key={item.q} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <h3 className="text-base font-semibold tracking-tight text-gray-900">{item.q}</h3>
+                  <p className="mt-2 text-sm leading-6 text-gray-500">{item.a}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>

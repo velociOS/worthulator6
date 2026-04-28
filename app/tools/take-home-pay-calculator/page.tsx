@@ -1,6 +1,7 @@
 ﻿import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
-import TakeHomePayCalculator from "./TakeHomePayCalculator";
+import TakeHomePayCalculator from "./TakeHomePayCalculatorLoader";
+import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
   title: "Take Home Pay Calculator | Worthulator",
@@ -39,7 +40,7 @@ export default function TakeHomePayPage() {
           {/* Left — copy */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-              Money · Income Tools
+              🇺🇸 United States · Income Tools
             </p>
             <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
               Take Home Pay Calculator
@@ -48,6 +49,12 @@ export default function TakeHomePayPage() {
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-gray-500">
               Estimate your net income with a clear breakdown of tax and deductions in seconds.
             </p>
+            <RegionToggle
+              current="us"
+              usPath="/tools/take-home-pay-calculator"
+              ukPath="/tools/take-home-pay-calculator-uk"
+              theme="light"
+            />
           </div>
 
           {/* Right — preview stat card */}

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
-import HourlyToSalaryCalculator from "../hourly-to-salary-calculator/HourlyToSalaryCalculator";
+import HourlyToSalaryCalculator from "../hourly-to-salary-calculator/HourlyToSalaryCalculatorLoader";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import LocaleSetter from "@/components/LocaleSetter";
 import RegionToggle from "@/components/RegionToggle";
@@ -215,6 +215,42 @@ export default function HourlyToSalaryUKPage() {
         </section>
 
         <RelatedTools currentTool="hourly-to-salary-calculator" />
+
+        {/* FAQ */}
+        <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">Frequently asked questions</h2>
+            <div className="mt-6 space-y-4">
+              {[
+                {
+                  q: "How do I calculate my annual salary from an hourly rate in the UK?",
+                  a: "Multiply your hourly rate by your hours per week, then multiply by your weeks worked per year. The standard full-time formula is: hourly rate × 37.5 hours × 52 weeks = £72,800 for a £37.44/hr rate. Adjust the weeks figure to account for unpaid holiday or part-time arrangements.",
+                },
+                {
+                  q: "What is the standard UK working week for salary calculations?",
+                  a: "Most UK full-time contracts specify 37.5 hours per week, although some industries (including healthcare and retail) use 40 hours. Your employment contract will specify your contracted hours. Use the hours figure from your contract for an accurate conversion.",
+                },
+                {
+                  q: "Does holiday entitlement affect my annual salary?",
+                  a: "No — holiday pay is part of your salary, not in addition to it. Your annual salary already includes the pay you receive during the UK’s statutory minimum of 28 days (5.6 weeks) paid holiday. If you are paid hourly for actual hours worked only, deduct your holiday weeks from the total to get a more accurate gross figure.",
+                },
+                {
+                  q: "What is the UK National Living Wage 2025/26?",
+                  a: "The National Living Wage (for workers aged 21 and over) is £12.21 per hour from April 2025. At 37.5 hours per week and 52 weeks per year, that equals £23,810 per year gross. The National Minimum Wage for 18-20 year olds is £10.00/hr.",
+                },
+                {
+                  q: "Is this calculator showing gross or net (take-home) salary?",
+                  a: "This calculator shows gross salary only — before income tax, National Insurance, and pension deductions. To see your estimated take-home pay, use our Take Home Pay Calculator UK.",
+                },
+              ].map((item) => (
+                <div key={item.q} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <h3 className="text-base font-semibold tracking-tight text-gray-900">{item.q}</h3>
+                  <p className="mt-2 text-sm leading-6 text-gray-500">{item.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </SimpleCalculatorShell>
     </>
   );

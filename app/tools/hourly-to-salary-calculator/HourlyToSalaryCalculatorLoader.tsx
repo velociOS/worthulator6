@@ -1,0 +1,19 @@
+"use client";
+
+/**
+ * Client-side loader for HourlyToSalaryCalculator.
+ * `ssr: false` must live inside a Client Component per Next.js lazy-loading docs.
+ */
+import dynamic from "next/dynamic";
+
+const HourlyToSalaryCalculatorLoader = dynamic(
+  () => import("./HourlyToSalaryCalculator"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="h-96 w-full animate-pulse rounded-2xl bg-gray-100" />
+    ),
+  },
+);
+
+export default HourlyToSalaryCalculatorLoader;

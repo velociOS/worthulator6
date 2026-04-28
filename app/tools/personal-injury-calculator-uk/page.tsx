@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import StepFlow from "@/components/pi-uk/StepFlow";
+import StepFlow from "@/components/pi-uk/StepFlowLoader";
 import RegionToggle from "@/components/pi/RegionToggle";
 import WrongRegionBanner from "@/components/pi/WrongRegionBanner";
 import { getUKDisclaimer } from "@/lib/pi-uk/disclaimer";

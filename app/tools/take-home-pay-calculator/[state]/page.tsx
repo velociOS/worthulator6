@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import TakeHomePayCalculator from "../TakeHomePayCalculator";
+import TakeHomePayCalculator from "../TakeHomePayCalculatorLoader";
 import RelatedTools from "@/components/RelatedTools";
 import { stateTaxRates, stateNames, type StateCode } from "@/src/lib/stateTax";
 

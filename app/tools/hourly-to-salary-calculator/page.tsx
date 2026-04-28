@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
-import HourlyToSalaryCalculator from "./HourlyToSalaryCalculator";
+import HourlyToSalaryCalculator from "./HourlyToSalaryCalculatorLoader";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import RegionToggle from "@/components/RegionToggle";
 

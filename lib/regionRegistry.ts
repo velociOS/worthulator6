@@ -27,6 +27,10 @@ export const REGION_REGISTRY: RegionPair[] = [
     us: "/tools/overtime-pay-calculator",
     uk: "/tools/overtime-pay-calculator-uk",
   },
+  {
+    us: "/tools/take-home-pay-calculator",
+    uk: "/tools/take-home-pay-calculator-uk",
+  },
 ];
 
 /** Returns the RegionPair whose us or uk path matches the current pathname. */
