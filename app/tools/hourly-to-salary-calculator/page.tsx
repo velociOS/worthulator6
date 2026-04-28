@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
 import HourlyToSalaryCalculator from "./HourlyToSalaryCalculator";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
+import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
   title: "Hourly to Salary Calculator | Worthulator",
@@ -65,9 +66,20 @@ export default function HourlyToSalaryPage() {
   return (
     <SimpleCalculatorShell
       jsonLd={jsonLd}
+      category="🇺🇸 United States · Income Tools"
       title="Hourly to Salary Calculator"
       subtitle="know what your time is worth."
-      description="Enter your hourly rate and working hours to instantly see your annual salary, monthly income, and daily pay."
+      description={
+        <>
+          <p>Enter your hourly rate and working hours to instantly see your annual salary, monthly income, and daily pay.</p>
+          <RegionToggle
+            current="us"
+            usPath="/tools/hourly-to-salary-calculator"
+            ukPath="/tools/hourly-to-salary-calculator-uk"
+            theme="light"
+          />
+        </>
+      }
       heroCard={heroCard}
       statChips={statChips}
       calculator={<HourlyToSalaryCalculator />}

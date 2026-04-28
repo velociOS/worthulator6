@@ -12,13 +12,9 @@ import {
   pageTitle,
 } from "../../config/tools"
 import { getLocale, setLocale, type Locale } from "../../lib/locale"
+import { getRegionPair } from "../../../lib/regionRegistry"
 
 // ─── Locale Switch ─────────────────────────────────────────────────────────
-const PI_ROUTES: Record<string, string> = {
-  US: "/tools/pi-calculator",
-  UK: "/tools/personal-injury-calculator-uk",
-}
-
 function LocaleSwitch() {
   const [locale, setLocaleState] = useState<Locale>("US")
   const router = useRouter()
@@ -33,10 +29,10 @@ function LocaleSwitch() {
     setLocaleState(next)
     window.dispatchEvent(new Event("worthulator:locale"))
 
-    // If currently on a PI calculator page, navigate to the matching region's page
-    const piPaths = Object.values(PI_ROUTES)
-    if (piPaths.some((p) => pathname.startsWith(p))) {
-      router.push(PI_ROUTES[next])
+    // If on a page that has a registered UK/US pair, navigate to the matching region
+    const pair = getRegionPair(pathname)
+    if (pair) {
+      router.push(next === "US" ? pair.us : pair.uk)
     }
   }
 

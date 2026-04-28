@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import OvertimePayCalculator from "./OvertimePayCalculator";
+import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
   title: "Overtime Pay Calculator | Worthulator",
@@ -63,7 +64,7 @@ export default function OvertimePayCalculatorPage() {
           {/* Left — copy */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-              Money · Income Tools
+              🇺🇸 United States · Income Tools
             </p>
             <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
               Overtime Pay Calculator
@@ -78,6 +79,12 @@ export default function OvertimePayCalculatorPage() {
               Calculate overtime pay, including time and a half and double time. See your weekly,
               monthly, and annual earnings instantly.
             </p>
+            <RegionToggle
+              current="us"
+              usPath="/tools/overtime-pay-calculator"
+              ukPath="/tools/overtime-pay-calculator-uk"
+              theme="light"
+            />
           </div>
 
           {/* Right — preview stat card */}

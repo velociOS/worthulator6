@@ -1,0 +1,303 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import OvertimePayCalculator from "../overtime-pay-calculator/OvertimePayCalculator";
+import LocaleSetter from "@/components/LocaleSetter";
+import RegionToggle from "@/components/RegionToggle";
+
+export const metadata: Metadata = {
+  title: "Overtime Pay Calculator UK | Worthulator",
+  description:
+    "Calculate overtime pay in pounds (£) for UK workers. See your weekly, monthly, and annual earnings including time and a half and enhanced rates. UK version.",
+  keywords: [
+    "overtime pay calculator UK",
+    "time and a half calculator UK",
+    "overtime calculator UK pounds",
+    "UK overtime pay",
+    "overtime rate calculator England",
+  ],
+  alternates: { canonical: "https://worthulator.com/tools/overtime-pay-calculator-uk" },
+  robots: { index: true, follow: true },
+};
+
+const relatedTools = [
+  {
+    slug: "hourly-to-salary-calculator-uk",
+    name: "Hourly to Salary Calculator UK",
+    desc: "Convert your hourly rate into an estimated annual salary in GBP.",
+    anchor: "Convert hourly to annual salary →",
+    emoji: "💼",
+  },
+  {
+    slug: "take-home-pay-calculator",
+    name: "Take Home Pay Calculator",
+    desc: "See your net income after UK tax, NI, and deductions.",
+    anchor: "Calculate your take-home pay →",
+    emoji: "💰",
+  },
+  {
+    slug: "budget-planner",
+    name: "Budget Planner",
+    desc: "Plan where your overtime earnings actually go each month.",
+    anchor: "Plan your budget →",
+    emoji: "📋",
+  },
+];
+
+export default function OvertimePayCalculatorUKPage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: "Overtime Pay Calculator UK",
+    description:
+      "Calculate overtime pay in GBP for UK workers. See weekly, monthly, and annual earnings including enhanced rates.",
+    url: "https://worthulator.com/tools/overtime-pay-calculator-uk",
+    applicationCategory: "FinanceApplication",
+    operatingSystem: "All",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
+  };
+
+  return (
+    <>
+      {/* Forces locale to UK so the calculator displays £ */}
+      <LocaleSetter locale="UK" />
+
+      <main className="bg-white text-gray-900">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
+        {/* HERO */}
+        <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
+          <div className="pointer-events-none absolute -top-32 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-emerald-50/80 blur-[80px]" />
+          <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-gray-100/60 blur-3xl" />
+
+          <div className="relative mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-2">
+            {/* Left — copy */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
+                🇬🇧 United Kingdom · Income Tools
+              </p>
+              <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
+                Overtime Pay Calculator UK
+                <span className="mt-1 block font-semibold text-gray-400">
+                  time and a half, enhanced rates &amp; more.
+                </span>
+              </h1>
+              <p className="mt-2 text-sm font-semibold tracking-tight text-emerald-600">
+                Calculate overtime pay in pounds for UK workers instantly.
+              </p>
+              <p className="mt-4 max-w-lg text-lg leading-relaxed text-gray-500">
+                Enter your hourly rate and total hours worked to see exactly how much your overtime
+                earns — weekly, monthly, and annually — in GBP.
+              </p>
+
+              <RegionToggle
+                current="uk"
+                usPath="/tools/overtime-pay-calculator"
+                ukPath="/tools/overtime-pay-calculator-uk"
+                theme="light"
+              />
+            </div>
+
+            {/* Right — preview stat card */}
+            <div className="hidden lg:block">
+              <div className="relative overflow-hidden rounded-2xl border border-white/8 bg-gray-950 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+                <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-emerald-500/15 blur-3xl" />
+                <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
+                  Example &middot; £15/hr &middot; 42h week
+                </p>
+                <p className="relative mt-3 text-5xl font-bold tracking-[-0.04em] text-emerald-400 [text-shadow:0_0_20px_rgba(52,211,153,0.28)]">
+                  £607
+                </p>
+                <p className="relative mt-1 text-sm text-gray-500">
+                  estimated weekly pay incl. overtime
+                </p>
+                <div className="mt-5 flex h-3 w-full overflow-hidden rounded-full bg-white/8">
+                  <div className="h-full bg-emerald-400" style={{ width: "90%" }} />
+                  <div className="h-full flex-1 bg-amber-400" />
+                </div>
+                <div className="mt-3 flex gap-4 text-xs text-gray-400">
+                  <span className="flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                    Regular
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-amber-400" />
+                    Overtime
+                  </span>
+                </div>
+                <p className="mt-5 text-xs text-gray-500">
+                  2 overtime hours adds £45 — adjust below to see yours
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CALCULATOR */}
+        <section className="bg-white px-5 py-12 sm:px-8 lg:px-16">
+          <div className="mx-auto max-w-5xl">
+            <div className="mb-8 grid gap-3 sm:grid-cols-3">
+              {[
+                {
+                  stat: "1.5×",
+                  color: "text-emerald-600",
+                  label:
+                    "is the common overtime rate in the UK, though there is no statutory minimum for overtime pay above NMW",
+                },
+                {
+                  stat: "37.5h",
+                  color: "text-amber-500",
+                  label:
+                    "is the UK standard full-time working week — overtime typically starts beyond your contracted hours",
+                },
+                {
+                  stat: "20%+",
+                  color: "text-blue-500",
+                  label:
+                    "increase in weekly pay possible just by working a few extra hours each week",
+                },
+              ].map((item) => (
+                <div
+                  key={item.stat}
+                  className="group rounded-2xl border border-gray-200 bg-white px-6 py-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-gray-300 hover:shadow-xl"
+                >
+                  <p
+                    className={`text-3xl font-bold tracking-tight transition-transform duration-200 group-hover:scale-105 ${item.color}`}
+                  >
+                    {item.stat}
+                  </p>
+                  <p className="mt-1.5 text-xs leading-5 text-gray-500">{item.label}</p>
+                </div>
+              ))}
+            </div>
+            <OvertimePayCalculator />
+          </div>
+        </section>
+
+        {/* INSIGHT STRIP */}
+        <div className="bg-gray-50 px-5 py-5 sm:px-8 lg:px-16">
+          <p className="mx-auto max-w-5xl text-sm font-medium text-gray-500">
+            Even a few hours of overtime each week can add{" "}
+            <span className="font-semibold text-gray-800">thousands of pounds</span> to your annual
+            income. See exactly how much with this tool.
+          </p>
+        </div>
+
+        {/* WHAT THIS MEANS */}
+        <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+              What this means for UK workers
+            </h2>
+            <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-500">
+              Unlike the US, the UK has no statutory minimum overtime rate. Employers must pay at
+              least the National Minimum Wage for all hours worked, but overtime rates (time and a
+              half, double time) are set by your employment contract.
+            </p>
+            <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              {[
+                {
+                  icon: "⏱",
+                  title: "When does overtime start?",
+                  body: "Overtime in the UK starts when you work beyond your contracted hours — usually 37.5 or 40 hours/week. Check your contract for your specific threshold.",
+                },
+                {
+                  icon: "📈",
+                  title: "What rate will you be paid?",
+                  body: "Many UK employers pay 1.5× for weekday overtime and 2× for Sunday or Bank Holiday working, but this is not required by law — it depends on your contract.",
+                },
+                {
+                  icon: "💡",
+                  title: "Small hours, big impact",
+                  body: "At £15/hr with 1.5× overtime, working 5 extra hours each week adds over £5,850 gross per year. Use this calculator to see your exact figure.",
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+                >
+                  <span className="text-2xl">{item.icon}</span>
+                  <h3 className="mt-4 text-base font-semibold tracking-tight text-gray-900">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-gray-500">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SEO CONTENT */}
+        <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
+          <div className="mx-auto max-w-3xl space-y-8 text-gray-600">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+                How does overtime pay work in the UK?
+              </h2>
+              <p className="mt-4 leading-[1.85] text-gray-600">
+                In the UK, overtime pay is governed by your employment contract rather than
+                statutory law. There is no legal requirement to pay a premium rate for overtime —
+                as long as your total pay for all hours worked doesn&apos;t fall below the National
+                Minimum Wage or National Living Wage.
+              </p>
+              <p className="mt-4 leading-7">
+                Most employers that do offer overtime pay use a rate of 1.5× (time and a half) for
+                standard overtime and 2× (double time) for Sundays, Bank Holidays, or very long
+                shifts. Some use a flat enhanced rate instead. Always check your contract or
+                employee handbook for the exact terms that apply to you.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+                Does overtime count towards pension and holiday pay in the UK?
+              </h2>
+              <p className="mt-4 leading-[1.85] text-gray-600">
+                Following changes to UK employment law, regular voluntary overtime may need to be
+                included when calculating holiday pay. The rules depend on whether overtime is
+                contractual or truly voluntary, and how regular it is. For pension auto-enrolment,
+                overtime pay may or may not be included in &quot;qualifying earnings&quot; depending
+                on your scheme rules.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+                Overtime and tax in the UK
+              </h2>
+              <p className="mt-4 leading-[1.85] text-gray-600">
+                Overtime pay is subject to the same income tax and National Insurance contributions
+                as your regular pay. If extra overtime pushes you into a higher tax band in a
+                particular month, you may pay more tax on those earnings — though this typically
+                evens out across the tax year under PAYE. This calculator shows gross figures only.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* RELATED TOOLS */}
+        <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="mb-6 text-xl font-bold tracking-tight text-gray-950">Related tools</h2>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {relatedTools.map((tool) => (
+                <Link
+                  key={tool.slug}
+                  href={`/tools/${tool.slug}`}
+                  className="group rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
+                >
+                  <span className="text-2xl">{tool.emoji}</span>
+                  <h3 className="mt-3 text-sm font-bold text-gray-900">{tool.name}</h3>
+                  <p className="mt-1 text-xs leading-relaxed text-gray-500">{tool.desc}</p>
+                  <p className="mt-3 text-xs font-semibold text-emerald-600 transition-colors group-hover:text-emerald-500">
+                    {tool.anchor}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
