@@ -203,6 +203,47 @@ function buildStateFAQs(name: string, rate: number) {
   ];
 }
 
+function buildExamplesSection(name: string, rate: number): string {
+  const level = getTaxLevel(rate);
+  if (rate === 0) {
+    return `Someone earning around $50,000 in ${name} will typically take home somewhere between 65% and 68% of their gross — a little above the national average, since there is no state income tax on top of federal obligations. At higher incomes like $75,000 or $100,000, the proportion you keep tends to edge down slightly as more earnings fall into higher federal brackets, but ${name} remains one of the more take-home-friendly states at any salary level.`;
+  }
+  if (level === "low") {
+    return `At around $50,000 in ${name}, most workers tend to take home roughly 62–65% of their gross salary. The ${rate}% state tax adds a modest layer beyond federal obligations, but the overall picture stays relatively favourable. As salaries increase toward $75,000 or $100,000, the proportion you keep tends to drop somewhat — largely driven by higher federal brackets rather than the state rate itself.`;
+  }
+  if (level === "moderate") {
+    return `Someone earning around $50,000 in ${name} will typically keep somewhere around 59–63% of their gross pay after federal tax, the ${rate}% state rate, and FICA contributions. At higher income levels — $75,000 or $100,000 — the share you take home tends to decrease a little further, as progressively higher federal brackets apply to more of your earnings. The gap between gross and net is real but broadly in line with the national average.`;
+  }
+  return `At a salary of around $50,000, workers in ${name} tend to take home somewhere around 55–60% of their income. Federal tax, the ${rate}% state rate, and FICA combine to make the deductions fairly significant. As salaries climb toward $75,000 or $100,000, the proportion you keep tends to fall further — higher federal brackets and the full state rate both apply to more of your income. The exact figure varies with filing status and any deductions or credits you claim.`;
+}
+
+function buildWhatAffects(
+  name: string,
+  rate: number,
+): { p1: string; factors: { title: string; body: string }[] } {
+  const salaryNote =
+    rate === 0
+      ? `Because ${name} has no state income tax, your federal bracket is the main driver of how your take-home changes as your salary grows. Moving from $50,000 to $75,000 increases deductions mainly through higher federal brackets.`
+      : `In ${name}, both your federal bracket and the ${rate}% state rate apply to more of your income as your salary rises — so higher earners feel the combined effect more than lower earners.`;
+  return {
+    p1: `Three main factors shape how much you actually take home from each paycheck in ${name}.`,
+    factors: [
+      {
+        title: "Salary level",
+        body: salaryNote,
+      },
+      {
+        title: "Filing status",
+        body: `Single, married filing jointly, and head of household each have different standard deductions and federal bracket thresholds. Married couples filing jointly typically benefit from a wider lower-rate bracket — which can meaningfully lift take-home on dual-income households.`,
+      },
+      {
+        title: "Pre-tax deductions",
+        body: `Contributions to a 401(k), HSA, or FSA reduce your taxable income before tax is calculated. Employer health insurance premiums work the same way. This calculator does not include these, so your actual take-home may be higher if you make use of them.`,
+      },
+    ],
+  };
+}
+
 
 
 export default async function StateCalculatorPage({ params }: Props) {
@@ -218,24 +259,40 @@ export default async function StateCalculatorPage({ params }: Props) {
   const sec2 = buildHowTaxesSection(name, rate);
   const sec3 = buildTaxLevelSection(name, rate);
   const faqs = buildStateFAQs(name, rate);
+  const examples = buildExamplesSection(name, rate);
+  const whatAffects = buildWhatAffects(name, rate);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: `Take Home Pay Calculator ${name}`,
-    description: `Estimate your take-home pay in ${name}, including federal${rate > 0 ? ` and state taxes (${rate}%)` : " taxes"}, Social Security, and Medicare. See your net income instantly.`,
-    url: `https://worthulator.com/tools/take-home-pay-calculator/${state}`,
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  };
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: `Take Home Pay Calculator ${name}`,
+      description: `Estimate your take-home pay in ${name}, including federal${rate > 0 ? ` and state taxes (${rate}%)` : " taxes"}, Social Security, and Medicare.`,
+      url: `https://worthulator.com/tools/take-home-pay-calculator/${state}`,
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "All",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    },
+  ];
 
   return (
     <main className="bg-white text-gray-900">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {jsonLd.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
 
       {/* HERO */}
       <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
@@ -254,6 +311,9 @@ export default async function StateCalculatorPage({ params }: Props) {
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-gray-500">
               Use our take home pay calculator for {name} to estimate your after-tax income. This includes federal tax{rate > 0 ? ` and ${name} state income tax (${rate}%)` : ""}, giving you a clearer picture of what you actually take home.
+            </p>
+            <p className="mt-3 text-xs text-gray-400">
+              For educational purposes only. Estimates are based on general tax assumptions and may not reflect your exact situation.
             </p>
           </div>
 
@@ -279,6 +339,9 @@ export default async function StateCalculatorPage({ params }: Props) {
       <section className="bg-white px-5 py-12 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
           <TakeHomePayCalculator initialState={code} />
+          <p className="mt-4 text-xs leading-5 text-gray-400">
+            This estimate is based on general federal and state tax rules and does not account for all deductions, credits, or personal circumstances. It is not financial or tax advice.
+          </p>
         </div>
       </section>
 
@@ -302,8 +365,18 @@ export default async function StateCalculatorPage({ params }: Props) {
         </div>
       </section>
 
-      {/* SEO: HOW TAXES WORK */}
+      {/* SEO: EXAMPLE TAKE HOME PAY */}
       <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+            Example Take Home Pay in {name}
+          </h2>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-gray-600">{examples}</p>
+        </div>
+      </section>
+
+      {/* SEO: HOW TAXES WORK */}
+      <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-bold tracking-tight text-gray-950">
             How Taxes Work in {name}
@@ -311,6 +384,31 @@ export default async function StateCalculatorPage({ params }: Props) {
           <div className="mt-4 max-w-2xl space-y-4">
             <p className="text-base leading-7 text-gray-600">{sec2.p1}</p>
             <p className="text-base leading-7 text-gray-600">{sec2.p2}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO: WHAT AFFECTS */}
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+            What Affects Your Take-Home Pay in {name}
+          </h2>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-500">
+            {whatAffects.p1}
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            {whatAffects.factors.map((factor) => (
+              <div
+                key={factor.title}
+                className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm"
+              >
+                <h3 className="text-base font-semibold tracking-tight text-gray-900">
+                  {factor.title}
+                </h3>
+                <p className="mt-2 text-sm leading-7 text-gray-500">{factor.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -367,6 +465,19 @@ export default async function StateCalculatorPage({ params }: Props) {
                 </Link>
               ))}
           </div>
+        </div>
+      </section>
+
+      {/* DISCLAIMER */}
+      <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">Disclaimer</h2>
+          <p className="mt-4 leading-[1.85] text-gray-600">
+            This calculator is provided for informational and educational purposes only. It uses general assumptions based on publicly available federal and state tax data and may not reflect your actual tax liability.
+          </p>
+          <p className="mt-4 leading-[1.85] text-gray-600">
+            It does not constitute financial, tax, or legal advice, and no professional relationship is formed by using this tool. Tax rules change frequently and individual circumstances vary. You should consult a qualified tax advisor or financial professional for advice specific to your situation.
+          </p>
         </div>
       </section>
 

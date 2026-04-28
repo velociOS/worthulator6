@@ -4,32 +4,84 @@ import TakeHomePayCalculator from "./TakeHomePayCalculatorLoader";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Take Home Pay Calculator | Worthulator",
+  title: "Take Home Pay Calculator (US) – Salary After Tax 2026 | Worthulator",
   description:
-    "Estimate your take-home pay based on your salary, tax rate, and deductions. Get a clear annual, monthly, and weekly breakdown in seconds.",
+    "Calculate your take home pay after federal tax, state tax, Social Security, and Medicare. Free US net pay calculator — see your salary after tax instantly.",
+  keywords: [
+    "take home pay calculator",
+    "salary after tax calculator",
+    "paycheck calculator",
+    "net pay calculator",
+    "after tax salary",
+    "us take home pay calculator",
+    "federal tax calculator",
+  ],
   alternates: { canonical: "https://worthulator.com/tools/take-home-pay-calculator" },
   robots: { index: true, follow: true },
 };
 
 
 export default function TakeHomePayPage() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "Take Home Pay Calculator",
-    description: "Estimate your take-home pay based on your salary, tax rate, and deductions. Get a clear annual, monthly, and weekly breakdown in seconds.",
-    url: "https://worthulator.com/tools/take-home-pay-calculator",
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  };
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: "Take Home Pay Calculator",
+      description: "Calculate your take home pay after federal tax, state tax, Social Security, and Medicare.",
+      url: "https://worthulator.com/tools/take-home-pay-calculator",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "All",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "How much tax do I pay in the US?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Federal income tax ranges from 10% to 37% depending on your taxable income and filing status. Social Security takes 6.2% (up to $168,600) and Medicare takes 1.45%. State income tax varies from 0% in Texas and Florida to over 13% in California.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is the difference between gross and net pay?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Gross pay is your salary before any deductions. Net pay (take-home pay) is what arrives in your bank account after federal tax, state tax, Social Security, and Medicare have been deducted.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does this calculator include state taxes?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes — select your state in the calculator and the state income tax rate will be included in the estimate. State rates range from 0% to over 13% depending on where you live.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Why might my paycheck differ from this estimate?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "This tool uses general tax assumptions. Real paychecks reflect your W-4 withholding elections, 401(k) contributions, employer health insurance premiums, and other employer-specific deductions.",
+          },
+        },
+      ],
+    },
+  ];
 
   return (
     <main className="bg-white text-gray-900">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {jsonLd.map((schema, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+      ))}
 
       {/* HERO — 2-column */}
       <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
@@ -44,10 +96,13 @@ export default function TakeHomePayPage() {
             </p>
             <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
               Take Home Pay Calculator
-              <span className="block mt-1 text-gray-400 font-semibold">see what you actually take home.</span>
+              <span className="block mt-1 text-gray-400 font-semibold">(US) — see your salary after tax.</span>
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-gray-500">
-              Estimate your net income with a clear breakdown of tax and deductions in seconds.
+              Enter your gross salary to see your net income after federal tax, state income tax, Social Security, and Medicare — broken down annually, monthly, and weekly.
+            </p>
+            <p className="mt-3 text-xs text-gray-400">
+              For educational purposes only. Estimates are based on general tax assumptions and may not reflect your exact situation.
             </p>
             <RegionToggle
               current="us"
@@ -87,7 +142,7 @@ export default function TakeHomePayPage() {
           <div className="mb-8 grid gap-3 sm:grid-cols-3">
             {[
               { stat: "60–70%",     color: "text-emerald-600", label: "is what most people actually take home from their salary" },
-              { stat: "£/$ 4,000+", color: "text-red-500",     label: "lost to tax & deductions on an average salary every year" },
+              { stat: "$4,000+",    color: "text-red-500",     label: "lost to federal and state taxes on an average US salary every year" },
               { stat: "25 secs",    color: "text-blue-500",    label: "to see your exact breakdown with this tool"               },
             ].map((item) => (
               <div key={item.stat} className="group rounded-2xl border border-gray-200 bg-white px-6 py-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-gray-300 hover:shadow-xl">
@@ -97,6 +152,9 @@ export default function TakeHomePayPage() {
             ))}
           </div>
           <TakeHomePayCalculator />
+          <p className="mt-4 text-xs leading-5 text-gray-400">
+            This estimate is based on general federal and state tax rules and does not account for all deductions, credits, or personal circumstances. It is not financial or tax advice.
+          </p>
         </div>
       </section>
 
@@ -230,58 +288,83 @@ export default function TakeHomePayPage() {
 
       {/* SEO CONTENT */}
       <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
-        <div className="mx-auto max-w-3xl space-y-8 text-gray-600">
+        <div className="mx-auto max-w-3xl space-y-10 text-gray-600">
+
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-gray-950">What is take-home pay?</h2>
-            <p className="mt-4 leading-[1.85] text-gray-600">
-              Take-home pay — also called net pay — is the amount left in your bank account after
-              your employer has made deductions from your gross salary. It&apos;s the money you
-              actually have to spend, save, or invest.
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">How is take home pay calculated in the US?</h2>
+            <p className="mt-4 leading-[1.85]">
+              Your take home pay — sometimes called your after-tax salary or net income — is what lands in your bank account after your employer has deducted federal income tax, state income tax (where applicable), and payroll taxes. Understanding how each piece works makes it easier to plan your finances around what you actually earn.
             </p>
-            <p className="mt-4 leading-7">
-              The difference between your gross salary and your take-home pay can be surprisingly
-              large. For many people, 25–40% of their gross income goes to tax and other
-              contributions before they ever see it. Understanding that gap is the first step to
-              managing your money better.
+            <p className="mt-4 leading-[1.85]">
+              Federal income tax is calculated on your taxable income using a progressive bracket system — only the portion of your salary within each bracket is taxed at that bracket&apos;s rate. On top of that, FICA contributions cover Social Security (6.2% up to an annual wage base of $168,600) and Medicare (1.45% on all earnings). If your state has an income tax, that is calculated separately and added to your total deductions.
+            </p>
+            <p className="mt-4 leading-[1.85]">
+              For most workers earning $40,000–$80,000 in a moderate-tax state, take-home tends to work out to roughly 60–68% of gross income. Adjust for your state and filing status above to see where you land.
             </p>
           </div>
+
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-gray-950">How does tax affect take-home pay?</h2>
-            <p className="mt-4 leading-7">
-              Income tax is usually the biggest deduction from your salary. The rate you pay depends
-              on your total income and the tax rules in your country. In the US, federal income tax
-              rates range from 10% to 37% depending on your tax bracket. In the UK, the basic rate
-              is 20%, rising to 40% for higher earners.
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">Federal tax brackets explained (2026)</h2>
+            <p className="mt-4 leading-[1.85]">
+              The US uses a marginal tax rate system. You do not pay the highest rate on your entire income — only on the portion that falls within each bracket:
             </p>
-            <p className="mt-4 leading-7">
-              Most people also pay National Insurance (UK) or Social Security and Medicare taxes
-              (US) on top of income tax. These are often grouped as payroll deductions and they
-              reduce your take-home pay further. There may also be voluntary deductions — like
-              pension contributions or private health insurance — which are worth understanding even
-              if they reduce your monthly take-home, because they often provide long-term financial
-              benefits.
+            <div className="mt-5 overflow-hidden rounded-2xl border border-gray-200">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 bg-gray-50">
+                    <th className="px-5 py-3 text-left font-semibold text-gray-700">Taxable income (single filer)</th>
+                    <th className="px-5 py-3 text-left font-semibold text-gray-700">Rate</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {([
+                    ["Up to $11,600",       "10%"],
+                    ["$11,601 – $47,150",   "12%"],
+                    ["$47,151 – $100,525",  "22%"],
+                    ["$100,526 – $191,950", "24%"],
+                    ["$191,951 – $243,725", "32%"],
+                    ["$243,726 – $609,350", "35%"],
+                    ["Over $609,350",       "37%"],
+                  ] as [string, string][]).map(([range, rate]) => (
+                    <tr key={range} className="bg-white">
+                      <td className="px-5 py-3 text-gray-600">{range}</td>
+                      <td className="px-5 py-3 font-semibold text-emerald-700">{rate}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-4 leading-[1.85]">
+              Married couples filing jointly have wider brackets — roughly double the thresholds for the 10% through 22% bands — which often results in a meaningfully higher take-home compared to two single filers at the same combined income.
+            </p>
+            <p className="mt-4 leading-[1.85]">
+              Payroll taxes add another layer: Social Security at 6.2% on earnings up to $168,600 and Medicare at 1.45% with no ceiling. Together these represent an additional 7.65% on most earned income.
             </p>
           </div>
+
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-gray-950">Why do estimates vary?</h2>
-            <p className="mt-4 leading-7">
-              Your actual take-home pay depends on more than just your salary and a flat tax rate.
-              Tax allowances, pension contributions, student loan repayments, benefit-in-kind
-              deductions, and employer-specific policies all play a role. Payroll is often more
-              nuanced than a simple percentage calculation.
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">How state taxes affect your take-home pay</h2>
+            <p className="mt-4 leading-[1.85]">
+              State income tax can have a surprisingly large effect on your net income. Nine states — Alaska, Florida, Nevada, New Hampshire, South Dakota, Tennessee, Texas, Washington, and Wyoming — charge no income tax on wages at all. In those states, your take-home is determined almost entirely by your federal bracket and FICA obligations.
             </p>
-            <p className="mt-4 leading-7">
-              This tool is designed to give you a useful ballpark — a quick way to understand
-              roughly what you keep from each pound or dollar you earn. For an accurate figure,
-              check your payslip or speak to a payroll professional.
+            <p className="mt-4 leading-[1.85]">
+              At the other end, states like California (up to 13.3%), New Jersey (up to 10.75%), and New York (up to 10.9%) add a significant deduction on top of federal obligations. On a $100,000 salary, the difference between a no-tax state and California can amount to $8,000–$10,000 in annual take-home — roughly one month&apos;s salary.
+            </p>
+            <p className="mt-4 leading-[1.85]">
+              Most states sit somewhere in the middle, charging between 3% and 6%. Select your state in the calculator above to see exactly how the combined federal and state rate affects your situation.
             </p>
           </div>
-          <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Important</p>
-            <p className="mt-2 text-sm leading-6 text-gray-500">
-              Estimates only. This tool does not account for personal allowances, tax codes,
-              student loans, benefits, or local tax rules. It is not financial or tax advice.
-              Always check your payslip and consult a qualified professional for accurate figures.
+
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight text-gray-950">Example take-home salaries in the US</h2>
+            <p className="mt-4 leading-[1.85]">
+              Someone earning around $50,000 in a moderate-tax state (roughly 5% state income tax) will typically take home somewhere between $33,000 and $35,000 per year — around 66–70% of their gross. The exact figure depends on their federal bracket, filing status, and whether they have pre-tax deductions like 401(k) contributions.
+            </p>
+            <p className="mt-4 leading-[1.85]">
+              Higher incomes see a somewhat lower take-home percentage. Someone earning $75,000 might keep around 63–65% after all deductions, while a $100,000 earner typically takes home somewhere in the 60–63% range as more income falls into the 22–24% federal brackets. The US progressive system means only earnings above each threshold are taxed at the higher rate — but the gap between gross and net does widen noticeably at higher salary levels.
+            </p>
+            <p className="mt-4 leading-[1.85]">
+              In a no-income-tax state like Texas or Florida, these percentages are typically 4–7 points higher. In a high-tax state like California or New York, they can be 5–8 points lower. Select your state in the calculator to see a figure that reflects where you actually live.
             </p>
           </div>
 
@@ -291,20 +374,20 @@ export default function TakeHomePayPage() {
             <div className="mt-6 space-y-4">
               {[
                 {
-                  q: "How is take-home pay calculated?",
-                  a: "Your gross salary is reduced by income tax, Social Security and Medicare (US) or National Insurance (UK), and any other deductions like pension contributions. What remains is your net take-home pay.",
+                  q: "How much tax do I pay in the US?",
+                  a: "Federal income tax ranges from 10% to 37% depending on your income and filing status. Social Security takes 6.2% (up to $168,600) and Medicare takes 1.45%. State income tax varies from 0% in states like Texas and Florida to over 13% in California.",
                 },
                 {
-                  q: "Why does my actual payslip differ from this estimate?",
-                  a: "Real payslips reflect your personal tax code, employer pension arrangements, benefit deductions, student loan plans, and other variables this tool simplifies. Use this for ballpark planning, not exact figures.",
+                  q: "What is the difference between gross and net pay?",
+                  a: "Gross pay is your salary before any deductions — the figure your employer agrees to pay you. Net pay (take-home pay) is what actually arrives in your bank account after federal tax, state income tax, Social Security, and Medicare. For most people, net pay is 60–70% of gross.",
                 },
                 {
-                  q: "What's the difference between gross and net salary?",
-                  a: "Gross is what your employer agrees to pay you. Net is what you receive after all deductions. For most people, net is 60–75% of gross depending on income level and location.",
+                  q: "Does this calculator include state taxes?",
+                  a: "Yes — select your state and the estimated state income tax rate for that state is included in the breakdown. State rates range from 0% (Texas, Florida, etc.) to over 13% (California), so this can make a meaningful difference to your estimated take-home.",
                 },
                 {
-                  q: "Does location affect my take-home pay?",
-                  a: "Yes — significantly. State income tax rates in the US range from 0% (Texas, Florida) to over 13% (California). Selecting your state in the US mode reflects this difference.",
+                  q: "Why might my paycheck differ from this estimate?",
+                  a: "This tool uses general tax assumptions. Real paychecks reflect your W-4 withholding elections, 401(k) or HSA contributions, employer health insurance premiums, local city taxes, and other employer-specific deductions. Use this for a ballpark figure, not for exact payroll planning.",
                 },
               ].map((item) => (
                 <div key={item.q} className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -314,6 +397,54 @@ export default function TakeHomePayPage() {
               ))}
             </div>
           </div>
+
+        </div>
+      </section>
+
+      {/* STATE LINKS */}
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">Calculate your take-home pay by state</h2>
+          <p className="mt-3 max-w-2xl text-base leading-relaxed text-gray-500">
+            State income tax varies widely across the US. Select your state to see a take-home estimate that accounts for local tax rates.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {([
+              { code: "ca", name: "California" },
+              { code: "tx", name: "Texas" },
+              { code: "fl", name: "Florida" },
+              { code: "ny", name: "New York" },
+              { code: "wa", name: "Washington" },
+              { code: "il", name: "Illinois" },
+              { code: "pa", name: "Pennsylvania" },
+              { code: "oh", name: "Ohio" },
+              { code: "ga", name: "Georgia" },
+              { code: "nc", name: "North Carolina" },
+              { code: "mi", name: "Michigan" },
+              { code: "nj", name: "New Jersey" },
+            ] as { code: string; name: string }[]).map((s) => (
+              <a
+                key={s.code}
+                href={`/tools/take-home-pay-calculator/${s.code}`}
+                className="rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-700"
+              >
+                {s.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* DISCLAIMER */}
+      <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-950">Disclaimer</h2>
+          <p className="mt-4 leading-[1.85] text-gray-600">
+            This calculator is provided for informational and educational purposes only. It uses general assumptions based on publicly available federal and state tax data and may not reflect your actual tax liability.
+          </p>
+          <p className="mt-4 leading-[1.85] text-gray-600">
+            It does not constitute financial, tax, or legal advice, and no professional relationship is formed by using this tool. Tax rules change frequently and individual circumstances vary. You should consult a qualified tax advisor or financial professional for advice specific to your situation.
+          </p>
         </div>
       </section>
 
