@@ -561,6 +561,12 @@ export const tools: Tool[] = [
     description: "Find out exactly how many 40, 60, or 80 lb bags of concrete you need for any slab or footing. Includes waste factor and cost estimate.",
     keywords: ["concrete bag calculator", "how many bags of concrete", "bags of concrete calculator", "concrete bags needed"],
   },
+  {
+    name: "Concrete Block Calculator", slug: "concrete-block-calculator", tier: 2, category: "construction", subcategory: "concrete", toolType: "calculator", status: "live",
+    href: "/construction-calculators/concrete/concrete-block-calculator",
+    description: "Calculate how many 8×8×16 inch concrete blocks you need for any wall. Enter length and height to get block count, wall area, and material cost estimate.",
+    keywords: ["concrete block calculator", "how many concrete blocks do I need", "CMU block calculator", "concrete block wall calculator"],
+  },
 ];
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
