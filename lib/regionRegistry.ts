@@ -16,6 +16,10 @@ export interface RegionPair {
 
 export const REGION_REGISTRY: RegionPair[] = [
   {
+    us: "/construction-calculators/concrete-calculator",
+    uk: "/construction-calculators/concrete-calculator-uk",
+  },
+  {
     us: "/tools/pi-calculator",
     uk: "/tools/personal-injury-calculator-uk",
   },

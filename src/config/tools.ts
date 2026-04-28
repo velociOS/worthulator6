@@ -43,6 +43,8 @@ export interface Tool {
   keywords?: string[];        // target search terms
   intro?: string;             // first paragraph shown on page
   faqs?: FAQ[];               // 2–3 Q&A for FAQ schema + content
+  /** Override the default /tools/<slug> link — used for tools outside /tools/ */
+  href?: string;
 }
 
 export interface Subcategory {
@@ -124,6 +126,17 @@ export const categories: Category[] = [
       { name: "Renting",            slug: "renting"    },
       { name: "Household Costs",    slug: "household"  },
       { name: "Family Costs",       slug: "family"     },
+    ],
+  },
+  {
+    name: "Construction",
+    slug: "construction",
+    emoji: "🏗️",
+    tagline: "Concrete, materials, costing & project planning",
+    subcategories: [
+      { name: "Concrete & Materials", slug: "concrete" },
+      { name: "Project Costing",      slug: "costing"  },
+      { name: "Site Planning",        slug: "planning" },
     ],
   },
   {
@@ -529,6 +542,19 @@ export const tools: Tool[] = [
   // What-if Scenarios
   { name: "If I Invested Instead Calculator", slug: "if-i-invested-instead",      tier: 3, category: "decisions", subcategory: "what-if",      toolType: "calculator", popular: true  },
   { name: "Future Value of Decisions Calculator", slug: "future-value-of-decisions", tier: 3, category: "decisions", subcategory: "what-if",   toolType: "calculator"                 },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // 🏗️ CONSTRUCTION
+  // ══════════════════════════════════════════════════════════════════════════
+
+  // Concrete & Materials
+  {
+    name: "Concrete Calculator", slug: "concrete-calculator", tier: 2, category: "construction", subcategory: "concrete", toolType: "calculator", status: "live",
+    href: "/construction-calculators/concrete-calculator",
+    description: "Calculate how much concrete you need in cubic yards or cubic metres. Get bag counts for slabs, driveways, and footings instantly.",
+    keywords: ["concrete calculator", "cubic yards calculator", "concrete slab calculator", "how much concrete do I need"],
+    intro: "Enter your slab dimensions to get the concrete volume and number of bags you need — in seconds.",
+  },
 ];
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────

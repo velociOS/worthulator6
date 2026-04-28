@@ -203,7 +203,7 @@ function ToolsMegaMenu() {
                   {subTools.map((tool) => (
                     <Link
                       key={tool.slug}
-                      href={`/tools/${tool.slug}`}
+                      href={tool.href ?? `/tools/${tool.slug}`}
                       className="group flex items-center justify-between rounded-xl px-4 py-3.5 transition-all duration-150 hover:bg-white/7"
                     >
                       <span className="text-[13px] font-medium text-white/70 transition-colors duration-150 group-hover:text-white">
@@ -244,7 +244,7 @@ function PopularMenu() {
         return (
           <Link
             key={tool.slug}
-            href={`/tools/${tool.slug}`}
+            href={tool.href ?? `/tools/${tool.slug}`}
             className="group flex items-center gap-3.5 px-5 py-3.5 transition-all duration-150 hover:bg-white/6"
           >
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/5 text-base leading-none transition-colors duration-150 group-hover:bg-white/10">
