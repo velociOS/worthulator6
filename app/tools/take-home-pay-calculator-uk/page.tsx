@@ -5,33 +5,77 @@ import LocaleSetter from "@/components/LocaleSetter";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Take Home Pay Calculator UK | PAYE & NI | Worthulator",
+  title: "Take Home Pay Calculator UK – Salary After Tax 2026 | Worthulator",
   description:
-    "Calculate your UK take-home pay after income tax and National Insurance. See your net salary broken down by year, month, and week in pounds.",
+    "Calculate your take home pay in the UK after income tax and National Insurance. Free net pay calculator — see your salary after tax instantly.",
   keywords: [
-    "take home pay calculator UK",
-    "UK net salary calculator",
-    "PAYE calculator",
+    "take home pay calculator uk",
+    "take home salary calculator",
+    "net pay calculator",
+    "after tax calculator uk",
+    "salary after tax uk",
+    "uk income tax calculator",
+    "paye calculator",
     "national insurance calculator",
-    "UK income tax calculator",
-    "net pay after tax UK",
+    "net salary calculator uk",
+    "uk take home pay 2026",
   ],
   alternates: { canonical: "https://worthulator.com/tools/take-home-pay-calculator-uk" },
   robots: { index: true, follow: true },
 };
 
 export default function TakeHomePayUKPage() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "Take Home Pay Calculator UK",
-    description:
-      "Calculate your UK take-home pay after PAYE income tax and National Insurance contributions.",
-    url: "https://worthulator.com/tools/take-home-pay-calculator-uk",
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
-  };
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      name: "Take Home Pay Calculator UK",
+      description:
+        "Calculate your UK take-home pay after PAYE income tax and National Insurance contributions.",
+      url: "https://worthulator.com/tools/take-home-pay-calculator-uk",
+      applicationCategory: "FinanceApplication",
+      operatingSystem: "All",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "How much tax do I pay in the UK?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Most UK workers pay 20% income tax on earnings between £12,571 and £50,270, and 8% National Insurance on the same band. If you earn over £50,270 you pay 40% income tax on the excess, and 2% NI.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is National Insurance?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "National Insurance (NI) is a tax on earnings that funds the state pension and other benefits. Employees pay Class 1 NI at 8% on earnings between £12,570 and £50,270 per year, and 2% on earnings above that.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How accurate is this calculator?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "This calculator gives a close estimate for most standard employment situations using the 2025/26 tax year rates. It does not account for student loans, pension contributions, non-standard tax codes, or benefits-in-kind.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Does this include pension deductions?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. This calculator shows gross-to-net based on income tax and National Insurance only. Pension contributions are not included. To estimate take-home with pension, reduce your gross salary by your pension contribution percentage before entering it.",
+          },
+        },
+      ],
+    },
+  ];
 
   return (
     <>
@@ -39,10 +83,13 @@ export default function TakeHomePayUKPage() {
       <LocaleSetter locale="UK" />
 
       <main className="bg-white text-gray-900">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        {jsonLd.map((schema, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
 
         {/* HERO */}
         <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
@@ -58,16 +105,16 @@ export default function TakeHomePayUKPage() {
               <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
                 Take Home Pay Calculator UK
                 <span className="mt-1 block font-semibold text-gray-400">
-                  PAYE, National Insurance &amp; more.
+                  Calculate your salary after tax, National Insurance, and deductions instantly.
                 </span>
               </h1>
               <p className="mt-2 text-sm font-semibold tracking-tight text-emerald-600">
-                See your net UK salary after tax and NI in seconds.
+                Free UK net pay calculator — 2026 tax year rates.
               </p>
               <p className="mt-4 max-w-lg text-lg leading-relaxed text-gray-500">
-                Enter your gross annual salary to instantly see your take-home pay after PAYE
-                income tax and National Insurance contributions — broken down by year, month, and
-                week.
+                Enter your gross annual salary to see your exact take-home pay after PAYE income
+                tax and National Insurance — broken down annually, monthly, and weekly. No
+                sign-up. Results in seconds.
               </p>
 
               <RegionToggle
@@ -213,48 +260,245 @@ export default function TakeHomePayUKPage() {
 
         {/* SEO CONTENT */}
         <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
-          <div className="mx-auto max-w-3xl space-y-8 text-gray-600">
+          <div className="mx-auto max-w-3xl space-y-10 text-gray-600">
+
+            {/* H2 1 */}
             <div>
               <h2 className="text-2xl font-bold tracking-tight text-gray-950">
-                What is take-home pay in the UK?
+                How is take home pay calculated in the UK?
               </h2>
-              <p className="mt-4 leading-[1.85] text-gray-600">
-                Take-home pay — also called net pay — is the amount your employer pays into your
-                bank account after PAYE income tax and National Insurance have been deducted from
-                your gross salary. It&apos;s the money you actually have available to spend, save,
-                or invest.
+              <p className="mt-4 leading-[1.85]">
+                Your take home pay — also called your net salary — is what remains from your gross
+                salary after your employer has deducted PAYE income tax and National Insurance
+                contributions (NICs). Both deductions are applied automatically through the HMRC
+                payroll system before your salary reaches your bank account.
               </p>
-              <p className="mt-4 leading-7">
-                For most UK workers on a standard salary, take-home pay is between 75% and 85% of
-                gross pay. Higher earners (over £50,270) see a bigger gap because they enter the
-                40% income tax band. Earners above £100,000 also start to lose their personal
-                allowance, making the effective rate even higher.
+              <p className="mt-4 leading-[1.85]">
+                The calculation works in three steps. First, your personal allowance (£12,570 for
+                2025/26) is subtracted from your gross salary to produce your{" "}
+                <strong className="text-gray-800">taxable income</strong>. Second, PAYE income tax
+                is applied to that taxable income using the banded rates below. Third, Class 1
+                National Insurance is calculated separately — it applies to earnings above £12,570
+                regardless of any other allowances.
+              </p>
+              <p className="mt-4 leading-[1.85]">
+                For most standard employees, these two deductions account for virtually all the
+                difference between gross and net pay. Other items — such as pension contributions,
+                student loan repayments, or salary sacrifice arrangements — can reduce your
+                take-home further but are not included in this calculator.
               </p>
             </div>
+
+            {/* H2 2 */}
             <div>
               <h2 className="text-2xl font-bold tracking-tight text-gray-950">
-                Does the personal allowance affect my take-home?
+                UK tax bands explained (2026)
               </h2>
-              <p className="mt-4 leading-[1.85] text-gray-600">
-                Yes — significantly. The £12,570 personal allowance means your first £12,570 of
-                earnings is completely tax-free. This is automatically applied under PAYE. However,
-                if your income exceeds £100,000, HMRC begins reducing your personal allowance by
-                £1 for every £2 earned above that threshold — effectively creating a 60% marginal
-                rate between £100,000 and £125,140.
+              <p className="mt-4 leading-[1.85]">
+                UK income tax is structured as a progressive banded system. You only pay the
+                higher rate on earnings <em>above</em> each threshold — not on your entire salary.
+                The following rates apply for the 2025/26 tax year (England, Wales, and Northern
+                Ireland):
+              </p>
+              <div className="mt-5 overflow-hidden rounded-2xl border border-gray-200">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-200 bg-gray-50">
+                      <th className="px-5 py-3 text-left font-semibold text-gray-700">Band</th>
+                      <th className="px-5 py-3 text-left font-semibold text-gray-700">Earnings</th>
+                      <th className="px-5 py-3 text-left font-semibold text-gray-700">Rate</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {[
+                      ["Personal allowance", "Up to £12,570", "0%"],
+                      ["Basic rate", "£12,571 – £50,270", "20%"],
+                      ["Higher rate", "£50,271 – £125,140", "40%"],
+                      ["Additional rate", "Over £125,140", "45%"],
+                    ].map(([band, range, rate]) => (
+                      <tr key={band} className="bg-white">
+                        <td className="px-5 py-3 font-medium text-gray-800">{band}</td>
+                        <td className="px-5 py-3 text-gray-600">{range}</td>
+                        <td className="px-5 py-3 font-semibold text-emerald-700">{rate}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <p className="mt-4 leading-[1.85]">
+                National Insurance (Class 1 employee contributions) is charged at{" "}
+                <strong className="text-gray-800">8%</strong> on weekly earnings between £242 and
+                £967 (equivalent to £12,570–£50,270 annually), and{" "}
+                <strong className="text-gray-800">2%</strong> on anything above that. There is no
+                personal allowance equivalent for NI — you start paying from the first pound above
+                the primary threshold.
+              </p>
+              <p className="mt-4 leading-[1.85]">
+                Scotland sets its own income tax rates through the Scottish Parliament. Scottish
+                taxpayers pay the Scottish rates (which have more bands) instead of the UK rates
+                shown above. This calculator uses the England / Wales / Northern Ireland rates.
               </p>
             </div>
+
+            {/* H2 3 */}
             <div>
               <h2 className="text-2xl font-bold tracking-tight text-gray-950">
-                What about pension contributions?
+                Example take home salaries in the UK
               </h2>
-              <p className="mt-4 leading-[1.85] text-gray-600">
-                Workplace pension contributions under auto-enrolment reduce your taxable pay,
-                which means you pay less income tax and NI on that portion of your earnings.
-                This calculator shows gross-to-net before pension contributions. For a precise
-                figure, subtract your pension contribution percentage from your salary first, then
-                use this tool.
+              <p className="mt-4 leading-[1.85]">
+                To give you a benchmark, here are approximate take-home pay figures for common UK
+                salary levels in 2025/26, based on the standard 1257L tax code with no other
+                deductions:
+              </p>
+              <div className="mt-5 grid gap-4 sm:grid-cols-3">
+                {[
+                  {
+                    gross: "£30,000",
+                    net: "~£25,100",
+                    monthly: "~£2,092/month",
+                    pct: "84%",
+                    color: "text-emerald-600",
+                    detail: "Pays £3,486 income tax + £1,394 NI. Most of the salary sits in the basic-rate band.",
+                  },
+                  {
+                    gross: "£50,000",
+                    net: "~£39,500",
+                    monthly: "~£3,292/month",
+                    pct: "79%",
+                    color: "text-amber-600",
+                    detail: "Pays £7,486 income tax + £2,994 NI. Still fully within basic rate band.",
+                  },
+                  {
+                    gross: "£100,000",
+                    net: "~£68,500",
+                    monthly: "~£5,708/month",
+                    pct: "69%",
+                    color: "text-red-500",
+                    detail: "Pays ~£27,430 income tax + ~£4,010 NI. Higher rate applies from £50,271.",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.gross}
+                    className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
+                  >
+                    <p className="text-xs font-semibold uppercase tracking-wide text-gray-400">
+                      Gross {item.gross}
+                    </p>
+                    <p className={`mt-2 text-3xl font-bold tracking-tight ${item.color}`}>
+                      {item.net}
+                    </p>
+                    <p className="text-sm text-gray-500">{item.monthly}</p>
+                    <p className="mt-1 text-xs font-semibold text-gray-400">
+                      {item.pct} take-home
+                    </p>
+                    <p className="mt-3 text-xs leading-5 text-gray-400">{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-5 text-sm leading-7 text-gray-500">
+                Use the calculator above to get a figure specific to your own salary. These
+                examples assume the standard tax code, no pension deductions, and England/Wales/NI
+                rates.
               </p>
             </div>
+
+            {/* H2 4 */}
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+                Net pay vs gross pay – what&apos;s the difference?
+              </h2>
+              <p className="mt-4 leading-[1.85]">
+                <strong className="text-gray-800">Gross pay</strong> is your salary before any
+                deductions — the figure your employer agrees to pay you and the number on your
+                offer letter. <strong className="text-gray-800">Net pay</strong> (also called
+                take-home pay) is what actually lands in your bank account after income tax,
+                National Insurance, and any other deductions have been taken off.
+              </p>
+              <p className="mt-4 leading-[1.85]">
+                The gap between the two can be substantial. For a £35,000 salary, the difference
+                is roughly £7,500 per year — about 21% of gross pay. For a £70,000 earner, the
+                gap grows to over £21,000 per year as the higher rate tax band kicks in.
+              </p>
+              <p className="mt-4 leading-[1.85]">
+                This distinction matters for budgeting. When comparing job offers, negotiating a
+                pay rise, or planning monthly outgoings, always work from your net figure — not
+                the headline gross salary. Two people on the same gross salary can have different
+                net pay depending on their tax code, pension arrangements, or student loan plan.
+              </p>
+            </div>
+
+            {/* H2 5 */}
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight text-gray-950">
+                How to increase your take home pay
+              </h2>
+              <p className="mt-4 leading-[1.85]">
+                There are several legitimate ways to increase the amount you actually take home
+                each month without needing a pay rise:
+              </p>
+              <ul className="mt-4 space-y-3 text-sm leading-7">
+                <li className="flex gap-3">
+                  <span className="mt-0.5 text-emerald-500">▸</span>
+                  <span>
+                    <strong className="text-gray-800">Salary sacrifice.</strong> Directing part of
+                    your pre-tax salary into a pension or cycle-to-work scheme reduces your taxable
+                    income, cutting both income tax and National Insurance. A higher-rate taxpayer
+                    saves 42p in tax and NI for every £1 they sacrifice.
+                  </span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-0.5 text-emerald-500">▸</span>
+                  <span>
+                    <strong className="text-gray-800">Check your tax code.</strong> Millions of UK
+                    workers are on the wrong tax code, often paying more tax than necessary. Check
+                    your payslip and verify your code with HMRC via your Personal Tax Account. An
+                    emergency tax code (e.g. 1257L W1/M1) can mean you&apos;re being overtaxed
+                    each month.
+                  </span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-0.5 text-emerald-500">▸</span>
+                  <span>
+                    <strong className="text-gray-800">Claim work expenses.</strong> If you incur
+                    allowable expenses for work that your employer doesn&apos;t reimburse — such as
+                    professional subscriptions, tools, or uniform costs — you can claim tax relief
+                    through HMRC, reducing your overall tax bill.
+                  </span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-0.5 text-emerald-500">▸</span>
+                  <span>
+                    <strong className="text-gray-800">Marriage allowance.</strong> If you or your
+                    spouse earns below the personal allowance, you may be able to transfer £1,260
+                    of unused allowance to the higher earner — saving up to £252 per year.
+                  </span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="mt-0.5 text-emerald-500">▸</span>
+                  <span>
+                    <strong className="text-gray-800">Increase your gross pay.</strong> Even a
+                    modest salary increase has a meaningful effect once deductions are applied. Use
+                    our{" "}
+                    <a
+                      href="/tools/hourly-to-salary-calculator-uk"
+                      className="font-medium text-emerald-600 underline underline-offset-2 hover:text-emerald-500"
+                    >
+                      hourly to salary calculator
+                    </a>{" "}
+                    or{" "}
+                    <a
+                      href="/tools/overtime-pay-calculator-uk"
+                      className="font-medium text-emerald-600 underline underline-offset-2 hover:text-emerald-500"
+                    >
+                      overtime pay calculator
+                    </a>{" "}
+                    to model the impact of a rate change or extra hours.
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* DISCLAIMER */}
             <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">
                 Important
@@ -275,20 +519,28 @@ export default function TakeHomePayUKPage() {
               <div className="mt-6 space-y-4">
                 {[
                   {
-                    q: "How is UK take-home pay calculated?",
-                    a: "Your gross salary is reduced by PAYE income tax (applied after your personal allowance) and Class 1 National Insurance contributions. What remains is your net take-home pay.",
+                    q: "How much tax do I pay in the UK?",
+                    a: "Most UK workers pay 20% income tax on earnings between £12,571 and £50,270 (the basic rate band), plus 8% National Insurance on the same range. Earnings above £50,270 are taxed at 40% income tax and 2% NI. The first £12,570 is tax-free under the personal allowance.",
                   },
                   {
-                    q: "Why does my payslip show a different amount?",
-                    a: "Real payslips reflect your personal tax code, pension deductions, student loan repayments, benefits-in-kind, and other employer-specific items. Use this tool for ballpark planning, not exact figures.",
+                    q: "What is National Insurance?",
+                    a: "National Insurance (NI) is a compulsory tax on earnings that funds the state pension, NHS, and other social security benefits. Employees pay Class 1 NI at 8% on earnings between £12,570 and £50,270 per year, and 2% on earnings above that. There is no equivalent of the personal allowance for NI — contributions start from the first pound above the primary threshold.",
                   },
                   {
-                    q: "What tax code is this calculator based on?",
-                    a: "This calculator assumes the standard 1257L tax code, which gives you the full £12,570 personal allowance. If your tax code is different, your actual take-home may vary.",
+                    q: "How accurate is this calculator?",
+                    a: "This calculator gives a close estimate for most standard employees using 2025/26 PAYE income tax and National Insurance rates, assuming the standard 1257L tax code and no additional deductions. It will not exactly match your payslip if you have a non-standard tax code, student loan repayments, pension contributions, salary sacrifice, or benefits-in-kind.",
+                  },
+                  {
+                    q: "Does this include pension deductions?",
+                    a: "No. This calculator shows gross-to-net based on income tax and National Insurance only. Workplace pension contributions (typically 5% employee, 3% employer under auto-enrolment) are not deducted. To estimate take-home with pension, reduce your gross salary by your contribution percentage before entering it into the calculator.",
+                  },
+                  {
+                    q: "What tax code does this calculator use?",
+                    a: "This calculator assumes the standard 1257L tax code, which gives you the full £12,570 personal allowance. If your payslip shows a different tax code — such as BR (no allowance), K (negative allowance), or an emergency code — your actual take-home will differ.",
                   },
                   {
                     q: "Does Scotland have different income tax rates?",
-                    a: "Yes — Scotland has its own income tax bands set by the Scottish Government, which differ from the rest of the UK. This calculator uses the standard England/Wales/Northern Ireland PAYE rates.",
+                    a: "Yes. Scotland sets its own income tax bands through the Scottish Parliament. Scottish rates differ from the rest of the UK and this calculator uses England/Wales/Northern Ireland rates only. Scottish taxpayers should refer to the Scottish Government website for their specific rates.",
                   },
                 ].map((item) => (
                   <div
