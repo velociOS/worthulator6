@@ -1,5 +1,14 @@
 export type Tier = 1 | 2 | 3;
 
+/**
+ * CalculatorType
+ *
+ * simple  — single-screen tool, instant result, no steps (uses SimpleCalculatorShell)
+ * guided  — multi-step decision engine, progress bar, optional result + lead capture
+ *           (uses GuidedCalculatorShell)
+ */
+export type CalculatorType = "simple" | "guided";
+
 // live    → full page, indexed, in sitemap
 // preview → page exists, noindex, not in sitemap ("coming soon")
 // hidden  → 404, not linked, not in sitemap
@@ -490,6 +499,19 @@ export const tools: Tool[] = [
   // ══════════════════════════════════════════════════════════════════════════
   // 🎯 DECISIONS
   // ══════════════════════════════════════════════════════════════════════════
+
+  // Legal / Case Evaluation
+  {
+    name: "Personal Injury Case Evaluator", slug: "pi-calculator", tier: 1, category: "decisions", subcategory: "life-choices", toolType: "calculator", popular: true, status: "live",
+    description: "Estimate your personal injury claim value based on injury type, liability, financial losses, and your state. A lawyer-grade case evaluation for educational purposes.",
+    keywords: ["personal injury calculator", "PI case value", "injury claim calculator", "accident compensation calculator", "how much is my injury claim worth", "personal injury settlement estimator"],
+    intro: "A personal injury claim involves two categories of damages: economic (medical bills, lost wages) and non-economic (pain and suffering). This tool models both, adjusted for your fault percentage, evidence quality, and state jurisdiction.",
+    faqs: [
+      { question: "Is this a real legal assessment?", answer: "No — this is an educational tool based on publicly available case data and general legal principles. Always consult a qualified personal injury attorney for actual legal advice." },
+      { question: "What is the difference between conservative and aggressive estimates?", answer: "Conservative reflects an early settlement scenario with insurer leverage. Aggressive reflects a favorable jury verdict at trial. Most cases settle somewhere in between." },
+      { question: "How does fault percentage affect my claim?", answer: "If you are partially at fault, most states reduce your award proportionately under comparative negligence rules. Some states bar recovery entirely if you are even 1% at fault." },
+    ],
+  },
 
   // Life Choices
   { name: "Should I Quit My Job Tool",        slug: "should-i-quit-my-job",       tier: 3, category: "decisions", subcategory: "life-choices", toolType: "tool",       popular: true  },

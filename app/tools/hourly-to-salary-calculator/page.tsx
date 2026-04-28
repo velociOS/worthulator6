@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
 import HourlyToSalaryCalculator from "./HourlyToSalaryCalculator";
+import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 
 export const metadata: Metadata = {
   title: "Hourly to Salary Calculator | Worthulator",
@@ -10,101 +11,74 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Hourly to Salary Calculator",
+  description:
+    "Convert your hourly rate to an annual salary instantly. See your monthly, weekly, and daily income based on your hours and weeks worked.",
+  url: "https://worthulator.com/tools/hourly-to-salary-calculator",
+  applicationCategory: "FinanceApplication",
+  operatingSystem: "All",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+};
+
+const heroCard = (
+  <div className="relative overflow-hidden rounded-2xl border border-white/8 bg-gray-950 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+    <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-emerald-500/15 blur-3xl" />
+    <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">Example &middot; $25/hr &middot; 40 hrs/wk</p>
+    <p className="relative mt-3 text-5xl font-bold tracking-[-0.04em] text-emerald-400 [text-shadow:0_0_20px_rgba(52,211,153,0.28)]">$52,000</p>
+    <p className="relative mt-1 text-sm text-gray-500">annual salary (gross)</p>
+    <div className="mt-4 grid grid-cols-3 gap-3 text-center">
+      <div>
+        <p className="text-lg font-bold text-emerald-400">$4,333</p>
+        <p className="text-xs text-gray-500">/ month</p>
+      </div>
+      <div>
+        <p className="text-lg font-bold text-emerald-400">$1,000</p>
+        <p className="text-xs text-gray-500">/ week</p>
+      </div>
+      <div>
+        <p className="text-lg font-bold text-emerald-400">$200</p>
+        <p className="text-xs text-gray-500">/ day</p>
+      </div>
+    </div>
+  </div>
+);
+
+const statChips = (
+  <>
+    {[
+      { stat: "$25/hr",  color: "text-emerald-600", label: "is the approximate US median hourly wage in 2024" },
+      { stat: "2,080",   color: "text-blue-500",    label: "hours in a standard full-time working year (40 hrs × 52 wks)" },
+      { stat: "5 secs",  color: "text-orange-500",  label: "to convert any hourly rate to an annual salary with this tool" },
+    ].map((item) => (
+      <div key={item.stat} className="group rounded-2xl border border-gray-200 bg-white px-6 py-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-gray-300 hover:shadow-xl">
+        <p className={`text-3xl font-bold tracking-tight transition-transform duration-200 group-hover:scale-105 ${item.color}`}>{item.stat}</p>
+        <p className="mt-1.5 text-xs leading-5 text-gray-500">{item.label}</p>
+      </div>
+    ))}
+  </>
+);
 
 export default function HourlyToSalaryPage() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: "Hourly to Salary Calculator",
-    description:
-      "Convert your hourly rate to an annual salary instantly. See your monthly, weekly, and daily income based on your hours and weeks worked.",
-    url: "https://worthulator.com/tools/hourly-to-salary-calculator",
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  };
-
   return (
-    <main className="bg-white text-gray-900">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      {/* HERO */}
-      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
-        <div className="pointer-events-none absolute -top-32 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-emerald-50/80 blur-[80px]" />
-        <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-gray-100/60 blur-3xl" />
-        <div className="relative mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-2">
-
-          {/* Left — copy */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-              Money · Income Tools
-            </p>
-            <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
-              Hourly to Salary Calculator
-              <span className="block mt-1 text-gray-400 font-semibold">know what your time is worth.</span>
-            </h1>
-            <p className="mt-5 max-w-lg text-lg leading-relaxed text-gray-500">
-              Enter your hourly rate and working hours to instantly see your annual salary, monthly income, and daily pay.
-            </p>
-          </div>
-
-          {/* Right — preview stat card */}
-          <div className="hidden lg:block">
-            <div className="relative overflow-hidden rounded-2xl border border-white/8 bg-gray-950 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-              <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-emerald-500/15 blur-3xl" />
-              <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">Example &middot; $25/hr &middot; 40 hrs/wk</p>
-              <p className="relative mt-3 text-5xl font-bold tracking-[-0.04em] text-emerald-400 [text-shadow:0_0_20px_rgba(52,211,153,0.28)]">$52,000</p>
-              <p className="relative mt-1 text-sm text-gray-500">annual salary (gross)</p>
-              <div className="mt-4 grid grid-cols-3 gap-3 text-center">
-                <div>
-                  <p className="text-lg font-bold text-emerald-400">$4,333</p>
-                  <p className="text-xs text-gray-500">/ month</p>
-                </div>
-                <div>
-                  <p className="text-lg font-bold text-emerald-400">$1,000</p>
-                  <p className="text-xs text-gray-500">/ week</p>
-                </div>
-                <div>
-                  <p className="text-lg font-bold text-emerald-400">$200</p>
-                  <p className="text-xs text-gray-500">/ day</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* CALCULATOR */}
-      <section className="bg-white px-5 py-12 sm:px-8 lg:px-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="mb-8 grid gap-3 sm:grid-cols-3">
-            {[
-              { stat: "$25/hr",  color: "text-emerald-600", label: "is the approximate US median hourly wage in 2024" },
-              { stat: "2,080",   color: "text-blue-500",    label: "hours in a standard full-time working year (40 hrs × 52 wks)" },
-              { stat: "5 secs",  color: "text-orange-500",  label: "to convert any hourly rate to an annual salary with this tool" },
-            ].map((item) => (
-              <div key={item.stat} className="group rounded-2xl border border-gray-200 bg-white px-6 py-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:border-gray-300 hover:shadow-xl">
-                <p className={`text-3xl font-bold tracking-tight transition-transform duration-200 group-hover:scale-105 ${item.color}`}>{item.stat}</p>
-                <p className="mt-1.5 text-xs leading-5 text-gray-500">{item.label}</p>
-              </div>
-            ))}
-          </div>
-          <HourlyToSalaryCalculator />
-        </div>
-      </section>
-
-      {/* INSIGHT STRIP */}
-      <div className="bg-gray-50 px-5 py-5 sm:px-8 lg:px-16">
-        <p className="mx-auto max-w-5xl text-sm font-medium text-gray-500">
+    <SimpleCalculatorShell
+      jsonLd={jsonLd}
+      title="Hourly to Salary Calculator"
+      subtitle="know what your time is worth."
+      description="Enter your hourly rate and working hours to instantly see your annual salary, monthly income, and daily pay."
+      heroCard={heroCard}
+      statChips={statChips}
+      calculator={<HourlyToSalaryCalculator />}
+      insightText={
+        <>
           A standard full-time year is{" "}
           <span className="font-semibold text-gray-800">2,080 hours</span>{" "}
           (40 hrs × 52 weeks). Adjust weeks worked to account for vacation or part-time hours.
-        </p>
-      </div>
+        </>
+      }
+    >
 
       {/* EXPLAINER */}
       <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
@@ -206,6 +180,6 @@ export default function HourlyToSalaryPage() {
       {/* RELATED TOOLS */}
       <RelatedTools currentTool="hourly-to-salary-calculator" />
 
-    </main>
+    </SimpleCalculatorShell>
   );
 }

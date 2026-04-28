@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useState, useRef, useEffect } from "react"
+import { useRouter, usePathname } from "next/navigation"
 import {
   categories,
   liveCategories,
@@ -13,8 +14,15 @@ import {
 import { getLocale, setLocale, type Locale } from "../../lib/locale"
 
 // ─── Locale Switch ─────────────────────────────────────────────────────────
+const PI_ROUTES: Record<string, string> = {
+  US: "/tools/pi-calculator",
+  UK: "/tools/personal-injury-calculator-uk",
+}
+
 function LocaleSwitch() {
   const [locale, setLocaleState] = useState<Locale>("US")
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     setLocaleState(getLocale())
@@ -24,6 +32,12 @@ function LocaleSwitch() {
     setLocale(next)
     setLocaleState(next)
     window.dispatchEvent(new Event("worthulator:locale"))
+
+    // If currently on a PI calculator page, navigate to the matching region's page
+    const piPaths = Object.values(PI_ROUTES)
+    if (piPaths.some((p) => pathname.startsWith(p))) {
+      router.push(PI_ROUTES[next])
+    }
   }
 
   return (
