@@ -20,6 +20,10 @@ export const REGION_REGISTRY: RegionPair[] = [
     uk: "/construction-calculators/concrete-calculator-uk",
   },
   {
+    us: "/construction-calculators/concrete/concrete-bag-calculator",
+    uk: "/construction-calculators/concrete/concrete-bag-calculator-uk",
+  },
+  {
     us: "/tools/pi-calculator",
     uk: "/tools/personal-injury-calculator-uk",
   },

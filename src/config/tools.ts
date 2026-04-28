@@ -555,6 +555,12 @@ export const tools: Tool[] = [
     keywords: ["concrete calculator", "cubic yards calculator", "concrete slab calculator", "how much concrete do I need"],
     intro: "Enter your slab dimensions to get the concrete volume and number of bags you need — in seconds.",
   },
+  {
+    name: "Concrete Bag Calculator", slug: "concrete-bag-calculator", tier: 2, category: "construction", subcategory: "concrete", toolType: "calculator", status: "live",
+    href: "/construction-calculators/concrete/concrete-bag-calculator",
+    description: "Find out exactly how many 40, 60, or 80 lb bags of concrete you need for any slab or footing. Includes waste factor and cost estimate.",
+    keywords: ["concrete bag calculator", "how many bags of concrete", "bags of concrete calculator", "concrete bags needed"],
+  },
 ];
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
