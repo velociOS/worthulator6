@@ -36,14 +36,46 @@ const relatedTools = [
 ];
 
 export default function OvertimePayCalculatorPage() {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: "Overtime Pay Calculator",
-    description:
-      "Calculate overtime pay, including time and a half and double time. See your weekly, monthly, and annual earnings instantly.",
-    url: "https://worthulator.com/tools/overtime-pay-calculator",
-  };
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: "Overtime Pay Calculator",
+      description:
+        "Calculate overtime pay, including time and a half and double time. See your weekly, monthly, and annual earnings instantly.",
+      url: "https://worthulator.com/tools/overtime-pay-calculator",
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "How is overtime pay calculated?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Multiply regular hours (up to 40) by your hourly rate, then add overtime hours multiplied by your rate and the overtime multiplier (typically 1.5×).",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is time and a half?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Time and a half means you earn 1.5 times your normal hourly rate for every overtime hour. It is the minimum overtime rate required by US federal law under the Fair Labor Standards Act for eligible hourly workers.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is double time?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Double time (2×) means you earn twice your regular hourly rate for those hours. It is not federally mandated but is offered by some employers for holidays, extended shifts, or in California for hours worked beyond 12 in a single day.",
+          },
+        },
+      ],
+    },
+  ];
 
   return (
     <main className="bg-white text-gray-900">

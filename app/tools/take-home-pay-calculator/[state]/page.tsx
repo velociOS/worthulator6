@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const name = stateNames[code];
   const rate = stateTaxRates[code];
   return {
-    title: `Take Home Pay Calculator ${name} (After Tax Salary) — Worthulator`,
+    title: `Take Home Pay Calculator ${name} | Worthulator`,
     description: `Estimate your take-home pay in ${name}, including federal${rate > 0 ? ` and state taxes (${rate}%)` : " taxes"}, Social Security, and Medicare. See your net income instantly.`,
     alternates: { canonical: `https://worthulator.com/tools/take-home-pay-calculator/${state}` },
     robots: { index: true, follow: true },
