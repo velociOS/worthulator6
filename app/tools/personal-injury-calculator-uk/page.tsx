@@ -25,14 +25,11 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": "WebPage",
   name: "Personal Injury Compensation Calculator UK",
   url: "https://worthulator.com/tools/personal-injury-calculator-uk",
   description:
     "Estimate personal injury compensation ranges in the UK based on injury type, financial losses, and jurisdiction. For informational and educational purposes only.",
-  applicationCategory: "FinanceApplication",
-  operatingSystem: "Any",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
 };
 
 export default function UKPICalculatorPage() {

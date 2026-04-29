@@ -25,13 +25,10 @@ export default function TakeHomePayPage() {
   const jsonLd = [
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
+      "@type": "WebPage",
       name: "Take Home Pay Calculator",
       description: "Calculate your take home pay after federal tax, state tax, Social Security, and Medicare.",
       url: "https://worthulator.com/tools/take-home-pay-calculator",
-      applicationCategory: "FinanceApplication",
-      operatingSystem: "All",
-      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     },
     {
       "@context": "https://schema.org",

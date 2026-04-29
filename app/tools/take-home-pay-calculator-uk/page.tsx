@@ -28,14 +28,11 @@ export default function TakeHomePayUKPage() {
   const jsonLd = [
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
+      "@type": "WebPage",
       name: "Take Home Pay Calculator UK",
       description:
         "Calculate your UK take-home pay after PAYE income tax and National Insurance contributions.",
       url: "https://worthulator.com/tools/take-home-pay-calculator-uk",
-      applicationCategory: "FinanceApplication",
-      operatingSystem: "All",
-      offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
     },
     {
       "@context": "https://schema.org",

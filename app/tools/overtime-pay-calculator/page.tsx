@@ -38,14 +38,11 @@ const relatedTools = [
 export default function OvertimePayCalculatorPage() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     name: "Overtime Pay Calculator",
     description:
       "Calculate overtime pay, including time and a half and double time. See your weekly, monthly, and annual earnings instantly.",
     url: "https://worthulator.com/tools/overtime-pay-calculator",
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   };
 
   return (

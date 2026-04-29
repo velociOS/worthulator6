@@ -26,14 +26,11 @@ export const metadata: Metadata = {
 const jsonLd = [
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     name: "Concrete Block Calculator",
     description:
       "Calculate how many 8×8×16 inch concrete blocks you need for any wall. Enter dimensions, select block size, and get block count plus material cost estimate.",
     url: "https://worthulator.com/construction-calculators/concrete/concrete-block-calculator",
-    applicationCategory: "UtilitiesApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   },
   {
     "@context": "https://schema.org",

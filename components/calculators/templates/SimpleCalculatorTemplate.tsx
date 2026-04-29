@@ -21,12 +21,9 @@ import RelatedTools from "@/components/RelatedTools";
 
 const JSON_LD = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": "WebPage",
   name: "My Calculator",
   url: "https://worthulator.com/tools/my-calculator",
-  applicationCategory: "FinanceApplication",
-  operatingSystem: "All",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 };
 
 // ─── Hero preview card (dark, right column, desktop only) ────────────────────

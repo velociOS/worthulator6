@@ -25,14 +25,11 @@ export const metadata: Metadata = {
 const jsonLd = [
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     name: "Concrete Bag Calculator (US)",
     description:
       "Calculate how many 40, 60, or 80 lb bags of concrete you need for any rectangular slab, driveway, or footing in cubic yards.",
     url: "https://worthulator.com/construction-calculators/concrete/concrete-bag-calculator",
-    applicationCategory: "UtilitiesApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   },
   {
     "@context": "https://schema.org",

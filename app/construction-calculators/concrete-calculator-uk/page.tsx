@@ -27,14 +27,11 @@ export const metadata: Metadata = {
 const jsonLd = [
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     name: "Concrete Calculator (UK)",
     description:
       "Calculate how much concrete you need in cubic metres. Enter length, width, and depth for slabs, driveways, or footings.",
     url: "https://worthulator.com/construction-calculators/concrete-calculator-uk",
-    applicationCategory: "UtilitiesApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
   },
   {
     "@context": "https://schema.org",

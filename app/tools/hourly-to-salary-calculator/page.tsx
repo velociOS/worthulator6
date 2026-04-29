@@ -23,14 +23,11 @@ export const metadata: Metadata = {
 const jsonLd = [
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     name: "Hourly to Salary Calculator",
     description:
       "Convert your hourly wage to an annual salary instantly. See your monthly and weekly income based on your hours and weeks worked.",
     url: "https://worthulator.com/tools/hourly-to-salary-calculator",
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   },
   {
     "@context": "https://schema.org",

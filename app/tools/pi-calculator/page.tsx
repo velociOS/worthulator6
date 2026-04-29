@@ -24,14 +24,11 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "WebApplication",
+  "@type": "WebPage",
   name: "Personal Injury Case Value Calculator",
   url: "https://worthulator.com/tools/pi-calculator",
   description:
     "Estimate personal injury claim value based on injuries, liability, economic damages, and jurisdiction.",
-  applicationCategory: "FinanceApplication",
-  operatingSystem: "Any",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
 };
 
 export default function PICalculatorPage() {

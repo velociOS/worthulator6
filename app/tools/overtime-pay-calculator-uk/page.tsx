@@ -46,14 +46,11 @@ const relatedTools = [
 export default function OvertimePayCalculatorUKPage() {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     name: "Overtime Pay Calculator UK",
     description:
       "Calculate overtime pay in GBP for UK workers. See weekly, monthly, and annual earnings including enhanced rates.",
     url: "https://worthulator.com/tools/overtime-pay-calculator-uk",
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
   };
 
   return (

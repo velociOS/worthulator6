@@ -27,14 +27,11 @@ export const metadata: Metadata = {
 const jsonLd = [
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     name: "Concrete Calculator (US)",
     description:
       "Calculate how much concrete you need in cubic yards. Enter length, width, and thickness for slabs, driveways, or footings.",
     url: "https://worthulator.com/construction-calculators/concrete-calculator",
-    applicationCategory: "UtilitiesApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
   },
   {
     "@context": "https://schema.org",

@@ -23,14 +23,11 @@ export const metadata: Metadata = {
 const jsonLd = [
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     name: "Hourly to Salary Calculator UK",
     description:
       "Convert your hourly rate to an annual salary in pounds. See your monthly, weekly, and daily income. UK version.",
     url: "https://worthulator.com/tools/hourly-to-salary-calculator-uk",
-    applicationCategory: "FinanceApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
   },
   {
     "@context": "https://schema.org",

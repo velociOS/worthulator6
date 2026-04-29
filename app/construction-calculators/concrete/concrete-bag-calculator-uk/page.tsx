@@ -25,14 +25,11 @@ export const metadata: Metadata = {
 const jsonLd = [
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     name: "Concrete Bag Calculator (UK)",
     description:
       "Calculate how many 20 kg or 25 kg bags of concrete you need for any rectangular slab, driveway, or shed base in cubic metres.",
     url: "https://worthulator.com/construction-calculators/concrete/concrete-bag-calculator-uk",
-    applicationCategory: "UtilitiesApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
   },
   {
     "@context": "https://schema.org",

@@ -265,13 +265,10 @@ export default async function StateCalculatorPage({ params }: Props) {
   const jsonLd = [
     {
       "@context": "https://schema.org",
-      "@type": "WebApplication",
+      "@type": "WebPage",
       name: `Take Home Pay Calculator ${name}`,
       description: `Estimate your take-home pay in ${name}, including federal${rate > 0 ? ` and state taxes (${rate}%)` : " taxes"}, Social Security, and Medicare.`,
       url: `https://worthulator.com/tools/take-home-pay-calculator/${state}`,
-      applicationCategory: "FinanceApplication",
-      operatingSystem: "All",
-      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     },
     {
       "@context": "https://schema.org",

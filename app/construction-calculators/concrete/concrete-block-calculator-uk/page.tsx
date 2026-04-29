@@ -26,14 +26,11 @@ export const metadata: Metadata = {
 const jsonLd = [
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
+    "@type": "WebPage",
     name: "Concrete Block Calculator UK",
     description:
       "Calculate how many 440 × 215 mm concrete blocks you need for any UK wall. Enter dimensions in metres to get block count and material cost estimate.",
     url: "https://worthulator.com/construction-calculators/concrete/concrete-block-calculator-uk",
-    applicationCategory: "UtilitiesApplication",
-    operatingSystem: "All",
-    offers: { "@type": "Offer", price: "0", priceCurrency: "GBP" },
   },
   {
     "@context": "https://schema.org",
