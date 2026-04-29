@@ -8,7 +8,7 @@ const toolEmojis: Record<string, string> = {
   "take-home-pay-calculator":    "💵",
   "overtime-pay-calculator":     "⏱️",
   "hourly-to-salary-calculator": "🕐",
-  "passive-income":              "📈",
+  "passive-income-calculator":    "📈",
   "compound-interest":           "📊",
   "screen-time-impact":          "📱",
   "subscription-cost":           "💳",
@@ -20,7 +20,7 @@ const toolEmojis: Record<string, string> = {
 // ── CTA overrides for tools where auto-derivation would read poorly ─────────
 const ctaOverrides: Record<string, string> = {
   "hourly-to-salary-calculator": "Convert hourly to annual salary",
-  "passive-income":              "Estimate your passive income",
+  "passive-income-calculator":    "Estimate your passive income",
   "compound-interest":           "Calculate compound interest growth",
   "screen-time-impact":          "See the cost of screen time",
   "subscription-cost":           "Calculate subscription spend",

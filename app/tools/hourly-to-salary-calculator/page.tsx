@@ -111,18 +111,24 @@ export default function HourlyToSalaryPage() {
   return (
     <SimpleCalculatorShell
       jsonLd={jsonLd}
-      category="🇺🇸 United States · Income Tools"
-      title="Hourly to Salary Calculator (US)"
+      category="United States · Income Tools"
+      title="Hourly to Salary Calculator"
       subtitle="Convert your hourly wage into an annual salary, monthly income, and weekly pay in seconds."
       description={
         <>
           <p>
-            Whether you&apos;re comparing job offers, negotiating pay, or planning your finances,
-            this tool helps you see what your hourly rate actually adds up to over a full year.
-            Enter your rate and hours — the breakdown appears instantly.
+            Enter your hourly rate and hours per week to instantly see your equivalent
+            annual salary, monthly pay, and weekly earnings. Useful for comparing job
+            offers, negotiating a raise, or understanding what a contract role pays
+            on a salaried basis.
           </p>
-          <p className="mt-2 text-xs text-gray-400">
-            For educational purposes only. Results show gross income before tax.
+          <ul className="mt-3 space-y-1 text-sm text-gray-400">
+            <li>Adjustable hours per week and weeks worked per year</li>
+            <li>Annual, monthly, weekly, and daily breakdowns</li>
+            <li>Gross figures — use the Take Home Pay Calculator for after-tax</li>
+          </ul>
+          <p className="mt-3 text-xs text-gray-400">
+            For planning purposes only. Results show gross income before tax.
           </p>
           <RegionToggle
             current="us"

@@ -15,7 +15,7 @@ export default function ConcreteCalculator({ region }: { region: Region }) {
   const volUnit    = isUS ? "cu yd"     : "m³";
   const bagLabel   = isUS ? "80 lb bags" : "25 kg bags";
   const depHint    = isUS
-    ? "Typical driveway slab is 4 in"
+    ? "Enter in inches — we convert automatically"
     : "Typical slab is 0.10–0.15 m (100–150 mm)";
 
   // ── Slider config ──────────────────────────────────────────────────────
@@ -370,6 +370,18 @@ export default function ConcreteCalculator({ region }: { region: Region }) {
           </p>
           <p className="mt-1 text-sm font-semibold text-gray-400">{volUnit}</p>
 
+          {/* Live summary sentence */}
+          <p className="mt-4 rounded-xl bg-emerald-50 px-4 py-3 text-sm leading-relaxed text-emerald-800">
+            Your{" "}
+            <strong>
+              {isUS ? `${length} × ${width} ft` : `${fmtN(length)} × ${fmtN(width)} m`}
+            </strong>{" "}
+            slab at{" "}
+            <strong>{isUS ? `${depth} in` : `${fmtN(depth)} m`}</strong> thick needs{" "}
+            <strong>{fmtV(volume)} {volUnit}</strong> — order{" "}
+            <strong>{bagsW} {bagLabel}</strong> with {wastePct}% waste included.
+          </p>
+
           <div className="mt-6 space-y-3 border-t border-gray-100 pt-5">
             <div className="flex items-center justify-between">
               <p className="text-sm text-gray-500">Bags (exact)</p>
@@ -399,6 +411,26 @@ export default function ConcreteCalculator({ region }: { region: Region }) {
             Prices vary by location and supplier. This is a rough estimate.
           </p>
         </div>
+
+        {/* Ready-mix suggestion */}
+        {isUS && volume > 1.5 && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+            <p className="text-sm font-semibold text-amber-800">Consider ready-mix at this volume</p>
+            <p className="mt-1.5 text-xs leading-relaxed text-amber-700">
+              At {fmtV(volume)} cu yd, ready-mix concrete is usually cheaper and faster than
+              mixing {bagsW} bags by hand. Expect $120–200/yd plus a delivery fee.
+            </p>
+          </div>
+        )}
+        {!isUS && volume > 1.15 && (
+          <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+            <p className="text-sm font-semibold text-amber-800">Consider ready-mix at this volume</p>
+            <p className="mt-1.5 text-xs leading-relaxed text-amber-700">
+              At {fmtV(volume)} m³, ordering ready-mix is typically more cost-effective than
+              mixing {bagsW} bags by hand.
+            </p>
+          </div>
+        )}
 
         {/* Formula card */}
         <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5">

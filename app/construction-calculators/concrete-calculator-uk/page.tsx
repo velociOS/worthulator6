@@ -119,8 +119,8 @@ export default function ConcreteCalculatorUKPage() {
   return (
     <SimpleCalculatorShell
       jsonLd={jsonLd}
-      category="Construction · Materials"
-      title="Concrete Calculator (UK)"
+      category="United Kingdom · Construction"
+      title="Concrete Calculator"
       subtitle="Calculate cubic metres for slabs, driveways, footings, and pours."
       description={
         <>

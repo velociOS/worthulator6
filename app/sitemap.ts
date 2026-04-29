@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const statics: MetadataRoute.Sitemap = [
     { url: BASE_URL,                                              lastModified: now, changeFrequency: "weekly",  priority: 1.0 },
     { url: `${BASE_URL}/tools`,                                   lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
+    { url: `${BASE_URL}/tools/cost`,                              lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
     { url: `${BASE_URL}/construction-calculators`,                lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
   ];
 
@@ -37,6 +38,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/tools/hourly-to-salary-calculator-uk`,                                  lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${BASE_URL}/tools/overtime-pay-calculator-uk`,                                      lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${BASE_URL}/tools/take-home-pay-calculator-uk`,                                     lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${BASE_URL}/tools/salary-breakdown-calculator-uk`,                                  lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${BASE_URL}/tools/personal-injury-calculator-uk`,                                   lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${BASE_URL}/construction-calculators/concrete-calculator-uk`,                       lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${BASE_URL}/construction-calculators/concrete/concrete-bag-calculator-uk`,          lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },

@@ -93,20 +93,16 @@ export default function OvertimePayCalculatorPage() {
           {/* Left — copy */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-              🇺🇸 United States · Income Tools
+              United States · Income Tools
             </p>
             <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
               Overtime Pay Calculator
               <span className="mt-1 block font-semibold text-gray-400">
-                time and a half, double time &amp; more.
+                Time and a half, double time, and enhanced rates.
               </span>
             </h1>
-            <p className="mt-2 text-sm font-semibold tracking-tight text-emerald-600">
-              Calculate overtime pay, time and a half, and double time instantly.
-            </p>
             <p className="mt-4 max-w-lg text-lg leading-relaxed text-gray-500">
-              Calculate overtime pay, including time and a half and double time. See your weekly,
-              monthly, and annual earnings instantly.
+              Enter your hourly rate and total hours worked to see your overtime pay — weekly, monthly, and annually. Supports time-and-a-half, double time, and custom multipliers.
             </p>
             <RegionToggle
               current="us"

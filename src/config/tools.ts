@@ -194,6 +194,14 @@ export const categories: Category[] = [
     ],
   },
   {
+    name: "Cost Calculators",
+    slug: "cost",
+    emoji: "🏷️",
+    tagline: "Find out what things really cost before you spend",
+    popular: true,
+    subcategories: [],
+  },
+  {
     name: "Decisions",
     slug: "decisions",
     emoji: "🎯",
@@ -217,7 +225,7 @@ export const tools: Tool[] = [
 
   // Income & Earnings
   {
-    name: "Salary Breakdown Calculator", slug: "salary-breakdown", tier: 2, category: "money", subcategory: "income", toolType: "calculator", popular: true, status: "live",
+    name: "Salary Breakdown Calculator", slug: "salary-breakdown-calculator", tier: 2, category: "money", subcategory: "income", toolType: "calculator", popular: true, status: "live",
     description: "See how your gross salary splits into tax, National Insurance, and take-home pay. A simple way to understand what you actually keep.",
     keywords: ["salary breakdown calculator", "gross to net salary", "income tax breakdown", "how much tax do I pay", "payslip breakdown"],
     intro: "Your salary on paper and your salary in your pocket are two different numbers. This calculator gives you a clear picture of where each pound goes — tax, NI, pension, and what's left for you.",
@@ -269,7 +277,7 @@ export const tools: Tool[] = [
     ],
   },
   {
-    name: "Passive Income Calculator", slug: "passive-income", tier: 2, category: "money", subcategory: "income", toolType: "calculator", popular: true, status: "live",
+    name: "Passive Income Calculator", slug: "passive-income-calculator", tier: 2, category: "money", subcategory: "income", toolType: "calculator", popular: true, status: "live",
     description: "Estimate how much passive income an investment or asset could generate over time. Helps you understand the income potential of what you already own or plan to build.",
     keywords: ["passive income calculator", "how much passive income can I earn", "investment income estimate", "rental income calculator", "dividend income"],
     intro: "Passive income sounds great in theory — but how much could you actually make? Enter your asset value and expected return rate to get a rough idea of what yearly, monthly, and daily income might look like.",
@@ -544,7 +552,20 @@ export const tools: Tool[] = [
   { name: "Future Value of Decisions Calculator", slug: "future-value-of-decisions", tier: 3, category: "decisions", subcategory: "what-if",   toolType: "calculator"                 },
 
   // ══════════════════════════════════════════════════════════════════════════
-  // 🏗️ CONSTRUCTION
+  // �️ COST CALCULATORS
+  // ══════════════════════════════════════════════════════════════════════════
+
+  { name: "Dental Implant Cost",               slug: "dental-implants-cost",           tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/dental-implants",           description: "Estimate the cost of dental implants in the US, including single tooth, full arch, and All-on-4 options. See what affects the price and what to expect." },
+  { name: "Invisalign Cost",                   slug: "invisalign-cost",                tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/invisalign",                description: "Estimate Invisalign treatment costs by case complexity, from minor corrections to comprehensive full treatment." },
+  { name: "Veneers Cost",                      slug: "veneers-cost",                   tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/veneers",                   description: "Estimate the cost of porcelain or composite veneers based on how many teeth you want treated and the type of veneer." },
+  { name: "Roof Replacement Cost",             slug: "roof-replacement-cost",          tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/roof-replacement",          description: "Estimate the cost of replacing your roof based on size, material, and pitch. Covers asphalt shingles, metal, and tile." },
+  { name: "Air Conditioning Installation Cost", slug: "ac-installation-cost",          tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/ac-installation",           description: "Estimate the cost of installing central air conditioning or a mini-split system based on your home size and unit type." },
+  { name: "Solar Panel Cost",                  slug: "solar-panel-cost",               tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/solar-panels",              description: "Estimate the upfront and net cost of a residential solar panel system based on system size, location, and available incentives." },
+  { name: "Cost of Living Calculator",         slug: "cost-of-living-calc",            tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/cost-of-living",            description: "Estimate your total monthly cost of living based on housing, food, transport, and other essentials." },
+  { name: "Cost of Living Comparison",         slug: "cost-of-living-comparison-tool", tier: 2, category: "cost", subcategory: "general", toolType: "tool",       status: "preview", href: "/tools/cost/cost-of-living-comparison", description: "Compare the cost of living between two cities or regions to see how far your salary would stretch." },
+
+  // ══════════════════════════════════════════════════════════════════════════
+  // �🏗️ CONSTRUCTION
   // ══════════════════════════════════════════════════════════════════════════
 
   // Concrete & Materials

@@ -154,7 +154,7 @@ export default function ConcreteBagCalculator() {
                 </button>
               ))}
             </div>
-            <p className="mt-2 text-xs text-gray-400">Typical driveway slab: 4 in</p>
+            <p className="mt-2 text-xs text-gray-400">Enter in inches — we convert automatically</p>
           </div>
 
           {/* Bag size selector */}
@@ -268,6 +268,14 @@ export default function ConcreteBagCalculator() {
             <p className="mt-1 text-xs text-gray-400">
               +{waste}% waste → {adjustedYd.toFixed(2)} cu&nbsp;yd to order
             </p>
+
+            {/* Live summary sentence */}
+            <p className="mt-3 rounded-xl bg-emerald-50 px-4 py-3 text-sm leading-relaxed text-emerald-800">
+              Your <strong>{length} × {width} ft</strong> slab at{" "}
+              <strong>{depth} in</strong> thick needs{" "}
+              <strong>{volumeYd.toFixed(2)} cu yd</strong> — order{" "}
+              <strong>{bagsNeeded} × {bagSize.label}</strong> bags with {waste}% waste included.
+            </p>
           </div>
 
           {/* Bags card */}
@@ -295,6 +303,41 @@ export default function ConcreteBagCalculator() {
               Based on ${rate}/cu&nbsp;yd · adjust above
             </p>
           </div>
+
+          {/* Bag comparison table */}
+          <div className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-gray-400">
+              All bag sizes at this volume
+            </p>
+            <div className="space-y-2">
+              {BAG_SIZES.map((b) => {
+                const n = Math.ceil(adjustedYd / b.yardYield);
+                return (
+                  <div key={b.weight} className={`flex items-center justify-between rounded-lg px-3 py-2 ${
+                    b.weight === bagWeight ? "bg-emerald-50 ring-1 ring-emerald-200" : "bg-white"
+                  }`}>
+                    <span className={`text-sm font-semibold ${
+                      b.weight === bagWeight ? "text-emerald-700" : "text-gray-600"
+                    }`}>{b.label}</span>
+                    <span className={`text-sm font-bold ${
+                      b.weight === bagWeight ? "text-emerald-700" : "text-gray-900"
+                    }`}>{n} bags</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Ready-mix suggestion */}
+          {volumeYd > 1.5 && (
+            <div className="rounded-2xl border border-amber-200 bg-amber-50 p-5">
+              <p className="text-sm font-semibold text-amber-800">Consider ready-mix at this volume</p>
+              <p className="mt-1.5 text-xs leading-relaxed text-amber-700">
+                At {volumeYd.toFixed(2)} cu yd, ready-mix concrete is usually cheaper and faster
+                than mixing {bagsNeeded} bags by hand. Expect $120–200/yd plus a delivery fee.
+              </p>
+            </div>
+          )}
 
           {/* Disclaimer */}
           <p className="text-xs leading-relaxed text-gray-400">

@@ -120,9 +120,9 @@ export default function ConcreteBlockCalculatorUKPage() {
   return (
     <SimpleCalculatorShell
       jsonLd={jsonLd}
-      category="Construction · Concrete Tools"
-      title="Concrete Block Calculator UK"
-      subtitle="blocks per m² for any wall"
+      category="United Kingdom · Construction"
+      title="Concrete Block Calculator"
+      subtitle="Calculate how many concrete blocks you need for any wall or footing, measured in metres."
       description={
         <>
           Enter your wall length and height in metres to calculate how many

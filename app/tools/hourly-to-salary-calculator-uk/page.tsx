@@ -146,8 +146,8 @@ export default function HourlyToSalaryUKPage() {
 
       <SimpleCalculatorShell
         jsonLd={jsonLd}
-        category="🇬🇧 United Kingdom · Income Tools"
-        title="Hourly to Salary Calculator UK"
+        category="United Kingdom · Income Tools"
+        title="Hourly to Salary Calculator"
         subtitle="Convert your hourly wage into an annual salary, monthly income, and weekly pay in seconds."
         description={
           <>

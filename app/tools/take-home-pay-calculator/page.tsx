@@ -89,11 +89,11 @@ export default function TakeHomePayPage() {
           {/* Left — copy */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-              🇺🇸 United States · Income Tools
+              United States · Income Tools
             </p>
             <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
               Take Home Pay Calculator
-              <span className="block mt-1 text-gray-400 font-semibold">(US) — see your salary after tax.</span>
+              <span className="block mt-1 text-gray-400 font-semibold">See your net salary after federal tax, state tax, and Social Security.</span>
             </h1>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-gray-500">
               Enter your gross salary to see your net income after federal tax, state income tax, Social Security, and Medicare — broken down annually, monthly, and weekly.

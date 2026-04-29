@@ -117,8 +117,8 @@ export default function ConcreteBagCalculatorUKPage() {
   return (
     <SimpleCalculatorShell
       jsonLd={jsonLd}
-      category="Construction · Materials"
-      title="Concrete Bag Calculator (UK)"
+      category="United Kingdom · Construction"
+      title="Concrete Bag Calculator"
       subtitle="How many 25 kg bags do you need? Enter your dimensions in metres and get your count instantly."
       description={
         <>

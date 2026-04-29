@@ -97,16 +97,16 @@ export default function TakeHomePayUKPage() {
             {/* Left — copy */}
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-                🇬🇧 United Kingdom · Income Tools
+                United Kingdom · Income Tools
               </p>
               <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
-                Take Home Pay Calculator UK
+                Take Home Pay Calculator
                 <span className="mt-1 block font-semibold text-gray-400">
-                  Calculate your salary after tax, National Insurance, and deductions instantly.
+                  See your net salary after income tax, National Insurance, and deductions.
                 </span>
               </h1>
               <p className="mt-2 text-sm font-semibold tracking-tight text-emerald-600">
-                Free UK net pay calculator — 2026 tax year rates.
+                Updated for the 2026–27 tax year.
               </p>
               <p className="mt-4 max-w-lg text-lg leading-relaxed text-gray-500">
                 Enter your gross annual salary to see your exact take-home pay after PAYE income

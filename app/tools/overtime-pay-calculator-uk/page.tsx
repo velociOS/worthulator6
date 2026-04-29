@@ -121,17 +121,14 @@ export default function OvertimePayCalculatorUKPage() {
             {/* Left — copy */}
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-                🇬🇧 United Kingdom · Income Tools
+                United Kingdom · Income Tools
               </p>
               <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
-                Overtime Pay Calculator UK
+                Overtime Pay Calculator
                 <span className="mt-1 block font-semibold text-gray-400">
-                  time and a half, enhanced rates &amp; more.
+                  Time and a half, enhanced rates, and double time — in pounds.
                 </span>
               </h1>
-              <p className="mt-2 text-sm font-semibold tracking-tight text-emerald-600">
-                Calculate overtime pay in pounds for UK workers instantly.
-              </p>
               <p className="mt-4 max-w-lg text-lg leading-relaxed text-gray-500">
                 Enter your hourly rate and total hours worked to see exactly how much your overtime
                 earns — weekly, monthly, and annually — in GBP.
