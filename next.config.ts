@@ -28,6 +28,18 @@ const nextConfig: NextConfig = {
         destination: "/construction-calculators/concrete/concrete-block-calculator",
         permanent: true,
       },
+
+      // ── Old /construction-calculators/ URLs moved to /tools/ (301) ────────
+      {
+        source: "/construction-calculators/concrete-slab-calculator",
+        destination: "/tools/concrete-slab-calculator",
+        permanent: true,
+      },
+      {
+        source: "/construction-calculators/concrete-slab-calculator-uk",
+        destination: "/tools/concrete-slab-calculator-uk",
+        permanent: true,
+      },
     ];
   },
 };
