@@ -3,6 +3,12 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import ToolInputs from "./ToolInputs";
 
+export function generateStaticParams() {
+  return tools
+    .filter((t) => (t.status ?? "preview") !== "hidden")
+    .map((t) => ({ slug: t.slug }));
+}
+
 interface Props {
   params: Promise<{ slug: string }>;
 }
