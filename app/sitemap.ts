@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { tools, categories } from "@/src/config/tools";
+import { tools } from "@/src/config/tools";
 import { stateTaxRates, type StateCode } from "@/src/lib/stateTax";
 
 const BASE_URL = "https://worthulator.com";
@@ -13,15 +13,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/tools`,                                   lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
     { url: `${BASE_URL}/tools/cost`,                              lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
     { url: `${BASE_URL}/construction-calculators`,                lastModified: now, changeFrequency: "weekly",  priority: 0.9 },
+    { url: `${BASE_URL}/about`,                                   lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE_URL}/contact`,                                 lastModified: now, changeFrequency: "monthly", priority: 0.5 },
+    { url: `${BASE_URL}/privacy`,                                 lastModified: now, changeFrequency: "monthly", priority: 0.4 },
+    { url: `${BASE_URL}/terms`,                                   lastModified: now, changeFrequency: "monthly", priority: 0.4 },
+    { url: `${BASE_URL}/disclaimer`,                              lastModified: now, changeFrequency: "monthly", priority: 0.4 },
   ];
-
-  // Category pages
-  const categoryPages: MetadataRoute.Sitemap = categories.map((cat) => ({
-    url: `${BASE_URL}/tools?category=${cat.slug}`,
-    lastModified: now,
-    changeFrequency: "weekly",
-    priority: 0.7,
-  }));
 
   // Only live tool pages — use href override when present (e.g. construction calculators)
   const toolPages: MetadataRoute.Sitemap = tools
@@ -39,6 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/tools/overtime-pay-calculator-uk`,                                      lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${BASE_URL}/tools/take-home-pay-calculator-uk`,                                     lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${BASE_URL}/tools/salary-breakdown-calculator-uk`,                                  lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${BASE_URL}/tools/passive-income-calculator-uk`,                                    lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${BASE_URL}/tools/personal-injury-calculator-uk`,                                   lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${BASE_URL}/construction-calculators/concrete-calculator-uk`,                       lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${BASE_URL}/construction-calculators/concrete/concrete-bag-calculator-uk`,          lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
@@ -53,5 +51,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...statics, ...categoryPages, ...toolPages, ...ukToolPages, ...statePages];
+  return [...statics, ...toolPages, ...ukToolPages, ...statePages];
 }
+

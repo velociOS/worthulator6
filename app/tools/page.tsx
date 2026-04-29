@@ -18,7 +18,7 @@ export default function ToolsPage() {
         {liveTools.map((tool) => (
           <Link
             key={tool.slug}
-            href={`/tools/${tool.slug}`}
+            href={tool.href ?? `/tools/${tool.slug}`}
             className="rounded-2xl border border-slate-200 bg-white p-5 text-sm font-semibold text-slate-700 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
           >
             {tool.name}
