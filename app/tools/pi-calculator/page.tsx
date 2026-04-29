@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import StepFlow from "@/components/pi/StepFlowLoader";
 import RegionToggle from "@/components/pi/RegionToggle";
 import WrongRegionBanner from "@/components/pi/WrongRegionBanner";
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     "accident compensation calculator",
   ],
   alternates: {
-    canonical: "https://worthulator.com/tools/pi-calculator",
+    canonical: "https://www.worthulator.com/tools/pi-calculator",
   },
   robots: { index: true, follow: true },
 };
@@ -26,7 +26,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   name: "Personal Injury Case Value Calculator",
-  url: "https://worthulator.com/tools/pi-calculator",
+  url: "https://www.worthulator.com/tools/pi-calculator",
   description:
     "Estimate personal injury claim value based on injuries, liability, economic damages, and jurisdiction.",
 };

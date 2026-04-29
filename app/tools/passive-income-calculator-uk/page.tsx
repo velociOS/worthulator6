@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import PassiveIncomeCalculatorLoader from "../passive-income-calculator/PassiveIncomeCalculatorLoader";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "dividend income calculator UK",
     "FIRE calculator UK",
   ],
-  alternates: { canonical: "https://worthulator.com/tools/passive-income-calculator-uk" },
+  alternates: { canonical: "https://www.worthulator.com/tools/passive-income-calculator-uk" },
   robots: { index: true, follow: true },
 };
 
@@ -28,7 +28,7 @@ const jsonLd = {
   name: "Passive Income Calculator UK",
   description:
     "Calculate how much passive income your investments can generate in pounds based on compound growth, withdrawal rate, and inflation.",
-  url: "https://worthulator.com/tools/passive-income-calculator-uk",
+  url: "https://www.worthulator.com/tools/passive-income-calculator-uk",
 };
 
 const heroCard = (

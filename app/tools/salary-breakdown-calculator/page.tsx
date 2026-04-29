@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import SalaryBreakdownCalculatorLoader from "./SalaryBreakdownCalculatorLoader";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "paycheck breakdown calculator",
   ],
   alternates: {
-    canonical: "https://worthulator.com/tools/salary-breakdown-calculator",
+    canonical: "https://www.worthulator.com/tools/salary-breakdown-calculator",
   },
   robots: { index: true, follow: true },
 };
@@ -30,7 +30,7 @@ const jsonLd = [
     name: "Salary Breakdown Calculator (US)",
     description:
       "Calculate your federal income tax, FICA, and monthly take-home pay for US salaries.",
-    url: "https://worthulator.com/tools/salary-breakdown-calculator",
+    url: "https://www.worthulator.com/tools/salary-breakdown-calculator",
   },
   {
     "@context": "https://schema.org",

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { liveTools } from "@/src/config/tools";
 
@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "All Calculators | Worthulator",
   description:
     "Browse all free financial calculators on Worthulator. Salary, tax, investments, budgeting and more — instant results, no sign-up.",
-  alternates: { canonical: "https://worthulator.com/tools" },
+  alternates: { canonical: "https://www.worthulator.com/tools" },
   robots: { index: true, follow: true },
 };
 

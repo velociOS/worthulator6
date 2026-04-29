@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { tools } from "@/src/config/tools";
 import { stateTaxRates, type StateCode } from "@/src/lib/stateTax";
 
-const BASE_URL = "https://worthulator.com";
+const BASE_URL = "https://www.worthulator.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();

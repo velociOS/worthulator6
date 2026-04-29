@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import OvertimePayCalculator from "./OvertimePayCalculatorLoader";
 import RegionToggle from "@/components/RegionToggle";
@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Overtime Pay Calculator | Worthulator",
   description:
     "Calculate overtime pay, including time and a half and double time. See your weekly, monthly, and annual earnings instantly.",
-  alternates: { canonical: "https://worthulator.com/tools/overtime-pay-calculator" },
+  alternates: { canonical: "https://www.worthulator.com/tools/overtime-pay-calculator" },
   robots: { index: true, follow: true },
 };
 
@@ -43,7 +43,7 @@ export default function OvertimePayCalculatorPage() {
       name: "Overtime Pay Calculator",
       description:
         "Calculate overtime pay, including time and a half and double time. See your weekly, monthly, and annual earnings instantly.",
-      url: "https://worthulator.com/tools/overtime-pay-calculator",
+      url: "https://www.worthulator.com/tools/overtime-pay-calculator",
     },
     {
       "@context": "https://schema.org",

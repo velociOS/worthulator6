@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import ConcreteBlockCalculatorLoader from "./ConcreteBlockCalculatorLoader";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical:
-      "https://worthulator.com/construction-calculators/concrete/concrete-block-calculator",
+      "https://www.worthulator.com/construction-calculators/concrete/concrete-block-calculator",
   },
   robots: { index: true, follow: true },
 };
@@ -30,7 +30,7 @@ const jsonLd = [
     name: "Concrete Block Calculator",
     description:
       "Calculate how many 8×8×16 inch concrete blocks you need for any wall. Enter dimensions, select block size, and get block count plus material cost estimate.",
-    url: "https://worthulator.com/construction-calculators/concrete/concrete-block-calculator",
+    url: "https://www.worthulator.com/construction-calculators/concrete/concrete-block-calculator",
   },
   {
     "@context": "https://schema.org",

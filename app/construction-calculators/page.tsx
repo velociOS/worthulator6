@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Construction Calculators | Worthulator",
   description:
     "Free construction calculators for concrete, materials, project costing and more. Estimate quantities, costs, and planning figures instantly.",
-  alternates: { canonical: "https://worthulator.com/construction-calculators" },
+  alternates: { canonical: "https://www.worthulator.com/construction-calculators" },
   robots: { index: true, follow: true },
 };
 

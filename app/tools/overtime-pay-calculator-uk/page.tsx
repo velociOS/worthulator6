@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import OvertimePayCalculator from "../overtime-pay-calculator/OvertimePayCalculatorLoader";
 import LocaleSetter from "@/components/LocaleSetter";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     "UK overtime pay",
     "overtime rate calculator England",
   ],
-  alternates: { canonical: "https://worthulator.com/tools/overtime-pay-calculator-uk" },
+  alternates: { canonical: "https://www.worthulator.com/tools/overtime-pay-calculator-uk" },
   robots: { index: true, follow: true },
 };
 
@@ -51,7 +51,7 @@ export default function OvertimePayCalculatorUKPage() {
       name: "Overtime Pay Calculator UK",
       description:
         "Calculate overtime pay in GBP for UK workers. See weekly, monthly, and annual earnings including enhanced rates.",
-      url: "https://worthulator.com/tools/overtime-pay-calculator-uk",
+      url: "https://www.worthulator.com/tools/overtime-pay-calculator-uk",
     },
     {
       "@context": "https://schema.org",

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import SalaryBreakdownCalculatorLoader from "../salary-breakdown-calculator/SalaryBreakdownCalculatorLoader";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "net salary calculator UK",
   ],
   alternates: {
-    canonical: "https://worthulator.com/tools/salary-breakdown-calculator-uk",
+    canonical: "https://www.worthulator.com/tools/salary-breakdown-calculator-uk",
   },
   robots: { index: true, follow: true },
 };
@@ -30,7 +30,7 @@ const jsonLd = [
     name: "Salary Breakdown Calculator (UK)",
     description:
       "Calculate your UK income tax, National Insurance, and monthly take-home pay using real HMRC bands.",
-    url: "https://worthulator.com/tools/salary-breakdown-calculator-uk",
+    url: "https://www.worthulator.com/tools/salary-breakdown-calculator-uk",
   },
   {
     "@context": "https://schema.org",

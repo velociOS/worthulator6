@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import ConcreteCalculatorLoader from "../concrete-calculator/ConcreteCalculatorLoader";
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "ballast concrete calculator",
   ],
   alternates: {
-    canonical: "https://worthulator.com/construction-calculators/concrete-calculator-uk",
+    canonical: "https://www.worthulator.com/construction-calculators/concrete-calculator-uk",
   },
   robots: { index: true, follow: true },
 };
@@ -31,7 +31,7 @@ const jsonLd = [
     name: "Concrete Calculator (UK)",
     description:
       "Calculate how much concrete you need in cubic metres. Enter length, width, and depth for slabs, driveways, or footings.",
-    url: "https://worthulator.com/construction-calculators/concrete-calculator-uk",
+    url: "https://www.worthulator.com/construction-calculators/concrete-calculator-uk",
   },
   {
     "@context": "https://schema.org",

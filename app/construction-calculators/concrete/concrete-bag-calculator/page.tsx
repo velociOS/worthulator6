@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import ConcreteBagCalculatorLoader from "./ConcreteBagCalculatorLoader";
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical:
-      "https://worthulator.com/construction-calculators/concrete/concrete-bag-calculator",
+      "https://www.worthulator.com/construction-calculators/concrete/concrete-bag-calculator",
   },
   robots: { index: true, follow: true },
 };
@@ -29,7 +29,7 @@ const jsonLd = [
     name: "Concrete Bag Calculator (US)",
     description:
       "Calculate how many 40, 60, or 80 lb bags of concrete you need for any rectangular slab, driveway, or footing in cubic yards.",
-    url: "https://worthulator.com/construction-calculators/concrete/concrete-bag-calculator",
+    url: "https://www.worthulator.com/construction-calculators/concrete/concrete-bag-calculator",
   },
   {
     "@context": "https://schema.org",

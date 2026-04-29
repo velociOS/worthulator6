@@ -3,14 +3,6 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   async redirects() {
     return [
-      // ── www → non-www (301) ───────────────────────────────────────────────
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.worthulator.com" }],
-        destination: "https://worthulator.com/:path*",
-        permanent: true,
-      },
-
       // ── Old slug aliases (301) ────────────────────────────────────────────
       // Salary breakdown — old slug without "-calculator" suffix
       {
@@ -41,4 +33,5 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
 

@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "About | Worthulator",
   description:
     "Worthulator is a platform of fast, practical financial calculators. No accounts, no paywalls — just clear answers to money questions that affect everyone.",
-  alternates: { canonical: "https://worthulator.com/about" },
+  alternates: { canonical: "https://www.worthulator.com/about" },
   robots: { index: true, follow: true },
 };
 

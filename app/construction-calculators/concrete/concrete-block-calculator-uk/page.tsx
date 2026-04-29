@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import ConcreteBlockCalculatorLoader from "../concrete-block-calculator/ConcreteBlockCalculatorLoader";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical:
-      "https://worthulator.com/construction-calculators/concrete/concrete-block-calculator-uk",
+      "https://www.worthulator.com/construction-calculators/concrete/concrete-block-calculator-uk",
   },
   robots: { index: true, follow: true },
 };
@@ -30,7 +30,7 @@ const jsonLd = [
     name: "Concrete Block Calculator UK",
     description:
       "Calculate how many 440 × 215 mm concrete blocks you need for any UK wall. Enter dimensions in metres to get block count and material cost estimate.",
-    url: "https://worthulator.com/construction-calculators/concrete/concrete-block-calculator-uk",
+    url: "https://www.worthulator.com/construction-calculators/concrete/concrete-block-calculator-uk",
   },
   {
     "@context": "https://schema.org",

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
 import HourlyToSalaryCalculator from "../hourly-to-salary-calculator/HourlyToSalaryCalculatorLoader";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "contractor day rate to salary UK",
     "hourly pay annual equivalent UK",
   ],
-  alternates: { canonical: "https://worthulator.com/tools/hourly-to-salary-calculator-uk" },
+  alternates: { canonical: "https://www.worthulator.com/tools/hourly-to-salary-calculator-uk" },
   robots: { index: true, follow: true },
 };
 
@@ -27,7 +27,7 @@ const jsonLd = [
     name: "Hourly to Salary Calculator UK",
     description:
       "Convert your hourly rate to an annual salary in pounds. See your monthly, weekly, and daily income. UK version.",
-    url: "https://worthulator.com/tools/hourly-to-salary-calculator-uk",
+    url: "https://www.worthulator.com/tools/hourly-to-salary-calculator-uk",
   },
   {
     "@context": "https://schema.org",

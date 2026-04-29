@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
 import HourlyToSalaryCalculator from "./HourlyToSalaryCalculatorLoader";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "annual salary calculator",
     "hourly to yearly salary",
   ],
-  alternates: { canonical: "https://worthulator.com/tools/hourly-to-salary-calculator" },
+  alternates: { canonical: "https://www.worthulator.com/tools/hourly-to-salary-calculator" },
   robots: { index: true, follow: true },
 };
 
@@ -27,7 +27,7 @@ const jsonLd = [
     name: "Hourly to Salary Calculator",
     description:
       "Convert your hourly wage to an annual salary instantly. See your monthly and weekly income based on your hours and weeks worked.",
-    url: "https://worthulator.com/tools/hourly-to-salary-calculator",
+    url: "https://www.worthulator.com/tools/hourly-to-salary-calculator",
   },
   {
     "@context": "https://schema.org",

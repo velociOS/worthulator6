@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import ConcreteCalculatorLoader from "./ConcreteCalculatorLoader";
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "concrete cost per cubic yard",
   ],
   alternates: {
-    canonical: "https://worthulator.com/construction-calculators/concrete-calculator",
+    canonical: "https://www.worthulator.com/construction-calculators/concrete-calculator",
   },
   robots: { index: true, follow: true },
 };
@@ -31,7 +31,7 @@ const jsonLd = [
     name: "Concrete Calculator (US)",
     description:
       "Calculate how much concrete you need in cubic yards. Enter length, width, and thickness for slabs, driveways, or footings.",
-    url: "https://worthulator.com/construction-calculators/concrete-calculator",
+    url: "https://www.worthulator.com/construction-calculators/concrete-calculator",
   },
   {
     "@context": "https://schema.org",

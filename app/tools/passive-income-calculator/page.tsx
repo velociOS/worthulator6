@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import PassiveIncomeCalculatorLoader from "./PassiveIncomeCalculatorLoader";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "dividend income calculator",
     "portfolio withdrawal calculator",
   ],
-  alternates: { canonical: "https://worthulator.com/tools/passive-income-calculator" },
+  alternates: { canonical: "https://www.worthulator.com/tools/passive-income-calculator" },
   robots: { index: true, follow: true },
 };
 
@@ -29,7 +29,7 @@ const jsonLd = [
     name: "Passive Income Calculator",
     description:
       "Calculate how much passive income your investments can generate based on compound growth, withdrawal rate, and inflation.",
-    url: "https://worthulator.com/tools/passive-income-calculator",
+    url: "https://www.worthulator.com/tools/passive-income-calculator",
   },
   {
     "@context": "https://schema.org",

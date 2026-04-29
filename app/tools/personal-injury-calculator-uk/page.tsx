@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import StepFlow from "@/components/pi-uk/StepFlowLoader";
 import RegionToggle from "@/components/pi/RegionToggle";
 import WrongRegionBanner from "@/components/pi/WrongRegionBanner";
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Judicial College Guidelines calculator",
   ],
   alternates: {
-    canonical: "https://worthulator.com/tools/personal-injury-calculator-uk",
+    canonical: "https://www.worthulator.com/tools/personal-injury-calculator-uk",
   },
   robots: { index: true, follow: true },
 };
@@ -27,7 +27,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   name: "Personal Injury Compensation Calculator UK",
-  url: "https://worthulator.com/tools/personal-injury-calculator-uk",
+  url: "https://www.worthulator.com/tools/personal-injury-calculator-uk",
   description:
     "Estimate personal injury compensation ranges in the UK based on injury type, financial losses, and jurisdiction. For informational and educational purposes only.",
 };

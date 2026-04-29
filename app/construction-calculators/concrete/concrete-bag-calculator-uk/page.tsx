@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import ConcreteBagCalculatorUKLoader from "./ConcreteBagCalculatorUKLoader";
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical:
-      "https://worthulator.com/construction-calculators/concrete/concrete-bag-calculator-uk",
+      "https://www.worthulator.com/construction-calculators/concrete/concrete-bag-calculator-uk",
   },
   robots: { index: true, follow: true },
 };
@@ -29,7 +29,7 @@ const jsonLd = [
     name: "Concrete Bag Calculator (UK)",
     description:
       "Calculate how many 20 kg or 25 kg bags of concrete you need for any rectangular slab, driveway, or shed base in cubic metres.",
-    url: "https://worthulator.com/construction-calculators/concrete/concrete-bag-calculator-uk",
+    url: "https://www.worthulator.com/construction-calculators/concrete/concrete-bag-calculator-uk",
   },
   {
     "@context": "https://schema.org",

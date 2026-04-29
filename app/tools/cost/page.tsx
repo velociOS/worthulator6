@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { tools } from "@/src/config/tools";
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     "solar panel cost calculator",
     "cost of living calculator",
   ],
-  alternates: { canonical: "https://worthulator.com/tools/cost" },
+  alternates: { canonical: "https://www.worthulator.com/tools/cost" },
   robots: { index: true, follow: true },
 };
 

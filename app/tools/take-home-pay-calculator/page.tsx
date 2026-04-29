@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     "us take home pay calculator",
     "federal tax calculator",
   ],
-  alternates: { canonical: "https://worthulator.com/tools/take-home-pay-calculator" },
+  alternates: { canonical: "https://www.worthulator.com/tools/take-home-pay-calculator" },
   robots: { index: true, follow: true },
 };
 
@@ -28,7 +28,7 @@ export default function TakeHomePayPage() {
       "@type": "WebPage",
       name: "Take Home Pay Calculator",
       description: "Calculate your take home pay after federal tax, state tax, Social Security, and Medicare.",
-      url: "https://worthulator.com/tools/take-home-pay-calculator",
+      url: "https://www.worthulator.com/tools/take-home-pay-calculator",
     },
     {
       "@context": "https://schema.org",

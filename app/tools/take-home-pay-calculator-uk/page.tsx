@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
 import TakeHomePayCalculator from "../take-home-pay-calculator/TakeHomePayCalculatorLoader";
 import LocaleSetter from "@/components/LocaleSetter";
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "net salary calculator uk",
     "uk take home pay 2026",
   ],
-  alternates: { canonical: "https://worthulator.com/tools/take-home-pay-calculator-uk" },
+  alternates: { canonical: "https://www.worthulator.com/tools/take-home-pay-calculator-uk" },
   robots: { index: true, follow: true },
 };
 
@@ -32,7 +32,7 @@ export default function TakeHomePayUKPage() {
       name: "Take Home Pay Calculator UK",
       description:
         "Calculate your UK take-home pay after PAYE income tax and National Insurance contributions.",
-      url: "https://worthulator.com/tools/take-home-pay-calculator-uk",
+      url: "https://www.worthulator.com/tools/take-home-pay-calculator-uk",
     },
     {
       "@context": "https://schema.org",

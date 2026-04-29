@@ -1,4 +1,4 @@
-/**
+﻿/**
  * SimpleCalculatorTemplate
  *
  * COPY THIS FILE to start a new simple (single-screen) calculator.
@@ -23,7 +23,7 @@ const JSON_LD = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   name: "My Calculator",
-  url: "https://worthulator.com/tools/my-calculator",
+  url: "https://www.worthulator.com/tools/my-calculator",
 };
 
 // ─── Hero preview card (dark, right column, desktop only) ────────────────────

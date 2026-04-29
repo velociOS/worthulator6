@@ -1,11 +1,11 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Disclaimer | Worthulator",
   description:
     "Worthulator provides estimates, not financial advice. Results are for informational purposes only. Always verify with a qualified professional.",
-  alternates: { canonical: "https://worthulator.com/disclaimer" },
+  alternates: { canonical: "https://www.worthulator.com/disclaimer" },
   robots: { index: true, follow: true },
 };
 
