@@ -16,16 +16,16 @@ const fadeUp = {
 
 const featuredTools = [
   {
-    emoji: "📅",
-    title: "Meeting Cost Calculator",
-    desc: "Find out how much your meetings are really costing.",
-    href: "/tools/meeting-cost-calculator",
-    tag: "Productivity",
+    emoji: "⏱️",
+    title: "Overtime Pay Calculator",
+    desc: "See exactly what your overtime hours are worth after multipliers.",
+    href: "/tools/overtime-pay-calculator",
+    tag: "Income",
     tagColor: "bg-rose-50 text-rose-600",
     preview: {
-      inputs: ["5 people", "$60k salary", "60 mins"],
-      result: "$1,200",
-      resultSub: "≈ $20 per minute",
+      inputs: ["$25/hr base", "8 hrs overtime", "1.5× rate"],
+      result: "$300",
+      resultSub: "Overtime earnings",
     },
   },
   {

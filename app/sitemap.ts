@@ -32,8 +32,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     }));
 
-  // UK counterparts for tools that have an href-based US page
+  // UK counterparts — not in tools.ts (reachable via region toggle only)
   const ukToolPages: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/tools/hourly-to-salary-calculator-uk`,                                  lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${BASE_URL}/tools/overtime-pay-calculator-uk`,                                      lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${BASE_URL}/tools/take-home-pay-calculator-uk`,                                     lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
+    { url: `${BASE_URL}/tools/personal-injury-calculator-uk`,                                   lastModified: now, changeFrequency: "monthly" as const, priority: 0.7 },
     { url: `${BASE_URL}/construction-calculators/concrete-calculator-uk`,                       lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${BASE_URL}/construction-calculators/concrete/concrete-bag-calculator-uk`,          lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
     { url: `${BASE_URL}/construction-calculators/concrete/concrete-block-calculator-uk`,        lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 },
