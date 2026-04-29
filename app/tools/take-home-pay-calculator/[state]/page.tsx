@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `Take Home Pay Calculator ${name} | Worthulator`,
     description: `Estimate your take-home pay in ${name}, including federal${rate > 0 ? ` and state taxes (${rate}%)` : " taxes"}, Social Security, and Medicare. See your net income instantly.`,
-    alternates: { canonical: `https://worthulator.com/tools/take-home-pay-calculator/${state}` },
+    alternates: { canonical: `https://www.worthulator.com/tools/take-home-pay-calculator/${state}` },
     robots: { index: true, follow: true },
   };
 }
@@ -268,7 +268,7 @@ export default async function StateCalculatorPage({ params }: Props) {
       "@type": "WebPage",
       name: `Take Home Pay Calculator ${name}`,
       description: `Estimate your take-home pay in ${name}, including federal${rate > 0 ? ` and state taxes (${rate}%)` : " taxes"}, Social Security, and Medicare.`,
-      url: `https://worthulator.com/tools/take-home-pay-calculator/${state}`,
+      url: `https://www.worthulator.com/tools/take-home-pay-calculator/${state}`,
     },
     {
       "@context": "https://schema.org",
