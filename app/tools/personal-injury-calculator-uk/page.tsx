@@ -5,7 +5,7 @@ import WrongRegionBanner from "@/components/pi/WrongRegionBanner";
 import { getUKDisclaimer } from "@/lib/pi-uk/disclaimer";
 
 export const metadata: Metadata = {
-  title: "Personal Injury Compensation Calculator UK (2026 Estimate)",
+  title: "Personal Injury Compensation Calculator UK | Worthulator",
   description:
     "Estimate your personal injury compensation in the UK using our advanced calculator. Based on typical UK case data and your financial losses. For informational purposes only.",
   keywords: [

@@ -4,7 +4,7 @@ import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShel
 import ConcreteBagCalculatorLoader from "./ConcreteBagCalculatorLoader";
 
 export const metadata: Metadata = {
-  title: "Concrete Bag Calculator – How Many Bags Do You Need? | Worthulator",
+  title: "Concrete Bag Calculator | Worthulator",
   description:
     "Find out exactly how many 40 lb, 60 lb, or 80 lb bags of concrete you need for any slab, driveway, or footing. Instant results in cubic yards — free US concrete bag calculator.",
   keywords: [

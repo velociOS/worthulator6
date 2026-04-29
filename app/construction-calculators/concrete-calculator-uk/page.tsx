@@ -419,7 +419,7 @@ export default function ConcreteCalculatorUKPage() {
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { label: "Concrete Slab Calculator (UK)",   href: "/construction-calculators/concrete-slab-calculator-uk", note: "Slab volume and cost in m³" },
-              { label: "Concrete Bag Calculator (UK)",    href: "/construction-calculators/concrete-bag-calculator-uk",  note: "25 kg bag count for any pour" },
+              { label: "Concrete Bag Calculator (UK)",    href: "/construction-calculators/concrete/concrete-bag-calculator-uk",  note: "25 kg bag count for any pour" },
               { label: "Concrete Calculator (US)",        href: "/construction-calculators/concrete-calculator",         note: "Switch to imperial / cubic yards" },
               { label: "All Construction Calculators",    href: "/construction-calculators",                             note: "Browse the full set" },
             ].map(({ label, href, note }) => (
