@@ -148,7 +148,7 @@ export default function TakeHomePayPage() {
               </div>
             ))}
           </div>
-          <TakeHomePayCalculator />
+          <TakeHomePayCalculator initialCountry="US" />
           <p className="mt-4 text-xs leading-5 text-gray-400">
             This estimate is based on general federal and state tax rules and does not account for all deductions, credits, or personal circumstances. It is not financial or tax advice.
           </p>

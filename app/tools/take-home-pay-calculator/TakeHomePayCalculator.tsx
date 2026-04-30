@@ -6,6 +6,8 @@ import { useState, useEffect, useRef, Fragment } from "react";
 import { Slider } from "@/components/ui/slider";
 import { formatCurrency, getLocale, setLocale } from "@/src/lib/locale";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
+import EarningsChart from "@/components/enhancements/charts/EarningsChart";
+import InsightPanel from "@/components/enhancements/insights/InsightPanel";
 
 import { useRouter, useParams } from "next/navigation";
 import { stateTaxRates, stateNames, type StateCode } from "@/src/lib/stateTax";
@@ -122,10 +124,11 @@ type Country = "US" | "UK";
 
 interface TakeHomePayCalculatorProps {
   initialState?: StateCode;
+  initialCountry?: Country;
 }
 
-export default function TakeHomePayCalculator({ initialState }: TakeHomePayCalculatorProps = {}) {
-  const [country,       setCountry]       = useState<Country>("US");
+export default function TakeHomePayCalculator({ initialState, initialCountry }: TakeHomePayCalculatorProps = {}) {
+  const [country,       setCountry]       = useState<Country>(initialCountry ?? "US");
   const [salary,        setSalary]        = useState<number>(50000);
   const [salaryInput,   setSalaryInput]   = useState<string>("50000");
   const [filingStatus,  setFilingStatus]  = useState<string>("single");
@@ -149,13 +152,12 @@ export default function TakeHomePayCalculator({ initialState }: TakeHomePayCalcu
     return () => window.removeEventListener("worthulator:locale", handler);
   }, []);
 
-  // Load persisted inputs on first mount
+  // Load persisted inputs on first mount (salary and filing status only — country is set by the page URL)
   useEffect(() => {
     try {
       const saved = localStorage.getItem("thpc_inputs");
       if (saved) {
         const data = JSON.parse(saved);
-        if (data.country)        setCountry(data.country);
         if (data.salary != null) { setSalary(data.salary); setSalaryInput(String(data.salary)); }
         if (data.filingStatus)   setFilingStatus(data.filingStatus);
       }
@@ -171,9 +173,9 @@ export default function TakeHomePayCalculator({ initialState }: TakeHomePayCalcu
       return;
     }
     try {
-      localStorage.setItem("thpc_inputs", JSON.stringify({ country, salary, filingStatus }));
+      localStorage.setItem("thpc_inputs", JSON.stringify({ salary, filingStatus }));
     } catch { /* ignore */ }
-  }, [country, salary, filingStatus]);
+  }, [salary, filingStatus]);
 
   // Sync URL state param → calculator state (handles direct visits and refreshes)
   useEffect(() => {
@@ -206,6 +208,13 @@ export default function TakeHomePayCalculator({ initialState }: TakeHomePayCalcu
   const hourly           = net / 52 / 40;
   const effectiveTaxRate = salary > 0 ? ((salary - net) / salary * 100).toFixed(1) : "0.0";
   const salaryPercentile = getSalaryPercentile(salary, country);
+
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const cumulativeEarnings = MONTHS.map((label, i) => ({
+    label,
+    value: Math.round((net / 12) * (i + 1)),
+    projected: Math.round((salary / 12) * (i + 1)),
+  }));
 
   useEffect(() => {
     setFlash(true);
@@ -669,6 +678,29 @@ export default function TakeHomePayCalculator({ initialState }: TakeHomePayCalcu
           </p>
         </div>
 
+        {/* ── ENHANCEMENT: INSIGHTS ──────────────────────────────────── */}
+        {salary > 0 && (
+          <>
+            {/* Insight panel */}
+            <InsightPanel
+              data={{ grossAnnual: salary, netAnnual: net, hourlyRate: hourly }}
+              showRecommendations={false}
+              title="Pay insights"
+            />
+
+            {/* Cumulative gross vs net chart — desktop only */}
+            <div className="hidden sm:block">
+              <EarningsChart
+                title="Cumulative take-home vs gross this year"
+                data={cumulativeEarnings}
+                valueLabel="Take-home"
+                projectedLabel="Gross"
+                height={220}
+              />
+            </div>
+          </>
+        )}
+
         {/* WHAT IF */}
         <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
           <p className="text-sm font-semibold text-gray-700">What if your salary changed?</p>
@@ -714,6 +746,36 @@ export default function TakeHomePayCalculator({ initialState }: TakeHomePayCalcu
             )}
           </div>
         </div>
+
+        {/* ── SOFT CTA ──────────────────────────────────────────────────── */}
+        {salary > 0 && (
+          <div className="rounded-2xl border border-emerald-100 bg-emerald-50 px-6 py-5">
+            <p className="text-sm font-semibold text-emerald-900">Want to improve your take-home pay?</p>
+            <p className="mt-1 text-xs leading-5 text-emerald-700">
+              Tax rates are fixed — but your income isn&apos;t. A higher salary or better rate negotiation can make a bigger difference than any deduction.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-3">
+              <a
+                href="/tools/hourly-to-salary-calculator"
+                className="rounded-xl border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold text-emerald-700 transition-all hover:-translate-y-px hover:shadow-sm"
+              >
+                Hourly → Salary calculator
+              </a>
+              <a
+                href="/tools/overtime-pay-calculator"
+                className="rounded-xl border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold text-emerald-700 transition-all hover:-translate-y-px hover:shadow-sm"
+              >
+                Overtime pay calculator
+              </a>
+              <a
+                href="/tools/passive-income-calculator"
+                className="rounded-xl border border-emerald-200 bg-white px-4 py-2 text-xs font-semibold text-emerald-700 transition-all hover:-translate-y-px hover:shadow-sm"
+              >
+                Passive income calculator
+              </a>
+            </div>
+          </div>
+        )}
 
       </div>
     </div>

@@ -22,6 +22,9 @@ function LocaleSwitch() {
 
   useEffect(() => {
     setLocaleState(getLocale())
+    const handler = () => setLocaleState(getLocale())
+    window.addEventListener("worthulator:locale", handler)
+    return () => window.removeEventListener("worthulator:locale", handler)
   }, [])
 
   function toggle(next: Locale) {

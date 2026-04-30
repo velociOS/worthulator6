@@ -197,7 +197,7 @@ export default function TakeHomePayUKPage() {
                 </div>
               ))}
             </div>
-            <TakeHomePayCalculator />
+            <TakeHomePayCalculator initialCountry="UK" />
           </div>
         </section>
 

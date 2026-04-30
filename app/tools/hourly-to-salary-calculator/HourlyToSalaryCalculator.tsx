@@ -5,6 +5,10 @@ import { SHOW_INCOME_CTA } from "@/src/lib/featureFlags";
 import { useState, useEffect, useRef } from "react";
 import { Slider } from "@/components/ui/slider";
 import { formatCurrency, getLocale, type Locale } from "@/src/lib/locale";
+import DataBreakdown from "@/components/enhancements/insights/DataBreakdown";
+import EarningsChart from "@/components/enhancements/charts/EarningsChart";
+import InsightPanel from "@/components/enhancements/insights/InsightPanel";
+import ComparisonChart from "@/components/enhancements/charts/ComparisonChart";
 
 // -- Component ----------------------------------------------------
 
@@ -82,6 +86,14 @@ export default function HourlyToSalaryCalculator() {
 
   const quickRates = [15, 20, 25, 35, 50, 75, 100];
   const sym = locale === "US" ? "$" : "£";
+
+  const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const projMonthly = (hourlyRate * 1.1) * hoursPerWeek * weeksPerYear / 12;
+  const cumulativeChart = MONTHS.map((label, i) => ({
+    label,
+    value: Math.round(monthly * (i + 1)),
+    projected: Math.round(projMonthly * (i + 1)),
+  }));
 
   return (
     <div className="grid gap-8 lg:grid-cols-[2fr_3fr] lg:gap-10">
@@ -410,6 +422,64 @@ export default function HourlyToSalaryCalculator() {
             to see your after-tax income.
           </p>
         </div>
+
+        {/* ── ENHANCEMENT: EARNINGS ANALYSIS ───────────────────────── */}
+        {hourlyRate > 0 && (
+          <div className="space-y-5 border-t border-gray-100 pt-5">
+
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+              Earnings Analysis
+            </p>
+
+            {/* Income breakdown table */}
+            <DataBreakdown
+              title="Income breakdown"
+              currency
+              rows={[
+                { label: "Hourly",   value: hourlyRate,  sub: `${hoursPerWeek} hrs/wk` },
+                { label: "Daily",    value: Math.round(daily),    sub: `${(hoursPerWeek / 5).toFixed(1)} hrs/day` },
+                { label: "Weekly",   value: Math.round(weekly) },
+                { label: "Monthly",  value: Math.round(monthly) },
+                { label: "Annual",   value: annual, highlight: true, sub: "gross · before tax" },
+              ]}
+            />
+
+            {/* Cumulative earnings chart — desktop only */}
+            <div className="hidden sm:block">
+              <EarningsChart
+                title="Cumulative earnings this year (current vs +10% raise)"
+                data={cumulativeChart}
+                valueLabel="Current rate"
+                projectedLabel="+10% raise"
+                height={220}
+              />
+            </div>
+
+            {/* Insight panel */}
+            <InsightPanel
+              data={{ hourlyRate, grossAnnual: annual }}
+              showRecommendations={false}
+              title="Rate insights"
+            />
+
+            {/* What-if scenario chart — desktop only */}
+            <div className="hidden sm:block">
+              <p className="mb-3 text-sm font-semibold text-gray-700">What if your rate changed?</p>
+              <ComparisonChart
+                title="Annual salary at different hourly rates"
+                data={[
+                  { label: `${sym}${hourlyRate}/hr (current)`,  annual },
+                  { label: `${sym}${hourlyRate + 5}/hr`,         annual: (hourlyRate + 5)  * hoursPerWeek * weeksPerYear },
+                  { label: `${sym}${hourlyRate + 10}/hr`,        annual: (hourlyRate + 10) * hoursPerWeek * weeksPerYear },
+                  { label: "+10% raise",                         annual: Math.round(hourlyRate * 1.1) * hoursPerWeek * weeksPerYear },
+                ]}
+                series={[{ key: "annual", name: "Annual salary", color: "#10b981" }]}
+                height={220}
+              />
+            </div>
+
+          </div>
+        )}
 
       </div>
     </div>
