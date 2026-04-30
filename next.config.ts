@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
       {
         source: "/tools/salary-breakdown",
         destination: "/tools/salary-breakdown-calculator",
-        permanent: true,
+        statusCode: 301,
       },
 
       // ── Construction tools accessed via /tools/:slug (301) ────────────────
@@ -16,34 +16,35 @@ const nextConfig: NextConfig = {
       {
         source: "/tools/concrete-calculator",
         destination: "/construction-calculators/concrete-calculator",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/tools/concrete-bag-calculator",
         destination: "/construction-calculators/concrete/concrete-bag-calculator",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/tools/concrete-block-calculator",
         destination: "/construction-calculators/concrete/concrete-block-calculator",
-        permanent: true,
+        statusCode: 301,
       },
 
       // ── Old /construction-calculators/ URLs moved to /tools/ (301) ────────
       {
         source: "/construction-calculators/concrete-slab-calculator",
         destination: "/tools/concrete-slab-calculator",
-        permanent: true,
+        statusCode: 301,
       },
       {
         source: "/construction-calculators/concrete-slab-calculator-uk",
         destination: "/tools/concrete-slab-calculator-uk",
-        permanent: true,
+        statusCode: 301,
       },
     ];
   },
 };
 
 export default nextConfig;
+
 
 
