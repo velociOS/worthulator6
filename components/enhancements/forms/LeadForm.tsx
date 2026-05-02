@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 
@@ -7,7 +8,10 @@ export interface LeadFormValues {
   name: string;
   email: string;
   message?: string;
+  /** Required — user must accept Terms, Privacy Policy, and estimates-only notice */
   consent: boolean;
+  /** Optional — user opts in to be contacted by relevant service providers */
+  marketingConsent?: boolean;
 }
 
 interface LeadFormProps {
@@ -40,7 +44,9 @@ export default function LeadForm({
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LeadFormValues>({ defaultValues: { consent: false } });
+  } = useForm<LeadFormValues>({
+    defaultValues: { consent: false, marketingConsent: false },
+  });
 
   if (success) {
     return (
@@ -146,35 +152,65 @@ export default function LeadForm({
           </div>
         )}
 
-        {/* Consent */}
+        {/* Required consent — Terms + Privacy + estimates acknowledgement */}
+        <div>
+          <div className="flex items-start gap-3">
+            <input
+              id="lf-consent"
+              type="checkbox"
+              className="mt-0.5 h-4 w-4 rounded border-gray-300 accent-emerald-600"
+              {...register("consent", {
+                required: "You must agree to the terms to continue",
+              })}
+            />
+            <label
+              htmlFor="lf-consent"
+              className="text-xs leading-relaxed text-gray-500"
+            >
+              I agree to the{" "}
+              <Link
+                href="/terms"
+                className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Terms &amp; Conditions
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/privacy"
+                className="font-semibold text-emerald-600 underline underline-offset-2 hover:text-emerald-700"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Privacy Policy
+              </Link>
+              , and I understand that all results are estimates only and do not
+              constitute professional advice.{" "}
+              <span className="text-red-500">*</span>
+            </label>
+          </div>
+          {errors.consent && (
+            <p className="mt-1 text-xs text-red-500">{errors.consent.message}</p>
+          )}
+        </div>
+
+        {/* Optional marketing consent — must NOT be pre-checked */}
         <div className="flex items-start gap-3">
           <input
-            id="lf-consent"
+            id="lf-marketing"
             type="checkbox"
             className="mt-0.5 h-4 w-4 rounded border-gray-300 accent-emerald-600"
-            {...register("consent", {
-              required: "You must agree to continue",
-            })}
+            {...register("marketingConsent")}
           />
           <label
-            htmlFor="lf-consent"
+            htmlFor="lf-marketing"
             className="text-xs leading-relaxed text-gray-500"
           >
-            I agree to be contacted about this enquiry. View our{" "}
-            <a
-              href="/privacy"
-              className="text-emerald-600 underline hover:text-emerald-700"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              privacy policy
-            </a>
-            .
+            I agree to be contacted by relevant service providers who may be
+            able to help with my enquiry. (Optional)
           </label>
         </div>
-        {errors.consent && (
-          <p className="-mt-2 text-xs text-red-500">{errors.consent.message}</p>
-        )}
 
         <button
           type="submit"

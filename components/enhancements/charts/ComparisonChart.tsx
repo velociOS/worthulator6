@@ -89,6 +89,7 @@ export default function ComparisonChart({
             </>
           )}
           <Tooltip
+            cursor={{ fill: 'rgba(255,255,255,0.05)' }}
             contentStyle={{
               backgroundColor: "#1e293b",
               border: "1px solid rgba(255,255,255,0.1)",
@@ -111,6 +112,13 @@ export default function ComparisonChart({
               name={s.name}
               fill={s.color}
               radius={[4, 4, 0, 0]}
+              activeBar={(props: Record<string, unknown>) => {
+                const x = Number(props.x ?? 0) - 1;
+                const y = Number(props.y ?? 0) - 1;
+                const width = Number(props.width ?? 0) + 2;
+                const height = Number(props.height ?? 0) + 2;
+                return <rect x={x} y={y} width={width} height={height} fill={s.color} rx={5} ry={5} />;
+              }}
             />
           ))}
         </BarChart>

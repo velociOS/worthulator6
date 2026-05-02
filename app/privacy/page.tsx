@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           <p className="mt-3 text-sm text-gray-400">Last updated: {lastUpdated}</p>
           <p className="mt-5 text-base leading-relaxed text-gray-500">
             We&apos;ve written this to be readable, not impenetrable. If something isn&apos;t clear,{" "}
-            <a href="mailto:privacy@worthulator.com" className="font-semibold text-gray-700 underline underline-offset-2 hover:text-emerald-700">
+            <a href="mailto:hello@worthulator.com" className="font-semibold text-gray-700 underline underline-offset-2 hover:text-emerald-700">
               email us
             </a>
             .
@@ -61,6 +61,10 @@ export default function PrivacyPage() {
                   body: "Numbers you enter into our calculators (salary, hours, rates, etc.) are processed client-side in your browser. They are not sent to our servers or stored by us.",
                 },
                 {
+                  title: "Lead-generation forms",
+                  body: "Where you choose to submit a lead form, we collect your name, email address, location (where provided), and the inputs or query you supply. This data is used to generate your estimate, improve our tools, and — where you have explicitly consented — connect you with relevant service providers.",
+                },
+                {
                   title: "Usage analytics",
                   body: "We use privacy-first analytics to understand how pages are used — which tools get used, how often, and from where. This data is aggregated and anonymous. No individual user is tracked.",
                 },
@@ -87,7 +91,46 @@ export default function PrivacyPage() {
 
           {/* 3 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">03 — Third-party services</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">03 — Why we use your data</p>
+            <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Purposes &amp; legal basis</h2>
+            <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
+              <p>We process personal data for the following purposes:</p>
+              <ul className="ml-5 list-disc space-y-2 text-sm">
+                <li><span className="font-semibold text-gray-700">Generating estimates</span> — to process your inputs and return a result. Legal basis: <em>performance of a service / legitimate interest</em>.</li>
+                <li><span className="font-semibold text-gray-700">Improving our tools</span> — aggregated, anonymised usage data helps us understand which calculators are most useful and where accuracy can be improved. Legal basis: <em>legitimate interest</em>.</li>
+                <li><span className="font-semibold text-gray-700">Lead generation / connecting with providers</span> — where you have submitted a lead form and ticked the optional marketing consent box, we may share your information with selected service providers who may be able to assist you. Legal basis: <em>consent</em> (freely given, specific, and withdrawable at any time).</li>
+                <li><span className="font-semibold text-gray-700">Responding to enquiries</span> — to reply to messages or support requests. Legal basis: <em>legitimate interest</em>.</li>
+              </ul>
+              <p>
+                You can withdraw consent for marketing contact at any time by emailing{" "}
+                <a href="mailto:hello@worthulator.com" className="font-semibold text-gray-700 underline underline-offset-2 hover:text-emerald-700">
+                  hello@worthulator.com
+                </a>
+                .
+              </p>
+            </div>
+          </div>
+
+          {/* 4 */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">04 — Data sharing with partners</p>
+            <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Who we share your data with</h2>
+            <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
+              <p>
+                We may share your information with selected partners for service fulfilment
+                — for example, to connect you with a relevant professional or provider — but
+                only where you have explicitly opted in at the point of submission.
+              </p>
+              <p>
+                We do not sell your personal data to third parties. We do not share your data
+                with advertising networks or data brokers.
+              </p>
+            </div>
+          </div>
+
+          {/* 5 */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">05 — Third-party services</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">External tools we use</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -105,9 +148,9 @@ export default function PrivacyPage() {
             </div>
           </div>
 
-          {/* 4 */}
+          {/* 6 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">04 — Your rights</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">06 — Your rights</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">What you can ask us to do</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -122,17 +165,17 @@ export default function PrivacyPage() {
               </ul>
               <p>
                 To exercise any of these, email{" "}
-                <a href="mailto:privacy@worthulator.com" className="font-semibold text-gray-700 underline underline-offset-2 hover:text-emerald-700">
-                  privacy@worthulator.com
+                <a href="mailto:hello@worthulator.com" className="font-semibold text-gray-700 underline underline-offset-2 hover:text-emerald-700">
+                  hello@worthulator.com
                 </a>
                 . We&apos;ll respond within 30 days.
               </p>
             </div>
           </div>
 
-          {/* 5 */}
+          {/* 7 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">05 — Data retention</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">07 — Data retention</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">How long we keep data</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -147,9 +190,9 @@ export default function PrivacyPage() {
             </div>
           </div>
 
-          {/* 6 */}
+          {/* 8 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">06 — Changes</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">08 — Changes</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Updates to this policy</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -159,8 +202,8 @@ export default function PrivacyPage() {
               </p>
               <p>
                 Questions?{" "}
-                <a href="mailto:privacy@worthulator.com" className="font-semibold text-gray-700 underline underline-offset-2 hover:text-emerald-700">
-                  privacy@worthulator.com
+                <a href="mailto:hello@worthulator.com" className="font-semibold text-gray-700 underline underline-offset-2 hover:text-emerald-700">
+                  hello@worthulator.com
                 </a>
               </p>
             </div>

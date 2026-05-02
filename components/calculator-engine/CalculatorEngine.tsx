@@ -4,6 +4,7 @@ import { CALCULATOR_CONFIGS } from "./calculatorConfigs";
 import { useCalculator } from "./useCalculator";
 import InputField from "./InputField";
 import OutputCard from "./OutputCard";
+import DisclaimerBlock from "@/components/compliance/DisclaimerBlock";
 
 export interface CalculatorEngineProps {
   /**
@@ -96,10 +97,7 @@ export default function CalculatorEngine({
           )}
 
           {/* Disclaimer */}
-          <p className="text-xs leading-relaxed text-gray-400">
-            This calculator provides estimates only and should be used for planning
-            purposes. Actual quantities and costs may vary.
-          </p>
+          <DisclaimerBlock />
         </div>
       </div>
     </div>

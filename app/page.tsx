@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Worthulator | Free Financial Calculators",
   description:
     "Free financial calculators for salary, investments, budgeting and more. Get instant answers to your money questions — no sign-up required.",
-  alternates: { canonical: "/" },
+  alternates: { canonical: "https://www.worthulator.com" },
   robots: { index: true, follow: true },
 };
 

@@ -13,6 +13,7 @@ import {
 } from "../../config/tools"
 import { getLocale, setLocale, type Locale } from "../../lib/locale"
 import { getRegionPair } from "../../../lib/regionRegistry"
+import SearchModal from "./SearchModal"
 
 // ─── Locale Switch ─────────────────────────────────────────────────────────
 function LocaleSwitch() {
@@ -315,53 +316,73 @@ function CategoriesMenu() {
 
 // ─── Header ───────────────────────────────────────────────────────────────
 export default function Header() {
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  // ⌘K / Ctrl+K global shortcut
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/96 text-white backdrop-blur">
-      <div className="mx-auto flex min-h-16 w-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
-        <Logo />
+    <>
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/96 text-white backdrop-blur">
+        <div className="mx-auto flex min-h-16 w-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+          <Logo />
 
-        {/* Primary nav */}
-        <nav className="hidden items-center gap-0.5 lg:flex">
-          <NavDropdown label="Tools">
-            <ToolsMegaMenu />
-          </NavDropdown>
+          {/* Primary nav */}
+          <nav className="hidden items-center gap-0.5 lg:flex">
+            <NavDropdown label="Tools">
+              <ToolsMegaMenu />
+            </NavDropdown>
 
-          <NavDropdown label="Categories">
-            <CategoriesMenu />
-          </NavDropdown>
+            <NavDropdown label="Categories">
+              <CategoriesMenu />
+            </NavDropdown>
 
-          <NavDropdown label="Popular">
-            <PopularMenu />
-          </NavDropdown>
+            <NavDropdown label="Popular">
+              <PopularMenu />
+            </NavDropdown>
 
-          <Link
-            href="/about"
-            className="rounded-md px-3 py-2 text-sm font-medium text-white/55 transition-colors hover:bg-white/8 hover:text-white"
-          >
-            About
-          </Link>
-        </nav>
+            <Link
+              href="/about"
+              className="rounded-md px-3 py-2 text-sm font-medium text-white/55 transition-colors hover:bg-white/8 hover:text-white"
+            >
+              About
+            </Link>
+          </nav>
 
-        {/* Right side */}
-        <div className="flex items-center gap-3">
-          <LocaleSwitch />
-          <button className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3.5 py-1.5 text-sm text-white/35 transition-colors hover:border-white/20 hover:text-white/60 md:flex">
-            <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M10.5 10.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-            </svg>
-            <span>Search tools…</span>
-            <kbd className="ml-1 rounded border border-white/10 px-1.5 py-0.5 text-[10px] text-white/20">⌘K</kbd>
-          </button>
+          {/* Right side */}
+          <div className="flex items-center gap-3">
+            <LocaleSwitch />
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/4 px-3.5 py-1.5 text-sm text-white/35 transition-colors hover:border-white/20 hover:text-white/60 md:flex"
+            >
+              <svg className="h-3.5 w-3.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <circle cx="7" cy="7" r="4.5" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M10.5 10.5L13 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+              <span>Search tools…</span>
+              <kbd className="ml-1 rounded border border-white/10 px-1.5 py-0.5 text-[10px] text-white/20">⌘K</kbd>
+            </button>
 
-          <Link
-            href="/tools"
-            className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90"
-          >
-            All Tools
-          </Link>
+            <Link
+              href="/tools"
+              className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+            >
+              All Tools
+            </Link>
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+    </>
   )
 }

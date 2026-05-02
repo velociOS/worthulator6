@@ -61,6 +61,7 @@ export default function EarningsChart({
             }
           />
           <Tooltip
+            cursor={{ stroke: 'rgba(255,255,255,0.12)', strokeWidth: 1 }}
             contentStyle={{
               backgroundColor: "#1e293b",
               border: "1px solid rgba(255,255,255,0.1)",

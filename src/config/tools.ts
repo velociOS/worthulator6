@@ -199,7 +199,10 @@ export const categories: Category[] = [
     emoji: "🏷️",
     tagline: "Find out what things really cost before you spend",
     popular: true,
-    subcategories: [],
+    subcategories: [
+      { name: "Home Improvement", slug: "home-improvement" },
+      { name: "General",          slug: "general"          },
+    ],
   },
   {
     name: "Decisions",
@@ -490,6 +493,11 @@ export const tools: Tool[] = [
   // 🧪 HEALTH & FITNESS
   // ══════════════════════════════════════════════════════════════════════════
 
+  {
+    name: "Dental Implant Cost Calculator", slug: "dental-implant-cost-calculator", tier: 1, category: "health", subcategory: "insurance", toolType: "estimator", status: "live", popular: true,
+    description: "Estimate your dental implant cost based on treatment type, quality, clinic, and location. Single tooth, full mouth, and All-on-4 options covered.",
+    keywords: ["dental implant cost", "how much do dental implants cost", "dental implant calculator", "all-on-4 cost", "full mouth implants cost"],
+  },
   { name: "Sleep Value Calculator",          slug: "sleep-value",                tier: 3, category: "health", subcategory: "sleep",    toolType: "calculator"                 },
   { name: "Gym Cost vs Usage Tool",          slug: "gym-cost-vs-usage",          tier: 3, category: "health", subcategory: "fitness",  toolType: "tool"                       },
   { name: "Health Insurance Cost Estimator", slug: "health-insurance-cost",      tier: 1, category: "health", subcategory: "insurance",toolType: "estimator"                  },
@@ -558,7 +566,7 @@ export const tools: Tool[] = [
   { name: "Dental Implant Cost",               slug: "dental-implants-cost",           tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/dental-implants",           description: "Estimate the cost of dental implants in the US, including single tooth, full arch, and All-on-4 options. See what affects the price and what to expect." },
   { name: "Invisalign Cost",                   slug: "invisalign-cost",                tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/invisalign",                description: "Estimate Invisalign treatment costs by case complexity, from minor corrections to comprehensive full treatment." },
   { name: "Veneers Cost",                      slug: "veneers-cost",                   tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/veneers",                   description: "Estimate the cost of porcelain or composite veneers based on how many teeth you want treated and the type of veneer." },
-  { name: "Roof Replacement Cost",             slug: "roof-replacement-cost",          tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/roof-replacement",          description: "Estimate the cost of replacing your roof based on size, material, and pitch. Covers asphalt shingles, metal, and tile." },
+  { name: "Roof Replacement Cost",             slug: "roof-replacement-cost",          tier: 2, category: "cost", subcategory: "home-improvement", toolType: "calculator", status: "live",    href: "/tools/cost-calculators/home-improvement/roof-replacement-cost", popular: true, description: "Estimate the cost of replacing your roof based on size, material, and pitch. Covers asphalt shingles, metal, and tile." },
   { name: "Air Conditioning Installation Cost", slug: "ac-installation-cost",          tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/ac-installation",           description: "Estimate the cost of installing central air conditioning or a mini-split system based on your home size and unit type." },
   { name: "Solar Panel Cost",                  slug: "solar-panel-cost",               tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/solar-panels",              description: "Estimate the upfront and net cost of a residential solar panel system based on system size, location, and available incentives." },
   { name: "Cost of Living Calculator",         slug: "cost-of-living-calc",            tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/cost-of-living",            description: "Estimate your total monthly cost of living based on housing, food, transport, and other essentials." },

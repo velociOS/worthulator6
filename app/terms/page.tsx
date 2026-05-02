@@ -158,7 +158,48 @@ export default function TermsPage() {
 
           {/* 8 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">08 — Changes</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">08 — Data sharing &amp; service providers</p>
+            <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Sharing with third parties</h2>
+            <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
+              <p>
+                Where you voluntarily submit information through a lead-generation form on the
+                Platform, we may share that information with relevant service providers who
+                may be able to assist with your enquiry. This will only occur where you have
+                given explicit consent to such sharing at the point of submission.
+              </p>
+              <p>
+                We do not sell your data. Any sharing is limited to the purpose for which you
+                submitted your information. See our{" "}
+                <a href="/privacy" className="font-semibold text-gray-700 underline underline-offset-2 hover:text-emerald-700">
+                  Privacy Policy
+                </a>{" "}
+                for full details of how your data is handled.
+              </p>
+            </div>
+          </div>
+
+          {/* 9 */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">09 — Your responsibility</p>
+            <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Verifying information independently</h2>
+            <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
+              <p>
+                Results produced by the Platform are estimates only. You are responsible for
+                verifying any information independently before acting on it. Worthulator
+                cannot and does not account for your specific personal, financial, or legal
+                circumstances.
+              </p>
+              <p>
+                Before making any significant decision based on results shown on the Platform,
+                always consult a qualified professional — such as a licensed financial adviser,
+                accountant, solicitor, or tax professional.
+              </p>
+            </div>
+          </div>
+
+          {/* 10 */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">10 — Changes</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Updates to these terms</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>

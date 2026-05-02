@@ -34,7 +34,7 @@ const categories = [
     emoji: "🔒",
     title: "Privacy & data",
     body: "Questions about how we handle your data, requests for deletion, or anything related to our privacy practices.",
-    email: "privacy@worthulator.com",
+    email: "hello@worthulator.com",
     cta: "Contact privacy team",
   },
 ];
