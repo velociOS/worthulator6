@@ -376,7 +376,7 @@ export default function DentalImplantCalculator() {
                   tickFormatter={(v) => `$${(v / 1000).toFixed(0)}k`}
                 />
                 <Tooltip
-                  formatter={(v: number) => [fmt(v), "Cost"]}
+                  formatter={(v) => [fmt(Number(v ?? 0)), "Cost"]}
                   contentStyle={{ borderRadius: 12, border: "1px solid #e2e8f0", fontSize: 12 }}
                 />
                 <Bar dataKey="value" radius={[6, 6, 0, 0]}>
@@ -407,7 +407,7 @@ export default function DentalImplantCalculator() {
                   ))}
                 </Pie>
                 <Tooltip
-                  formatter={(v: number) => [fmt(v), ""]}
+                  formatter={(v) => [fmt(Number(v ?? 0)), ""]}
                   contentStyle={{ borderRadius: 12, border: "1px solid #e2e8f0", fontSize: 12 }}
                 />
               </PieChart>
