@@ -44,27 +44,32 @@ export async function POST(req: NextRequest) {
       phone:          body.phone,
     });
 
-    const { error } = await getSupabaseAdmin().from("leads").insert({
+    // Build insert payload — omit keys that are null/undefined so missing
+    // optional columns don't cause a Supabase error
+    const insertPayload: Record<string, unknown> = {
       calculator_type:   body.calculator_type,
-      name:              body.name              ?? null,
-      email:             body.email             ?? null,
-      phone:             body.phone             ?? null,
-      location:          body.location          ?? null,
-      address_line:      body.address_line      ?? null,
-      timeline:          body.timeline          ?? null,
-      estimated_cost:    body.estimated_cost    ?? null,
       inputs:            body.inputs            ?? {},
       results:           body.results           ?? {},
       metadata:          body.metadata          ?? {},
       marketing_consent: body.marketing_consent ?? false,
       lead_score,
       status:            "new",
-    });
+    };
+
+    if (body.name          != null) insertPayload.name          = body.name;
+    if (body.email         != null) insertPayload.email         = body.email;
+    if (body.phone         != null) insertPayload.phone         = body.phone;
+    if (body.location      != null) insertPayload.location      = body.location;
+    if (body.address_line  != null) insertPayload.address_line  = body.address_line;
+    if (body.timeline      != null) insertPayload.timeline      = body.timeline;
+    if (body.estimated_cost != null) insertPayload.estimated_cost = body.estimated_cost;
+
+    const { error } = await getSupabaseAdmin().from("leads").insert(insertPayload);
 
     if (error) {
-      console.error("[/api/leads] Supabase insert error:", error.message);
+      console.error("[/api/leads] Supabase insert error:", JSON.stringify(error));
       return NextResponse.json(
-        { error: "Failed to save lead" },
+        { error: error.message ?? "Failed to save lead" },
         { status: 500 },
       );
     }

@@ -101,8 +101,3 @@ export async function saveLead(payload: LeadPayload): Promise<LeadResponse> {
     return { success: false, error: "Network error — please try again." };
   }
 }
-
-export interface LeadResponse {
-  success: boolean;
-  error?: string;
-}
