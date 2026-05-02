@@ -21,7 +21,7 @@ const liveTools = [
 const upcomingTools = [
   {
     name: "Concrete Slab Calculator",
-    href: "/construction-calculators/concrete-slab-calculator",
+    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
     description: "Calculate the volume and cost of concrete for any slab project.",
   },
   {

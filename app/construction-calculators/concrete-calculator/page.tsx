@@ -410,7 +410,7 @@ export default function ConcreteCalculatorPage() {
           <h2 className="text-xl font-bold text-gray-800">Related calculators</h2>
           <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { label: "Concrete Slab Calculator",     href: "/construction-calculators/concrete-slab-calculator",   note: "Calculate slab volume and cost" },
+              { label: "Concrete Slab Calculator",     href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",   note: "Calculate slab volume and cost" },
               { label: "Concrete Bag Calculator",      href: "/construction-calculators/concrete/concrete-bag-calculator",    note: "Bags needed for any pour" },
               { label: "Concrete Calculator (UK)",     href: "/construction-calculators/concrete-calculator-uk",     note: "Switch to metric / cubic metres" },
               { label: "All Construction Calculators", href: "/construction-calculators",                             note: "Browse the full set" },

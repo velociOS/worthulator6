@@ -29,16 +29,36 @@ const nextConfig: NextConfig = {
         statusCode: 301,
       },
 
-      // ── Old /construction-calculators/ URLs moved to /tools/ (301) ────────
+      // ── Concrete slab URLs → correct nested path (301) ───────────────────
       {
         source: "/construction-calculators/concrete-slab-calculator",
-        destination: "/tools/concrete-slab-calculator",
-        statusCode: 301,
+        destination: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+        permanent: true,
       },
       {
         source: "/construction-calculators/concrete-slab-calculator-uk",
-        destination: "/tools/concrete-slab-calculator-uk",
-        statusCode: 301,
+        destination: "/tools/cost-calculators/home-improvement/concrete-slab-calculator-uk",
+        permanent: true,
+      },
+      {
+        source: "/tools/concrete-slab-calculator",
+        destination: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+        permanent: true,
+      },
+      {
+        source: "/tools/concrete-slab-calculator-uk",
+        destination: "/tools/cost-calculators/home-improvement/concrete-slab-calculator-uk",
+        permanent: true,
+      },
+      {
+        source: "/construction-calculators/concrete",
+        destination: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+        permanent: true,
+      },
+      {
+        source: "/tools/cost",
+        destination: "/tools/cost-calculators",
+        permanent: true,
       },
     ];
   },
