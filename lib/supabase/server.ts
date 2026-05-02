@@ -1,18 +1,21 @@
 import { createClient } from "@supabase/supabase-js";
 
 /**
- * Admin client — server-side ONLY.
- * Never import this in client components or expose to the browser.
- * Initialised lazily so missing env vars don't break the build.
+ * Server-side Supabase client.
+ * Uses service role key if available, falls back to publishable/anon key.
+ * Insert RLS policy must allow inserts when using the publishable key.
  */
 export function getSupabaseAdmin() {
-  const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
+  const key =
+    process.env.SUPABASE_SERVICE_ROLE_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!url || !key) {
     throw new Error(
-      "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY env vars. " +
-      "Add them to Vercel → Settings → Environment Variables.",
+      "Missing Supabase env vars. Set NEXT_PUBLIC_SUPABASE_URL and " +
+      "SUPABASE_SERVICE_ROLE_KEY (or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY) in Vercel.",
     );
   }
 
