@@ -98,8 +98,8 @@ const heroCard = (
 
 const STAT_CHIPS = [
   { stat: "$2,200–$5,000",  color: "text-emerald-600",    label: "typical single-tooth implant cost in the US" },
-  { stat: "$15k–$40k",      color: "text-blue-500",   label: "All-on-4 implants — a cheaper full-mouth alternative" },
-  { stat: "20–30 years",    color: "text-indigo-500", label: "typical implant lifespan with proper care" },
+  { stat: "$15k–$40k",      color: "text-emerald-500",   label: "All-on-4 implants — a cheaper full-mouth alternative" },
+  { stat: "20–30 years",    color: "text-emerald-700", label: "typical implant lifespan with proper care" },
 ];
 
 const statChips = STAT_CHIPS.map((chip) => (
@@ -162,9 +162,9 @@ export default function DentalImplantCostPage() {
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 { treatment: "Single Tooth",  range: "$2,200–$5,000", sub: "including crown",    color: "text-emerald-600"    },
-                { treatment: "Multiple",      range: "$4,000–$20,000",sub: "2–6 teeth",          color: "text-blue-600"   },
-                { treatment: "Full Mouth",    range: "$20k–$60k",     sub: "14+ individual",     color: "text-indigo-600" },
-                { treatment: "All-on-4",      range: "$15k–$40k",     sub: "per arch, 4 implants",color: "text-violet-600" },
+                { treatment: "Multiple",      range: "$4,000–$20,000",sub: "2–6 teeth",          color: "text-emerald-500"   },
+                { treatment: "Full Mouth",    range: "$20k–$60k",     sub: "14+ individual",     color: "text-emerald-600" },
+                { treatment: "All-on-4",      range: "$15k–$40k",     sub: "per arch, 4 implants",color: "text-emerald-700" },
               ].map((item) => (
                 <div key={item.treatment} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
                   <p className="text-sm font-semibold text-gray-500">{item.treatment}</p>

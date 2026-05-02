@@ -138,15 +138,15 @@ export default function DentalImplantCalculator() {
 
   const barData = [
     { label: "Minimum",  value: result.minCost,  fill: "#94a3b8" },
-    { label: "Typical",  value: result.avgCost,  fill: "#0ea5e9" },
-    { label: "Maximum",  value: result.maxCost,  fill: "#0284c7" },
+    { label: "Typical",  value: result.avgCost,  fill: "#10b981" },
+    { label: "Maximum",  value: result.maxCost,  fill: "#059669" },
   ];
 
   const pieData = [
-    { name: "Implants",   value: result.breakdown.implants,   fill: "#0ea5e9" },
-    { name: "Crowns",     value: result.breakdown.crowns,     fill: "#38bdf8" },
-    { name: "Surgery",    value: result.breakdown.surgery,    fill: "#7dd3fc" },
-    { name: "Additional", value: result.breakdown.additional, fill: "#bae6fd" },
+    { name: "Implants",   value: result.breakdown.implants,   fill: "#10b981" },
+    { name: "Crowns",     value: result.breakdown.crowns,     fill: "#34d399" },
+    { name: "Surgery",    value: result.breakdown.surgery,    fill: "#6ee7b7" },
+    { name: "Additional", value: result.breakdown.additional, fill: "#a7f3d0" },
   ];
 
   // ── Insights ─────────────────────────────────────────────────────────────
