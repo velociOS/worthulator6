@@ -113,10 +113,11 @@ export default function ComparisonChart({
               fill={s.color}
               radius={[4, 4, 0, 0]}
               activeBar={(props) => {
-                const x = Number((props as Record<string, unknown>).x ?? 0) - 1;
-                const y = Number((props as Record<string, unknown>).y ?? 0) - 1;
-                const width = Number((props as Record<string, unknown>).width ?? 0) + 2;
-                const height = Number((props as Record<string, unknown>).height ?? 0) + 2;
+                const p = props as unknown as Record<string, unknown>;
+                const x = Number(p.x ?? 0) - 1;
+                const y = Number(p.y ?? 0) - 1;
+                const width = Number(p.width ?? 0) + 2;
+                const height = Number(p.height ?? 0) + 2;
                 return <rect x={x} y={y} width={width} height={height} fill={s.color} rx={5} ry={5} />;
               }}
             />
