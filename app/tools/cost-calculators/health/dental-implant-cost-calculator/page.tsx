@@ -71,17 +71,17 @@ const jsonLd = [
 
 const heroCard = (
   <div className="relative overflow-hidden rounded-2xl border border-white/8 bg-gray-950 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-    <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-sky-500/15 blur-3xl" />
+    <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-emerald-500/15 blur-3xl" />
     <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
       Example · Single implant · Standard quality
     </p>
-    <p className="relative mt-3 text-5xl font-bold tracking-[-0.04em] text-sky-400 [text-shadow:0_0_20px_rgba(14,165,233,0.3)]">
+    <p className="relative mt-3 text-5xl font-bold tracking-[-0.04em] text-emerald-400 [text-shadow:0_0_20px_rgba(52,211,153,0.3)]">
       $3,200
     </p>
     <p className="relative mt-1 text-sm text-gray-500">typical cost (US, private clinic)</p>
     <div className="mt-4 grid grid-cols-3 gap-3 text-center">
       <div>
-        <p className="text-lg font-bold text-sky-400">$2,200</p>
+        <p className="text-lg font-bold text-emerald-400">$2,200</p>
         <p className="text-xs text-gray-500">minimum</p>
       </div>
       <div>
@@ -89,7 +89,7 @@ const heroCard = (
         <p className="text-xs text-gray-500">typical</p>
       </div>
       <div>
-        <p className="text-lg font-bold text-sky-300">$5,000</p>
+        <p className="text-lg font-bold text-emerald-300">$5,000</p>
         <p className="text-xs text-gray-500">maximum</p>
       </div>
     </div>
@@ -97,7 +97,7 @@ const heroCard = (
 );
 
 const STAT_CHIPS = [
-  { stat: "$2,200–$5,000",  color: "text-sky-600",    label: "typical single-tooth implant cost in the US" },
+  { stat: "$2,200–$5,000",  color: "text-emerald-600",    label: "typical single-tooth implant cost in the US" },
   { stat: "$15k–$40k",      color: "text-blue-500",   label: "All-on-4 implants — a cheaper full-mouth alternative" },
   { stat: "20–30 years",    color: "text-indigo-500", label: "typical implant lifespan with proper care" },
 ];
@@ -161,7 +161,7 @@ export default function DentalImplantCostPage() {
             </p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {[
-                { treatment: "Single Tooth",  range: "$2,200–$5,000", sub: "including crown",    color: "text-sky-600"    },
+                { treatment: "Single Tooth",  range: "$2,200–$5,000", sub: "including crown",    color: "text-emerald-600"    },
                 { treatment: "Multiple",      range: "$4,000–$20,000",sub: "2–6 teeth",          color: "text-blue-600"   },
                 { treatment: "Full Mouth",    range: "$20k–$60k",     sub: "14+ individual",     color: "text-indigo-600" },
                 { treatment: "All-on-4",      range: "$15k–$40k",     sub: "per arch, 4 implants",color: "text-violet-600" },
@@ -229,7 +229,7 @@ export default function DentalImplantCostPage() {
             </p>
             <Link
               href="/contact"
-              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-sky-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 active:scale-[0.98]"
+              className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 active:scale-[0.98]"
             >
               Find local dental implant clinics →
             </Link>

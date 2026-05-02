@@ -51,8 +51,8 @@ function PillGroup<T extends string>({
           onClick={() => onChange(o.value)}
           className={`rounded-xl border px-3.5 py-2 text-sm font-semibold transition-all duration-150 active:scale-[0.97] ${
             value === o.value
-              ? "border-sky-400 bg-sky-50 text-sky-700 shadow-sm"
-              : "border-gray-200 bg-white text-gray-600 hover:border-sky-200 hover:bg-sky-50 hover:text-sky-700"
+              ? "border-emerald-400 bg-emerald-50 text-emerald-700 shadow-sm"
+              : "border-gray-200 bg-white text-gray-600 hover:border-emerald-200 hover:bg-emerald-50 hover:text-emerald-700"
           }`}
         >
           {o.label}
@@ -204,7 +204,7 @@ export default function DentalImplantCalculator() {
             <div className="mt-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold text-gray-500">Number of teeth</span>
-                <span className="rounded-xl border border-sky-200 bg-sky-50 px-3 py-1 text-sm font-bold text-sky-700">
+                <span className="rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-1 text-sm font-bold text-emerald-700">
                   {toothCount}
                 </span>
               </div>
@@ -215,7 +215,7 @@ export default function DentalImplantCalculator() {
                 step={1}
                 value={toothCount}
                 onChange={(e) => setToothCount(Number(e.target.value))}
-                className="mt-2 w-full accent-sky-500"
+                className="mt-2 w-full accent-emerald-500"
               />
               <div className="mt-1 flex justify-between text-xs text-gray-400">
                 <span>2</span><span>8</span><span>14</span>
@@ -284,13 +284,13 @@ export default function DentalImplantCalculator() {
 
         {/* Hero result card */}
         <div className="relative overflow-hidden rounded-2xl border border-white/8 bg-gray-950 p-8 shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
-          <div className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-sky-500/15 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-sky-900/40 blur-3xl" />
+          <div className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-emerald-500/15 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-emerald-900/40 blur-3xl" />
 
           <p className="relative text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
             {TREATMENT_LABELS[treatment]} Implant Cost
           </p>
-          <p className="relative mt-3 text-[clamp(2.4rem,5vw,4rem)] font-bold leading-none tracking-[-0.04em] text-sky-400 [text-shadow:0_0_30px_rgba(14,165,233,0.35)]">
+          <p className="relative mt-3 text-[clamp(2.4rem,5vw,4rem)] font-bold leading-none tracking-[-0.04em] text-emerald-400 [text-shadow:0_0_30px_rgba(52,211,153,0.35)]">
             {fmt(result.minCost)} – {fmt(result.maxCost)}
           </p>
 
@@ -302,7 +302,7 @@ export default function DentalImplantCalculator() {
             <div className="h-8 w-px bg-white/10" />
             <div>
               <p className="text-xs text-gray-500">Monthly estimate</p>
-              <p className="text-2xl font-bold tracking-tight text-sky-300">{fmt(result.monthlyEst)}<span className="ml-1 text-sm font-normal text-gray-500">/mo</span></p>
+              <p className="text-2xl font-bold tracking-tight text-emerald-300">{fmt(result.monthlyEst)}<span className="ml-1 text-sm font-normal text-gray-500">/mo</span></p>
             </div>
             {treatment !== "full-mouth" && treatment !== "all-on-4" && (
               <>
@@ -330,7 +330,7 @@ export default function DentalImplantCalculator() {
           ].map((card) => (
             <div key={card.label} className="rounded-2xl border border-white/6 bg-gray-900 p-4 shadow-md">
               <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">{card.label}</p>
-              <p className="mt-2 text-lg font-bold tracking-tight text-sky-400">{card.value}</p>
+              <p className="mt-2 text-lg font-bold tracking-tight text-emerald-400">{card.value}</p>
               <p className="mt-0.5 text-xs text-gray-500">{card.sub}</p>
             </div>
           ))}
@@ -341,10 +341,10 @@ export default function DentalImplantCalculator() {
           <p className="mb-4 text-sm font-semibold text-gray-700">Cost breakdown</p>
           <dl className="space-y-2">
             {[
-              { label: "Implant fixtures",     value: result.breakdown.implants,   color: "bg-sky-500"   },
-              { label: "Crowns & abutments",   value: result.breakdown.crowns,     color: "bg-sky-400"   },
-              { label: "Surgery & imaging",    value: result.breakdown.surgery,    color: "bg-sky-300"   },
-              { label: "Additional / grafting",value: result.breakdown.additional, color: "bg-sky-200"   },
+              { label: "Implant fixtures",     value: result.breakdown.implants,   color: "bg-emerald-500"   },
+              { label: "Crowns & abutments",   value: result.breakdown.crowns,     color: "bg-emerald-400"   },
+              { label: "Surgery & imaging",    value: result.breakdown.surgery,    color: "bg-emerald-300"   },
+              { label: "Additional / grafting",value: result.breakdown.additional, color: "bg-emerald-200"   },
             ].map((row) => (
               <div key={row.label} className="flex items-center gap-3 rounded-xl bg-gray-50 px-4 py-3">
                 <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${row.color}`} />
@@ -354,7 +354,7 @@ export default function DentalImplantCalculator() {
             ))}
             <div className="flex items-center justify-between rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
               <span className="text-sm font-bold text-gray-900">Total (typical)</span>
-              <span className="text-lg font-bold text-sky-600">{fmt(result.avgCost)}</span>
+              <span className="text-lg font-bold text-emerald-600">{fmt(result.avgCost)}</span>
             </div>
           </dl>
         </div>
@@ -425,12 +425,12 @@ export default function DentalImplantCalculator() {
 
         {/* Insights */}
         {insights.length > 0 && (
-          <div className="rounded-2xl border border-sky-100 bg-sky-50 p-5">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-sky-600">Insights</p>
+          <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-5">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-600">Insights</p>
             <ul className="space-y-2">
               {insights.slice(0, 4).map((insight, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-sm text-sky-800">
-                  <span className="mt-0.5 shrink-0 text-sky-400">→</span>
+                <li key={i} className="flex items-start gap-2.5 text-sm text-emerald-800">
+                  <span className="mt-0.5 shrink-0 text-emerald-400">→</span>
                   {insight}
                 </li>
               ))}
@@ -452,9 +452,9 @@ export default function DentalImplantCalculator() {
           </p>
 
           {leadStatus === "success" ? (
-            <div className="mt-5 rounded-xl border border-sky-200 bg-sky-50 px-5 py-6 text-center">
-              <p className="text-base font-bold text-sky-800">Request received!</p>
-              <p className="mt-1 text-sm text-sky-600">
+            <div className="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 px-5 py-6 text-center">
+              <p className="text-base font-bold text-emerald-800">Request received!</p>
+              <p className="mt-1 text-sm text-emerald-600">
                 We&apos;ll be in touch with quotes from clinics near you.
               </p>
             </div>
@@ -479,7 +479,7 @@ export default function DentalImplantCalculator() {
                           setTimeout(() => leadFormRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
                         }
                       }}
-                      className="flex-1 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                      className="flex-1 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                     />
                     <button
                       type="button"
@@ -488,7 +488,7 @@ export default function DentalImplantCalculator() {
                         setShowLeadForm(true);
                         setTimeout(() => leadFormRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
                       }}
-                      className="rounded-xl bg-sky-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-700 disabled:opacity-50"
+                      className="rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:opacity-50"
                     >
                       Check prices
                     </button>
@@ -496,7 +496,7 @@ export default function DentalImplantCalculator() {
                   <p className="mt-2 text-xs text-gray-400">No spam. Used only to match you with local clinics.</p>
                 </div>
               ) : (
-                <div className="flex items-center gap-3 rounded-xl border border-sky-200 bg-white px-4 py-2.5 text-sm">
+                <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-white px-4 py-2.5 text-sm">
                   <span className="text-base">📍</span>
                   <span className="font-medium text-gray-700">{postcode}</span>
                   <button
@@ -524,7 +524,7 @@ export default function DentalImplantCalculator() {
                         type="text"
                         autoComplete="name"
                         placeholder="Jane Smith"
-                        className={`w-full rounded-xl border px-4 py-2.5 text-sm outline-none transition focus:ring-2 ${errors.name ? "border-red-300 focus:ring-red-100" : "border-gray-200 bg-white focus:border-sky-400 focus:ring-sky-100"}`}
+                        className={`w-full rounded-xl border px-4 py-2.5 text-sm outline-none transition focus:ring-2 ${errors.name ? "border-red-300 focus:ring-red-100" : "border-gray-200 bg-white focus:border-emerald-400 focus:ring-emerald-100"}`}
                         {...register("name", {
                           required: "Name is required",
                           minLength: { value: 2, message: "At least 2 characters" },
@@ -543,7 +543,7 @@ export default function DentalImplantCalculator() {
                         type="email"
                         autoComplete="email"
                         placeholder="jane@example.com"
-                        className={`w-full rounded-xl border px-4 py-2.5 text-sm outline-none transition focus:ring-2 ${errors.email ? "border-red-300 focus:ring-red-100" : "border-gray-200 bg-white focus:border-sky-400 focus:ring-sky-100"}`}
+                        className={`w-full rounded-xl border px-4 py-2.5 text-sm outline-none transition focus:ring-2 ${errors.email ? "border-red-300 focus:ring-red-100" : "border-gray-200 bg-white focus:border-emerald-400 focus:ring-emerald-100"}`}
                         {...register("email", {
                           required: "Email is required",
                           pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Enter a valid email" },
@@ -564,7 +564,7 @@ export default function DentalImplantCalculator() {
                       type="tel"
                       autoComplete="tel"
                       placeholder="e.g. 07700 900123"
-                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                       {...register("phone")}
                     />
                   </div>
@@ -576,7 +576,7 @@ export default function DentalImplantCalculator() {
                     </label>
                     <select
                       id="dic-timeline"
-                      className={`w-full rounded-xl border px-4 py-2.5 text-sm outline-none transition focus:ring-2 ${errors.timeline ? "border-red-300 focus:ring-red-100" : "border-gray-200 bg-white focus:border-sky-400 focus:ring-sky-100"}`}
+                      className={`w-full rounded-xl border px-4 py-2.5 text-sm outline-none transition focus:ring-2 ${errors.timeline ? "border-red-300 focus:ring-red-100" : "border-gray-200 bg-white focus:border-emerald-400 focus:ring-emerald-100"}`}
                       {...register("timeline", { required: "Please select a timeline" })}
                     >
                       <option value="">Select a timeline…</option>
@@ -598,7 +598,7 @@ export default function DentalImplantCalculator() {
                       type="text"
                       autoComplete="street-address"
                       placeholder="123 Main St"
-                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-100"
+                      className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-100"
                       {...register("address_line")}
                     />
                   </div>
@@ -609,7 +609,7 @@ export default function DentalImplantCalculator() {
                       <input
                         id="dic-consent"
                         type="checkbox"
-                        className="mt-0.5 h-4 w-4 rounded border-gray-300 accent-sky-600"
+                        className="mt-0.5 h-4 w-4 rounded border-gray-300 accent-emerald-600"
                         {...register("consent", {
                           required: "You must agree to continue",
                           validate: (v) => v === true || "You must agree to continue",
@@ -617,9 +617,9 @@ export default function DentalImplantCalculator() {
                       />
                       <label htmlFor="dic-consent" className="text-xs leading-relaxed text-gray-500">
                         I agree to the{" "}
-                        <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-sky-600 underline underline-offset-2">Terms</a>
+                        <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-600 underline underline-offset-2">Terms</a>
                         {" "}and{" "}
-                        <a href="/privacy" target="_blank" rel="noopener noreferrer" className="font-semibold text-sky-600 underline underline-offset-2">Privacy Policy</a>
+                        <a href="/privacy" target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-600 underline underline-offset-2">Privacy Policy</a>
                         . I consent to my details and calculator inputs being shared with dental clinics so they can provide accurate quotes.{" "}
                         <span className="text-red-500">*</span>
                       </label>
@@ -636,7 +636,7 @@ export default function DentalImplantCalculator() {
                   <button
                     type="submit"
                     disabled={leadStatus === "loading"}
-                    className="w-full rounded-xl bg-sky-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-sky-700 active:scale-[0.98] disabled:opacity-60 sm:w-auto"
+                    className="w-full rounded-xl bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 active:scale-[0.98] disabled:opacity-60 sm:w-auto"
                   >
                     {leadStatus === "loading" ? "Sending…" : "Get free quotes →"}
                   </button>
