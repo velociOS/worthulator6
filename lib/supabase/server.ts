@@ -1,19 +1,20 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-if (!supabaseUrl || !supabaseServiceKey) {
-  throw new Error(
-    "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY env vars. " +
-    "Add them to .env.local — see .env.local for the required keys.",
-  );
-}
-
 /**
  * Admin client — server-side ONLY.
  * Never import this in client components or expose to the browser.
+ * Initialised lazily so missing env vars don't break the build.
  */
-export const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey, {
-  auth: { persistSession: false },
-});
+export function getSupabaseAdmin() {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!url || !key) {
+    throw new Error(
+      "Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY env vars. " +
+      "Add them to Vercel → Settings → Environment Variables.",
+    );
+  }
+
+  return createClient(url, key, { auth: { persistSession: false } });
+}

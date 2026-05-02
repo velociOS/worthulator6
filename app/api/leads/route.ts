@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { supabaseAdmin } from "@/lib/supabase/server";
+import { getSupabaseAdmin } from "@/lib/supabase/server";
 import { calculateLeadScore } from "@/lib/leads";
 import type { LeadPayload } from "@/lib/leads";
 
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
       phone:          body.phone,
     });
 
-    const { error } = await supabaseAdmin.from("leads").insert({
+    const { error } = await getSupabaseAdmin().from("leads").insert({
       calculator_type:   body.calculator_type,
       name:              body.name              ?? null,
       email:             body.email             ?? null,
