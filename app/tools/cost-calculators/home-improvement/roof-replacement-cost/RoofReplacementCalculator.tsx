@@ -131,7 +131,7 @@ export default function RoofReplacementCalculator() {
   const [leadError,  setLeadError]  = useState<string>("");
   const [postcode,     setPostcode]     = useState("");
   const [showLeadForm, setShowLeadForm] = useState(false);
-  const leadFormRef = useRef<HTMLDivElement>(null);
+  const leadFormRef = useRef<HTMLFormElement>(null);
 
   const result = useMemo(
     () =>
