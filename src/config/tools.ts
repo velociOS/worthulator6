@@ -201,6 +201,8 @@ export const categories: Category[] = [
     popular: true,
     subcategories: [
       { name: "Home Improvement", slug: "home-improvement" },
+      { name: "Health & Dental",  slug: "health"           },
+      { name: "Energy",           slug: "energy"           },
       { name: "General",          slug: "general"          },
     ],
   },
@@ -495,6 +497,7 @@ export const tools: Tool[] = [
 
   {
     name: "Dental Implant Cost Calculator", slug: "dental-implant-cost-calculator", tier: 1, category: "health", subcategory: "insurance", toolType: "estimator", status: "live", popular: true,
+    href: "/tools/cost-calculators/health/dental-implant-cost-calculator",
     description: "Estimate your dental implant cost based on treatment type, quality, clinic, and location. Single tooth, full mouth, and All-on-4 options covered.",
     keywords: ["dental implant cost", "how much do dental implants cost", "dental implant calculator", "all-on-4 cost", "full mouth implants cost"],
   },
@@ -563,14 +566,23 @@ export const tools: Tool[] = [
   // �️ COST CALCULATORS
   // ══════════════════════════════════════════════════════════════════════════
 
-  { name: "Dental Implant Cost",               slug: "dental-implants-cost",           tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/dental-implants",           description: "Estimate the cost of dental implants in the US, including single tooth, full arch, and All-on-4 options. See what affects the price and what to expect." },
-  { name: "Invisalign Cost",                   slug: "invisalign-cost",                tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/invisalign",                description: "Estimate Invisalign treatment costs by case complexity, from minor corrections to comprehensive full treatment." },
-  { name: "Veneers Cost",                      slug: "veneers-cost",                   tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/veneers",                   description: "Estimate the cost of porcelain or composite veneers based on how many teeth you want treated and the type of veneer." },
-  { name: "Roof Replacement Cost",             slug: "roof-replacement-cost",          tier: 2, category: "cost", subcategory: "home-improvement", toolType: "calculator", status: "live",    href: "/tools/cost-calculators/home-improvement/roof-replacement-cost", popular: true, description: "Estimate the cost of replacing your roof based on size, material, and pitch. Covers asphalt shingles, metal, and tile." },
-  { name: "Air Conditioning Installation Cost", slug: "ac-installation-cost",          tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/ac-installation",           description: "Estimate the cost of installing central air conditioning or a mini-split system based on your home size and unit type." },
-  { name: "Solar Panel Cost",                  slug: "solar-panel-cost",               tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/solar-panels",              description: "Estimate the upfront and net cost of a residential solar panel system based on system size, location, and available incentives." },
-  { name: "Cost of Living Calculator",         slug: "cost-of-living-calc",            tier: 2, category: "cost", subcategory: "general", toolType: "calculator", status: "preview", href: "/tools/cost/cost-of-living",            description: "Estimate your total monthly cost of living based on housing, food, transport, and other essentials." },
-  { name: "Cost of Living Comparison",         slug: "cost-of-living-comparison-tool", tier: 2, category: "cost", subcategory: "general", toolType: "tool",       status: "preview", href: "/tools/cost/cost-of-living-comparison", description: "Compare the cost of living between two cities or regions to see how far your salary would stretch." },
+  // Home Improvement
+  { name: "Roof Replacement Cost",              slug: "roof-replacement-cost",          tier: 2, category: "cost", subcategory: "home-improvement", toolType: "estimator", status: "live",    href: "/tools/cost-calculators/home-improvement/roof-replacement-cost",    popular: true, description: "Estimate the cost of replacing your roof based on size, material, and pitch. Covers asphalt shingles, metal, and tile." },
+  { name: "Concrete Slab Cost Calculator",      slug: "concrete-slab-calculator",       tier: 2, category: "cost", subcategory: "home-improvement", toolType: "estimator", status: "live",    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator", popular: true, description: "Calculate the cost of a concrete slab for driveways, patios, and foundations. US prices updated for 2026." },
+  { name: "Concrete Slab Cost Calculator UK",   slug: "concrete-slab-calculator-uk",    tier: 2, category: "cost", subcategory: "home-improvement", toolType: "estimator", status: "live",    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator-uk",             description: "Estimate UK concrete slab costs in £/m² for driveways, patios, and foundations. Updated for 2026." },
+  { name: "Air Conditioning Installation Cost",  slug: "ac-installation-cost",          tier: 2, category: "cost", subcategory: "home-improvement", toolType: "estimator", status: "preview", href: "/tools/cost-calculators/home-improvement/ac-installation-cost",     description: "Estimate the cost of installing central air conditioning or a mini-split system based on your home size and unit type." },
+
+  // Health & Dental
+  { name: "Dental Implant Cost",                slug: "dental-implants-cost",           tier: 2, category: "cost", subcategory: "health",           toolType: "estimator", status: "live",    href: "/tools/cost-calculators/health/dental-implant-cost-calculator",      popular: true, description: "Estimate the cost of dental implants in the US, including single tooth, full arch, and All-on-4 options." },
+  { name: "Invisalign Cost",                    slug: "invisalign-cost",                tier: 2, category: "cost", subcategory: "health",           toolType: "estimator", status: "preview", href: "/tools/cost-calculators/health/invisalign-cost",                    description: "Estimate Invisalign treatment costs by case complexity, from minor corrections to comprehensive full treatment." },
+  { name: "Veneers Cost",                       slug: "veneers-cost",                   tier: 2, category: "cost", subcategory: "health",           toolType: "estimator", status: "preview", href: "/tools/cost-calculators/health/veneers-cost",                       description: "Estimate the cost of porcelain or composite veneers based on how many teeth you want treated and the type of veneer." },
+
+  // Energy
+  { name: "Solar Panel Cost",                   slug: "solar-panel-cost",               tier: 2, category: "cost", subcategory: "energy",           toolType: "estimator", status: "preview", href: "/tools/cost-calculators/energy/solar-panel-cost",                   description: "Estimate the upfront and net cost of a residential solar panel system based on system size, location, and available incentives." },
+
+  // General
+  { name: "Cost of Living Calculator",          slug: "cost-of-living-calc",            tier: 2, category: "cost", subcategory: "general",          toolType: "calculator", status: "preview", href: "/tools/cost-calculators/general/cost-of-living",                    description: "Estimate your total monthly cost of living based on housing, food, transport, and other essentials." },
+  { name: "Cost of Living Comparison",          slug: "cost-of-living-comparison-tool", tier: 2, category: "cost", subcategory: "general",          toolType: "tool",       status: "preview", href: "/tools/cost-calculators/general/cost-of-living-comparison",         description: "Compare the cost of living between two cities or regions to see how far your salary would stretch." },
 
   // ══════════════════════════════════════════════════════════════════════════
   // �🏗️ CONSTRUCTION

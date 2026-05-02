@@ -24,12 +24,23 @@ const CATEGORIES = [
     ],
   },
   {
-    title: "Health",
-    href: "/tools/dental-implant-cost-calculator",
-    description: "Medical and dental procedure cost estimators.",
+    title: "Health & Dental",
+    href: "/tools/cost-calculators/health",
+    description: "Dental and medical procedure cost estimators.",
     emoji: "🦷",
     tools: [
-      { name: "Dental Implant Cost Calculator", href: "/tools/dental-implant-cost-calculator", description: "Estimate dental implant costs for single tooth, full mouth, and All-on-4." },
+      { name: "Dental Implant Cost Calculator", href: "/tools/cost-calculators/health/dental-implant-cost-calculator", description: "Estimate dental implant costs for single tooth, full mouth, and All-on-4." },
+      { name: "Invisalign Cost Calculator", href: null, description: "Estimate Invisalign treatment costs by case complexity. Coming soon." },
+      { name: "Veneers Cost Calculator", href: null, description: "Estimate porcelain or composite veneer costs. Coming soon." },
+    ],
+  },
+  {
+    title: "Energy",
+    href: null,
+    description: "Solar, renewables, and energy cost estimators.",
+    emoji: "⚡",
+    tools: [
+      { name: "Solar Panel Cost Calculator", href: null, description: "Estimate residential solar panel system costs by size and location. Coming soon." },
     ],
   },
 ];
@@ -62,23 +73,34 @@ export default function CostCalculatorsPage() {
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{cat.emoji}</span>
                 <div>
-                  <Link href={cat.href} className="text-xl font-bold text-gray-900 hover:text-orange-600">
-                    {cat.title}
-                  </Link>
+                  {cat.href ? (
+                    <Link href={cat.href} className="text-xl font-bold text-gray-900 hover:text-orange-600">
+                      {cat.title}
+                    </Link>
+                  ) : (
+                    <p className="text-xl font-bold text-gray-900">{cat.title}</p>
+                  )}
                   <p className="text-sm text-gray-500">{cat.description}</p>
                 </div>
               </div>
               <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {cat.tools.map((tool) => (
+                {cat.tools.map((tool) =>
+                  tool.href ? (
                   <Link
-                    key={tool.href}
+                    key={tool.name}
                     href={tool.href}
                     className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-orange-200 hover:shadow-md"
                   >
                     <p className="text-sm font-bold text-gray-900">{tool.name}</p>
                     <p className="mt-1.5 text-xs leading-relaxed text-gray-500">{tool.description}</p>
                   </Link>
-                ))}
+                  ) : (
+                  <div key={tool.name} className="rounded-2xl border border-dashed border-gray-200 bg-gray-50 p-5 opacity-60">
+                    <p className="text-sm font-bold text-gray-500">{tool.name}</p>
+                    <p className="mt-1.5 text-xs leading-relaxed text-gray-400">{tool.description}</p>
+                  </div>
+                  )
+                )}
               </div>
             </div>
           ))}

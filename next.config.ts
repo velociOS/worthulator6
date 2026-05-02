@@ -60,6 +60,12 @@ const nextConfig: NextConfig = {
         destination: "/tools/cost-calculators",
         permanent: true,
       },
+      // ── Dental implant moved to cost-calculators hierarchy (301) ──────────
+      {
+        source: "/tools/dental-implant-cost-calculator",
+        destination: "/tools/cost-calculators/health/dental-implant-cost-calculator",
+        permanent: true,
+      },
     ];
   },
 };
