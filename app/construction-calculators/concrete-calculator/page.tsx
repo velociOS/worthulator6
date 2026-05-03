@@ -235,6 +235,23 @@ export default function ConcreteCalculatorPage() {
               </div>
             ))}
           </div>
+
+          {/* Extra links under volume section */}
+          <div className="mt-6 flex flex-wrap gap-3">
+            {[
+              { label: "Concrete Driveway Cost", href: "/construction-calculators/concrete/concrete-driveway-cost" },
+              { label: "Concrete Patio Cost",    href: "/construction-calculators/concrete/concrete-patio-cost" },
+              { label: "Concrete Cost Per Yard", href: "/construction-calculators/concrete/concrete-cost-per-yard" },
+            ].map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="rounded-full border border-gray-200 bg-white px-4 py-1.5 text-xs font-semibold text-gray-600 shadow-sm transition hover:border-emerald-200 hover:text-emerald-700"
+              >
+                {l.label} →
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -293,9 +310,24 @@ export default function ConcreteCalculatorPage() {
           <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "Concrete Slab Cost",
-                desc: "Installed cost for driveways, patios, and foundations.",
+                title: "Concrete Slab Cost Calculator",
+                desc: "Full installed cost estimate — volume, bags, labour, finish, and reinforcement.",
                 href: "/construction-calculators/concrete/concrete-slab-calculator",
+              },
+              {
+                title: "Concrete Cost Per Yard",
+                desc: "See what ready-mix costs per cubic yard in your area, with delivery and waste.",
+                href: "/construction-calculators/concrete/concrete-cost-per-yard",
+              },
+              {
+                title: "Concrete Driveway Cost",
+                desc: "Estimate the total cost of a concrete driveway — from pour to finished surface.",
+                href: "/construction-calculators/concrete/concrete-driveway-cost",
+              },
+              {
+                title: "Concrete Patio Cost",
+                desc: "Work out what a concrete patio will cost — size, thickness, and finish options.",
+                href: "/construction-calculators/concrete/concrete-patio-cost",
               },
             ].map((tool) => (
               <div key={tool.title} className="flex flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md">
