@@ -208,7 +208,7 @@ export default function ConcreteCalculatorPage() {
                 title: "Concrete Slab Calculator",
                 desc: "Calculate volume for slabs, driveways, patios, and garage floors.",
                 cta: "Calculate volume",
-                href: "/construction-calculators/concrete-calculator",
+                href: "/construction-calculators/concrete/concrete-slab-calculator",
               },
               {
                 title: "Concrete Bag Calculator",
