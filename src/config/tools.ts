@@ -608,6 +608,18 @@ export const tools: Tool[] = [
     description: "Calculate how many 8×8×16 inch concrete blocks you need for any wall. Enter length and height to get block count, wall area, and material cost estimate.",
     keywords: ["concrete block calculator", "how many concrete blocks do I need", "CMU block calculator", "concrete block wall calculator"],
   },
+  {
+    name: "Concrete Slab Cost Calculator", slug: "concrete-slab-cost-construction", tier: 2, category: "construction", subcategory: "costing", toolType: "estimator", status: "live",
+    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+    description: "Estimate the installed cost of a concrete slab for driveways, patios, and foundations. US prices per sq ft, updated for 2026.",
+    keywords: ["concrete slab cost", "how much does a concrete slab cost", "concrete slab price", "cost to pour concrete slab"],
+  },
+  {
+    name: "Concrete Slab Cost Calculator UK", slug: "concrete-slab-cost-uk-construction", tier: 2, category: "construction", subcategory: "costing", toolType: "estimator", status: "live",
+    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator-uk",
+    description: "Estimate the installed cost of a concrete slab in the UK. Prices in £/m², updated for 2026.",
+    keywords: ["concrete slab cost uk", "how much does a concrete slab cost uk", "concrete slab price uk"],
+  },
 ];
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
