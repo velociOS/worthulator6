@@ -4,9 +4,9 @@ import OvertimePayCalculator from "./OvertimePayCalculatorLoader";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Overtime Pay Calculator | Worthulator",
+  title: "Overtime Pay Calculator – Work Out Your Overtime Earnings Instantly",
   description:
-    "Calculate overtime pay, including time and a half and double time. See your weekly, monthly, and annual earnings instantly.",
+    "Work out how much you earn in overtime. Enter your rate and hours and get instant results for time and a half, double time, and total weekly pay.",
   alternates: { canonical: "https://www.worthulator.com/tools/overtime-pay-calculator" },
   robots: { index: true, follow: true },
 };

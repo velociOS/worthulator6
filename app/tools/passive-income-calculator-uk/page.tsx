@@ -5,9 +5,9 @@ import PassiveIncomeCalculatorLoader from "../passive-income-calculator/PassiveI
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Passive Income Calculator UK | Worthulator",
+  title: "Passive Income Calculator UK – Work Out Your Investment Income Instantly",
   description:
-    "Calculate how much passive income your investments could generate in pounds. See your portfolio value, monthly income, and time to reach your financial goals — free UK passive income calculator.",
+    "Work out how much passive income your investments could generate in pounds. Enter your portfolio and return rate and get instant results for monthly income.",
   keywords: [
     "passive income calculator UK",
     "investment income calculator UK",

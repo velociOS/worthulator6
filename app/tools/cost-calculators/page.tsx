@@ -19,7 +19,7 @@ const CATEGORIES = [
     emoji: "🏠",
     tools: [
       { name: "Roof Replacement Cost Calculator", href: "/tools/cost-calculators/home-improvement/roof-replacement-cost", description: "Estimate full roof replacement cost by size, material, and location." },
-      { name: "Concrete Slab Cost Calculator", href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator", description: "Calculate concrete slab costs for driveways, patios, and foundations." },
+      { name: "Concrete Slab Cost Calculator", href: "/construction-calculators/concrete/concrete-slab-calculator", description: "Calculate concrete slab costs for driveways, patios, and foundations." },
       { name: "Concrete Slab Cost Calculator UK", href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator-uk", description: "UK concrete slab cost estimates in £/m²." },
     ],
   },

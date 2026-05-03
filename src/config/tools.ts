@@ -40,6 +40,7 @@ export interface Tool {
   popular?: boolean;
   // ── SEO fields ──────────────────────────────────────────────
   description?: string;       // meta description (150–160 chars)
+  metaTitle?: string;         // full SEO title override (used in generateMetadata)
   keywords?: string[];        // target search terms
   intro?: string;             // first paragraph shown on page
   faqs?: FAQ[];               // 2–3 Q&A for FAQ schema + content
@@ -358,7 +359,8 @@ export const tools: Tool[] = [
   // Investing
   {
     name: "Compound Interest Calculator", slug: "compound-interest", tier: 2, category: "money", subcategory: "investing", toolType: "calculator", popular: true, status: "live",
-    description: "See how your money grows with compound interest. Enter your starting amount, interest rate, and time period to calculate total growth and final value instantly.",
+    metaTitle: "Compound Interest Calculator – Work Out How Your Money Grows Instantly",
+    description: "Work out how your money grows with compound interest. Enter your starting amount, rate, and time period and get instant results for total growth and final value.",
   },
   { name: "Investment Return Calculator",          slug: "investment-return",          tier: 2, category: "money", subcategory: "investing", toolType: "calculator", popular: true  },
   { name: "ETF Growth Calculator",                 slug: "etf-growth",                 tier: 2, category: "money", subcategory: "investing", toolType: "calculator"                 },
@@ -384,7 +386,8 @@ export const tools: Tool[] = [
   // Screen & Apps
   {
     name: "Screen Time Impact Calculator", slug: "screen-time-impact", tier: 3, category: "time", subcategory: "screen", toolType: "calculator", popular: true, status: "live",
-    description: "Find out how much of your life goes to screens. Calculate the real-world time and opportunity cost of your daily screen habits in minutes.",
+    metaTitle: "Screen Time Impact Calculator – Work Out Your Screen Time Cost Instantly",
+    description: "Work out the real cost of your daily screen habits. Enter your usage and get instant results for weekly time lost and lifetime opportunity cost.",
   },
   { name: "Social Media Time Value Calculator", slug: "social-media-time-value",    tier: 3, category: "time", subcategory: "screen",    toolType: "calculator", popular: true  },
   { name: "Time Wasted on Apps Tracker",        slug: "time-wasted-on-apps",        tier: 3, category: "time", subcategory: "screen",    toolType: "tracker",    popular: true  },
@@ -411,7 +414,8 @@ export const tools: Tool[] = [
   { name: "Lifetime Habit Cost Calculator",        slug: "lifetime-habit-cost",        tier: 3, category: "lifestyle", subcategory: "habits",        toolType: "calculator", popular: true  },
   {
     name: "Subscription Cost Calculator", slug: "subscription-cost", tier: 2, category: "lifestyle", subcategory: "habits", toolType: "calculator", popular: true, status: "live",
-    description: "Add up all your subscriptions and see what you're actually spending per year. Spot where your money quietly disappears every month.",
+    metaTitle: "Subscription Calculator – Work Out What You Spend on Subscriptions Instantly",
+    description: "Work out exactly what you spend on subscriptions each year. Add your services and get an instant total so you can see where your money goes.",
   },
   { name: "Subscription Waste Detector",           slug: "subscription-waste-detector",tier: 3, category: "lifestyle", subcategory: "habits",        toolType: "tool",       popular: true  },
   { name: "Utility Cost Estimator",                slug: "utility-cost",               tier: 2, category: "lifestyle", subcategory: "habits",        toolType: "estimator"                  },
@@ -419,7 +423,8 @@ export const tools: Tool[] = [
   // Food & Drink
   {
     name: "Coffee Cost Over Lifetime Calculator", slug: "coffee-cost-over-lifetime", tier: 3, category: "lifestyle", subcategory: "food-drink", toolType: "calculator", popular: true, status: "live",
-    description: "Find out how much your daily coffee habit costs over a lifetime. See the true long-term financial impact of small, repeated daily spending.",
+    metaTitle: "Coffee Cost Calculator – Work Out Your Lifetime Coffee Spend Instantly",
+    description: "Work out how much your daily coffee habit costs over a lifetime. Enter your spend and get instant results for yearly and total lifetime cost.",
   },
   { name: "Takeaway Spending Tracker",             slug: "takeaway-spending",          tier: 3, category: "lifestyle", subcategory: "food-drink",    toolType: "tracker",    popular: true },
   { name: "Alcohol Spending Tracker",              slug: "alcohol-spending",           tier: 3, category: "lifestyle", subcategory: "food-drink",    toolType: "tracker"                   },
@@ -506,7 +511,8 @@ export const tools: Tool[] = [
   { name: "Health Insurance Cost Estimator", slug: "health-insurance-cost",      tier: 1, category: "health", subcategory: "insurance",toolType: "estimator"                  },
   {
     name: "Smoking Cost Calculator", slug: "smoking-cost", tier: 3, category: "health", subcategory: "vices", toolType: "calculator", popular: true, status: "live",
-    description: "Calculate how much smoking costs you per year and over a lifetime. See the real financial impact and what you could save by quitting.",
+    metaTitle: "Smoking Cost Calculator – Work Out How Much Smoking Costs You Instantly",
+    description: "Work out how much smoking costs you per year and over a lifetime. Enter your daily cigarettes and price and get instant results for yearly and lifetime spend.",
   },
 
   // ══════════════════════════════════════════════════════════════════════════
@@ -522,7 +528,8 @@ export const tools: Tool[] = [
 
   {
     name: "Percentage Calculator", slug: "percentage-calculator", tier: 3, category: "everyday", subcategory: "quick", toolType: "calculator", status: "live",
-    description: "Free percentage calculator — work out percentages, percentage changes, and what percentage one number is of another. Fast and instant results.",
+    metaTitle: "Percentage Calculator – Work Out Any Percentage Instantly",
+    description: "Work out percentages, percentage changes, and what percentage one number is of another. Enter your values and get instant results.",
   },
   { name: "Tip Calculator",          slug: "tip-calculator",             tier: 3, category: "everyday", subcategory: "quick",     toolType: "calculator"                 },
   { name: "Currency Converter",      slug: "currency-converter",         tier: 3, category: "everyday", subcategory: "converters",toolType: "tool",       popular: true  },
@@ -568,8 +575,8 @@ export const tools: Tool[] = [
 
   // Home Improvement
   { name: "Roof Replacement Cost",              slug: "roof-replacement-cost",          tier: 2, category: "cost", subcategory: "home-improvement", toolType: "estimator", status: "live",    href: "/tools/cost-calculators/home-improvement/roof-replacement-cost",    popular: true, description: "Estimate the cost of replacing your roof based on size, material, and pitch. Covers asphalt shingles, metal, and tile." },
-  { name: "Concrete Slab Cost Calculator",      slug: "concrete-slab-calculator",       tier: 2, category: "cost", subcategory: "home-improvement", toolType: "estimator", status: "live",    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator", popular: true, description: "Calculate the cost of a concrete slab for driveways, patios, and foundations. US prices updated for 2026." },
-  { name: "Concrete Slab Cost Calculator UK",   slug: "concrete-slab-calculator-uk",    tier: 2, category: "cost", subcategory: "home-improvement", toolType: "estimator", status: "live",    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator-uk",             description: "Estimate UK concrete slab costs in £/m² for driveways, patios, and foundations. Updated for 2026." },
+  { name: "Concrete Slab Cost Calculator",      slug: "concrete-slab-calculator",       tier: 2, category: "cost", subcategory: "home-improvement", toolType: "estimator", status: "preview",  href: "/construction-calculators/concrete/concrete-slab-calculator", popular: true, description: "Calculate the cost of a concrete slab for driveways, patios, and foundations. US prices updated for 2026." },
+  { name: "Concrete Slab Cost Calculator UK",   slug: "concrete-slab-calculator-uk",    tier: 2, category: "cost", subcategory: "home-improvement", toolType: "estimator", status: "preview",  href: "/construction-calculators/concrete/concrete-slab-calculator-uk",             description: "Estimate UK concrete slab costs in \u00a3/m\u00b2 for driveways, patios, and foundations. Updated for 2026." },
   { name: "Air Conditioning Installation Cost",  slug: "ac-installation-cost",          tier: 2, category: "cost", subcategory: "home-improvement", toolType: "estimator", status: "preview", href: "/tools/cost-calculators/home-improvement/ac-installation-cost",     description: "Estimate the cost of installing central air conditioning or a mini-split system based on your home size and unit type." },
 
   // Health & Dental
@@ -609,14 +616,14 @@ export const tools: Tool[] = [
     keywords: ["concrete block calculator", "how many concrete blocks do I need", "CMU block calculator", "concrete block wall calculator"],
   },
   {
-    name: "Concrete Slab Cost Calculator", slug: "concrete-slab-cost-construction", tier: 2, category: "construction", subcategory: "costing", toolType: "estimator", status: "live",
-    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+    name: "Concrete Slab Calculator", slug: "concrete-slab-cost-construction", tier: 2, category: "construction", subcategory: "concrete", toolType: "estimator", status: "live", popular: true,
+    href: "/construction-calculators/concrete/concrete-slab-calculator",
     description: "Estimate the installed cost of a concrete slab for driveways, patios, and foundations. US prices per sq ft, updated for 2026.",
     keywords: ["concrete slab cost", "how much does a concrete slab cost", "concrete slab price", "cost to pour concrete slab"],
   },
   {
-    name: "Concrete Slab Cost Calculator UK", slug: "concrete-slab-cost-uk-construction", tier: 2, category: "construction", subcategory: "costing", toolType: "estimator", status: "live",
-    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator-uk",
+    name: "Concrete Slab Calculator UK", slug: "concrete-slab-cost-uk-construction", tier: 2, category: "construction", subcategory: "concrete", toolType: "estimator", status: "live",
+    href: "/construction-calculators/concrete/concrete-slab-calculator-uk",
     description: "Estimate the installed cost of a concrete slab in the UK. Prices in £/m², updated for 2026.",
     keywords: ["concrete slab cost uk", "how much does a concrete slab cost uk", "concrete slab price uk"],
   },

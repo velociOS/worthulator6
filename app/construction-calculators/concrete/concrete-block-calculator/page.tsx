@@ -4,9 +4,9 @@ import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShel
 import ConcreteBlockCalculatorLoader from "./ConcreteBlockCalculatorLoader";
 
 export const metadata: Metadata = {
-  title: "Concrete Block Calculator | Worthulator",
+  title: "Concrete Block Calculator – Work Out How Many Blocks You Need Instantly",
   description:
-    "Calculate exactly how many concrete blocks you need for any wall. Enter length, height, and block size to get your block count, wall area, and material cost estimate instantly.",
+    "Work out how many concrete blocks you need for any wall. Enter length, height, and block size and get instant results for block count and material cost.",
   keywords: [
     "concrete block calculator",
     "how many concrete blocks do I need",

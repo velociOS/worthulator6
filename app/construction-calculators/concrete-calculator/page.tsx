@@ -5,9 +5,9 @@ import ConcreteCalculatorLoader from "./ConcreteCalculatorLoader";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Concrete Calculator (US) – Cubic Yards | Worthulator",
+  title: "Concrete Volume Calculator – Work Out How Many Cubic Yards You Need Instantly",
   description:
-    "Calculate how much concrete you need in cubic yards. Enter length, width, and thickness to get your volume and bag count instantly — free US concrete calculator.",
+    "Work out how much concrete you need in cubic yards. Enter length, width, and thickness and get instant results for volume and bag count.",
   keywords: [
     "concrete calculator",
     "cubic yards of concrete calculator",
@@ -148,39 +148,82 @@ export default function ConcreteCalculatorPage() {
       }
     >
       {/* ══════════════════════════════════════════════════════════════════
+          POSITIONING LINE + KEYWORD INTRO
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="border-t border-gray-100 px-5 py-10 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-xs font-semibold uppercase tracking-widest text-orange-500">
+            Concrete Calculator &amp; Tools Hub
+          </p>
+          <p className="mt-1.5 text-sm text-gray-400">
+            Calculate concrete volume, estimate materials, and plan costs — all in one place.
+          </p>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-gray-600">
+            Use this concrete calculator to estimate how many cubic yards of concrete
+            you need for slabs, driveways, patios, and footings. Enter your dimensions
+            to quickly calculate volume, number of bags, and rough cost.
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          HOW MUCH CONCRETE DO I NEED?
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-12 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold text-gray-900">How much concrete do I need?</h2>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-gray-500">
+            Concrete is measured and sold in <strong>cubic yards</strong> in the US.
+            One cubic yard equals 27 cubic feet — roughly a 3 ft × 3 ft × 3 ft cube.
+            To find your number, you multiply the length, width, and thickness of your
+            pour, then divide by 27.
+          </p>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-gray-500">
+            <strong>Thickness has a big impact.</strong> A standard 4-inch slab and a
+            6-inch slab of the same footprint require 50% more concrete. Always confirm
+            your thickness requirement before calculating — driveways typically need
+            4–6 inches, patios 3–4 inches, and footings vary by structural load.
+          </p>
+          <p className="mt-4 max-w-3xl text-base leading-relaxed text-gray-500">
+            For small pours under 1 cubic yard, <strong>bagged concrete</strong> (Quikrete,
+            Sakrete) is the practical choice. For anything larger — driveways, garage
+            floors, foundations — ordering <strong>ready-mix by the yard</strong> is
+            faster, more consistent, and usually cheaper per cubic yard.
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
           SECTION 1 — CONCRETE VOLUME CALCULATORS
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="border-t border-gray-100 px-5 py-14 sm:px-8 lg:px-16">
+      <section className="border-t border-gray-100 px-5 py-12 md:py-16 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-bold text-gray-900">Concrete Volume Calculators</h2>
           <p className="mt-2 text-sm text-gray-500">
             Work out how much concrete you need — in cubic yards, cubic feet, or bags.
           </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 title: "Concrete Slab Calculator",
                 desc: "Calculate volume for slabs, driveways, patios, and garage floors.",
                 cta: "Calculate volume",
                 href: "/construction-calculators/concrete-calculator",
-                active: true,
               },
               {
                 title: "Concrete Bag Calculator",
                 desc: "Find out exactly how many 40, 60, or 80 lb bags you need.",
                 cta: "Calculate bags",
                 href: "/construction-calculators/concrete/concrete-bag-calculator",
-                active: true,
               },
               {
                 title: "Concrete Block Calculator",
                 desc: "Count how many CMU blocks you need for any wall.",
                 cta: "Calculate blocks",
                 href: "/construction-calculators/concrete/concrete-block-calculator",
-                active: true,
               },
             ].map((tool) => (
-              <div key={tool.title} className="flex flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+              <div key={tool.title} className="flex flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md">
                 <h3 className="text-sm font-bold text-gray-900">{tool.title}</h3>
                 <p className="mt-1.5 flex-1 text-xs leading-relaxed text-gray-500">{tool.desc}</p>
                 <Link
@@ -196,79 +239,190 @@ export default function ConcreteCalculatorPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
+          FUNNEL BRIDGE — GOT YOUR VOLUME? NOW ESTIMATE THE COST
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="border-t border-gray-100 bg-emerald-50 px-5 py-12 md:py-16 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold text-gray-900">Got your volume? Now estimate the cost</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-gray-500">
+            Once you know how many cubic yards of concrete you need, the next step is
+            estimating the total cost. Concrete is priced per yard, but your final cost
+            depends on thickness, delivery, and finishing.
+          </p>
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "Concrete Slab Cost",
+                desc: "Installed cost estimate for driveways, patios, and foundations.",
+                href: "/construction-calculators/concrete/concrete-slab-calculator",
+              },
+              {
+                title: "Home Improvement Cost Calculators",
+                desc: "Explore cost tools for concrete, roofing, flooring, and more.",
+                href: "/tools/cost-calculators/home-improvement",
+              },
+              {
+                title: "All Construction Calculators",
+                desc: "Volume, materials, and cost tools for every concrete project.",
+                href: "/construction-calculators",
+              },
+            ].map((card) => (
+              <Link
+                key={card.title}
+                href={card.href}
+                className="flex flex-col rounded-2xl border border-emerald-200 bg-white p-5 shadow-sm transition hover:shadow-md"
+              >
+                <p className="text-sm font-bold text-gray-900">{card.title}</p>
+                <p className="mt-1.5 flex-1 text-xs leading-relaxed text-gray-500">{card.desc}</p>
+                <span className="mt-4 text-xs font-semibold text-emerald-700">Estimate cost →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
           SECTION 2 — CONCRETE COST CALCULATORS
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-12 md:py-16 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-bold text-gray-900">Concrete Cost Calculators</h2>
           <p className="mt-2 text-sm text-gray-500">
             Find out what concrete will cost — by yard, square foot, or project type.
           </p>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 title: "Concrete Slab Cost",
                 desc: "Installed cost for driveways, patios, and foundations.",
-                cta: "Estimate cost",
-                href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
-                active: true,
-              },
-              {
-                title: "Concrete Cost Per Yard",
-                desc: "Ready-mix vs bagged concrete — cost per cubic yard.",
-                cta: "Coming soon",
-                href: null,
-                active: false,
-              },
-              {
-                title: "Concrete Cost Per Square Foot",
-                desc: "Estimate total cost based on square footage and thickness.",
-                cta: "Coming soon",
-                href: null,
-                active: false,
-              },
-              {
-                title: "Concrete Driveway Cost",
-                desc: "Full driveway cost estimate by size, thickness, and finish.",
-                cta: "Coming soon",
-                href: null,
-                active: false,
-              },
-              {
-                title: "Concrete Patio Cost",
-                desc: "Patio cost estimate including sub-base and finishing.",
-                cta: "Coming soon",
-                href: null,
-                active: false,
-              },
-              {
-                title: "Concrete Slab Cost by Size",
-                desc: "Quick lookup table — cost by common slab dimensions.",
-                cta: "Coming soon",
-                href: null,
-                active: false,
+                href: "/construction-calculators/concrete/concrete-slab-calculator",
               },
             ].map((tool) => (
-              <div
-                key={tool.title}
-                className={`flex flex-col rounded-2xl border p-5 ${tool.active ? "border-gray-200 bg-white shadow-sm" : "border-dashed border-gray-200 bg-white opacity-60"}`}
-              >
-                <h3 className={`text-sm font-bold ${tool.active ? "text-gray-900" : "text-gray-400"}`}>{tool.title}</h3>
-                <p className="mt-1.5 flex-1 text-xs leading-relaxed text-gray-400">{tool.desc}</p>
-                {tool.active && tool.href ? (
-                  <Link
-                    href={tool.href}
-                    className="mt-4 inline-flex items-center justify-center rounded-xl bg-orange-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-orange-600"
-                  >
-                    {tool.cta} →
-                  </Link>
-                ) : (
-                  <span className="mt-4 inline-flex items-center justify-center rounded-xl border border-gray-200 px-4 py-2 text-xs font-semibold text-gray-400">
-                    {tool.cta}
-                  </span>
-                )}
+              <div key={tool.title} className="flex flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:shadow-md">
+                <h3 className="text-sm font-bold text-gray-900">{tool.title}</h3>
+                <p className="mt-1.5 flex-1 text-xs leading-relaxed text-gray-500">{tool.desc}</p>
+                <Link
+                  href={tool.href}
+                  className="mt-4 inline-flex items-center justify-center rounded-xl bg-orange-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-orange-600"
+                >
+                  Estimate cost →
+                </Link>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          CONCRETE CALCULATORS EXPLAINED
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="border-t border-gray-100 px-5 py-12 md:py-16 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold text-gray-900">Concrete Calculators Explained</h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Quick guide to each calculator — what it does and when to use it.
+          </p>
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold text-gray-900">Concrete Slab Calculator</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500">
+                Estimates the volume of concrete needed for flat, rectangular pours —
+                driveways, patios, garage floors, and walkways. Enter length, width, and
+                thickness to get your result in cubic yards. This is the most common
+                starting point for any concrete project. Use it before calling a supplier
+                to know exactly how much to order.
+              </p>
+              <Link href="/construction-calculators/concrete-calculator" className="mt-4 inline-block text-xs font-semibold text-emerald-700 hover:underline">
+                Calculate concrete volume →
+              </Link>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold text-gray-900">Concrete Bag Calculator</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500">
+                Tells you how many 40, 60, or 80 lb bags of premix you need for your
+                project. An 80 lb bag covers roughly 0.45 cubic feet — useful for small
+                pours, repairs, and fence post holes. For anything over 1–2 cubic yards,
+                ready-mix is usually cheaper and faster. Use the bag calculator for
+                precise counts before your next hardware store run.
+              </p>
+              <Link href="/construction-calculators/concrete/concrete-bag-calculator" className="mt-4 inline-block text-xs font-semibold text-emerald-700 hover:underline">
+                Calculate bags →
+              </Link>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold text-gray-900">Concrete Block Calculator</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500">
+                Counts how many CMU (concrete masonry unit) blocks you need to build a
+                wall to a given height and length. Standard US blocks measure 8×8×16
+                inches. Enter your wall dimensions and the calculator handles the count,
+                including a standard 10% waste buffer. Ideal for retaining walls,
+                foundations, and block fencing.
+              </p>
+              <Link href="/construction-calculators/concrete/concrete-block-calculator" className="mt-4 inline-block text-xs font-semibold text-emerald-700 hover:underline">
+                Calculate blocks →
+              </Link>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold text-gray-900">Concrete Cost Per Yard</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500">
+                Ready-mix concrete in the US typically runs $120–200 per cubic yard,
+                plus a delivery fee of $100–200. Bagged concrete works out to $300–480
+                per yard equivalent — cost-effective only for small pours under one yard.
+                Your final project cost also depends on labor, forming, and finishing.
+                Use a cost calculator to build a complete estimate.
+              </p>
+              <Link href="/construction-calculators/concrete/concrete-slab-calculator" className="mt-4 inline-block text-xs font-semibold text-emerald-700 hover:underline">
+                Estimate concrete cost →
+              </Link>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold text-gray-900">Concrete Cost Per Square Foot</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500">
+                Installed concrete costs $4–12 per square foot for most residential
+                projects. Thickness matters — a 6-inch slab costs roughly 33% more than
+                a 4-inch slab of the same footprint. Decorative finishes, colored
+                concrete, and stamped patterns add significantly to this figure. Use a
+                concrete slab cost calculator with your square footage and thickness for
+                a reliable estimate.
+              </p>
+              <Link href="/construction-calculators/concrete/concrete-slab-calculator" className="mt-4 inline-block text-xs font-semibold text-emerald-700 hover:underline">
+                Calculate slab cost →
+              </Link>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold text-gray-900">Concrete Driveway Cost</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500">
+                A concrete driveway typically costs $4–10 per square foot installed, or
+                $3,000–7,500 for a standard two-car driveway. Cost depends on slab
+                thickness, local labor rates, removal of existing material, and finish
+                type. Stamped and colored concrete add $3–12 per square foot. Always
+                get at least two quotes from local contractors before committing.
+              </p>
+              <Link href="/construction-calculators" className="mt-4 inline-block text-xs font-semibold text-emerald-700 hover:underline">
+                View all construction calculators →
+              </Link>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-base font-bold text-gray-900">Concrete Patio Cost</h3>
+              <p className="mt-2 text-sm leading-relaxed text-gray-500">
+                A concrete patio costs $3,000–5,500 on average for a 300 sq ft slab, or
+                roughly $6–12 per square foot installed. Stamped and decorative concrete
+                can push that to $15–25 per square foot. A basic broom-finish patio is
+                the most affordable option. Use a concrete slab cost calculator to
+                estimate your patio before budgeting for the full project.
+              </p>
+              <Link href="/construction-calculators/concrete/concrete-slab-calculator" className="mt-4 inline-block text-xs font-semibold text-emerald-700 hover:underline">
+                Estimate patio cost →
+              </Link>
+            </div>
+
           </div>
         </div>
       </section>
@@ -278,7 +432,7 @@ export default function ConcreteCalculatorPage() {
       ══════════════════════════════════════════════════════════════════ */}
 
       {/* ── HOW TO CALCULATE IN CUBIC YARDS ─────────────────────────────── */}
-      <section className="border-t border-gray-100 px-5 py-14 sm:px-8 lg:px-16">
+      <section className="border-t border-gray-100 px-5 py-12 md:py-16 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-bold text-gray-900">
             How to calculate concrete in cubic yards
@@ -286,10 +440,8 @@ export default function ConcreteCalculatorPage() {
           <p className="mt-4 max-w-3xl text-base leading-relaxed text-gray-500">
             All concrete in the US is ordered and priced by the cubic yard. To find the
             volume you need, multiply the length and width of your slab (both in feet)
-            by the thickness — but because thickness is usually given in inches, you
-            first divide it by 12 to convert to feet. That gives you cubic feet, and
-            since there are 27 cubic feet in one cubic yard, you divide by 27 to get
-            your final number.
+            by the thickness. Because thickness is usually given in inches, divide it
+            by 12 first to convert to feet. That gives you cubic feet.
           </p>
           <div className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-6">
             <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Formula</p>
@@ -301,8 +453,11 @@ export default function ConcreteCalculatorPage() {
             It helps to think of it in two steps: first get cubic feet, then convert.
             A slab that is 10 ft × 10 ft × 4 inches thick contains 33.3 cubic feet.
             Divide by 27 and you get 1.23 cubic yards. That&apos;s a manageable amount
-            to mix by hand with bags — anything above 1.5 cubic yards is usually more
-            practical to order as ready-mix.
+            to mix by hand — use the{" "}
+            <Link href="/construction-calculators/concrete/concrete-bag-calculator" className="font-semibold text-emerald-700 underline underline-offset-2 hover:text-emerald-900">
+              concrete bag calculator
+            </Link>{" "}
+            to get the exact bag count for your project.
           </p>
         </div>
       </section>
@@ -374,7 +529,10 @@ export default function ConcreteCalculatorPage() {
             Mixing 60 bags by hand is a full day&apos;s work for one person. At around
             2 cubic yards and above, most contractors switch to ready-mix, which arrives
             pre-blended and pours quickly. Bags are best for small pours, repairs, or
-            projects where you need to work in stages.
+            projects where you need to work in stages. Need a precise bag count?{" "}
+            <Link href="/construction-calculators/concrete/concrete-bag-calculator" className="font-semibold text-emerald-700 underline underline-offset-2 hover:text-emerald-900">
+              Use the bag calculator →
+            </Link>
           </p>
         </div>
       </section>
@@ -410,7 +568,11 @@ export default function ConcreteCalculatorPage() {
           <p className="mt-5 max-w-3xl text-base leading-relaxed text-gray-500">
             For a 3-yard driveway using ready-mix, expect to pay $360–600 for the concrete
             alone, plus delivery and any finishing or labor costs. Always get at least two
-            quotes from local suppliers — regional prices can differ by 30% or more.
+            quotes from local suppliers — regional prices can differ by 30% or more. For a
+            full project estimate, use the{" "}
+            <Link href="/construction-calculators/concrete/concrete-slab-calculator" className="font-semibold text-emerald-700 underline underline-offset-2 hover:text-emerald-900">
+              concrete slab cost calculator
+            </Link>.
           </p>
         </div>
       </section>

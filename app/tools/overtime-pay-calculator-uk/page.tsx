@@ -5,9 +5,9 @@ import LocaleSetter from "@/components/LocaleSetter";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Overtime Pay Calculator UK | Worthulator",
+  title: "Overtime Pay Calculator UK – Work Out Your Overtime Earnings Instantly",
   description:
-    "Calculate overtime pay in pounds (£) for UK workers. See your weekly, monthly, and annual earnings including time and a half and enhanced rates. UK version.",
+    "Work out how much you earn in overtime in pounds. Enter your rate and hours and get instant results for enhanced rates and total weekly pay. UK calculator.",
   keywords: [
     "overtime pay calculator UK",
     "time and a half calculator UK",

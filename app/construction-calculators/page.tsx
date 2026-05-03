@@ -16,14 +16,15 @@ const liveTools = [
     description: "Estimate how much concrete you need for slabs, footings, and pours.",
     live: true,
   },
+  {
+    name: "Concrete Slab Calculator",
+    href: "/construction-calculators/concrete/concrete-slab-calculator",
+    description: "Calculate the volume, bag count, and installed cost of concrete for any slab project.",
+    live: true,
+  },
 ];
 
 const upcomingTools = [
-  {
-    name: "Concrete Slab Calculator",
-    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
-    description: "Calculate the volume and cost of concrete for any slab project.",
-  },
   {
     name: "Brick Calculator",
     href: "/construction-calculators/brick-calculator",

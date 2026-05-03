@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Concrete Slab Cost Calculator UK 2026 | Worthulator",
+  title: "Concrete Slab Calculator UK – Work Out How Much Your Slab Will Cost Instantly",
   description:
-    "Calculate the cost of a concrete slab in the UK. Get accurate estimates for driveways, patios, and foundations in £/m² — updated for 2026.",
+    "Work out how much a concrete slab will cost in the UK. Enter your dimensions and get instant estimates for driveways, patios, and foundations.",
   keywords: [
     "concrete slab cost calculator uk",
     "how much does a concrete slab cost uk",

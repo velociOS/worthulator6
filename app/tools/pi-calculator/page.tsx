@@ -5,9 +5,9 @@ import WrongRegionBanner from "@/components/pi/WrongRegionBanner";
 import { getDisclaimer } from "@/lib/pi/disclaimer";
 
 export const metadata: Metadata = {
-  title: "Personal Injury Case Value Calculator | Worthulator",
+  title: "Personal Injury Calculator – Work Out Your Claim Value Instantly",
   description:
-    "Estimate your personal injury claim value based on injuries, liability, financial losses, and jurisdiction. A lawyer-grade case evaluation for educational purposes.",
+    "Work out the estimated value of your personal injury claim. Enter your injury, liability, and financial losses and get an instant case value estimate.",
   keywords: [
     "personal injury calculator",
     "PI case value estimator",

@@ -4,9 +4,9 @@ import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShel
 import SalaryBreakdownCalculatorLoader from "./SalaryBreakdownCalculatorLoader";
 
 export const metadata: Metadata = {
-  title: "Salary Breakdown Calculator (US) | Worthulator",
+  title: "Salary Breakdown Calculator – Work Out Your Tax and Take-Home Pay Instantly",
   description:
-    "Find out exactly how much federal income tax and FICA you pay — and what you actually take home. Free US salary breakdown calculator with live results.",
+    "Work out how much tax you pay and what you actually take home. Enter your salary and get instant results for federal tax, FICA, and net pay. US version.",
   keywords: [
     "salary breakdown calculator",
     "US salary tax calculator",

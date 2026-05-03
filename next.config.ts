@@ -32,7 +32,7 @@ const nextConfig: NextConfig = {
       // ── Concrete slab URLs → correct nested path (301) ───────────────────
       {
         source: "/construction-calculators/concrete-slab-calculator",
-        destination: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+        destination: "/construction-calculators/concrete/concrete-slab-calculator",
         permanent: true,
       },
       {
@@ -42,7 +42,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/tools/concrete-slab-calculator",
-        destination: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+        destination: "/construction-calculators/concrete/concrete-slab-calculator",
         permanent: true,
       },
       {
@@ -51,8 +51,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: "/construction-calculators/concrete",
-        destination: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+        source: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+        destination: "/construction-calculators/concrete/concrete-slab-calculator",
         permanent: true,
       },
       {

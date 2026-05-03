@@ -4,9 +4,9 @@ import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShel
 import SalaryBreakdownCalculatorLoader from "../salary-breakdown-calculator/SalaryBreakdownCalculatorLoader";
 
 export const metadata: Metadata = {
-  title: "Salary Breakdown Calculator UK | Worthulator",
+  title: "Salary Breakdown Calculator UK – Work Out Your Tax and Take-Home Pay Instantly",
   description:
-    "Find out exactly how much income tax and National Insurance you pay on your UK salary — and what you actually take home. Free PAYE salary breakdown calculator with live results.",
+    "Work out how much income tax and National Insurance you pay. Enter your salary and get instant results for PAYE deductions and take-home pay. UK version.",
   keywords: [
     "salary breakdown calculator UK",
     "UK salary after tax",

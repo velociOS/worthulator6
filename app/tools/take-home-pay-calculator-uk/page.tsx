@@ -5,9 +5,9 @@ import LocaleSetter from "@/components/LocaleSetter";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Take Home Pay Calculator UK | Worthulator",
+  title: "Take Home Pay Calculator UK – Work Out Your Net Pay After Tax Instantly",
   description:
-    "Calculate your take home pay in the UK after income tax and National Insurance. Free net pay calculator — see your salary after tax instantly.",
+    "Work out your take-home pay after income tax and National Insurance. Enter your salary and get instant results for your monthly and annual net income. UK version.",
   keywords: [
     "take home pay calculator uk",
     "take home salary calculator",

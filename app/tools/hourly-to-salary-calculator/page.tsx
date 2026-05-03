@@ -5,9 +5,9 @@ import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShel
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Hourly to Salary Calculator (US) | Worthulator",
+  title: "Hourly to Salary Calculator – Work Out Your Annual Salary Instantly",
   description:
-    "Convert your hourly wage to an annual salary instantly. See your monthly and weekly income — free US hourly to salary calculator.",
+    "Work out your annual salary from your hourly rate. Enter your wage and hours worked and get instant results for yearly, monthly, and weekly income.",
   keywords: [
     "hourly to salary calculator",
     "hourly rate to annual salary",

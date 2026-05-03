@@ -3,9 +3,9 @@ import Link from "next/link";
 import RoofReplacementCalculator from "./RoofReplacementCalculator";
 
 export const metadata: Metadata = {
-  title: "Roof Replacement Cost Calculator 2026 | Worthulator",
+  title: "Roof Replacement Cost Calculator – Work Out Your New Roof Cost Instantly",
   description:
-    "Calculate your roof replacement cost instantly. Get real estimates based on size, material, condition, and location. Asphalt, metal, tile, and flat roofs covered.",
+    "Work out how much your roof replacement will cost. Enter your roof size and material and get instant estimates for asphalt, metal, tile, and flat roofs.",
   keywords: [
     "roof replacement cost",
     "cost of roof replacement",

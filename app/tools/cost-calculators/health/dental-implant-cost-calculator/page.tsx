@@ -4,9 +4,9 @@ import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShel
 import DentalImplantCalculator from "./DentalImplantCalculatorLoader";
 
 export const metadata: Metadata = {
-  title: "Dental Implant Cost Calculator 2026 | Worthulator",
+  title: "Dental Implant Cost Calculator – Work Out Your Implant Cost Instantly",
   description:
-    "Calculate dental implant costs instantly. Get accurate estimates for single tooth, full mouth, and All-on-4 implants — adjusted for country, clinic type, and quality.",
+    "Work out how much dental implants will cost you. Enter your location and implant type and get instant estimates for single, full mouth, and All-on-4 implants.",
   keywords: [
     "dental implant cost calculator",
     "how much do dental implants cost",

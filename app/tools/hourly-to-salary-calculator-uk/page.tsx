@@ -6,9 +6,9 @@ import LocaleSetter from "@/components/LocaleSetter";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Hourly to Salary Calculator UK | Worthulator",
+  title: "Hourly to Salary Calculator UK – Work Out Your Annual Salary Instantly",
   description:
-    "Convert your hourly rate to an annual salary in pounds (£). See your monthly, weekly, and daily income based on your hours and weeks worked. UK version.",
+    "Work out your annual salary from your hourly rate in pounds. Enter your wage and hours worked and get instant results for yearly, monthly, and weekly income.",
   keywords: [
     "hourly to salary calculator UK",
     "hourly rate to annual salary UK",

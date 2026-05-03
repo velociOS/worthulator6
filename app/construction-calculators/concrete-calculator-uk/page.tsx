@@ -5,9 +5,9 @@ import ConcreteCalculatorLoader from "../concrete-calculator/ConcreteCalculatorL
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Concrete Calculator (UK) – Cubic Metres | Worthulator",
+  title: "Concrete Volume Calculator UK – Work Out How Many Cubic Metres You Need Instantly",
   description:
-    "Calculate how much concrete you need in cubic metres. Enter length, width, and depth to get your volume and bag count instantly — free UK concrete calculator.",
+    "Work out how much concrete you need in cubic metres. Enter length, width, and depth and get instant results for volume and bag count. UK calculator.",
   keywords: [
     "concrete calculator UK",
     "cubic metres concrete calculator",

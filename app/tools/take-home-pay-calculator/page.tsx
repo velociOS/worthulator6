@@ -4,9 +4,9 @@ import TakeHomePayCalculator from "./TakeHomePayCalculatorLoader";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Take Home Pay Calculator (US) | Worthulator",
+  title: "Take Home Pay Calculator – Work Out Your Net Pay After Tax Instantly",
   description:
-    "Calculate your take home pay after federal tax, state tax, Social Security, and Medicare. Free US net pay calculator — see your salary after tax instantly.",
+    "Work out your take-home pay after federal tax, state tax, and FICA. Enter your salary and get instant results for your monthly and annual net income. US version.",
   keywords: [
     "take home pay calculator",
     "salary after tax calculator",

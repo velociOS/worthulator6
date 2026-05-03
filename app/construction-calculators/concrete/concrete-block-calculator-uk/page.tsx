@@ -4,9 +4,9 @@ import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShel
 import ConcreteBlockCalculatorLoader from "../concrete-block-calculator/ConcreteBlockCalculatorLoader";
 
 export const metadata: Metadata = {
-  title: "Concrete Block Calculator UK – Blocks per m² | Worthulator",
+  title: "Concrete Block Calculator UK – Work Out How Many Blocks You Need Instantly",
   description:
-    "Calculate how many 440 × 215 mm concrete blocks you need for any UK wall. Enter length and height in metres to get your block count, wall area in m², and material cost estimate.",
+    "Work out how many concrete blocks you need for any UK wall. Enter length and height in metres and get instant results for block count and wall area.",
   keywords: [
     "concrete block calculator UK",
     "concrete blocks per m2",

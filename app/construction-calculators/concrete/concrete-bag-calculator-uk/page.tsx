@@ -4,9 +4,9 @@ import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShel
 import ConcreteBagCalculatorUKLoader from "./ConcreteBagCalculatorUKLoader";
 
 export const metadata: Metadata = {
-  title: "Concrete Bag Calculator UK | Worthulator",
+  title: "Concrete Bag Calculator UK – Work Out How Many Bags You Need Instantly",
   description:
-    "Work out how many 25 kg bags of concrete you need for any slab, shed base, or driveway in cubic metres. Instant results — free UK concrete bag calculator.",
+    "Find out how many 25 kg concrete bags you need for any slab or shed base. Enter your measurements and get instant results in cubic metres. UK calculator.",
   keywords: [
     "concrete bag calculator UK",
     "how many bags of concrete do I need UK",

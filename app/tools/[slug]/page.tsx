@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: `${pageTitle(tool)} | Worthulator`,
+    title: tool.metaTitle ?? `${pageTitle(tool)} | Worthulator`,
     description: tool.description,
     alternates: { canonical: `https://www.worthulator.com/tools/${slug}` },
     robots: { index: true, follow: true },

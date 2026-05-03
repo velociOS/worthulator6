@@ -5,9 +5,9 @@ import PassiveIncomeCalculatorLoader from "./PassiveIncomeCalculatorLoader";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Passive Income Calculator | Worthulator",
+  title: "Passive Income Calculator – Work Out Your Investment Income Instantly",
   description:
-    "Calculate how much passive income your investments could generate. See your portfolio value, monthly income, and time to reach your financial goals — free US passive income calculator.",
+    "Work out how much passive income your investments could generate. Enter your portfolio and target income and get instant results for monthly and annual income.",
   keywords: [
     "passive income calculator",
     "investment income calculator",

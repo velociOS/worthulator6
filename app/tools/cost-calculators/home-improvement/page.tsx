@@ -22,7 +22,7 @@ const TOOLS = [
   },
   {
     name: "Concrete Slab Cost Calculator",
-    href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+    href: "/construction-calculators/concrete/concrete-slab-calculator",
     description: "Calculate concrete slab costs for driveways, patios, garage floors, and foundations — in $ per sq ft.",
     stat: "$4–$15",
     statLabel: "per sq ft installed",
