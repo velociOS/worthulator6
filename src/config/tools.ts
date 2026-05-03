@@ -622,7 +622,7 @@ export const tools: Tool[] = [
     keywords: ["concrete slab cost", "how much does a concrete slab cost", "concrete slab price", "cost to pour concrete slab"],
   },
   {
-    name: "Concrete Slab Calculator UK", slug: "concrete-slab-cost-uk-construction", tier: 2, category: "construction", subcategory: "concrete", toolType: "estimator", status: "live",
+    name: "Concrete Slab Calculator UK", slug: "concrete-slab-cost-uk-construction", tier: 2, category: "construction", subcategory: "concrete", toolType: "estimator", status: "preview",
     href: "/construction-calculators/concrete/concrete-slab-calculator-uk",
     description: "Estimate the installed cost of a concrete slab in the UK. Prices in £/m², updated for 2026.",
     keywords: ["concrete slab cost uk", "how much does a concrete slab cost uk", "concrete slab price uk"],
