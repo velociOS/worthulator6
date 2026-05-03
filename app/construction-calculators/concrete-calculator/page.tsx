@@ -147,6 +147,136 @@ export default function ConcreteCalculatorPage() {
         </>
       }
     >
+      {/* ══════════════════════════════════════════════════════════════════
+          SECTION 1 — CONCRETE VOLUME CALCULATORS
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="border-t border-gray-100 px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold text-gray-900">Concrete Volume Calculators</h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Work out how much concrete you need — in cubic yards, cubic feet, or bags.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {[
+              {
+                title: "Concrete Slab Calculator",
+                desc: "Calculate volume for slabs, driveways, patios, and garage floors.",
+                cta: "Calculate volume",
+                href: "/construction-calculators/concrete-calculator",
+                active: true,
+              },
+              {
+                title: "Concrete Bag Calculator",
+                desc: "Find out exactly how many 40, 60, or 80 lb bags you need.",
+                cta: "Calculate bags",
+                href: "/construction-calculators/concrete/concrete-bag-calculator",
+                active: true,
+              },
+              {
+                title: "Concrete Block Calculator",
+                desc: "Count how many CMU blocks you need for any wall.",
+                cta: "Calculate blocks",
+                href: "/construction-calculators/concrete/concrete-block-calculator",
+                active: true,
+              },
+            ].map((tool) => (
+              <div key={tool.title} className="flex flex-col rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                <h3 className="text-sm font-bold text-gray-900">{tool.title}</h3>
+                <p className="mt-1.5 flex-1 text-xs leading-relaxed text-gray-500">{tool.desc}</p>
+                <Link
+                  href={tool.href}
+                  className="mt-4 inline-flex items-center justify-center rounded-xl bg-gray-900 px-4 py-2 text-xs font-semibold text-white transition hover:bg-gray-700"
+                >
+                  {tool.cta} →
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          SECTION 2 — CONCRETE COST CALCULATORS
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-2xl font-bold text-gray-900">Concrete Cost Calculators</h2>
+          <p className="mt-2 text-sm text-gray-500">
+            Find out what concrete will cost — by yard, square foot, or project type.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                title: "Concrete Slab Cost",
+                desc: "Installed cost for driveways, patios, and foundations.",
+                cta: "Estimate cost",
+                href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",
+                active: true,
+              },
+              {
+                title: "Concrete Cost Per Yard",
+                desc: "Ready-mix vs bagged concrete — cost per cubic yard.",
+                cta: "Coming soon",
+                href: null,
+                active: false,
+              },
+              {
+                title: "Concrete Cost Per Square Foot",
+                desc: "Estimate total cost based on square footage and thickness.",
+                cta: "Coming soon",
+                href: null,
+                active: false,
+              },
+              {
+                title: "Concrete Driveway Cost",
+                desc: "Full driveway cost estimate by size, thickness, and finish.",
+                cta: "Coming soon",
+                href: null,
+                active: false,
+              },
+              {
+                title: "Concrete Patio Cost",
+                desc: "Patio cost estimate including sub-base and finishing.",
+                cta: "Coming soon",
+                href: null,
+                active: false,
+              },
+              {
+                title: "Concrete Slab Cost by Size",
+                desc: "Quick lookup table — cost by common slab dimensions.",
+                cta: "Coming soon",
+                href: null,
+                active: false,
+              },
+            ].map((tool) => (
+              <div
+                key={tool.title}
+                className={`flex flex-col rounded-2xl border p-5 ${tool.active ? "border-gray-200 bg-white shadow-sm" : "border-dashed border-gray-200 bg-white opacity-60"}`}
+              >
+                <h3 className={`text-sm font-bold ${tool.active ? "text-gray-900" : "text-gray-400"}`}>{tool.title}</h3>
+                <p className="mt-1.5 flex-1 text-xs leading-relaxed text-gray-400">{tool.desc}</p>
+                {tool.active && tool.href ? (
+                  <Link
+                    href={tool.href}
+                    className="mt-4 inline-flex items-center justify-center rounded-xl bg-orange-500 px-4 py-2 text-xs font-semibold text-white transition hover:bg-orange-600"
+                  >
+                    {tool.cta} →
+                  </Link>
+                ) : (
+                  <span className="mt-4 inline-flex items-center justify-center rounded-xl border border-gray-200 px-4 py-2 text-xs font-semibold text-gray-400">
+                    {tool.cta}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
+          SECTION 3 — EDUCATIONAL CONTENT
+      ══════════════════════════════════════════════════════════════════ */}
+
       {/* ── HOW TO CALCULATE IN CUBIC YARDS ─────────────────────────────── */}
       <section className="border-t border-gray-100 px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
@@ -405,26 +535,17 @@ export default function ConcreteCalculatorPage() {
       </section>
 
       {/* ── RELATED TOOLS ───────────────────────────────────────────────── */}
-      <section className="border-t border-gray-100 px-5 py-14 sm:px-8 lg:px-16">
-        <div className="mx-auto max-w-5xl">
-          <h2 className="text-xl font-bold text-gray-800">Related calculators</h2>
-          <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              { label: "Concrete Slab Calculator",     href: "/tools/cost-calculators/home-improvement/concrete-slab-calculator",   note: "Calculate slab volume and cost" },
-              { label: "Concrete Bag Calculator",      href: "/construction-calculators/concrete/concrete-bag-calculator",    note: "Bags needed for any pour" },
-              { label: "Concrete Calculator (UK)",     href: "/construction-calculators/concrete-calculator-uk",     note: "Switch to metric / cubic metres" },
-              { label: "All Construction Calculators", href: "/construction-calculators",                             note: "Browse the full set" },
-            ].map(({ label, href, note }) => (
-              <Link
-                key={href}
-                href={href}
-                className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md"
-              >
-                <p className="text-sm font-semibold text-emerald-700">{label}</p>
-                <p className="mt-1 text-xs text-gray-400">{note}</p>
-              </Link>
-            ))}
-          </div>
+      <section className="border-t border-gray-100 px-5 py-10 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl flex flex-wrap gap-4 text-sm">
+          <Link href="/construction-calculators/concrete-calculator-uk" className="font-semibold text-emerald-700 underline underline-offset-2 hover:text-emerald-900">
+            Concrete Calculator (UK) →
+          </Link>
+          <Link href="/construction-calculators" className="font-semibold text-emerald-700 underline underline-offset-2 hover:text-emerald-900">
+            All Construction Calculators →
+          </Link>
+          <Link href="/tools/cost-calculators/home-improvement" className="font-semibold text-emerald-700 underline underline-offset-2 hover:text-emerald-900">
+            Home Improvement Cost Calculators →
+          </Link>
         </div>
       </section>
     </SimpleCalculatorShell>
