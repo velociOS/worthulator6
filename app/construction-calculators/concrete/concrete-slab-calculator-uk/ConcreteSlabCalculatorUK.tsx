@@ -126,7 +126,7 @@ export default function ConcreteSlabCalculatorUK() {
               className="h-3"
             />
             <div className="mt-2 flex justify-between text-xs text-gray-400">
-              <span>0</span><span>15 m</span><span>30 m</span>
+              <span>0.5 m</span><span>15 m</span><span>30 m</span>
             </div>
           </div>
         </div>
@@ -162,7 +162,7 @@ export default function ConcreteSlabCalculatorUK() {
               className="h-3"
             />
             <div className="mt-2 flex justify-between text-xs text-gray-400">
-              <span>0</span><span>15 m</span><span>30 m</span>
+              <span>0.5 m</span><span>15 m</span><span>30 m</span>
             </div>
           </div>
         </div>
@@ -564,11 +564,13 @@ export default function ConcreteSlabCalculatorUK() {
             How it&apos;s calculated
           </p>
           <p className="text-xs leading-relaxed text-gray-500">
-            Volume = Length (m) &times; Width (m) &times; (Thickness (mm) &divide; 1000)
+            Volume (m³) = Length (m) &times; Width (m) &times; (Thickness (mm) &divide; 1,000)
             <br /><br />
-            &divide; 1000 converts millimetres to metres.
+            Volume incl. waste = Volume &times; (1 + waste&nbsp;%)
             <br /><br />
-            Cost = (volume &times; material rate) + (m² &times; labour rate)
+            Material cost = volume incl. waste &times; price per m³
+            <br />
+            Labour cost = area (m²) &times; labour + finish + reinforcement per m²
           </p>
         </div>
 
