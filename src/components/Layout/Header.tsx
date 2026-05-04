@@ -314,9 +314,96 @@ function CategoriesMenu() {
   )
 }
 
+// ─── Mobile nav drawer ────────────────────────────────────────────────────
+function MobileNav({ open, onClose }: { open: boolean; onClose: () => void }) {
+  // Close on Escape
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [open, onClose]);
+
+  // Lock body scroll when open
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
+
+  const navLinks = [
+    { label: "Tools",       href: "/tools" },
+    { label: "Categories",  href: "/tools#categories" },
+    { label: "Popular",     href: "/tools?sort=popular" },
+    { label: "About",       href: "/about" },
+  ];
+
+  return (
+    <>
+      {/* Overlay */}
+      <div
+        aria-hidden="true"
+        onClick={onClose}
+        className={`fixed inset-0 z-40 bg-black/60 transition-opacity duration-300 lg:hidden ${
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      />
+
+      {/* Drawer */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col bg-[#0d0d0d] shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${
+          open ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {/* Drawer header */}
+        <div className="flex min-h-16 items-center justify-between border-b border-white/10 px-5">
+          <Logo />
+          <button
+            onClick={onClose}
+            aria-label="Close menu"
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-white/50 transition-colors hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+          >
+            <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" aria-hidden="true">
+              <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Links */}
+        <nav className="flex flex-col gap-1 px-3 py-5">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={onClose}
+              className="flex items-center rounded-xl px-4 py-3.5 text-sm font-semibold text-white/70 transition-colors hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+
+        {/* Bottom CTA */}
+        <div className="mt-auto border-t border-white/10 p-5">
+          <Link
+            href="/tools"
+            onClick={onClose}
+            className="flex w-full items-center justify-center rounded-xl bg-white py-3 text-sm font-bold text-black transition-opacity hover:opacity-90"
+          >
+            Browse All Tools
+          </Link>
+        </div>
+      </div>
+    </>
+  );
+}
+
 // ─── Header ───────────────────────────────────────────────────────────────
 export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   // ⌘K / Ctrl+K global shortcut
   useEffect(() => {
@@ -333,11 +420,26 @@ export default function Header() {
   return (
     <>
       <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
+      <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
+
       <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-black/96 text-white backdrop-blur">
         <div className="mx-auto flex min-h-16 w-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+
+          {/* Hamburger — mobile only */}
+          <button
+            onClick={() => setMobileOpen(true)}
+            aria-label="Open menu"
+            aria-expanded={mobileOpen}
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-white/60 transition-colors hover:bg-white/8 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 lg:hidden"
+          >
+            <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" aria-hidden="true">
+              <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </button>
+
           <Logo />
 
-          {/* Primary nav */}
+          {/* Primary nav — desktop only */}
           <nav className="hidden items-center gap-0.5 lg:flex">
             <NavDropdown label="Tools">
               <ToolsMegaMenu />

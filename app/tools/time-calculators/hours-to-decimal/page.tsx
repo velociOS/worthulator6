@@ -74,7 +74,7 @@ export default function HoursToDecimalPage() {
       ))}
 
       {/* ── HERO ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
+      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-10 sm:px-8 sm:py-20 lg:px-16 lg:py-24">
         <div className="pointer-events-none absolute -top-32 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-emerald-50/80 blur-[80px]" />
         <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-gray-100/60 blur-3xl" />
 
