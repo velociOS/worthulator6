@@ -4,9 +4,9 @@ import TakeHomePayCalculator from "./TakeHomePayCalculatorLoader";
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Take Home Pay Calculator – Work Out Your Net Pay After Tax Instantly",
+  title: "Take Home Pay Calculator (US) – See Your Exact Net Salary Instantly",
   description:
-    "Work out your take-home pay after federal tax, state tax, and FICA. Enter your salary and get instant results for your monthly and annual net income. US version.",
+    "Use our free take home pay calculator to instantly see your net salary after federal and state taxes. Fast, accurate, and built for US workers.",
   keywords: [
     "take home pay calculator",
     "salary after tax calculator",
@@ -95,6 +95,9 @@ export default function TakeHomePayPage() {
               Take Home Pay Calculator
               <span className="block mt-1 text-gray-400 font-semibold">See your net salary after federal tax, state tax, and Social Security.</span>
             </h1>
+            <p className="mt-3 text-base font-medium text-gray-600">
+              Enter your salary and see exactly how much you take home after tax instantly.
+            </p>
             <p className="mt-5 max-w-lg text-lg leading-relaxed text-gray-500">
               Enter your gross salary to see your net income after federal tax, state income tax, Social Security, and Medicare — broken down annually, monthly, and weekly.
             </p>
