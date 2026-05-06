@@ -13,6 +13,21 @@ export const metadata: Metadata = {
 
 const CATEGORIES = [
   {
+    title: "Cost Per Square Foot Calculators",
+    href: "/cost-calculators/sq-ft-cost-calculator",
+    description: "Instant cost-per-sq-ft estimates for roofing, flooring, painting, concrete, tiling, drywall, and carpet — with 2026 national average rates.",
+    emoji: "📐",
+    tools: [
+      { name: "Roof Cost Per Sq Ft Calculator", href: "/cost-calculators/roof-cost-per-sq-ft", description: "Estimate roofing cost per square foot for asphalt, metal, and tile roofs." },
+      { name: "Flooring Cost Per Sq Ft Calculator", href: "/cost-calculators/flooring-cost-per-sq-ft", description: "Compare LVP, hardwood, laminate, tile, and carpet installation costs per sq ft." },
+      { name: "Painting Cost Per Sq Ft Calculator", href: "/cost-calculators/painting-cost-per-sq-ft", description: "Estimate interior and exterior painting cost per square foot." },
+      { name: "Concrete Cost Per Sq Ft Calculator", href: "/cost-calculators/concrete-cost-per-sq-ft", description: "Estimate concrete slab, driveway, and patio cost per square foot." },
+      { name: "Tile Installation Cost Per Sq Ft", href: "/cost-calculators/tile-installation-cost-per-sq-ft", description: "Estimate floor and wall tile installation cost per square foot." },
+      { name: "Drywall Cost Per Sq Ft Calculator", href: "/cost-calculators/drywall-cost-per-sq-ft", description: "Estimate drywall hanging, taping, and finishing cost per square foot." },
+      { name: "Carpet Installation Cost Per Sq Ft", href: "/cost-calculators/carpet-installation-cost-per-sq-ft", description: "Estimate carpet, pad, and installation cost per square foot." },
+    ],
+  },
+  {
     title: "Home Improvement",
     href: "/tools/cost-calculators/home-improvement",
     description: "Roofing, concrete, renovation, and structural cost estimators.",

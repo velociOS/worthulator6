@@ -56,6 +56,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...statics, ...toolPages, ...ukToolPages, ...statePages];
+  // Cost-per-sq-ft calculator cluster
+  const sqftSlugs = [
+    "roof-cost-per-sq-ft",
+    "painting-cost-per-sq-ft",
+    "flooring-cost-per-sq-ft",
+    "concrete-cost-per-sq-ft",
+    "tile-installation-cost-per-sq-ft",
+    "drywall-cost-per-sq-ft",
+    "carpet-installation-cost-per-sq-ft",
+  ];
+  const sqftPages: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/cost-calculators/sq-ft-cost-calculator`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8 },
+    ...sqftSlugs.map((slug) => ({
+      url: `${BASE_URL}/cost-calculators/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+  ];
+
+  return [...statics, ...toolPages, ...ukToolPages, ...statePages, ...sqftPages];
 }
 

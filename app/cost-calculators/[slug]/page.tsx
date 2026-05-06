@@ -35,13 +35,24 @@ export default async function SqFtPage({ params }: Props) {
   const fmt = (n: number) =>
     n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: config.title,
-    description: config.metaDescription,
-    url: `https://www.worthulator.com/cost-calculators/${slug}`,
-  };
+  const jsonLd = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      name: config.title,
+      description: config.metaDescription,
+      url: `https://www.worthulator.com/cost-calculators/${slug}`,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: config.faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.q,
+        acceptedAnswer: { "@type": "Answer", text: faq.a },
+      })),
+    },
+  ];
 
   return (
     <main className="bg-white text-gray-900">
@@ -118,6 +129,75 @@ export default async function SqFtPage({ params }: Props) {
           <p className="mt-4 text-base leading-relaxed text-gray-500">
             {config.contentBody}
           </p>
+        </div>
+      </section>
+
+      {/* ── COST TABLE ───────────────────────────────────────────────── */}
+      <section className="border-t border-gray-100 bg-white px-5 py-12 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-xl font-bold tracking-tight text-gray-900">
+            Cost by project size
+          </h2>
+          <div className="mt-5 overflow-hidden rounded-2xl border border-gray-200">
+            <table className="w-full text-sm">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">Project size</th>
+                  <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-emerald-600">Low estimate</th>
+                  <th className="px-5 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-500">High estimate</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {config.costTable.map((row) => (
+                  <tr key={row.area} className="bg-white">
+                    <td className="px-5 py-3 text-gray-800">{row.area}</td>
+                    <td className="px-5 py-3 font-semibold text-emerald-700">{row.low}</td>
+                    <td className="px-5 py-3 text-gray-600">{row.high}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-xs text-gray-400">
+            Approximate 2026 US national averages at ${config.defaultCostLow}–${config.defaultCostHigh}/{config.unitLabel} installed. Actual costs vary by location, contractor, and project complexity.
+          </p>
+        </div>
+      </section>
+
+      {/* ── FACTORS ──────────────────────────────────────────────────── */}
+      <section className="border-t border-gray-100 bg-gray-50 px-5 py-12 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-xl font-bold tracking-tight text-gray-900">
+            What affects {config.category.toLowerCase()} cost per square foot?
+          </h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2">
+            {config.factors.map((f) => (
+              <div key={f.title} className="flex gap-4 rounded-2xl border border-gray-100 bg-white p-5">
+                <span className="mt-0.5 text-xl">{f.icon}</span>
+                <div>
+                  <p className="text-sm font-bold text-gray-900">{f.title}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-gray-500">{f.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ──────────────────────────────────────────────────────── */}
+      <section className="border-t border-gray-100 bg-white px-5 py-12 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-3xl">
+          <h2 className="text-xl font-bold tracking-tight text-gray-900">
+            Frequently asked questions
+          </h2>
+          <div className="mt-6 space-y-5">
+            {config.faqs.map((faq) => (
+              <div key={faq.q} className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
+                <p className="text-sm font-bold text-gray-900">{faq.q}</p>
+                <p className="mt-2 text-sm leading-relaxed text-gray-500">{faq.a}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
