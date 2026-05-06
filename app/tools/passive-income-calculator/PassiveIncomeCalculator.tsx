@@ -598,9 +598,12 @@ export default function PassiveIncomeCalculator({
       initialInvestment: 10000,
       monthlyContribution: 500,
       annualReturn: 7,
+      mode: "direct",
+      monthlyIncome: 500,
     }),
   ]);
   const [years, setYears] = useState(20);
+  const [projectionMonths, setProjectionMonths] = useState(12);
   const [withdrawalRate, setWithdrawalRate] = useState(
     regionDefaults.defaultWithdrawalRate,
   );
@@ -780,8 +783,8 @@ export default function PassiveIncomeCalculator({
           </div>
         </div>}
 
-        {/* Global settings — only relevant when at least one growth stream exists */}
-        {result.hasGrowthStreams && <div className="space-y-5 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+        {/* Global settings — full controls for growth streams; simple projection picker for direct-only */}
+        {result.hasGrowthStreams ? <div className="space-y-5 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
             Global Settings
           </p>
@@ -850,7 +853,30 @@ export default function PassiveIncomeCalculator({
               Your target monthly passive income — we calculate when you reach it.
             </p>
           </div>
-        </div>}
+        </div> : (
+          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
+              Projection Period
+            </p>
+            <p className="mt-1 text-xs text-gray-400">How far ahead do you want to project your income?</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {[1, 3, 6, 9, 12].map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => setProjectionMonths(m)}
+                  className={`rounded-xl border px-4 py-2 text-sm font-semibold transition-all ${
+                    projectionMonths === m
+                      ? "border-emerald-500 bg-emerald-50 text-emerald-700"
+                      : "border-gray-200 text-gray-500 hover:border-emerald-200 hover:text-emerald-600"
+                  }`}
+                >
+                  {m} {m === 1 ? "month" : "months"}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Income streams */}
         <div className="space-y-3">
@@ -1007,44 +1033,64 @@ export default function PassiveIncomeCalculator({
 
         {/* 2×2 output grid */}
         <div className="grid grid-cols-2 gap-3">
-          <SmallOutputCard
-            label={result.hasGrowthStreams ? "Growth Portfolio" : "Portfolio"}
-            value={result.hasGrowthStreams ? fmt(result.totalPortfolioValue, currency) : "—"}
-            sub={
-              result.hasGrowthStreams
-                ? `after ${years} yr${years !== 1 ? "s" : ""} · ${growthMultiple}× growth`
-                : "Using direct income input"
-            }
-          />
-          <SmallOutputCard
-            label="Annual Income"
-            value={fmt(result.totalAnnualIncome, currency)}
-            sub="per year at current withdrawal rate"
-          />
-          <SmallOutputCard
-            label="Inflation-Adjusted"
-            value={result.hasGrowthStreams ? fmt(result.inflationAdjustedValue, currency) : "—"}
-            sub={result.hasGrowthStreams ? "real value in today's money" : "Not applicable for direct income"}
-          />
-          {targetMonthlyIncome > 0 ? (
-            <SmallOutputCard
-              label="Freedom In"
-              value={fmtYears(result.yearsToFreedom)}
-              sub={
-                result.yearsToFreedom >= 999
-                  ? "increase contributions"
-                  : `to reach ${currency}${targetMonthlyIncome.toLocaleString()}/mo`
-              }
-            />
+          {result.hasGrowthStreams ? (
+            <>
+              <SmallOutputCard
+                label="Growth Portfolio"
+                value={fmt(result.totalPortfolioValue, currency)}
+                sub={`after ${years} yr${years !== 1 ? "s" : ""} · ${growthMultiple}× growth`}
+              />
+              <SmallOutputCard
+                label="Annual Income"
+                value={fmt(result.totalAnnualIncome, currency)}
+                sub="per year"
+              />
+              <SmallOutputCard
+                label="Inflation-Adjusted"
+                value={fmt(result.inflationAdjustedValue, currency)}
+                sub="real value in today's money"
+              />
+              {targetMonthlyIncome > 0 ? (
+                <SmallOutputCard
+                  label="Freedom In"
+                  value={fmtYears(result.yearsToFreedom)}
+                  sub={
+                    result.yearsToFreedom >= 999
+                      ? "increase contributions"
+                      : `to reach ${currency}${targetMonthlyIncome.toLocaleString()}/mo`
+                  }
+                />
+              ) : (
+                <SmallOutputCard
+                  label="Total Contributed"
+                  value={fmt(result.totalContributed, currency)}
+                  sub={`+${((result.totalGrowth / Math.max(1, result.totalContributed)) * 100).toFixed(0)}% investment growth`}
+                />
+              )}
+            </>
           ) : (
-            <SmallOutputCard
-              label="Total Contributed"
-              value={result.hasGrowthStreams ? fmt(result.totalContributed, currency) : "—"}
-              sub={result.hasGrowthStreams
-                ? `+${((result.totalGrowth / Math.max(1, result.totalContributed)) * 100).toFixed(0)}% investment growth`
-                : "No portfolio contributions"
-              }
-            />
+            <>
+              <SmallOutputCard
+                label="Annual Income"
+                value={fmt(result.totalAnnualIncome, currency)}
+                sub="per year across all streams"
+              />
+              <SmallOutputCard
+                label={`${projectionMonths}-Month Total`}
+                value={fmt(result.totalMonthlyIncome * projectionMonths, currency)}
+                sub={`projected over ${projectionMonths} month${projectionMonths !== 1 ? "s" : ""}`}
+              />
+              <SmallOutputCard
+                label="Weekly Income"
+                value={fmt((result.totalMonthlyIncome * 12) / 52, currency)}
+                sub="estimated per week"
+              />
+              <SmallOutputCard
+                label="Daily Income"
+                value={fmt((result.totalMonthlyIncome * 12) / 365, currency)}
+                sub="estimated per day"
+              />
+            </>
           )}
         </div>
 
