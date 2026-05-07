@@ -5,7 +5,7 @@ import WrongRegionBanner from "@/components/pi/WrongRegionBanner";
 import { getUKDisclaimer } from "@/lib/pi-uk/disclaimer";
 
 export const metadata: Metadata = {
-  title: "Personal Injury Calculator UK � Work Out Your Claim Value Instantly",
+  title: "Personal Injury Calculator UK – Work Out Your Claim Value Instantly",
   description:
     "Work out the estimated value of your personal injury claim. Enter your injury details and losses and get an instant compensation estimate. UK calculator.",
   keywords: [
@@ -42,17 +42,17 @@ export default function UKPICalculatorPage() {
 
       <div className="min-h-screen bg-[#fafaf9]">
         <WrongRegionBanner currentRegion="uk" />
-        {/* -- Hero ------------------------------------------------------------ */}
+        {/* ── Hero ──────────────────────────────────────────────────────────── */}
         <section className="bg-slate-950 px-6 pb-14 pt-16 sm:px-12 sm:pb-16 sm:pt-20 lg:px-20">
           <div className="mx-auto max-w-3xl">
           <div className="mb-3 flex items-center gap-2">
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-300">
-                ???? United Kingdom Version
+                🇬🇧 United Kingdom Version
               </span>
             </div>
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              Estimates only � Not legal advice � For informational use
+              Estimates only · Not legal advice · For informational use
             </div>
             <h1 className="mb-4 text-3xl font-bold leading-tight text-white sm:text-4xl">
               Personal Injury{" "}
@@ -68,10 +68,10 @@ export default function UKPICalculatorPage() {
             </p>
             <div className="flex flex-wrap gap-4 text-xs text-slate-400">
               {[
-                "?? Contributory negligence analysis",
-                "?? Judicial College Guidelines ranges",
-                "?? General &amp; special damages",
-                "?????????????? England, Wales, Scotland &amp; NI",
+                "⚖️ Contributory negligence analysis",
+                "🦴 Judicial College Guidelines ranges",
+                "💷 General &amp; special damages",
+                "🏴󠁧󠁢󠁥󠁮󠁧󠁿 England, Wales, Scotland &amp; NI",
               ].map((item) => (
                 <span
                   key={item}
@@ -84,16 +84,16 @@ export default function UKPICalculatorPage() {
           </div>
         </section>
 
-        {/* -- Calculator ------------------------------------------------------ */}
+        {/* ── Calculator ────────────────────────────────────────────────────── */}
         <section className="px-4 py-12 sm:px-8 sm:py-16 lg:px-20">
           <StepFlow />
         </section>
 
-        {/* -- Visible disclaimer block ---------------------------------------- */}
+        {/* ── Visible disclaimer block ──────────────────────────────────────── */}
         <section className="border-y border-amber-100 bg-amber-50 px-6 py-6 sm:px-12 lg:px-20">
           <div className="mx-auto max-w-3xl">
             <div className="flex gap-3">
-              <span className="mt-0.5 shrink-0 text-lg">??</span>
+              <span className="mt-0.5 shrink-0 text-lg">⚠️</span>
               <p className="text-sm leading-relaxed text-amber-800">
                 <strong>Important:</strong> This calculator provides estimates
                 based on publicly available data and general assumptions. It
@@ -107,7 +107,7 @@ export default function UKPICalculatorPage() {
           </div>
         </section>
 
-        {/* -- Informational content -------------------------------------------- */}
+        {/* ── Informational content ──────────────────────────────────────────── */}
         <section className="border-t border-slate-100 bg-white px-6 py-14 sm:px-12 lg:px-20">
           <div className="mx-auto max-w-3xl space-y-12">
 
@@ -149,32 +149,32 @@ export default function UKPICalculatorPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   {
-                    icon: "??",
+                    icon: "⚖️",
                     title: "Contributory negligence",
                     desc: "Under the Law Reform (Contributory Negligence) Act 1945, if you are found to have contributed to the incident, your compensation will be reduced proportionally. Unlike some other legal systems, UK law does not bar your claim entirely because of shared fault.",
                   },
                   {
-                    icon: "??",
+                    icon: "🦴",
                     title: "Injury type and severity",
                     desc: "More serious injuries with longer recovery periods tend to attract higher general damages estimates. The JCG provides separate ranges for minor, moderate, severe and catastrophic injuries across different body systems.",
                   },
                   {
-                    icon: "??",
+                    icon: "📋",
                     title: "Evidence quality",
                     desc: "Medical records, police reports, witness statements and photographic evidence all strengthen a claim. Stronger evidence is generally associated with higher estimates within a given range.",
                   },
                   {
-                    icon: "??????????????",
+                    icon: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
                     title: "Jurisdiction",
                     desc: "England and Wales, Scotland, and Northern Ireland each have separate legal systems. While broadly consistent, compensation outcomes and procedural rules can differ. This calculator applies jurisdiction-specific adjustments.",
                   },
                   {
-                    icon: "??",
+                    icon: "🔄",
                     title: "Recovery duration",
                     desc: "Longer recovery periods are typically associated with higher general damages. Injuries with ongoing or permanent effects tend to attract estimates at the upper end of published ranges.",
                   },
                   {
-                    icon: "??",
+                    icon: "💷",
                     title: "Financial losses",
                     desc: "Special damages are based on actual or projected financial losses. These must generally be evidenced with receipts, payslips, medical invoices or expert reports to be recoverable in practice.",
                   },
@@ -207,7 +207,7 @@ export default function UKPICalculatorPage() {
                 <strong>conservative</strong>,{" "}
                 <strong>most likely</strong>, and{" "}
                 <strong>maximum estimate</strong>. These reflect different
-                scenarios based on typical UK case data � they do not
+                scenarios based on typical UK case data — they do not
                 represent guaranteed outcomes or legal opinions.
               </p>
               <p className="mt-3 text-sm leading-relaxed text-slate-600">
@@ -278,7 +278,7 @@ export default function UKPICalculatorPage() {
                     figures provided here are based on approximate Judicial
                     College Guidelines ranges and general assumptions. They are
                     intended to help you understand the broad range of typical
-                    compensation outcomes � not to substitute for professional
+                    compensation outcomes — not to substitute for professional
                     legal assessment.
                   </span>
                 </li>

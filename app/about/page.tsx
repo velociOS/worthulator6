@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "About | Worthulator",
   description:
-    "Worthulator is a platform of fast, practical financial calculators. No accounts, no paywalls � just clear answers to money questions that affect everyone.",
+    "Worthulator is a platform of fast, practical financial calculators. No accounts, no paywalls — just clear answers to money questions that affect everyone.",
   alternates: { canonical: "https://worthulator.com/about" },
   robots: { index: true, follow: true },
 };
@@ -20,7 +20,7 @@ const principles = [
   },
   {
     title: "Honest about limits",
-    body: "These are estimates, not guarantees. We say so clearly � always.",
+    body: "These are estimates, not guarantees. We say so clearly — always.",
   },
   {
     title: "Always free",
@@ -41,7 +41,7 @@ export default function AboutPage() {
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-relaxed text-gray-500">
             Worthulator is a platform of fast, practical calculators built for real people making
-            real decisions � about salaries, taxes, overtime, subscriptions, and time.
+            real decisions — about salaries, taxes, overtime, subscriptions, and time.
           </p>
         </div>
       </section>
@@ -55,7 +55,7 @@ export default function AboutPage() {
           </h2>
           <div className="mt-6 space-y-5 text-base leading-relaxed text-gray-500">
             <p>
-              Money decisions affect everyone � salary negotiations, tax planning, overtime calculations,
+              Money decisions affect everyone — salary negotiations, tax planning, overtime calculations,
               understanding where your money goes. But the tools built to help with these decisions were
               either buried in spreadsheets, locked behind subscriptions, or so technically dense they
               were unusable by anyone who isn&apos;t an accountant.
@@ -67,7 +67,7 @@ export default function AboutPage() {
               just to see a number.
             </p>
             <p>
-              So we built Worthulator � a growing set of tools that give you a clear answer in
+              So we built Worthulator — a growing set of tools that give you a clear answer in
               seconds. No account. No paywall. No noise.
             </p>
           </div>
@@ -87,12 +87,12 @@ export default function AboutPage() {
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {[
-              { emoji: "??", label: "Take Home Pay", desc: "After-tax salary for every US state and the UK." },
-              { emoji: "??", label: "Hourly to Salary", desc: "Convert any rate to annual, monthly, or daily." },
-              { emoji: "??", label: "Overtime Pay", desc: "Exactly what overtime earns you at 1.5� or 2�." },
-              { emoji: "??", label: "Compound Interest", desc: "How money grows over time at any rate." },
-              { emoji: "??", label: "Screen Time Value", desc: "What that daily scroll actually costs in time." },
-              { emoji: "??", label: "Subscription Cost", desc: "The real annual cost of everything you subscribe to." },
+              { emoji: "💵", label: "Take Home Pay", desc: "After-tax salary for every US state and the UK." },
+              { emoji: "🕐", label: "Hourly to Salary", desc: "Convert any rate to annual, monthly, or daily." },
+              { emoji: "⏱️", label: "Overtime Pay", desc: "Exactly what overtime earns you at 1.5× or 2×." },
+              { emoji: "📈", label: "Compound Interest", desc: "How money grows over time at any rate." },
+              { emoji: "📱", label: "Screen Time Value", desc: "What that daily scroll actually costs in time." },
+              { emoji: "💳", label: "Subscription Cost", desc: "The real annual cost of everything you subscribe to." },
             ].map((item) => (
               <div
                 key={item.label}
@@ -111,7 +111,7 @@ export default function AboutPage() {
               href="/tools"
               className="inline-flex h-11 items-center rounded-2xl bg-slate-950 px-6 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-slate-800"
             >
-              See all tools ?
+              See all tools →
             </Link>
           </div>
         </div>
@@ -145,7 +145,7 @@ export default function AboutPage() {
           <div className="mt-6 space-y-5 text-base leading-relaxed text-gray-500">
             <p>
               Right now, Worthulator is a set of standalone tools. Each one answers a single question.
-              That&apos;s intentional � we wanted to get the fundamentals right before connecting the dots.
+              That&apos;s intentional — we wanted to get the fundamentals right before connecting the dots.
             </p>
             <p>
               The next phase is to link them. Your take-home pay feeds into your subscription
@@ -155,7 +155,7 @@ export default function AboutPage() {
             </p>
             <p>
               Not a dashboard. Not a budget app. Just a set of connected tools that help you see
-              your finances more clearly � one question at a time.
+              your finances more clearly — one question at a time.
             </p>
           </div>
           <div className="mt-8">
@@ -163,7 +163,7 @@ export default function AboutPage() {
               href="/contact"
               className="text-sm font-semibold text-emerald-700 hover:text-emerald-600 underline underline-offset-4"
             >
-              Have a tool idea? Tell us ?
+              Have a tool idea? Tell us →
             </Link>
           </div>
         </div>

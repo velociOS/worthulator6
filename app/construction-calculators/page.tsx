@@ -54,7 +54,7 @@ export default function ConstructionCalculatorsPage() {
         <h1 className="text-3xl font-bold text-slate-950">Construction Calculators</h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-500">
           Free calculators for builders, tradespeople, and DIY enthusiasts. Estimate
-          concrete volumes, material quantities, project costs, and more � without
+          concrete volumes, material quantities, project costs, and more — without
           the guesswork.
         </p>
       </div>
@@ -108,7 +108,7 @@ export default function ConstructionCalculatorsPage() {
           href="/tools"
           className="text-sm text-slate-400 transition-colors hover:text-slate-700"
         >
-          ? Browse all calculators
+          ← Browse all calculators
         </Link>
       </div>
     </div>

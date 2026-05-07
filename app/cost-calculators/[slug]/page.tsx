@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: config.metaDescription,
     keywords: config.keywords,
     alternates: {
-      canonical: `https://www.worthulator.com/cost-calculators/${slug}`,
+      canonical: `https://worthulator.com/cost-calculators/${slug}`,
     },
     robots: { index: true, follow: true },
   };
@@ -41,7 +41,7 @@ export default async function SqFtPage({ params }: Props) {
       "@type": "WebPage",
       name: config.title,
       description: config.metaDescription,
-      url: `https://www.worthulator.com/cost-calculators/${slug}`,
+      url: `https://worthulator.com/cost-calculators/${slug}`,
     },
     {
       "@context": "https://schema.org",

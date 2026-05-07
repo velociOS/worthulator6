@@ -37,7 +37,7 @@ export default function TermsPage() {
 
           {/* 1 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">01 — The Platform</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">01 â€” The Platform</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">What Worthulator is</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -54,7 +54,7 @@ export default function TermsPage() {
 
           {/* 2 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">02 — Not financial advice</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">02 â€” Not financial advice</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Informational use only</h2>
             <div className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 p-6">
               <p className="text-sm font-bold text-amber-900">Important</p>
@@ -67,7 +67,7 @@ export default function TermsPage() {
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
                 Worthulator does not know your full financial situation. The calculations provided
-                do not account for all variables that may affect your actual outcomes — including
+                do not account for all variables that may affect your actual outcomes â€” including
                 individual tax codes, employer policies, local regulations, and personal circumstances.
               </p>
               <p>
@@ -79,7 +79,7 @@ export default function TermsPage() {
 
           {/* 3 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">03 — Accuracy</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">03 â€” Accuracy</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Estimates, not guarantees</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -88,7 +88,7 @@ export default function TermsPage() {
                 may not reflect the most recent changes.
               </p>
               <p>
-                We make no warranty — express or implied — that any result produced by the Platform
+                We make no warranty â€” express or implied â€” that any result produced by the Platform
                 is accurate, complete, current, or suitable for any particular purpose.
               </p>
             </div>
@@ -96,7 +96,7 @@ export default function TermsPage() {
 
           {/* 4 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">04 — Limitation of liability</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">04 â€” Limitation of liability</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Our liability to you</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -117,7 +117,7 @@ export default function TermsPage() {
 
           {/* 5 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">05 — Acceptable use</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">05 â€” Acceptable use</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">How you may use the Platform</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>You may use Worthulator for personal, informational, and non-commercial purposes. You may not:</p>
@@ -132,7 +132,7 @@ export default function TermsPage() {
 
           {/* 6 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">06 — Intellectual property</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">06 â€” Intellectual property</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Ownership</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -145,7 +145,7 @@ export default function TermsPage() {
 
           {/* 7 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">07 — Third-party links</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">07 â€” Third-party links</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">External links</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -158,7 +158,7 @@ export default function TermsPage() {
 
           {/* 8 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">08 — Data sharing &amp; service providers</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">08 â€” Data sharing &amp; service providers</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Sharing with third parties</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -180,7 +180,7 @@ export default function TermsPage() {
 
           {/* 9 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">09 — Your responsibility</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">09 â€” Your responsibility</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Verifying information independently</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>
@@ -191,7 +191,7 @@ export default function TermsPage() {
               </p>
               <p>
                 Before making any significant decision based on results shown on the Platform,
-                always consult a qualified professional — such as a licensed financial adviser,
+                always consult a qualified professional â€” such as a licensed financial adviser,
                 accountant, solicitor, or tax professional.
               </p>
             </div>
@@ -199,7 +199,7 @@ export default function TermsPage() {
 
           {/* 10 */}
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">10 — Changes</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">10 â€” Changes</p>
             <h2 className="mt-3 text-xl font-bold tracking-tight text-gray-950">Updates to these terms</h2>
             <div className="mt-4 space-y-4 text-base leading-relaxed text-gray-500">
               <p>

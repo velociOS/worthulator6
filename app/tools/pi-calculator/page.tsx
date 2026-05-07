@@ -5,7 +5,7 @@ import WrongRegionBanner from "@/components/pi/WrongRegionBanner";
 import { getDisclaimer } from "@/lib/pi/disclaimer";
 
 export const metadata: Metadata = {
-  title: "Personal Injury Calculator � Work Out Your Claim Value Instantly",
+  title: "Personal Injury Calculator – Work Out Your Claim Value Instantly",
   description:
     "Work out the estimated value of your personal injury claim. Enter your injury, liability, and financial losses and get an instant case value estimate.",
   keywords: [
@@ -46,12 +46,12 @@ export default function PICalculatorPage() {
           <div className="mx-auto max-w-3xl">
             <div className="mb-3 flex items-center gap-2">
               <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-slate-300">
-                ???? United States Version
+                🇺🇸 United States Version
               </span>
             </div>
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-medium text-slate-300">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              Estimates only � Not legal advice � For educational use
+              Estimates only · Not legal advice · For educational use
             </div>
             <h1 className="mb-4 text-3xl font-bold leading-tight text-white sm:text-4xl">
               Personal Injury{" "}
@@ -60,14 +60,14 @@ export default function PICalculatorPage() {
             <p className="mb-6 max-w-xl text-base leading-relaxed text-slate-400">
               Answer 5 questions about your incident, injuries, and losses. Get
               a data-driven estimate of your claim's conservative, likely, and
-              aggressive value � the way an attorney would evaluate it.
+              aggressive value — the way an attorney would evaluate it.
             </p>
             <div className="flex flex-wrap gap-4 text-xs text-slate-400">
               {[
-                "?? Liability & fault analysis",
-                "?? 12 injury categories",
-                "?? Economic + non-economic damages",
-                "??? All 50 US states",
+                "⚖️ Liability & fault analysis",
+                "🦴 12 injury categories",
+                "💰 Economic + non-economic damages",
+                "🗺️ All 50 US states",
               ].map((item) => (
                 <span key={item} className="flex items-center gap-1.5">
                   {item}
@@ -95,8 +95,8 @@ export default function PICalculatorPage() {
                 damage categories: <strong>economic</strong> and{" "}
                 <strong>non-economic</strong>. Economic damages include
                 documented financial losses such as medical bills, lost wages,
-                and future care costs. Non-economic damages � often called
-                "pain and suffering" � are harder to quantify and typically
+                and future care costs. Non-economic damages — often called
+                "pain and suffering" — are harder to quantify and typically
                 calculated using a multiplier applied to economic damages based
                 on severity, recovery duration, and impact on life.
               </p>
@@ -109,32 +109,32 @@ export default function PICalculatorPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 {[
                   {
-                    icon: "??",
+                    icon: "⚖️",
                     title: "Liability & fault",
                     desc: "If you share fault, your award is reduced proportionately. In some states (contributory negligence), any fault may bar recovery entirely.",
                   },
                   {
-                    icon: "??",
+                    icon: "🦴",
                     title: "Injury severity",
                     desc: "More severe injuries with documented medical treatment yield higher compensation ranges. Ongoing or permanent injuries carry the highest values.",
                   },
                   {
-                    icon: "??",
+                    icon: "📋",
                     title: "Evidence quality",
                     desc: "Police reports, medical records, CCTV footage, and witness statements all strengthen your negotiating position significantly.",
                   },
                   {
-                    icon: "???",
+                    icon: "🗺️",
                     title: "Jurisdiction",
                     desc: "States like California, New York, and New Jersey historically produce higher jury awards. States with damage caps tend to produce lower settlements.",
                   },
                   {
-                    icon: "??",
+                    icon: "🔄",
                     title: "Recovery duration",
                     desc: "A longer recovery period increases pain & suffering multipliers. Injuries lasting over a year typically see significantly higher non-economic awards.",
                   },
                   {
-                    icon: "??",
+                    icon: "📄",
                     title: "Policy limits",
                     desc: "The at-fault party's insurance policy limits often cap what you can recover in practice, regardless of the true case value.",
                   },
@@ -159,16 +159,16 @@ export default function PICalculatorPage() {
 
             <div>
               <h2 className="mb-4 text-xl font-bold text-slate-900">
-                Conservative vs. likely vs. aggressive � what&apos;s the difference?
+                Conservative vs. likely vs. aggressive — what&apos;s the difference?
               </h2>
               <p className="text-sm leading-relaxed text-slate-600">
                 A <strong>conservative estimate</strong> reflects what an early
-                settlement might look like � where the insurer has maximum
+                settlement might look like — where the insurer has maximum
                 leverage and you accept quickly. The{" "}
                 <strong>likely settlement</strong> reflects a well-documented
                 claim negotiated with legal representation. The{" "}
                 <strong>aggressive / trial value</strong> represents a favorable
-                jury verdict where all damages are maximised � statistically
+                jury verdict where all damages are maximised — statistically
                 achieved in a small percentage of cases that go to trial.
               </p>
             </div>

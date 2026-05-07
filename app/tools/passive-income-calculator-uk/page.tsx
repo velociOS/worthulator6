@@ -5,7 +5,7 @@ import PassiveIncomeCalculatorLoader from "../passive-income-calculator/PassiveI
 import RegionToggle from "@/components/RegionToggle";
 
 export const metadata: Metadata = {
-  title: "Passive Income Calculator UK � Work Out Your Investment Income Instantly",
+  title: "Passive Income Calculator UK – Work Out Your Investment Income Instantly",
   description:
     "Work out how much passive income your investments could generate in pounds. Enter your portfolio and return rate and get instant results for monthly income.",
   keywords: [
@@ -64,9 +64,9 @@ export default function PassiveIncomeCalculatorUKPage() {
   return (
     <SimpleCalculatorShell
       jsonLd={jsonLd}
-      category="United Kingdom � Finance Tools"
+      category="United Kingdom · Finance Tools"
       title="Passive Income Calculator"
-      subtitle="See how much passive income your portfolio can generate in pounds � and how long it takes."
+      subtitle="See how much passive income your portfolio can generate in pounds — and how long it takes."
       description={
         <>
           <p>
@@ -92,17 +92,17 @@ export default function PassiveIncomeCalculatorUKPage() {
         </>
       }
       heroCard={heroCard}
-      calculator={<PassiveIncomeCalculatorLoader currency="�" region="UK" />}
+      calculator={<PassiveIncomeCalculatorLoader currency="£" region="UK" />}
       insightText={
         <>
-          Starting with �10,000 and contributing �400/month at 7% for 20 years grows to{" "}
-          <strong>�634,000</strong> � generating{" "}
-          <strong>�2,113/month</strong> in passive income at the 4% rule.
+          Starting with £10,000 and contributing £400/month at 7% for 20 years grows to{" "}
+          <strong>£634,000</strong> — generating{" "}
+          <strong>£2,113/month</strong> in passive income at the 4% rule.
         </>
       }
     >
 
-      {/* -- UK-SPECIFIC CONTEXT -------------------------------------------- */}
+      {/* ── UK-SPECIFIC CONTEXT ──────────────────────────────────────────── */}
       <section className="border-t border-gray-100 px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-2xl font-bold text-gray-900">
@@ -116,18 +116,18 @@ export default function PassiveIncomeCalculatorUKPage() {
             {[
               {
                 name: "Stocks & Shares ISA",
-                limit: "�20,000/year",
-                note: "All gains and income within an ISA are completely free of UK tax � no capital gains tax, no dividend tax, and no income tax on withdrawals. The most powerful tax wrapper for long-term passive income building.",
+                limit: "£20,000/year",
+                note: "All gains and income within an ISA are completely free of UK tax — no capital gains tax, no dividend tax, and no income tax on withdrawals. The most powerful tax wrapper for long-term passive income building.",
               },
               {
                 name: "Pension (SIPP / Workplace)",
                 limit: "Up to 100% of earnings",
-                note: "Contributions receive tax relief at your marginal rate � a 40% taxpayer effectively gets �100 of pension for �60 out of pocket. Accessible from age 57. Best for retirement-focused passive income.",
+                note: "Contributions receive tax relief at your marginal rate — a 40% taxpayer effectively gets £100 of pension for £60 out of pocket. Accessible from age 57. Best for retirement-focused passive income.",
               },
               {
                 name: "General Investment Account",
                 limit: "No limit",
-                note: "No contribution limit, but gains and income are taxable. The annual CGT allowance (�3,000 in 2026/27) allows some tax-free realisation each year. Use after maxing ISA and pension allowances.",
+                note: "No contribution limit, but gains and income are taxable. The annual CGT allowance (£3,000 in 2026/27) allows some tax-free realisation each year. Use after maxing ISA and pension allowances.",
               },
             ].map(({ name, limit, note }) => (
               <div
@@ -142,13 +142,13 @@ export default function PassiveIncomeCalculatorUKPage() {
           </div>
           <p className="mt-5 max-w-3xl text-base leading-relaxed text-gray-500">
             This calculator does not model the tax uplift from ISA or pension accounts.
-            In practice, a �20,000/year ISA investor will accumulate significantly more
+            In practice, a £20,000/year ISA investor will accumulate significantly more
             than the pre-tax figures shown, because all returns compound without tax drag.
           </p>
         </div>
       </section>
 
-      {/* -- DISCLAIMER ----------------------------------------------------- */}
+      {/* ── DISCLAIMER ───────────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-xl font-bold text-gray-800">Disclaimer</h2>
@@ -161,7 +161,7 @@ export default function PassiveIncomeCalculatorUKPage() {
         </div>
       </section>
 
-      {/* -- RELATED -------------------------------------------------------- */}
+      {/* ── RELATED ──────────────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-xl font-bold text-gray-800">Related calculators</h2>
@@ -170,7 +170,7 @@ export default function PassiveIncomeCalculatorUKPage() {
               {
                 label: "Passive Income Calculator (US)",
                 href: "/tools/passive-income-calculator",
-                note: "Same tool in dollars � US financial assumptions",
+                note: "Same tool in dollars — US financial assumptions",
               },
               {
                 label: "Hourly to Salary Calculator",
