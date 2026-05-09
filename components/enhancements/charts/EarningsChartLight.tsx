@@ -75,7 +75,7 @@ export default function EarningsChart({
           />
           <Tooltip
             contentStyle={TOOLTIP_STYLE}
-            formatter={(v: number) => [fmtDollar(v)]}
+            formatter={(v: unknown) => [fmtDollar(Number(v))]}
             labelStyle={{ fontWeight: 600, marginBottom: 4 }}
           />
           {hasProjected && (
