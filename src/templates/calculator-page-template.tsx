@@ -183,7 +183,7 @@ export default function CalculatorPage() {
       {/* ── Related Tools ─────────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 bg-gray-50 px-5 py-12 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
-          <RelatedTools currentSlug="[slug]" />
+          <RelatedTools currentTool="[slug]" />
         </div>
       </section>
     </main>
