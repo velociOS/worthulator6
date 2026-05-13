@@ -748,9 +748,9 @@ export default function RetirementCalculator() {
                 <YAxis tickFormatter={fmtY} tick={TICK} axisLine={false} tickLine={false} width={52} />
                 <Tooltip
                   contentStyle={TT_STYLE}
-                  formatter={(v: unknown, name: string) => [
+                  formatter={(v: unknown, name: unknown) => [
                     fmtRetCurrency(Number(v)),
-                    name === "portfolio" ? "Portfolio Value" : name === "inflAdj" ? "Inflation-Adjusted" : name,
+                    String(name) === "portfolio" ? "Portfolio Value" : String(name) === "inflAdj" ? "Inflation-Adjusted" : String(name),
                   ]}
                   labelFormatter={(label) => `Age ${label}`}
                 />
@@ -806,9 +806,9 @@ export default function RetirementCalculator() {
                   <YAxis tickFormatter={fmtY} tick={TICK} axisLine={false} tickLine={false} width={52} />
                   <Tooltip
                     contentStyle={TT_STYLE}
-                    formatter={(v: unknown, name: string) => [
+                    formatter={(v: unknown, name: unknown) => [
                       fmtRetCurrency(Number(v)),
-                      name === "contributions" ? "Total Contributions" : "Compound Growth",
+                      String(name) === "contributions" ? "Total Contributions" : "Compound Growth",
                     ]}
                     labelFormatter={(label) => `Age ${label}`}
                   />
@@ -847,9 +847,9 @@ export default function RetirementCalculator() {
                   <YAxis tickFormatter={fmtY} tick={TICK} axisLine={false} tickLine={false} width={52} />
                   <Tooltip
                     contentStyle={TT_STYLE}
-                    formatter={(v: unknown, name: string) => [
+                    formatter={(v: unknown, name: unknown) => [
                       fmtRetCurrency(Number(v)),
-                      name === "portfolio" ? "Portfolio Balance" : "Inflation-Adjusted",
+                      String(name) === "portfolio" ? "Portfolio Balance" : "Inflation-Adjusted",
                     ]}
                   />
                   {!result.portfolioOutlivesExpectancy && (

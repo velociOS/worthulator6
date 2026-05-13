@@ -460,7 +460,7 @@ export default function InvestmentCalculator() {
                     interval={Math.max(0, Math.floor(chartData.length / 8) - 1)} />
                   <YAxis tickFormatter={cptFmtY} tick={TICK} axisLine={false} tickLine={false} width={48} />
                   <Tooltip contentStyle={TT_STYLE}
-                    formatter={(v: unknown, name: string) => [fmtCurrency(Number(v)), name === "contributions" ? "Contributions" : "Interest earned"]} />
+                    formatter={(v: unknown, name: unknown) => [fmtCurrency(Number(v)), String(name) === "contributions" ? "Contributions" : "Interest earned"]} />
                   <Area type="monotone" dataKey="contributions" stroke="#3b82f6" strokeWidth={1.5} fill="url(#gContrib)" dot={false} />
                   <Area type="monotone" dataKey="interest"      stroke="#10b981" strokeWidth={2}   fill="url(#gInterest)" dot={false} />
                 </AreaChart>
