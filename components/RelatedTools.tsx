@@ -14,7 +14,9 @@ const toolEmojis: Record<string, string> = {
   "subscription-cost":           "💳",
   "coffee-cost-over-lifetime":   "☕",
   "smoking-cost":                "🚬",
-  "percentage-calculator":       "🔢",
+  "percentage-increase-calculator": "🔢",
+  "retirement-calculator":          "🏡",
+  "investment-calculator":          "📈",
 };
 
 // ── CTA overrides for tools where auto-derivation would read poorly ─────────
@@ -25,7 +27,9 @@ const ctaOverrides: Record<string, string> = {
   "screen-time-impact":          "See the cost of screen time",
   "subscription-cost":           "Calculate subscription spend",
   "smoking-cost":                "Calculate smoking cost over time",
-  "percentage-calculator":       "Calculate percentages instantly",
+  "percentage-increase-calculator": "Calculate percentage increases, decreases, and differences",
+  "retirement-calculator":          "Project your retirement savings, income, and readiness score",
+  "investment-calculator":          "Project your future portfolio value with compound interest",
 };
 
 function getEmoji(tool: Tool): string {

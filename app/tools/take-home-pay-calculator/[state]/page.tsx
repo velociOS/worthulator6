@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import TakeHomePayCalculator from "../TakeHomePayCalculatorLoader";
 import RelatedTools from "@/components/RelatedTools";
 import { stateTaxRates, stateNames, type StateCode } from "@/src/lib/stateTax";
@@ -295,38 +296,23 @@ export default async function StateCalculatorPage({ params }: Props) {
       <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
         <div className="pointer-events-none absolute -top-32 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-emerald-50/80 blur-[80px]" />
         <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-gray-100/60 blur-3xl" />
-        <div className="relative mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-2">
+        <div className="relative mx-auto max-w-2xl text-center">
 
           {/* Left — copy */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
               Money · Income Tools
             </p>
-            <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
+            <h1 className="mt-4 text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.1] tracking-[-0.03em] text-gray-950">
               Take Home Pay Calculator{" "}
               <span className="block mt-1 tracking-normal font-semibold text-gray-400">for {name}</span>
             </h1>
-            <p className="mt-5 max-w-lg text-lg leading-relaxed text-gray-500">
+            <p className="mt-5 mx-auto max-w-lg text-lg leading-relaxed text-gray-500">
               Use our take home pay calculator for {name} to estimate your after-tax income. This includes federal tax{rate > 0 ? ` and ${name} state income tax (${rate}%)` : ""}, giving you a clearer picture of what you actually take home.
             </p>
             <p className="mt-3 text-xs text-gray-400">
               For educational purposes only. Estimates are based on general tax assumptions and may not reflect your exact situation.
             </p>
-          </div>
-
-          {/* Right — preview stat card */}
-          <div className="hidden lg:block">
-            <div className="relative overflow-hidden rounded-2xl border border-white/8 bg-gray-950 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-              <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-emerald-500/15 blur-3xl" />
-              <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">{name} · $50,000 salary</p>
-              <p className="relative mt-3 text-5xl font-bold tracking-[-0.04em] text-emerald-400 [text-shadow:0_0_20px_rgba(52,211,153,0.28)]">
-                ~{rate === 0 ? "65" : Math.max(55, 65 - Math.round(rate / 2))}%
-              </p>
-              <p className="relative mt-1 text-sm text-gray-500">estimated take-home rate in {name}</p>
-              <p className="mt-4 text-xs text-gray-500">
-                State income tax: <span className="font-semibold text-gray-300">{rate}%</span>
-              </p>
-            </div>
           </div>
 
         </div>

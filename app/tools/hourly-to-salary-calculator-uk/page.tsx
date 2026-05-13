@@ -78,19 +78,6 @@ const jsonLd = [
   },
 ];
 
-const heroCard = (
-  <DarkResultCard
-    label="Example · £15/hr · 37.5 HRS/WK"
-    value="£29,250"
-    sub="annual salary (gross)"
-    stats={[
-      { value: "£2,438", label: "/ month" },
-      { value: "£563",   label: "/ week" },
-      { value: "£113",   label: "/ day" },
-    ]}
-  />
-);
-
 const statChips = (
   <>
     {[
@@ -137,14 +124,15 @@ export default function HourlyToSalaryUKPage() {
         title="Hourly to Salary Calculator"
         subtitle="Convert your hourly wage into an annual salary, monthly income, and weekly pay in seconds."
         description={
-          <RegionToggle
-            current="uk"
-            usPath="/tools/hourly-to-salary-calculator"
-            ukPath="/tools/hourly-to-salary-calculator-uk"
-            theme="light"
-          />
+          <div className="flex justify-center">
+            <RegionToggle
+              current="uk"
+              usPath="/tools/hourly-to-salary-calculator"
+              ukPath="/tools/hourly-to-salary-calculator-uk"
+              theme="light"
+            />
+          </div>
         }
-        heroCard={heroCard}
         calculator={<HourlyToSalaryCalculator />}
         insightText={
           <>

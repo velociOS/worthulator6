@@ -645,7 +645,7 @@ export default function TakeHomePayCalculator({ initialState, initialCountry }: 
         )}
 
         {/* Hero result */}
-        {!calculating && calculated && <div className={`relative overflow-hidden rounded-2xl border bg-gray-950 p-8 transition-all duration-500 ${flash ? "border-emerald-500/20 shadow-[0_24px_100px_rgba(0,0,0,0.55),0_0_40px_rgba(52,211,153,0.1)]" : "border-white/8 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"}`}>
+        {!calculating && calculated && <div className={`relative overflow-hidden rounded-2xl border bg-gray-950 p-6 sm:p-8 transition-all duration-500 ${flash ? "border-emerald-500/20 shadow-[0_24px_100px_rgba(0,0,0,0.55),0_0_40px_rgba(52,211,153,0.1)]" : "border-white/8 shadow-[0_24px_80px_rgba(0,0,0,0.45)]"}`}>
           <div className={`pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full blur-3xl transition-all duration-500 ${flash ? "bg-emerald-500/25 scale-110" : "bg-emerald-500/15 scale-100"}`} />
           <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-emerald-900/40 blur-3xl" />
 
@@ -704,12 +704,12 @@ export default function TakeHomePayCalculator({ initialState, initialCountry }: 
 
         {/* Income CTA */}
         {!calculating && calculated && SHOW_INCOME_CTA && (
-        <div className="flex items-center justify-between gap-4 rounded-2xl border border-gray-200 bg-white px-6 py-5 shadow-sm">
+        <div className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white px-6 py-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm leading-6 text-gray-500">
             You can&apos;t change tax rates —{" "}
             <span className="font-semibold text-gray-800">but you can increase what you earn.</span>
           </p>
-          <div className="flex flex-col items-end gap-2">
+          <div className="flex flex-col items-start gap-2 sm:items-end">
             <span
               className="shrink-0 cursor-default rounded-xl bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white opacity-90 pointer-events-none"
             >
@@ -724,7 +724,7 @@ export default function TakeHomePayCalculator({ initialState, initialCountry }: 
         {!calculating && calculated && salary > 0 && (
           <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl">
             <p className="mb-5 text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">Salary breakdown</p>
-            <div className="flex items-center gap-8">
+            <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-8">
               <div className="relative shrink-0">
                 <PieChart width={140} height={140}>
                   <Pie
@@ -822,20 +822,20 @@ export default function TakeHomePayCalculator({ initialState, initialCountry }: 
         </div>}
 
         {/* Monthly / Weekly / Hourly */}
-        {!calculating && calculated && <div className="grid grid-cols-3 gap-3">
-          <div className="rounded-2xl border border-white/6 bg-gray-900 p-4 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
+        {!calculating && calculated && <div className="grid grid-cols-3 gap-2 sm:gap-3">
+          <div className="rounded-2xl border border-white/6 bg-gray-900 p-3 sm:p-4 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Monthly</p>
-            <p className="mt-2 text-2xl font-bold tracking-[-0.03em] text-emerald-400">{formatCurrency(monthly, country)}</p>
+            <p className="mt-2 text-lg sm:text-2xl font-bold tracking-[-0.03em] text-emerald-400">{formatCurrency(monthly, country)}</p>
             <p className="mt-0.5 text-xs font-medium text-gray-500">per month</p>
           </div>
-          <div className="rounded-2xl border border-white/6 bg-gray-900 p-4 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
+          <div className="rounded-2xl border border-white/6 bg-gray-900 p-3 sm:p-4 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Weekly</p>
-            <p className="mt-2 text-2xl font-bold tracking-[-0.03em] text-emerald-400">{formatCurrency(weekly, country)}</p>
+            <p className="mt-2 text-lg sm:text-2xl font-bold tracking-[-0.03em] text-emerald-400">{formatCurrency(weekly, country)}</p>
             <p className="mt-0.5 text-xs font-medium text-gray-500">per week</p>
           </div>
-          <div className="rounded-2xl border border-white/6 bg-gray-900 p-4 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
+          <div className="rounded-2xl border border-white/6 bg-gray-900 p-3 sm:p-4 shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl">
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">Hourly</p>
-            <p className="mt-2 text-2xl font-bold tracking-[-0.03em] text-emerald-400">{formatCurrency(hourly, country)}</p>
+            <p className="mt-2 text-lg sm:text-2xl font-bold tracking-[-0.03em] text-emerald-400">{formatCurrency(hourly, country)}</p>
             <p className="mt-0.5 text-xs font-medium text-gray-500">est. per hour</p>
           </div>
         </div>}

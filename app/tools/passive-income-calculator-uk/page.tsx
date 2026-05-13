@@ -31,35 +31,6 @@ const jsonLd = {
   url: "https://worthulator.com/tools/passive-income-calculator-uk",
 };
 
-const heroCard = (
-  <div className="relative overflow-hidden rounded-2xl border border-white/8 bg-gray-950 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-    <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-emerald-500/15 blur-3xl" />
-    <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
-      Example &middot; 2 streams &middot; 20 yr horizon
-    </p>
-    <p className="relative mt-3 text-5xl font-bold tracking-[-0.04em] text-emerald-400 [text-shadow:0_0_20px_rgba(52,211,153,0.28)]">
-      &pound;2,363
-    </p>
-    <p className="relative mt-1 text-sm text-gray-500">estimated monthly passive income</p>
-    <div className="mt-4 space-y-1.5 border-t border-white/8 pt-4">
-      <div className="flex items-center justify-between text-xs">
-        <span className="flex items-center gap-1.5 text-gray-400">
-          <span className="h-2 w-2 rounded-full bg-emerald-400" />
-          ISA / Investment Portfolio
-        </span>
-        <span className="font-semibold text-white">&pound;1,730/mo</span>
-      </div>
-      <div className="flex items-center justify-between text-xs">
-        <span className="flex items-center gap-1.5 text-gray-400">
-          <span className="h-2 w-2 rounded-full bg-blue-400" />
-          Rental Property
-        </span>
-        <span className="font-semibold text-white">&pound;633/mo</span>
-      </div>
-    </div>
-  </div>
-);
-
 export default function PassiveIncomeCalculatorUKPage() {
   return (
     <SimpleCalculatorShell
@@ -68,14 +39,15 @@ export default function PassiveIncomeCalculatorUKPage() {
       title="Passive Income Calculator"
       subtitle="See how much passive income your portfolio can generate in pounds — and how long it takes."
       description={
-        <RegionToggle
-          current="uk"
-          usPath="/tools/passive-income-calculator"
-          ukPath="/tools/passive-income-calculator-uk"
-          theme="light"
-        />
+        <div className="flex justify-center">
+          <RegionToggle
+            current="uk"
+            usPath="/tools/passive-income-calculator"
+            ukPath="/tools/passive-income-calculator-uk"
+            theme="light"
+          />
+        </div>
       }
-      heroCard={heroCard}
       calculator={<PassiveIncomeCalculatorLoader currency="£" region="UK" />}
       insightText={
         <>

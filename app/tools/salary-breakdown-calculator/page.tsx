@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
 import SalaryBreakdownCalculatorLoader from "./SalaryBreakdownCalculatorLoader";
 
@@ -88,32 +89,6 @@ const jsonLd = [
   },
 ];
 
-const heroCard = (
-  <div className="rounded-2xl border border-white/10 bg-slate-900 p-7 text-white shadow-2xl">
-    <p className="text-xs font-semibold uppercase tracking-widest text-white/40">
-      Example — $80,000 salary (US, single)
-    </p>
-    <div className="mt-5 space-y-1">
-      <p className="text-4xl font-bold tracking-tight">$5,102</p>
-      <p className="text-sm font-semibold text-white/50">per month take-home</p>
-    </div>
-    <div className="mt-6 space-y-2 border-t border-white/10 pt-5 text-sm">
-      <div className="flex justify-between">
-        <span className="text-white/50">Federal Income Tax</span>
-        <span className="font-semibold">$12,653/yr</span>
-      </div>
-      <div className="flex justify-between">
-        <span className="text-white/50">FICA</span>
-        <span className="font-semibold">$6,120/yr</span>
-      </div>
-      <div className="flex justify-between">
-        <span className="text-white/50">Effective rate</span>
-        <span className="font-semibold">23.5%</span>
-      </div>
-    </div>
-  </div>
-);
-
 const statChips = (
   <>
     {[
@@ -155,9 +130,26 @@ export default function SalaryBreakdownCalculatorPage() {
       category="Money · Tax"
       title="Salary Breakdown Calculator"
       subtitle="See exactly where your money goes — federal income tax, FICA, and your real take-home pay."
-      description={null}
+      description={
+        <>
+          <p className="mx-auto max-w-lg text-sm leading-7 text-gray-500">
+            Enter your salary to see a full breakdown of federal income tax, FICA, and your real take-home pay. Supports single and married filing statuses.
+          </p>
+          <ul className="mt-6 inline-flex flex-col items-start gap-2 text-left mx-auto">
+            {[
+              "Progressive federal tax brackets applied correctly",
+              "Shows FICA (Social Security + Medicare) separately",
+              "See effective vs marginal tax rate side by side",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
+                <span className="h-4 w-4 shrink-0 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </>
+      }
       statChips={undefined}
-      heroCard={heroCard}
       calculator={<SalaryBreakdownCalculatorLoader defaultRegion="US" />}
       insightText={
         <>

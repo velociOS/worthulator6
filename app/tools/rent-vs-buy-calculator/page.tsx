@@ -103,18 +103,39 @@ export default function RentVsBuyCalculatorPage() {
       ))}
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-20 lg:px-16">
-        <div className="pointer-events-none absolute -top-40 left-1/2 h-175 w-175 -translate-x-1/2 rounded-full bg-emerald-50 blur-[120px]" />
-        <div className="relative mx-auto max-w-5xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-            Finance Tools · Home &amp; Living · US Market
-          </p>
-          <h1 className="mt-4 text-[clamp(2.4rem,5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
-            Rent vs Buy Calculator
-            <span className="mt-2 block font-medium tracking-normal text-gray-400 text-base sm:text-lg">
-              See whether renting or buying leaves you wealthier — based on your real numbers.
-            </span>
-          </h1>
+      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
+        <div className="pointer-events-none absolute -top-32 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-emerald-50/80 blur-[80px]" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-gray-100/60 blur-3xl" />
+        <div className="relative mx-auto max-w-2xl text-center">
+
+          {/* Left — copy */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
+              Finance Tools · Home &amp; Living · US Market
+            </p>
+            <h1 className="mt-4 text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.1] tracking-[-0.03em] text-gray-950">
+              Rent vs Buy Calculator
+              <span className="block mt-2 text-base font-medium tracking-normal text-gray-400 sm:text-lg">
+                See whether renting or buying leaves you wealthier — based on your real numbers.
+              </span>
+            </h1>
+            <p className="mt-4 mx-auto max-w-lg text-sm leading-7 text-gray-500">
+              Compare the full financial outcome of renting vs buying over any time horizon. See net worth, break-even year, equity growth, and opportunity cost side by side.
+            </p>
+            <ul className="mt-6 inline-flex flex-col items-start gap-2 text-left mx-auto">
+              {[
+                "Net worth comparison for renter vs buyer over time",
+                "Break-even year calculated from your real numbers",
+                "Includes property tax, maintenance, PMI, and selling costs",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
+                  <span className="h-4 w-4 shrink-0 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
       </section>
 

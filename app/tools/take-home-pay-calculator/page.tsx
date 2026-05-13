@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import RelatedTools from "@/components/RelatedTools";
 import TakeHomePayCalculator from "./TakeHomePayCalculatorLoader";
 import RegionToggle from "@/components/RegionToggle";
@@ -80,52 +81,40 @@ export default function TakeHomePayPage() {
         />
       ))}
 
-      {/* HERO — 2-column */}
-      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
+      {/* HERO */}
+      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-16 sm:px-8 sm:py-24 lg:px-16">
         <div className="pointer-events-none absolute -top-32 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-emerald-50/80 blur-[80px]" />
         <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-gray-100/60 blur-3xl" />
-        <div className="relative mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-2">
-
-          {/* Left — copy */}
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-              United States · Income Tools
-            </p>
-            <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
-              Take Home Pay Calculator
-              <span className="block mt-2 text-base font-medium tracking-normal text-gray-400 sm:text-lg">See your exact net salary after federal tax, state tax, and Social Security.</span>
-            </h1>
-            <div className="mt-5">
-              <RegionToggle
-                current="us"
-                usPath="/tools/take-home-pay-calculator"
-                ukPath="/tools/take-home-pay-calculator-uk"
-                theme="light"
-              />
-            </div>
+        <div className="relative mx-auto max-w-2xl text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
+            United States · Income Tools
+          </p>
+          <h1 className="mt-4 text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.1] tracking-[-0.03em] text-gray-950">
+            Take Home Pay Calculator
+          </h1>
+          <p className="mt-4 text-base leading-7 text-gray-500">
+            Enter your salary and state to instantly see your take-home pay after all federal and state deductions. Includes Social Security, Medicare, and filing status.
+          </p>
+          <ul className="mt-6 inline-flex flex-col items-start gap-2 text-left">
+            {[
+              "Covers all 50 US states and their tax rates",
+              "Breaks down federal tax, state tax, FICA separately",
+              "Works for hourly and salaried income",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
+                <span className="h-4 w-4 shrink-0 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex justify-center">
+            <RegionToggle
+              current="us"
+              usPath="/tools/take-home-pay-calculator"
+              ukPath="/tools/take-home-pay-calculator-uk"
+              theme="light"
+            />
           </div>
-
-          {/* Right — preview stat card */}
-          <div className="hidden lg:block">
-            <div className="relative overflow-hidden rounded-2xl border border-white/8 bg-gray-950 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-              <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-emerald-500/15 blur-3xl" />
-              <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">Example &middot; $50,000 salary</p>
-              <p className="relative mt-3 text-5xl font-bold tracking-[-0.04em] text-emerald-400 [text-shadow:0_0_20px_rgba(52,211,153,0.28)]">$32,500</p>
-              <p className="relative mt-1 text-sm text-gray-500">estimated take-home per year</p>
-              <div className="mt-5 flex h-3 w-full overflow-hidden rounded-full bg-white/8">
-                <div className="h-full bg-emerald-400" style={{ width: "65%" }} />
-                <div className="h-full bg-red-400" style={{ width: "20%" }} />
-                <div className="h-full flex-1 bg-orange-300" />
-              </div>
-              <div className="mt-3 flex gap-4 text-xs text-gray-400">
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-emerald-400" />Take-home</span>
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-red-400" />Tax</span>
-                <span className="flex items-center gap-1.5"><span className="h-2 w-2 rounded-full bg-orange-300" />Deductions</span>
-              </div>
-              <p className="mt-5 text-xs text-gray-500">65% of gross &mdash; adjust the sliders below to see yours</p>
-            </div>
-          </div>
-
         </div>
       </section>
 

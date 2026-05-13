@@ -103,18 +103,39 @@ export default function MortgageCalculatorPage() {
       ))}
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-20 lg:px-16">
+      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
         <div className="pointer-events-none absolute -top-32 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-emerald-50/80 blur-[80px]" />
-        <div className="relative mx-auto max-w-5xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-            US · Home Finance Tools
-          </p>
-          <h1 className="mt-4 text-[clamp(2.2rem,5vw,3.5rem)] font-bold leading-[1.07] tracking-[-0.04em] text-gray-950">
-            Mortgage Calculator
-            <span className="mt-1 block text-base font-medium tracking-normal text-gray-400 sm:text-lg">
-              Monthly payment, amortisation &amp; affordability — instantly.
-            </span>
-          </h1>
+        <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-gray-100/60 blur-3xl" />
+        <div className="relative mx-auto max-w-2xl text-center">
+
+          {/* Left — copy */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
+              US · Home Finance Tools
+            </p>
+            <h1 className="mt-4 text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.1] tracking-[-0.03em] text-gray-950">
+              Mortgage Calculator
+              <span className="block mt-2 text-base font-medium tracking-normal text-gray-400 sm:text-lg">
+                Monthly payment, amortisation &amp; affordability — instantly.
+              </span>
+            </h1>
+            <p className="mt-4 mx-auto max-w-lg text-sm leading-7 text-gray-500">
+              Enter your home price, down payment, interest rate, and loan term to see your monthly payment, total interest, and full amortisation schedule. Includes PMI, taxes, and extra payment scenarios.
+            </p>
+            <ul className="mt-6 inline-flex flex-col items-start gap-2 text-left mx-auto">
+              {[
+                "Monthly payment broken down by principal and interest",
+                "Full amortisation schedule with extra payment savings",
+                "Affordability check based on income and debt",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
+                  <span className="h-4 w-4 shrink-0 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
       </section>
 
@@ -289,6 +310,12 @@ export default function MortgageCalculatorPage() {
         <div className="mx-auto max-w-5xl">
           <h2 className="text-lg font-bold text-gray-950 mb-5">Related calculators</h2>
           <RelatedTools currentTool="mortgage-calculator" />
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a href="/tools/loan-calculator" className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 hover:border-gray-300 transition">💳 Loan Calculator</a>
+            <a href="/tools/investment-calculator" className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 hover:border-gray-300 transition">💰 Investment Calculator</a>
+            <a href="/tools/rent-vs-buy-calculator" className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 hover:border-gray-300 transition">🏠 Rent vs Buy Calculator</a>
+            <a href="/tools/take-home-pay-calculator" className="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 hover:border-gray-300 transition">💵 Take-Home Pay Calculator</a>
+          </div>
         </div>
       </section>
     </main>

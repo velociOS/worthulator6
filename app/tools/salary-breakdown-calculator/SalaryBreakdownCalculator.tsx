@@ -73,7 +73,65 @@ function BreakdownRow({
   );
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
+// ─── Calculating loader ──────────────────────────────────────────────────────
+const CALC_STEPS = [
+  "Reading your salary…",
+  "Calculating tax bands…",
+  "Building your breakdown…",
+  "Finishing up…",
+];
+
+function CalculatingLoader({ progress, step }: { progress: number; step: number }) {
+  return (
+    <div className="relative flex flex-col items-center justify-center py-20 px-6 bg-gray-950 rounded-2xl text-white overflow-hidden">
+      <div
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 50% 70%, #10b981 0%, transparent 65%)" }}
+      />
+      <div className="relative mb-7">
+        <div
+          className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-emerald-400 animate-spin"
+          style={{ animationDuration: "0.85s" }}
+        />
+        <div className="w-20 h-20 rounded-full border-2 border-white/10 flex items-center justify-center bg-white/5">
+          <svg width="36" height="36" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 3L6 13L8 7L10 13L14 3" stroke="#34d399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      </div>
+      <p className="relative text-lg font-bold text-center text-white mb-1">{CALC_STEPS[step] ?? "Calculating…"}</p>
+      <p className="relative text-xs text-white/40 mb-8">Estimating your take-home pay</p>
+      <div className="relative w-full max-w-xs">
+        <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div
+            className="h-full rounded-full transition-all duration-500 ease-out"
+            style={{ width: progress + "%", background: "linear-gradient(90deg, #10b981, #2dd4bf)" }}
+          />
+        </div>
+        <div className="flex justify-between mt-2">
+          <span className="text-[10px] text-white/30">{Math.round(progress)}% complete</span>
+          <span className="text-[10px] text-white/30">Step {step + 1} / {CALC_STEPS.length}</span>
+        </div>
+      </div>
+      <div className="flex gap-2 mt-6">
+        {CALC_STEPS.map((_, i) => (
+          <div
+            key={i}
+            style={{
+              height: 6,
+              borderRadius: 3,
+              width: i < step ? 20 : i === step ? 32 : 12,
+              backgroundColor: i <= step ? "#34d399" : "rgba(255,255,255,0.15)",
+              transition: "all 0.3s",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Main component ───────────────────────────────────────────────────────────────
 
 export default function SalaryBreakdownCalculator({
   defaultRegion = "UK",
@@ -98,6 +156,12 @@ export default function SalaryBreakdownCalculator({
   const animRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const prevNetRef = useRef<number>(0);
   const changeFadeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prevCalculatedRef = useRef<boolean>(false);
+  // Calculate button state
+  const [calculated, setCalculated] = useState<boolean>(false);
+  const [calculating, setCalculating] = useState<boolean>(false);
+  const [calcStep, setCalcStep] = useState<number>(0);
+  const [calcProgress, setCalcProgress] = useState<number>(0);
 
   const currency = region === "UK" ? "£" : "$";
 
@@ -160,6 +224,46 @@ export default function SalaryBreakdownCalculator({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [netMonthly]);
+
+  // Count-up animation on first reveal after Calculate
+  useEffect(() => {
+    if (!calculated || prevCalculatedRef.current) return;
+    prevCalculatedRef.current = true;
+    const target = netMonthly;
+    const startVal = Math.round(target * 0.72);
+    const diff = target - startVal;
+    if (diff === 0) return;
+    const steps = 30;
+    const c1 = 0.4; const c3 = c1 + 1;
+    const easeOutBack = (t: number) => 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    let step = 0;
+    const tick = () => {
+      step++;
+      setDisplayNet(Math.round(startVal + diff * easeOutBack(step / steps)));
+      if (step < steps) animRef.current = setTimeout(tick, 14);
+      else setDisplayNet(target);
+    };
+    animRef.current = setTimeout(tick, 14);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [calculated]);
+
+  function handleCalculate() {
+    setCalculating(true);
+    setCalcStep(0);
+    setCalcProgress(0);
+    const stepDuration = 350;
+    const steps = CALC_STEPS.length;
+    for (let i = 0; i < steps; i++) {
+      setTimeout(() => {
+        setCalcStep(i);
+        setCalcProgress(Math.round(((i + 1) / steps) * 100));
+      }, i * stepDuration);
+    }
+    setTimeout(() => {
+      setCalculating(false);
+      setCalculated(true);
+    }, steps * stepDuration);
+  }
 
   const salaryPicks = region === "UK" ? UK_SALARY_PICKS : US_SALARY_PICKS;
 
@@ -378,13 +482,40 @@ export default function SalaryBreakdownCalculator({
             </p>
           )}
         </div>
+
+        {/* Calculate button — only shown before first calculation */}
+        {!calculated && <button
+          type="button"
+          onClick={handleCalculate}
+          disabled={calculating}
+          className="w-full rounded-2xl bg-gray-950 py-4 text-sm font-bold text-white tracking-wide shadow-lg transition-all duration-200 hover:bg-gray-800 hover:shadow-xl active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {calculating ? "Calculating…" : "Calculate my breakdown →"}
+        </button>}
       </div>
 
       {/* ── RIGHT: OUTPUTS ──────────────────────────────────────────────── */}
       <div className="flex flex-col gap-4">
 
+        {/* Loader */}
+        {calculating && <CalculatingLoader progress={calcProgress} step={calcStep} />}
+
+        {/* Placeholder before first calculation */}
+        {!calculating && !calculated && (
+          <div className="relative flex flex-col items-center justify-center py-24 px-6 rounded-2xl overflow-hidden bg-gray-950 text-center shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+            <div className="pointer-events-none absolute inset-0 opacity-20" style={{ background: "radial-gradient(ellipse at 50% 80%, #10b981 0%, transparent 60%)" }} />
+            <div className="relative w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+              <svg width="24" height="24" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 3L6 13L8 7L10 13L14 3" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <p className="relative text-sm font-semibold text-white/70">Enter your salary and hit Calculate</p>
+            <p className="relative mt-1 text-xs text-white/30">Your full breakdown will appear here</p>
+          </div>
+        )}
+
         {/* Dark hero card */}
-        <div
+        {!calculating && calculated && <div
           className={`relative overflow-hidden rounded-2xl border p-7 transition-all duration-500 ${
             flash
               ? "border-emerald-500/20 shadow-[0_24px_100px_rgba(0,0,0,0.55),0_0_40px_rgba(52,211,153,0.1)]"
@@ -452,10 +583,10 @@ export default function SalaryBreakdownCalculator({
               </p>
             </div>
           </div>
-        </div>
+        </div>}
 
         {/* Full breakdown table */}
-        <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+        {!calculating && calculated && <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
           <p className="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
             Full Breakdown
           </p>
@@ -532,10 +663,10 @@ export default function SalaryBreakdownCalculator({
               </div>
             </div>
           </div>
-        </div>
+        </div>}
 
         {/* Donut chart */}
-        {salary > 0 && (
+        {!calculating && calculated && salary > 0 && (
           <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
             <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
               Pay Breakdown
@@ -599,7 +730,7 @@ export default function SalaryBreakdownCalculator({
         )}
 
         {/* Insight strip */}
-        <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
+        {!calculating && calculated && <div className="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
           <p className="text-sm leading-relaxed text-emerald-800">
             On a <strong>{fmt(salary, currency)}</strong> salary, you take home
             approximately{" "}
@@ -617,10 +748,10 @@ export default function SalaryBreakdownCalculator({
               </>
             )}
           </p>
-        </div>
+        </div>}
 
         {/* Higher salary insight */}
-        {isHighSalary && (
+        {!calculating && calculated && isHighSalary && (
           <div className="rounded-2xl border border-amber-100 bg-amber-50 p-4">
             <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-amber-700">
               {isTaperZone ? "Personal Allowance Trap" : "Higher-Rate Tax Insight"}
@@ -635,11 +766,11 @@ export default function SalaryBreakdownCalculator({
           </div>
         )}
 
-        <p className="text-xs leading-relaxed text-gray-400">
+        {!calculating && calculated && <p className="text-xs leading-relaxed text-gray-400">
           This is an estimate and does not account for all tax rules or personal
           circumstances. Figures use 2024/25 rates. Verify with a qualified tax
           adviser before making financial decisions.
-        </p>
+        </p>}
       </div>
     </div>
   );

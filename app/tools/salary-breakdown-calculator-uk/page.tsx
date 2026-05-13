@@ -88,32 +88,6 @@ const jsonLd = [
   },
 ];
 
-const heroCard = (
-  <div className="rounded-2xl border border-white/10 bg-slate-900 p-7 text-white shadow-2xl">
-    <p className="text-xs font-semibold uppercase tracking-widest text-white/40">
-      Example — £50,000 salary (UK)
-    </p>
-    <div className="mt-5 space-y-1">
-      <p className="text-4xl font-bold tracking-tight">£3,091</p>
-      <p className="text-sm font-semibold text-white/50">per month take-home</p>
-    </div>
-    <div className="mt-6 space-y-2 border-t border-white/10 pt-5 text-sm">
-      <div className="flex justify-between">
-        <span className="text-white/50">Income Tax</span>
-        <span className="font-semibold">£7,486/yr</span>
-      </div>
-      <div className="flex justify-between">
-        <span className="text-white/50">National Insurance</span>
-        <span className="font-semibold">£3,014/yr</span>
-      </div>
-      <div className="flex justify-between">
-        <span className="text-white/50">Effective rate</span>
-        <span className="font-semibold">21.0%</span>
-      </div>
-    </div>
-  </div>
-);
-
 const statChips = (
   <>
     {[
@@ -157,7 +131,6 @@ export default function SalaryBreakdownCalculatorUKPage() {
       subtitle="See exactly where your money goes — income tax, National Insurance, pension, and your real take-home pay."
       description={null}
       statChips={undefined}
-      heroCard={heroCard}
       calculator={<SalaryBreakdownCalculatorLoader defaultRegion="UK" />}
       insightText={
         <>

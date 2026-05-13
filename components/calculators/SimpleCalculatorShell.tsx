@@ -73,27 +73,27 @@ export default function SimpleCalculatorShell({
         <div className="pointer-events-none absolute -top-32 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-emerald-50/80 blur-[80px]" />
         <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-gray-100/60 blur-3xl" />
 
-        <div className="relative mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-2">
+        <div className={heroCard ? "relative mx-auto grid max-w-5xl items-stretch gap-10 lg:grid-cols-2" : "relative mx-auto max-w-2xl text-center"}>
 
           {/* Left — copy */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
               {category}
             </p>
-            <h1 className="mt-4 text-[clamp(2.4rem,5.5vw,3.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-gray-950">
+            <h1 className="mt-4 text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.1] tracking-[-0.03em] text-gray-950">
               {title}
               {subtitle && (
                 <span className="mt-2 block text-base font-medium tracking-normal text-gray-400 sm:text-lg">{subtitle}</span>
               )}
             </h1>
-            <div className="mt-5 max-w-lg text-lg leading-relaxed text-gray-500">
+            <div className="mt-4">
               {description}
             </div>
           </div>
 
           {/* Right — preview stat card */}
           {heroCard && (
-            <div className="hidden lg:block">{heroCard}</div>
+            <div className="hidden lg:flex self-stretch">{heroCard}</div>
           )}
 
         </div>

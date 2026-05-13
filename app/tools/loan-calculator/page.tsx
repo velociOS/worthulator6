@@ -106,18 +106,39 @@ export default function LoanCalculatorPage() {
       ))}
 
       {/* ── Hero ─────────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-20 lg:px-16">
+      <section className="relative overflow-hidden border-b border-gray-100 bg-white px-5 py-14 sm:px-8 sm:py-24 lg:px-16">
         <div className="pointer-events-none absolute -top-32 left-1/2 h-125 w-125 -translate-x-1/2 rounded-full bg-emerald-50/80 blur-[80px]" />
-        <div className="relative mx-auto max-w-5xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
-            Finance Tools · Loan Calculators
-          </p>
-          <h1 className="mt-4 text-[clamp(2.2rem,5vw,3.5rem)] font-bold leading-[1.07] tracking-[-0.04em] text-gray-950">
-            Loan Calculator
-            <span className="mt-1 block text-base font-medium tracking-normal text-gray-400 sm:text-lg">
-              Monthly payment, total interest &amp; full cost breakdown — instantly.
-            </span>
-          </h1>
+        <div className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-gray-100/60 blur-3xl" />
+        <div className="relative mx-auto max-w-2xl text-center">
+
+          {/* Left — copy */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-gray-400">
+              Finance Tools · Loan Calculators
+            </p>
+            <h1 className="mt-4 text-[clamp(2rem,4.5vw,3rem)] font-bold leading-[1.1] tracking-[-0.03em] text-gray-950">
+              Loan Calculator
+              <span className="block mt-2 text-base font-medium tracking-normal text-gray-400 sm:text-lg">
+                Monthly payment, total interest &amp; full cost breakdown — instantly.
+              </span>
+            </h1>
+            <p className="mt-4 mx-auto max-w-lg text-sm leading-7 text-gray-500">
+              Enter your loan amount, interest rate, and term to see your monthly payment, total interest, and full amortization schedule. Supports car, personal, student, and standard loans.
+            </p>
+            <ul className="mt-6 inline-flex flex-col items-start gap-2 text-left mx-auto">
+              {[
+                "Car, personal, student, and standard loan modes",
+                "Full amortization schedule month by month",
+                "See how extra payments cut interest and time",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
+                  <span className="h-4 w-4 shrink-0 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
       </section>
 
@@ -309,9 +330,9 @@ export default function LoanCalculatorPage() {
           <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-4">Related tools</p>
           <div className="grid gap-3 sm:grid-cols-3 mb-8">
             {[
-              { href: "/tools/mortgage-calculator",           title: "Mortgage Calculator",           desc: "Monthly payment, amortization, PMI, and affordability for home loans.",                          color: "border-emerald-100 hover:border-emerald-300" },
-              { href: "/tools/compound-interest-calculator",  title: "Compound Interest Calculator",  desc: "See how your savings grow with compound interest, contributions, and inflation.",                color: "border-blue-100 hover:border-blue-300" },
-              { href: "/cost-calculators",                    title: "Cost Calculators",              desc: "Estimate the true cost of home projects, construction, and major purchases.",                   color: "border-gray-200 hover:border-gray-300" },
+              { href: "/tools/mortgage-calculator",          title: "Mortgage Calculator",           desc: "Monthly payment, amortization, PMI, and affordability for home loans.",                        color: "border-emerald-100 hover:border-emerald-300" },
+              { href: "/tools/compound-interest-calculator", title: "Compound Interest Calculator",  desc: "See how your savings grow with compound interest, contributions, and inflation.",              color: "border-blue-100 hover:border-blue-300" },
+              { href: "/tools/investment-calculator",        title: "Investment Calculator",         desc: "Project your future portfolio with compound growth, milestones, and what-if scenarios.",       color: "border-violet-100 hover:border-violet-300" },
             ].map((link) => (
               <a key={link.href} href={link.href} className={`rounded-xl border ${link.color} bg-white px-5 py-4 transition block`}>
                 <p className="text-sm font-semibold text-gray-800">{link.title}</p>

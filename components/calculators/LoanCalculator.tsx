@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useId, lazy, Suspense } from "react";
+import { useState, useMemo, useId, useRef, useEffect, lazy, Suspense } from "react";
 import {
   loanModes,
   termPresets,
@@ -29,6 +29,63 @@ import {
 const LoanChartsPanel = lazy(() => import("./LoanCharts"));
 const LoanExtraPaymentsChart = lazy(() => import("./LoanExtraPaymentsChart"));
 const LoanScenariosChart = lazy(() => import("./LoanScenariosChart"));
+
+const CALC_STEPS = [
+  "Reading your inputs…",
+  "Running the numbers…",
+  "Building your schedule…",
+  "Finishing up…",
+];
+
+function CalculatingLoader({ progress, step }: { progress: number; step: number }) {
+  return (
+    <div className="relative flex flex-col items-center justify-center py-20 px-6 bg-gray-950 rounded-2xl text-white overflow-hidden">
+      <div
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 50% 70%, #10b981 0%, transparent 65%)" }}
+      />
+      <div className="relative mb-7">
+        <div
+          className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-emerald-400 animate-spin"
+          style={{ animationDuration: "0.85s" }}
+        />
+        <div className="w-20 h-20 rounded-full border-2 border-white/10 flex items-center justify-center bg-white/5">
+          <svg width="36" height="36" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 3L6 13L8 7L10 13L14 3" stroke="#34d399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      </div>
+      <p className="relative text-lg font-bold text-center text-white mb-1">{CALC_STEPS[step] ?? "Calculating…"}</p>
+      <p className="relative text-xs text-white/40 mb-8">Estimating your loan repayments</p>
+      <div className="relative w-full max-w-xs">
+        <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div
+            className="h-full rounded-full transition-all duration-500 ease-out"
+            style={{ width: progress + "%", background: "linear-gradient(90deg, #10b981, #2dd4bf)" }}
+          />
+        </div>
+        <div className="flex justify-between mt-2">
+          <span className="text-[10px] text-white/30">{Math.round(progress)}% complete</span>
+          <span className="text-[10px] text-white/30">Step {step + 1} / {CALC_STEPS.length}</span>
+        </div>
+      </div>
+      <div className="flex gap-2 mt-6">
+        {CALC_STEPS.map((_, i) => (
+          <div
+            key={i}
+            style={{
+              height: 6,
+              borderRadius: 3,
+              width: i < step ? 20 : i === step ? 32 : 12,
+              backgroundColor: i <= step ? "#34d399" : "rgba(255,255,255,0.15)",
+              transition: "all 0.3s",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 // ─── Formatters ───────────────────────────────────────────────────────────────
 
@@ -356,6 +413,55 @@ export default function LoanCalculator() {
   // ── Mode ─────────────────────────────────────────────────────────────────
   const [mode, setMode] = useState<LoanMode>("standard");
 
+  // ── Calculate+loader state ─────────────────────────────────────────────
+  const [calculated,    setCalculated]    = useState<boolean>(false);
+  const [calculating,   setCalculating]   = useState<boolean>(false);
+  const [calcStep,      setCalcStep]      = useState<number>(0);
+  const [calcProgress,  setCalcProgress]  = useState<number>(0);
+  const [displayMonthly, setDisplayMonthly] = useState<number>(0);
+  const animRef         = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prevCalcRef     = useRef<boolean>(false);
+
+  function handleCalculate() {
+    setCalculating(true);
+    setCalcStep(0);
+    setCalcProgress(0);
+    const stepDuration = 350;
+    const steps = CALC_STEPS.length;
+    for (let i = 0; i < steps; i++) {
+      setTimeout(() => {
+        setCalcStep(i);
+        setCalcProgress(Math.round(((i + 1) / steps) * 100));
+      }, i * stepDuration);
+    }
+    setTimeout(() => {
+      setCalculating(false);
+      setCalculated(true);
+    }, steps * stepDuration);
+  }
+
+  // ── Count-up on first reveal ─────────────────────────────────────────────
+  useEffect(() => {
+    if (!calculated || prevCalcRef.current) return;
+    prevCalcRef.current = true;
+    const target = result.monthlyPayment;
+    const startVal = Math.round(target * 0.72);
+    const diff = target - startVal;
+    if (diff === 0) return;
+    const steps = 30;
+    const c1 = 0.4; const c3 = c1 + 1;
+    const easeOutBack = (t: number) => 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    let step = 0;
+    const tick = () => {
+      step++;
+      setDisplayMonthly(Math.round(startVal + diff * easeOutBack(step / steps)));
+      if (step < steps) animRef.current = setTimeout(tick, 14);
+      else setDisplayMonthly(target);
+    };
+    animRef.current = setTimeout(tick, 14);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [calculated]);
+
   // ── Core state (syncs with mode defaults on mode change) ─────────────────
   const [amount, setAmount] = useState(loanModes.standard.defaults.amount);
   const [rate, setRate] = useState(loanModes.standard.defaults.annualRatePct);
@@ -619,14 +725,40 @@ export default function LoanCalculator() {
             </div>
 
           </div>
+
+          {!calculated && (
+            <button
+              type="button"
+              onClick={handleCalculate}
+              disabled={calculating}
+              className="mt-5 w-full rounded-2xl bg-gray-950 py-4 text-sm font-bold text-white tracking-wide shadow-lg transition-all duration-200 hover:bg-gray-800 hover:shadow-xl active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {calculating ? "Calculating…" : "Calculate my loan →"}
+            </button>
+          )}
         </div>
 
         {/* Right: results */}
         <div className="p-6 flex flex-col gap-5">
 
+          {calculating && <CalculatingLoader progress={calcProgress} step={calcStep} />}
+
+          {!calculated && !calculating && (
+            <div className="relative flex flex-col items-center justify-center py-20 px-6 bg-gray-950 rounded-2xl text-white overflow-hidden">
+              <div
+                className="absolute inset-0 opacity-20 pointer-events-none"
+                style={{ background: "radial-gradient(ellipse at 50% 70%, #10b981 0%, transparent 65%)" }}
+              />
+              <p className="relative text-lg font-bold text-white/60 text-center">
+                Enter your loan details and hit Calculate
+              </p>
+            </div>
+          )}
+
+          {!calculating && calculated && (<>
           {/* Hero payment */}
           <HeroPayment
-            monthlyPayment={result.monthlyPayment}
+            monthlyPayment={displayMonthly}
             totalInterest={result.totalInterest}
             totalRepayment={result.totalRepayment}
             interestRatio={interestRatio}
@@ -683,8 +815,11 @@ export default function LoanCalculator() {
             <ResultRow label="Total repayment" value={fmt(result.totalRepayment)} highlight />
           </div>
 
+        </>)}
         </div>
       </div>
+
+      {!calculating && calculated && (<>
 
       {/* ── Bottom tab bar ──────────────────────────────────────────────────── */}
       <BottomTabBar
@@ -1092,6 +1227,7 @@ export default function LoanCalculator() {
           </div>
       </div>
 
+      </>)}
     </div>
   );
 }

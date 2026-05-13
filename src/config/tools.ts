@@ -359,6 +359,16 @@ export const tools: Tool[] = [
 
   // Investing
   {
+    name: "Retirement Calculator", slug: "retirement-calculator", tier: 1, category: "money", subcategory: "investing", toolType: "calculator", popular: true, status: "live",
+    description: "Project your retirement portfolio, monthly income, and readiness score. Includes inflation-adjusted drawdown modelling, portfolio sustainability, and what-if scenarios.",
+    keywords: ["retirement calculator", "retirement savings calculator", "retirement planning", "how much to retire", "4 percent rule", "safe withdrawal rate", "retirement income calculator"],
+  },
+  {
+    name: "Investment Calculator", slug: "investment-calculator", tier: 2, category: "money", subcategory: "investing", toolType: "calculator", popular: true, status: "live",
+    description: "Project your future portfolio value with compound interest. Enter starting amount, monthly contributions, return rate, and duration to see your wealth grow.",
+    keywords: ["investment calculator", "compound interest calculator", "future value calculator", "wealth projection", "retirement savings calculator"],
+  },
+  {
     name: "Compound Interest Calculator", slug: "compound-interest", tier: 2, category: "money", subcategory: "investing", toolType: "calculator", popular: true, status: "live",
     href: "/tools/compound-interest-calculator",
     metaTitle: "Compound Interest Calculator – Work Out How Your Money Grows Instantly",
@@ -541,9 +551,9 @@ export const tools: Tool[] = [
   // ══════════════════════════════════════════════════════════════════════════
 
   {
-    name: "Percentage Calculator", slug: "percentage-calculator", tier: 3, category: "everyday", subcategory: "quick", toolType: "calculator", status: "live",
-    metaTitle: "Percentage Calculator – Work Out Any Percentage Instantly",
-    description: "Work out percentages, percentage changes, and what percentage one number is of another. Enter your values and get instant results.",
+    name: "Percentage Increase Calculator", slug: "percentage-increase-calculator", tier: 2, category: "money", subcategory: "income", toolType: "calculator", popular: true, status: "live",
+    metaTitle: "Percentage Increase Calculator – Calculate % Change Instantly",
+    description: "Calculate percentage increase, decrease, difference, and reverse percentages instantly. Useful for salary raises, price changes, and investment returns.",
   },
   { name: "Tip Calculator",          slug: "tip-calculator",             tier: 3, category: "everyday", subcategory: "quick",     toolType: "calculator"                 },
   { name: "Currency Converter",      slug: "currency-converter",         tier: 3, category: "everyday", subcategory: "converters",toolType: "tool",       popular: true  },

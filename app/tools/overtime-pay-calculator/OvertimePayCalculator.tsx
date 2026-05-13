@@ -5,6 +5,21 @@ import { SHOW_INCOME_CTA } from "@/src/lib/featureFlags";
 import { useState, useEffect, useRef } from "react";
 import { Slider } from "@/components/ui/slider";
 import { formatCurrency, getLocale, type Locale } from "@/src/lib/locale";
+import {
+  BarChart, Bar, AreaChart, Area,
+  XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ResponsiveContainer, ReferenceLine, Cell,
+} from "recharts";
+
+const TICK_STYLE = { fill: "#9ca3af", fontSize: 11 };
+const TOOLTIP_STYLE = {
+  backgroundColor: "#fff",
+  border: "1px solid #e5e7eb",
+  borderRadius: "12px",
+  fontSize: 12,
+  color: "#374151",
+  boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+};
 
 // -- Calculation logic ----------------------------------------
 
@@ -35,6 +50,64 @@ function calculateOvertime(
   return { regularHours, overtimeHours, regularPay, overtimePay, weeklyPay, dailyPay, monthlyPay, annualPay };
 }
 
+// ─── Calculating loader ──────────────────────────────────────────────────────
+const CALC_STEPS = [
+  "Reading your inputs…",
+  "Calculating overtime hours…",
+  "Building your breakdown…",
+  "Finishing up…",
+];
+
+function CalculatingLoader({ progress, step }: { progress: number; step: number }) {
+  return (
+    <div className="relative flex flex-col items-center justify-center py-20 px-6 bg-gray-950 rounded-2xl text-white overflow-hidden">
+      <div
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 50% 70%, #10b981 0%, transparent 65%)" }}
+      />
+      <div className="relative mb-7">
+        <div
+          className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-emerald-400 animate-spin"
+          style={{ animationDuration: "0.85s" }}
+        />
+        <div className="w-20 h-20 rounded-full border-2 border-white/10 flex items-center justify-center bg-white/5">
+          <svg width="36" height="36" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 3L6 13L8 7L10 13L14 3" stroke="#34d399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      </div>
+      <p className="relative text-lg font-bold text-center text-white mb-1">{CALC_STEPS[step] ?? "Calculating…"}</p>
+      <p className="relative text-xs text-white/40 mb-8">Estimating your overtime pay</p>
+      <div className="relative w-full max-w-xs">
+        <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div
+            className="h-full rounded-full transition-all duration-500 ease-out"
+            style={{ width: progress + "%", background: "linear-gradient(90deg, #10b981, #2dd4bf)" }}
+          />
+        </div>
+        <div className="flex justify-between mt-2">
+          <span className="text-[10px] text-white/30">{Math.round(progress)}% complete</span>
+          <span className="text-[10px] text-white/30">Step {step + 1} / {CALC_STEPS.length}</span>
+        </div>
+      </div>
+      <div className="flex gap-2 mt-6">
+        {CALC_STEPS.map((_, i) => (
+          <div
+            key={i}
+            style={{
+              height: 6,
+              borderRadius: 3,
+              width: i < step ? 20 : i === step ? 32 : 12,
+              backgroundColor: i <= step ? "#34d399" : "rgba(255,255,255,0.15)",
+              transition: "all 0.3s",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // -- Helpers --------------------------------------------------
 
 type MultiplierMode = "1.5" | "2.0" | "custom";
@@ -55,6 +128,12 @@ export default function OvertimePayCalculator() {
   const animRef       = useRef<ReturnType<typeof setTimeout> | null>(null);
   const prevRef       = useRef<number>(0);
   const changeFadeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prevCalculatedRef = useRef<boolean>(false);
+  // Calculate button state
+  const [calculated,   setCalculated]   = useState<boolean>(false);
+  const [calculating,  setCalculating]  = useState<boolean>(false);
+  const [calcStep,     setCalcStep]     = useState<number>(0);
+  const [calcProgress, setCalcProgress] = useState<number>(0);
   const [locale, setLocaleState] = useState<Locale>("US");
 
   const multiplier =
@@ -111,6 +190,46 @@ export default function OvertimePayCalculator() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [weeklyPay]);
 
+  // Count-up animation on first reveal after Calculate
+  useEffect(() => {
+    if (!calculated || prevCalculatedRef.current) return;
+    prevCalculatedRef.current = true;
+    const target = weeklyPay;
+    const startVal = Math.round(target * 0.72);
+    const diff = target - startVal;
+    if (diff === 0) return;
+    const steps = 30;
+    const c1 = 0.4; const c3 = c1 + 1;
+    const easeOutBack = (t: number) => 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    let step = 0;
+    const tick = () => {
+      step++;
+      setDisplayWeekly(Math.round(startVal + diff * easeOutBack(step / steps)));
+      if (step < steps) animRef.current = setTimeout(tick, 14);
+      else setDisplayWeekly(target);
+    };
+    animRef.current = setTimeout(tick, 14);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [calculated]);
+
+  function handleCalculate() {
+    setCalculating(true);
+    setCalcStep(0);
+    setCalcProgress(0);
+    const stepDuration = 350;
+    const steps = CALC_STEPS.length;
+    for (let i = 0; i < steps; i++) {
+      setTimeout(() => {
+        setCalcStep(i);
+        setCalcProgress(Math.round(((i + 1) / steps) * 100));
+      }, i * stepDuration);
+    }
+    setTimeout(() => {
+      setCalculating(false);
+      setCalculated(true);
+    }, steps * stepDuration);
+  }
+
   useEffect(() => {
     setLocaleState(getLocale());
     const handler = () => setLocaleState(getLocale());
@@ -119,6 +238,27 @@ export default function OvertimePayCalculator() {
   }, []);
 
   const sym = locale === "US" ? "$" : "£";
+
+  // ── Chart data ──────────────────────────────────────────────────────────────
+  const CHART_HOURS = [40, 44, 48, 52, 56, 60];
+  const payBreakdownData = CHART_HOURS.map((h) => {
+    const { regularPay: r, overtimePay: o } = calculateOvertime(hourlyRate, h, multiplier);
+    return { label: `${h}h`, regular: Math.round(r), overtime: Math.round(o) };
+  });
+
+  const hoursPayCurveData = Array.from({ length: 41 }, (_, i) => {
+    const h = i + 30;
+    const { weeklyPay: wp } = calculateOvertime(hourlyRate, h, multiplier);
+    return { label: `${h}h`, weekly: Math.round(wp) };
+  });
+
+  const annualCompData = [40, 45, 50, 55, 60].map((h) => ({
+    label: `${h}h/wk`,
+    annual: Math.round(calculateOvertime(hourlyRate, h, multiplier).annualPay),
+  }));
+
+  const fmtY = (v: number) =>
+    v >= 1000 ? `${sym}${(v / 1000).toFixed(1)}k` : `${sym}${v}`;
 
   return (
     <div className="grid gap-8 lg:grid-cols-[2fr_3fr] lg:gap-10">
@@ -300,10 +440,39 @@ export default function OvertimePayCalculator() {
           )}
         </div>
 
+        {/* Calculate button — only shown before first calculation */}
+        {!calculated && <button
+          type="button"
+          onClick={handleCalculate}
+          disabled={calculating}
+          className="w-full rounded-2xl bg-gray-950 py-4 text-sm font-bold text-white tracking-wide shadow-lg transition-all duration-200 hover:bg-gray-800 hover:shadow-xl active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {calculating ? "Calculating…" : "Calculate my overtime →"}
+        </button>}
+
       </div>
 
-      {/* ── RESULTS ───────────────────────────────────────────── */}
+      {/* ── RESULTS ───────────────────────────────────────────────── */}
       <div className="flex flex-col gap-4">
+
+        {/* Loader */}
+        {calculating && <CalculatingLoader progress={calcProgress} step={calcStep} />}
+
+        {/* Placeholder before first calculation */}
+        {!calculating && !calculated && (
+          <div className="relative flex flex-col items-center justify-center py-24 px-6 rounded-2xl overflow-hidden bg-gray-950 text-center shadow-[0_24px_80px_rgba(0,0,0,0.45)]">
+            <div className="pointer-events-none absolute inset-0 opacity-20" style={{ background: "radial-gradient(ellipse at 50% 80%, #10b981 0%, transparent 60%)" }} />
+            <div className="relative w-14 h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-4">
+              <svg width="24" height="24" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                <path d="M2 3L6 13L8 7L10 13L14 3" stroke="#34d399" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <p className="relative text-sm font-semibold text-white/70">Enter your hours and hit Calculate</p>
+            <p className="relative mt-1 text-xs text-white/30">Your full breakdown will appear here</p>
+          </div>
+        )}
+
+        {!calculating && calculated && <>
 
         {/* Hero result */}
         <div
@@ -508,6 +677,105 @@ export default function OvertimePayCalculator() {
           </div>
         </div>
 
+        {/* ── CHARTS ──────────────────────────────────────────────────────── */}
+        {!calculating && calculated && hourlyRate > 0 && (
+          <div className="space-y-5 border-t border-gray-100 pt-5">
+            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Earnings Analysis</p>
+
+            {/* Chart 1: Stacked bar — regular vs overtime pay at different hour levels */}
+            <div className="hidden sm:block w-full rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+              <p className="mb-4 text-sm font-semibold text-gray-700">Regular vs overtime pay by hours worked</p>
+              <ResponsiveContainer width="100%" height={220}>
+                <BarChart data={payBreakdownData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="4 4" stroke="rgba(0,0,0,0.05)" />
+                  <XAxis dataKey="label" tick={TICK_STYLE} tickLine={false} axisLine={false} />
+                  <YAxis tickFormatter={fmtY} tick={TICK_STYLE} tickLine={false} axisLine={false} width={60} />
+                  <Tooltip
+                    contentStyle={TOOLTIP_STYLE}
+                    formatter={(v: unknown, name: unknown) => [`${sym}${Number(v).toLocaleString()}`, name as string]}
+                    labelStyle={{ fontWeight: 600, marginBottom: 4 }}
+                    cursor={{ fill: "rgba(0,0,0,0.03)" }}
+                  />
+                  <Legend wrapperStyle={{ fontSize: 12, paddingTop: 12 }} iconType="circle" iconSize={8} />
+                  <Bar dataKey="regular" name="Regular pay" fill="#10b981" stackId="a" radius={[0, 0, 4, 4]} />
+                  <Bar dataKey="overtime" name="Overtime pay" fill="#f59e0b" stackId="a" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Chart 2: Area — weekly pay curve 30h → 70h with overtime threshold */}
+            <div className="hidden sm:block w-full rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+              <p className="mb-4 text-sm font-semibold text-gray-700">Weekly pay curve as hours increase (30h → 70h)</p>
+              <ResponsiveContainer width="100%" height={220}>
+                <AreaChart data={hoursPayCurveData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                  <defs>
+                    <linearGradient id="otGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.25} />
+                      <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid strokeDasharray="4 4" stroke="rgba(0,0,0,0.05)" />
+                  <XAxis dataKey="label" tick={TICK_STYLE} tickLine={false} axisLine={false} interval={4} />
+                  <YAxis tickFormatter={fmtY} tick={TICK_STYLE} tickLine={false} axisLine={false} width={60} />
+                  <Tooltip
+                    contentStyle={TOOLTIP_STYLE}
+                    formatter={(v: unknown) => [`${sym}${Number(v).toLocaleString()}`, "Weekly pay"]}
+                    labelStyle={{ fontWeight: 600, marginBottom: 4 }}
+                  />
+                  <ReferenceLine
+                    x="40h"
+                    stroke="#f59e0b"
+                    strokeDasharray="4 3"
+                    label={{ value: "Overtime starts", position: "insideTopRight", fontSize: 10, fill: "#d97706" }}
+                  />
+                  <Area
+                    type="monotone"
+                    dataKey="weekly"
+                    stroke="#10b981"
+                    strokeWidth={2}
+                    fill="url(#otGrad)"
+                    dot={false}
+                    activeDot={{ r: 4 }}
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Chart 3: Bar — annual earnings at different overtime levels */}
+            <div className="hidden sm:block w-full rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+              <p className="mb-4 text-sm font-semibold text-gray-700">Annual earnings at different weekly hour levels</p>
+              <ResponsiveContainer width="100%" height={220}>
+                <BarChart data={annualCompData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="4 4" stroke="rgba(0,0,0,0.05)" />
+                  <XAxis dataKey="label" tick={TICK_STYLE} tickLine={false} axisLine={false} />
+                  <YAxis
+                    tickFormatter={(v: number) => `${sym}${(v / 1000).toFixed(0)}k`}
+                    tick={TICK_STYLE}
+                    tickLine={false}
+                    axisLine={false}
+                    width={60}
+                  />
+                  <Tooltip
+                    contentStyle={TOOLTIP_STYLE}
+                    formatter={(v: unknown) => [`${sym}${Number(v).toLocaleString()}`, "Annual pay"]}
+                    labelStyle={{ fontWeight: 600, marginBottom: 4 }}
+                    cursor={{ fill: "rgba(0,0,0,0.03)" }}
+                  />
+                  <Bar dataKey="annual" name="Annual pay" radius={[4, 4, 0, 0]}>
+                    {annualCompData.map((_, i) => (
+                      <Cell
+                        key={i}
+                        fill={i === 0 ? "#d1d5db" : i === annualCompData.length - 1 ? "#10b981" : `rgba(16,185,129,${0.35 + i * 0.15})`}
+                      />
+                    ))}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+
+          </div>
+        )}
+
         {/* Microcopy */}
         <div className="rounded-2xl border border-gray-100 bg-gray-50 px-5 py-4">
           <p className="text-xs leading-5 text-gray-500">
@@ -539,6 +807,9 @@ export default function OvertimePayCalculator() {
             only and does not account for taxes or employer-specific policies.
           </p>
         </div>
+
+        </>
+        }
 
       </div>
     </div>

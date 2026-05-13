@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import DarkResultCard from "@/components/ui/DarkResultCard";
+import Image from "next/image";
 import RelatedTools from "@/components/RelatedTools";
 import HourlyToSalaryCalculator from "./HourlyToSalaryCalculatorLoader";
 import SimpleCalculatorShell from "@/components/calculators/SimpleCalculatorShell";
@@ -70,19 +70,6 @@ const jsonLd = [
   },
 ];
 
-const heroCard = (
-  <DarkResultCard
-    label="Example · $25/hr · 40 HRS/WK"
-    value="$52,000"
-    sub="annual salary (gross)"
-    stats={[
-      { value: "$4,333", label: "/ month" },
-      { value: "$1,000", label: "/ week" },
-      { value: "$200",   label: "/ day" },
-    ]}
-  />
-);
-
 const statChips = (
   <>
     {[
@@ -106,14 +93,32 @@ export default function HourlyToSalaryPage() {
       title="Hourly to Salary Calculator"
       subtitle="See what your hourly pay adds up to annually, monthly, and weekly."
       description={
-        <RegionToggle
-          current="us"
-          usPath="/tools/hourly-to-salary-calculator"
-          ukPath="/tools/hourly-to-salary-calculator-uk"
-          theme="light"
-        />
+        <>
+          <p className="mx-auto max-w-lg text-sm leading-7 text-gray-500">
+            Enter your hourly rate and weekly hours to see your annual, monthly, and weekly salary. Adjust weeks worked to account for holidays or part-time schedules.
+          </p>
+          <ul className="mt-6 inline-flex flex-col items-start gap-2 text-left mx-auto">
+            {[
+              "Works for any hourly rate and hours per week",
+              "Adjust weeks worked for holidays or part-time",
+              "Shows gross salary — pair with Take Home Pay for net",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
+                <span className="h-4 w-4 shrink-0 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex justify-center">
+            <RegionToggle
+              current="us"
+              usPath="/tools/hourly-to-salary-calculator"
+              ukPath="/tools/hourly-to-salary-calculator-uk"
+              theme="light"
+            />
+          </div>
+        </>
       }
-      heroCard={heroCard}
       calculator={<HourlyToSalaryCalculator />}
       insightText={
         <>

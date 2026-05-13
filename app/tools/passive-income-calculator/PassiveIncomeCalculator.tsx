@@ -35,6 +35,65 @@ function fmtYears(y: number): string {
   return `${yrs}y ${mos}m`;
 }
 
+// ─── Calculating loader ────────────────────────────────────────────────────────
+
+const CALC_STEPS = [
+  "Reading your inputs…",
+  "Calculating passive income…",
+  "Building your projection…",
+  "Finishing up…",
+];
+
+function CalculatingLoader({ progress, step }: { progress: number; step: number }) {
+  return (
+    <div className="relative flex flex-col items-center justify-center py-20 px-6 bg-gray-950 rounded-2xl text-white overflow-hidden">
+      <div
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse at 50% 70%, #10b981 0%, transparent 65%)" }}
+      />
+      <div className="relative mb-7">
+        <div
+          className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-emerald-400 animate-spin"
+          style={{ animationDuration: "0.85s" }}
+        />
+        <div className="w-20 h-20 rounded-full border-2 border-white/10 flex items-center justify-center bg-white/5">
+          <svg width="36" height="36" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 3L6 13L8 7L10 13L14 3" stroke="#34d399" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>
+      </div>
+      <p className="relative text-lg font-bold text-center text-white mb-1">{CALC_STEPS[step] ?? "Calculating\u2026"}</p>
+      <p className="relative text-xs text-white/40 mb-8">Estimating your passive income</p>
+      <div className="relative w-full max-w-xs">
+        <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
+          <div
+            className="h-full rounded-full transition-all duration-500 ease-out"
+            style={{ width: progress + "%", background: "linear-gradient(90deg, #10b981, #2dd4bf)" }}
+          />
+        </div>
+        <div className="flex justify-between mt-2">
+          <span className="text-[10px] text-white/30">{Math.round(progress)}% complete</span>
+          <span className="text-[10px] text-white/30">Step {step + 1} / {CALC_STEPS.length}</span>
+        </div>
+      </div>
+      <div className="flex gap-2 mt-6">
+        {CALC_STEPS.map((_, i) => (
+          <div
+            key={i}
+            style={{
+              height: 6,
+              borderRadius: 3,
+              width: i < step ? 20 : i === step ? 32 : 12,
+              backgroundColor: i <= step ? "#34d399" : "rgba(255,255,255,0.15)",
+              transition: "all 0.3s",
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─── Slider field ─────────────────────────────────────────────────────────────
 
 interface SliderInputProps {
@@ -622,6 +681,15 @@ export default function PassiveIncomeCalculator({
   const animRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const prevIncomeRef = useRef<number>(0);
   const changeFadeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prevCalculatedRef = useRef<boolean>(false);
+
+  const [showAdvanced, setShowAdvanced] = useState<boolean>(false);
+
+  // ── Calculate+loader state ────────────────────────────────────────────────
+  const [calculated,   setCalculated]   = useState<boolean>(false);
+  const [calculating,  setCalculating]  = useState<boolean>(false);
+  const [calcStep,     setCalcStep]     = useState<number>(0);
+  const [calcProgress, setCalcProgress] = useState<number>(0);
 
   // ── Stream management ────────────────────────────────────────────────────
   const addStream = useCallback(() => {
@@ -667,6 +735,24 @@ export default function PassiveIncomeCalculator({
       ),
     );
   }, []);
+
+  function handleCalculate() {
+    setCalculating(true);
+    setCalcStep(0);
+    setCalcProgress(0);
+    const stepDuration = 350;
+    const steps = CALC_STEPS.length;
+    for (let i = 0; i < steps; i++) {
+      setTimeout(() => {
+        setCalcStep(i);
+        setCalcProgress(Math.round(((i + 1) / steps) * 100));
+      }, i * stepDuration);
+    }
+    setTimeout(() => {
+      setCalculating(false);
+      setCalculated(true);
+    }, steps * stepDuration);
+  }
 
   // ── Calculation ──────────────────────────────────────────────────────────
   const result = useMemo(
@@ -732,6 +818,28 @@ export default function PassiveIncomeCalculator({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result.totalMonthlyIncome]);
 
+  // ── Count-up on first reveal after Calculate ─────────────────────────────
+  useEffect(() => {
+    if (!calculated || prevCalculatedRef.current) return;
+    prevCalculatedRef.current = true;
+    const target = result.totalMonthlyIncome;
+    const startVal = Math.round(target * 0.72);
+    const diff = target - startVal;
+    if (diff === 0) return;
+    const steps = 30;
+    const c1 = 0.4; const c3 = c1 + 1;
+    const easeOutBack = (t: number) => 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    let step = 0;
+    const tick = () => {
+      step++;
+      setDisplayIncome(Math.round(startVal + diff * easeOutBack(step / steps)));
+      if (step < steps) animRef.current = setTimeout(tick, 14);
+      else setDisplayIncome(target);
+    };
+    animRef.current = setTimeout(tick, 14);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [calculated]);
+
   // ── Derived values ────────────────────────────────────────────────────────
   const insights = useMemo(
     () => buildInsights(streams, result, years, targetMonthlyIncome, currency),
@@ -784,100 +892,6 @@ export default function PassiveIncomeCalculator({
         </div>}
 
         {/* Global settings — full controls for growth streams; simple projection picker for direct-only */}
-        {result.hasGrowthStreams ? <div className="space-y-5 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
-            Global Settings
-          </p>
-
-          <SliderInput
-            label="Investment Horizon"
-            value={years}
-            min={1}
-            max={40}
-            step={1}
-            unit="yrs"
-            quickPicks={[10, 15, 20, 30]}
-            onChange={setYears}
-          />
-
-          <SliderInput
-            label="Withdrawal Rate"
-            value={withdrawalRate}
-            min={1}
-            max={10}
-            step={0.5}
-            unit="%"
-            hint="4% is the widely-used safe withdrawal rate for a 30-year retirement."
-            quickPicks={[3, 3.5, 4, 5]}
-            onChange={setWithdrawalRate}
-          />
-
-          <SliderInput
-            label="Inflation Rate"
-            value={inflationRate}
-            min={0}
-            max={10}
-            step={0.5}
-            unit="%"
-            hint="Historical average: 2–3%. Used to compute real portfolio value."
-            onChange={setInflationRate}
-          />
-
-          <div>
-            <div className="flex items-center justify-between">
-              <label className="text-sm font-semibold text-gray-700">
-                Freedom Target{" "}
-                <span className="font-normal text-gray-400">(optional)</span>
-              </label>
-            </div>
-            <div className="mt-2 flex items-center gap-2">
-              <span className="text-sm font-semibold text-gray-400">
-                {currency}
-              </span>
-              <input
-                type="number"
-                min={0}
-                max={100000}
-                step={100}
-                value={targetRaw}
-                placeholder="e.g. 3000"
-                onChange={(e) => {
-                  setTargetRaw(e.target.value);
-                  setTargetMonthlyIncome(Number(e.target.value) || 0);
-                }}
-                className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-800 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100"
-              />
-              <span className="shrink-0 text-sm text-gray-400">/mo</span>
-            </div>
-            <p className="mt-1.5 text-xs text-gray-400">
-              Your target monthly passive income — we calculate when you reach it.
-            </p>
-          </div>
-        </div> : (
-          <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
-              Projection Period
-            </p>
-            <p className="mt-1 text-xs text-gray-400">How far ahead do you want to project your income?</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {[1, 3, 6, 9, 12].map((m) => (
-                <button
-                  key={m}
-                  type="button"
-                  onClick={() => setProjectionMonths(m)}
-                  className={`rounded-xl border px-4 py-2 text-sm font-semibold transition-all ${
-                    projectionMonths === m
-                      ? "border-emerald-500 bg-emerald-50 text-emerald-700"
-                      : "border-gray-200 text-gray-500 hover:border-emerald-200 hover:text-emerald-600"
-                  }`}
-                >
-                  {m} {m === 1 ? "month" : "months"}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
         {/* Income streams */}
         <div className="space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
@@ -919,11 +933,109 @@ export default function PassiveIncomeCalculator({
             </button>
           )}
         </div>
+
+        {/* Advanced Options — only for growth-based streams */}
+        {result.hasGrowthStreams && (
+          <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+            <button
+              type="button"
+              onClick={() => setShowAdvanced(v => !v)}
+              className="flex w-full items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition-colors"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400">
+                Advanced Options
+              </p>
+              <svg
+                className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${showAdvanced ? "rotate-180" : ""}`}
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {showAdvanced && (
+              <div className="border-t border-gray-100 px-5 pb-5 pt-4 space-y-5">
+                <SliderInput
+                  label="Investment Horizon"
+                  value={years}
+                  min={1}
+                  max={40}
+                  step={1}
+                  unit="yrs"
+                  quickPicks={[10, 15, 20, 30]}
+                  onChange={setYears}
+                />
+                <SliderInput
+                  label="Withdrawal Rate"
+                  value={withdrawalRate}
+                  min={1}
+                  max={10}
+                  step={0.5}
+                  unit="%"
+                  hint="4% is the widely-used safe withdrawal rate for a 30-year retirement."
+                  quickPicks={[3, 3.5, 4, 5]}
+                  onChange={setWithdrawalRate}
+                />
+                <div>
+                  <label className="text-sm font-semibold text-gray-700">
+                    Freedom Target{" "}
+                    <span className="font-normal text-gray-400">(optional)</span>
+                  </label>
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="text-sm font-semibold text-gray-400">{currency}</span>
+                    <input
+                      type="number"
+                      min={0}
+                      max={100000}
+                      step={100}
+                      value={targetRaw}
+                      placeholder="e.g. 3000"
+                      onChange={(e) => {
+                        setTargetRaw(e.target.value);
+                        setTargetMonthlyIncome(Number(e.target.value) || 0);
+                      }}
+                      className="w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-sm font-semibold text-gray-800 focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100"
+                    />
+                    <span className="shrink-0 text-sm text-gray-400">/mo</span>
+                  </div>
+                  <p className="mt-1.5 text-xs text-gray-400">
+                    Set a target to see when you reach financial freedom.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {!calculated && (
+          <button
+            type="button"
+            onClick={handleCalculate}
+            disabled={calculating}
+            className="w-full rounded-2xl bg-gray-950 py-4 text-sm font-bold text-white tracking-wide shadow-lg transition-all duration-200 hover:bg-gray-800 hover:shadow-xl active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {calculating ? "Calculating…" : "Calculate my income →"}
+          </button>
+        )}
       </div>
 
       {/* ── RIGHT: OUTPUTS ──────────────────────────────────────────────── */}
       <div className="flex flex-col gap-4">
 
+        {calculating && <CalculatingLoader progress={calcProgress} step={calcStep} />}
+
+        {!calculated && !calculating && (
+          <div className="relative flex flex-col items-center justify-center py-20 px-6 bg-gray-950 rounded-2xl text-white overflow-hidden">
+            <div
+              className="absolute inset-0 opacity-20 pointer-events-none"
+              style={{ background: "radial-gradient(ellipse at 50% 70%, #10b981 0%, transparent 65%)" }}
+            />
+            <p className="relative text-lg font-bold text-white/60 text-center">
+              Add your income streams<br/>and hit Calculate
+            </p>
+          </div>
+        )}
+
+        {!calculating && calculated && (<>
         {/* Dark hero card */}
         <div
           className={`relative overflow-hidden rounded-2xl border p-7 transition-all duration-500 ${
@@ -1036,19 +1148,19 @@ export default function PassiveIncomeCalculator({
           {result.hasGrowthStreams ? (
             <>
               <SmallOutputCard
-                label="Growth Portfolio"
-                value={fmt(result.totalPortfolioValue, currency)}
-                sub={`after ${years} yr${years !== 1 ? "s" : ""} · ${growthMultiple}× growth`}
-              />
-              <SmallOutputCard
                 label="Annual Income"
                 value={fmt(result.totalAnnualIncome, currency)}
-                sub="per year"
+                sub="per year from all streams"
               />
               <SmallOutputCard
-                label="Inflation-Adjusted"
-                value={fmt(result.inflationAdjustedValue, currency)}
-                sub="real value in today's money"
+                label="Growth Portfolio"
+                value={fmt(result.totalPortfolioValue, currency)}
+                sub={`after ${years} yr${years !== 1 ? "s" : ""} · ${growthMultiple}× your contributions`}
+              />
+              <SmallOutputCard
+                label="Total Contributed"
+                value={fmt(result.totalContributed, currency)}
+                sub={`+${((result.totalGrowth / Math.max(1, result.totalContributed)) * 100).toFixed(0)}% investment growth`}
               />
               {targetMonthlyIncome > 0 ? (
                 <SmallOutputCard
@@ -1062,9 +1174,9 @@ export default function PassiveIncomeCalculator({
                 />
               ) : (
                 <SmallOutputCard
-                  label="Total Contributed"
-                  value={fmt(result.totalContributed, currency)}
-                  sub={`+${((result.totalGrowth / Math.max(1, result.totalContributed)) * 100).toFixed(0)}% investment growth`}
+                  label="Weekly Income"
+                  value={fmt(result.totalAnnualIncome / 52, currency)}
+                  sub="estimated per week"
                 />
               )}
             </>
@@ -1076,9 +1188,9 @@ export default function PassiveIncomeCalculator({
                 sub="per year across all streams"
               />
               <SmallOutputCard
-                label={`${projectionMonths}-Month Total`}
-                value={fmt(result.totalMonthlyIncome * projectionMonths, currency)}
-                sub={`projected over ${projectionMonths} month${projectionMonths !== 1 ? "s" : ""}`}
+                label="Quarterly Income"
+                value={fmt(result.totalMonthlyIncome * 3, currency)}
+                sub="every 3 months"
               />
               <SmallOutputCard
                 label="Weekly Income"
@@ -1093,6 +1205,13 @@ export default function PassiveIncomeCalculator({
             </>
           )}
         </div>
+        {result.hasGrowthStreams && result.totalPortfolioValue > 0 && (
+          <p className="-mt-1 text-xs text-gray-400">
+            Adjusted for {inflationRate}% inflation: portfolio worth{" "}
+            <span className="font-semibold text-gray-600">{fmt(result.inflationAdjustedValue, currency)}</span>{" "}
+            in today&apos;s money.
+          </p>
+        )}
 
         {/* Per-stream breakdown */}
         {multiStream && (
@@ -1202,10 +1321,25 @@ export default function PassiveIncomeCalculator({
           </div>
         )}
 
+        {/* Compound Interest CTA */}
+        <div className="rounded-2xl border border-emerald-100 bg-emerald-50/70 p-5">
+          <p className="text-sm font-bold text-emerald-800">Want to see how your portfolio grows over time?</p>
+          <p className="mt-1 text-xs text-emerald-700 leading-relaxed">
+            Model year-by-year compounding, contributions and interest over any horizon — in the Compound Interest Calculator.
+          </p>
+          <a
+            href="/tools/compound-interest-calculator"
+            className="mt-3 inline-flex items-center gap-1.5 rounded-xl bg-emerald-600 px-4 py-2.5 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors"
+          >
+            Try Compound Interest Calculator →
+          </a>
+        </div>
+
         <p className="text-xs leading-relaxed text-gray-400">
           Estimates only. All figures are pre-tax. Results do not constitute
           financial advice. Actual returns vary and are not guaranteed.
         </p>
+        </>)}
       </div>
     </div>
   );

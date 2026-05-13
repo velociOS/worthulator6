@@ -79,35 +79,6 @@ const jsonLd = [
   },
 ];
 
-const heroCard = (
-  <div className="relative overflow-hidden rounded-2xl border border-white/8 bg-gray-950 p-6 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
-    <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full bg-emerald-500/15 blur-3xl" />
-    <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-gray-400">
-      Example &middot; 2 streams &middot; 20 yr horizon
-    </p>
-    <p className="relative mt-3 text-5xl font-bold tracking-[-0.04em] text-emerald-400 [text-shadow:0_0_20px_rgba(52,211,153,0.28)]">
-      $2,870
-    </p>
-    <p className="relative mt-1 text-sm text-gray-500">estimated monthly passive income</p>
-    <div className="mt-4 space-y-1.5 border-t border-white/8 pt-4">
-      <div className="flex items-center justify-between text-xs">
-        <span className="flex items-center gap-1.5 text-gray-400">
-          <span className="h-2 w-2 rounded-full bg-emerald-400" />
-          Investment Portfolio
-        </span>
-        <span className="font-semibold text-white">$2,100/mo</span>
-      </div>
-      <div className="flex items-center justify-between text-xs">
-        <span className="flex items-center gap-1.5 text-gray-400">
-          <span className="h-2 w-2 rounded-full bg-blue-400" />
-          Dividend Income
-        </span>
-        <span className="font-semibold text-white">$770/mo</span>
-      </div>
-    </div>
-  </div>
-);
-
 const statChips = (
   <>
     {[
@@ -150,14 +121,32 @@ export default function PassiveIncomeCalculatorPage() {
       title="Passive Income Calculator"
       subtitle="See how much passive income your portfolio can generate — and how long it takes to get there."
       description={
-        <RegionToggle
-          current="us"
-          usPath="/tools/passive-income-calculator"
-          ukPath="/tools/passive-income-calculator-uk"
-          theme="light"
-        />
+        <>
+          <p className="mx-auto max-w-lg text-sm leading-7 text-gray-500">
+            Enter your portfolio size, monthly contributions, and expected return to see how much passive income you could generate — and how long it takes to reach your target.
+          </p>
+          <ul className="mt-6 inline-flex flex-col items-start gap-2 text-left mx-auto">
+            {[
+              "Model up to 5 income streams simultaneously",
+              "Uses the 4% rule and compound growth projections",
+              "Shows monthly and annual income at any time horizon",
+            ].map((item) => (
+              <li key={item} className="flex items-center gap-2.5 text-sm text-gray-500">
+                <span className="h-4 w-4 shrink-0 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-[10px] font-bold">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6 flex justify-center">
+            <RegionToggle
+              current="us"
+              usPath="/tools/passive-income-calculator"
+              ukPath="/tools/passive-income-calculator-uk"
+              theme="light"
+            />
+          </div>
+        </>
       }
-      heroCard={heroCard}
       calculator={<PassiveIncomeCalculatorLoader currency="$" region="US" />}
       insightText={
         <>
@@ -479,6 +468,11 @@ export default function PassiveIncomeCalculatorPage() {
                 label: "Take Home Pay Calculator",
                 href: "/tools/take-home-pay-calculator",
                 note: "See your net salary after tax and deductions",
+              },
+              {
+                label: "Investment Calculator",
+                href: "/tools/investment-calculator",
+                note: "Project your future portfolio value with compound growth",
               },
             ].map(({ label, href, note }) => (
               <Link
