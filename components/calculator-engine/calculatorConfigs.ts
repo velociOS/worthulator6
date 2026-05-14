@@ -338,7 +338,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "totalBill",          label: "Total to pay",        format: "currency",                 sublabel: (i)    => `Bill + ${i.tipPct}% tip` },
       { key: "tipPerPerson",       label: "Tip per person",      format: "currency", highlight: true, sublabel: (i)   => `Split ${i.people} ${Number(i.people) === 1 ? "way" : "ways"}` },
       { key: "totalPerPerson",     label: "Total per person",    format: "currency",                 sublabel: (i)    => `Each of ${i.people} ${Number(i.people) === 1 ? "person pays" : "people pays"}` },
-      { key: "roundedTipPerson",   label: "Rounded tip/person",  format: "currency",                 sublabel: ()     => "Rounded up — easy for cash" },
+      { key: "roundedTipPerson",   label: "Rounded tip/person",  format: "currency",                 sublabel: ()     => "Rounded up ï¿½ easy for cash" },
     ],
     calculate: (inputs) => {
       const bill   = Number(inputs.bill);
@@ -355,7 +355,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       };
     },
     insight: (i, o) =>
-      `A ${i.tipPct}% tip on a $${i.bill} bill is $${o.tipAmount?.toFixed(2)} — ` +
+      `A ${i.tipPct}% tip on a $${i.bill} bill is $${o.tipAmount?.toFixed(2)} ï¿½ ` +
       `$${o.tipPerPerson?.toFixed(2)}/person. Rounded up for cash: $${o.roundedTipPerson?.toFixed(2)}/person.`,
   },
 
@@ -375,8 +375,8 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
         sublabel: (_, o) => {
           const b = o.bmi ?? 0;
           if (b < 18.5) return "Underweight (< 18.5)";
-          if (b < 25)   return "Healthy weight (18.5 – 24.9)";
-          if (b < 30)   return "Overweight (25 – 29.9)";
+          if (b < 25)   return "Healthy weight (18.5 ï¿½ 24.9)";
+          if (b < 30)   return "Overweight (25 ï¿½ 29.9)";
           return "Obese (>= 30)";
         },
       },
@@ -400,7 +400,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const cat = bmi < 18.5 ? "underweight" : bmi < 25 ? "a healthy weight" : bmi < 30 ? "overweight" : "in the obese range";
       const diff = Math.abs(Number(i.weightLbs) - (o.idealWeight ?? 0));
       const dir  = Number(i.weightLbs) > (o.idealWeight ?? 0) ? "to lose" : "to gain";
-      return `At ${i.weightLbs} lbs and ${i.heightIn} in, your BMI is ${bmi.toFixed(1)} — ${cat}. Ideal target: ${o.idealWeight} lbs (${diff} lbs ${dir}).`;
+      return `At ${i.weightLbs} lbs and ${i.heightIn} in, your BMI is ${bmi.toFixed(1)} ï¿½ ${cat}. Ideal target: ${o.idealWeight} lbs (${diff} lbs ${dir}).`;
     },
   },
 
@@ -420,7 +420,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
         key: "monthsToPayoff", label: "Months to pay off", format: "integer", highlight: true,
         sublabel: (_, o) => {
           const m = o.monthsToPayoff ?? 0;
-          if (m >= 600) return "Payment too low — doesn't cover interest";
+          if (m >= 600) return "Payment too low ï¿½ doesn't cover interest";
           const y = Math.floor(m / 12); const mo = m % 12;
           return y > 0 ? `${y} yr${y > 1 ? "s" : ""} ${mo > 0 ? `${mo} mo` : ""}`.trim() : `${mo} months`;
         },
@@ -451,7 +451,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const y = Math.floor((o.monthsToPayoff ?? 0) / 12);
       const m = (o.monthsToPayoff ?? 0) % 12;
       const time = y > 0 ? `${y}yr ${m > 0 ? `${m}mo` : ""}`.trim() : `${m} months`;
-      return `Paying $${i.monthlyPayment}/mo clears this in ${time}. ${o.interestOfTotal?.toFixed(1)}% of every payment is pure interest — $${o.totalInterest?.toFixed(0)} total.`;
+      return `Paying $${i.monthlyPayment}/mo clears this in ${time}. ${o.interestOfTotal?.toFixed(1)}% of every payment is pure interest ï¿½ $${o.totalInterest?.toFixed(0)} total.`;
     },
   },
 
@@ -488,7 +488,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       };
     },
     insight: (i, o) =>
-      `$${i.amount} invested ${i.yearsAgo} years ago at ${i.annualReturn}% would be $${Math.round(o.currentValue ?? 0).toLocaleString()} today — ` +
+      `$${i.amount} invested ${i.yearsAgo} years ago at ${i.annualReturn}% would be $${Math.round(o.currentValue ?? 0).toLocaleString()} today ï¿½ ` +
       `a ${o.growthLostPct?.toFixed(0)}% gain (${o.multiplier?.toFixed(2)}x) you walked away from.`,
   },
 
@@ -496,7 +496,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
   "commute-time-value": {
     id: "commute-time-value",
     category: "work",
-    description: "Calculate the true cost of your commute in both time lost and money — the hidden tax on your salary.",
+    description: "Calculate the true cost of your commute in both time lost and money ï¿½ the hidden tax on your salary.",
     label: "Commute Time Value Calculator",
     inputs: [
       { name: "dailyMins",   label: "Daily commute",       unit: "mins",  type: "slider", min: 5,   max: 180, step: 5,  default: 45, hint: "Both ways combined (door to door)", quickPicks: [20, 30, 45, 60, 90, 120] },
@@ -593,7 +593,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       return { wallArea, gallons, gallonsToBuy, litres: gallonsToBuy * 3.785 };
     },
     insight: (i, o) =>
-      `Your ${i.length}x${i.width} ft room needs ${o.gallons?.toFixed(1)} gallons base — ` +
+      `Your ${i.length}x${i.width} ft room needs ${o.gallons?.toFixed(1)} gallons base ï¿½ ` +
       `buy ${o.gallonsToBuy?.toFixed(1)} gallons (${o.litres?.toFixed(1)} L) including your ${i.wasteFactor}% buffer.`,
   },
 
@@ -625,7 +625,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       };
     },
     insight: (i, o) =>
-      `${i.percentage}% of ${i.baseValue} is ${o.result?.toFixed(2)} — ` +
+      `${i.percentage}% of ${i.baseValue} is ${o.result?.toFixed(2)} ï¿½ ` +
       `that's ${o.pctOfCombined?.toFixed(1)}% of the combined total ($${o.addedValue?.toFixed(2)}). After subtracting: $${o.remainder?.toFixed(2)}.`,
   },
 
@@ -658,7 +658,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `To finish ${i.distanceMiles} miles in ${i.targetMinutes} min, run at ${fmtPace(o.pacePerMile ?? 0)}/mile ` +
-      `(${fmtPace(o.pacePerKm ?? 0)}/km) — that's ${o.speedMph?.toFixed(1)} mph / ${o.speedKph?.toFixed(1)} km/h.`,
+      `(${fmtPace(o.pacePerKm ?? 0)}/km) ï¿½ that's ${o.speedMph?.toFixed(1)} mph / ${o.speedKph?.toFixed(1)} km/h.`,
   },
 
   // -- Savings Goal Calculator -------------------------------------------------
@@ -763,7 +763,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "monthlyTotal",    label: "Monthly total",                  format: "currency",                  highlight: true, sublabel: () => "What subscriptions cost per month" },
       { key: "annualTotal",     label: "Annual spend",                   format: "currency",                  sublabel: () => "Yearly subscription bill" },
       { key: "twentyYearCost",  label: "20-year lifetime cost",          format: "currency",                  sublabel: () => "If prices never increase" },
-      { key: "investedValue10", label: "If invested instead (10 yr)",    format: "currency",                  sublabel: () => "Monthly compounded at 7% — opportunity cost" },
+      { key: "investedValue10", label: "If invested instead (10 yr)",    format: "currency",                  sublabel: () => "Monthly compounded at 7% ï¿½ opportunity cost" },
     ],
     calculate: (inputs) => {
       const monthly = Number(inputs.streaming) + Number(inputs.software) +
@@ -790,7 +790,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     description: "Calculate total fuel cost for any road trip including real-world efficiency, tolls, and per-person split.",
     label: "Road Trip Cost Calculator",
     inputs: [
-      { name: "distanceMiles", label: "One-way distance",    unit: "miles",  type: "slider", min: 10,  max: 3000, step: 10,   default: 300, hint: "One-way — we calculate both directions", quickPicks: [100, 200, 300, 500, 1000] },
+      { name: "distanceMiles", label: "One-way distance",    unit: "miles",  type: "slider", min: 10,  max: 3000, step: 10,   default: 300, hint: "One-way ï¿½ we calculate both directions", quickPicks: [100, 200, 300, 500, 1000] },
       { name: "mpg",           label: "Fuel efficiency",     unit: "MPG",    type: "slider", min: 10,  max: 60,   step: 1,    default: 30,  hint: "Use your real-world average (not EPA)", quickPicks: [15, 20, 25, 30, 35, 40] },
       { name: "fuelPrice",     label: "Gas price",           unit: "$/gal",  type: "slider", min: 2,   max: 7,    step: 0.05, default: 3.5, hint: "Current average US gas price", quickPicks: [2.5, 3.0, 3.5, 4.0, 4.5] },
       { name: "tolls",         label: "Estimated tolls",     unit: "$",      type: "slider", min: 0,   max: 100,  step: 5,    default: 0,   hint: "Round-trip toll estimate", quickPicks: [0, 10, 20, 40, 60] },
@@ -827,11 +827,11 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
   "laundry-cost-calculator": {
     id: "laundry-cost-calculator",
     category: "other",
-    description: "Calculate the true cost per load including electricity, water, and detergent — and your annual spend.",
+    description: "Calculate the true cost per load including electricity, water, and detergent ï¿½ and your annual spend.",
     label: "Laundry Cost Calculator",
     inputs: [
       { name: "loadsPerWeek",    label: "Loads per week",             type: "slider", min: 1,    max: 20,   step: 1,    default: 4,    hint: "Average US household does 5-8 loads/week", quickPicks: [2, 4, 6, 8, 10] },
-      { name: "electricityRate", label: "Electricity rate", unit: "$/kWh", type: "slider", min: 0.05, max: 0.40, step: 0.01, default: 0.16, hint: "US avg ~$0.16/kWh — check your bill", quickPicks: [0.10, 0.13, 0.16, 0.20, 0.25] },
+      { name: "electricityRate", label: "Electricity rate", unit: "$/kWh", type: "slider", min: 0.05, max: 0.40, step: 0.01, default: 0.16, hint: "US avg ~$0.16/kWh ï¿½ check your bill", quickPicks: [0.10, 0.13, 0.16, 0.20, 0.25] },
       { name: "detergentCost",   label: "Detergent per load", unit: "$", type: "slider", min: 0.10, max: 1.50, step: 0.05, default: 0.30, hint: "Bottle cost divided by number of loads", quickPicks: [0.15, 0.25, 0.30, 0.50, 0.75] },
       {
         name: "machineType", label: "Machine efficiency", type: "select", default: 3.8,
@@ -864,7 +864,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       };
     },
     insight: (i, o) =>
-      `Each load costs $${o.costPerLoad?.toFixed(2)} — electricity is ${o.electricityShare?.toFixed(0)}% of that. ` +
+      `Each load costs $${o.costPerLoad?.toFixed(2)} ï¿½ electricity is ${o.electricityShare?.toFixed(0)}% of that. ` +
       `At ${i.loadsPerWeek} loads/week you spend $${o.annualLaundry?.toFixed(0)}/year on laundry.`,
   },
 
@@ -875,14 +875,14 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     description: "Compare two grocery items by price per oz to instantly find the better deal and your bulk savings.",
     label: "Grocery Unit Price Calculator",
     inputs: [
-      { name: "item1Price", label: "Item A — price",       unit: "$",  type: "slider", min: 0.50, max: 20,  step: 0.25, default: 3.50, hint: "e.g. the smaller or standard size", quickPicks: [1, 2, 3.50, 5, 8, 10] },
-      { name: "item1Size",  label: "Item A — size",        unit: "oz", type: "slider", min: 1,    max: 128, step: 1,    default: 16,   quickPicks: [8, 12, 16, 24, 32, 64] },
-      { name: "item2Price", label: "Item B — price (bulk)", unit: "$", type: "slider", min: 0.50, max: 50,  step: 0.25, default: 8.00, hint: "e.g. the larger or bulk size", quickPicks: [4, 6, 8, 12, 20] },
-      { name: "item2Size",  label: "Item B — size",        unit: "oz", type: "slider", min: 1,    max: 256, step: 1,    default: 48,   quickPicks: [24, 32, 48, 64, 96, 128] },
+      { name: "item1Price", label: "Item A ï¿½ price",       unit: "$",  type: "slider", min: 0.50, max: 20,  step: 0.25, default: 3.50, hint: "e.g. the smaller or standard size", quickPicks: [1, 2, 3.50, 5, 8, 10] },
+      { name: "item1Size",  label: "Item A ï¿½ size",        unit: "oz", type: "slider", min: 1,    max: 128, step: 1,    default: 16,   quickPicks: [8, 12, 16, 24, 32, 64] },
+      { name: "item2Price", label: "Item B ï¿½ price (bulk)", unit: "$", type: "slider", min: 0.50, max: 50,  step: 0.25, default: 8.00, hint: "e.g. the larger or bulk size", quickPicks: [4, 6, 8, 12, 20] },
+      { name: "item2Size",  label: "Item B ï¿½ size",        unit: "oz", type: "slider", min: 1,    max: 256, step: 1,    default: 48,   quickPicks: [24, 32, 48, 64, 96, 128] },
     ],
     outputs: [
-      { key: "pricePer1",  label: "Item A — price per oz", format: "decimal", decimalPlaces: 3, sublabel: (i) => `$${i.item1Price} / ${i.item1Size} oz` },
-      { key: "pricePer2",  label: "Item B — price per oz", format: "decimal", decimalPlaces: 3, sublabel: (i) => `$${i.item2Price} / ${i.item2Size} oz` },
+      { key: "pricePer1",  label: "Item A ï¿½ price per oz", format: "decimal", decimalPlaces: 3, sublabel: (i) => `$${i.item1Price} / ${i.item1Size} oz` },
+      { key: "pricePer2",  label: "Item B ï¿½ price per oz", format: "decimal", decimalPlaces: 3, sublabel: (i) => `$${i.item2Price} / ${i.item2Size} oz` },
       {
         key: "savingsPct", label: "Bulk savings", unit: "%", format: "decimal", decimalPlaces: 1, highlight: true,
         sublabel: (_, o) => o.pricePer1 <= o.pricePer2 ? "Item A is the better deal" : "Item B is the better deal (bulk wins)",
@@ -903,7 +903,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (_, o) => {
       const winner = o.pricePer1 <= o.pricePer2 ? "Item A" : "Item B";
-      return `${winner} is cheaper at $${Math.min(o.pricePer1 ?? 0, o.pricePer2 ?? 0).toFixed(3)}/oz — ` +
+      return `${winner} is cheaper at $${Math.min(o.pricePer1 ?? 0, o.pricePer2 ?? 0).toFixed(3)}/oz ï¿½ ` +
         `${o.savingsPct?.toFixed(1)}% cheaper, saving $${o.savingsPerOz?.toFixed(4)}/oz.`;
     },
   },
@@ -918,7 +918,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       {
         name: "initial", label: "Initial investment", unit: "$", type: "slider",
         min: 0, max: 100000, step: 500, default: 10000,
-        hint: "Starting lump sum — can be $0",
+        hint: "Starting lump sum ï¿½ can be $0",
         quickPicks: [1000, 5000, 10000, 25000, 50000],
       },
       {
@@ -930,7 +930,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       {
         name: "rate", label: "Annual return rate (%)", unit: "%", type: "slider",
         min: 1, max: 15, step: 0.5, default: 7,
-        hint: "Historical S&P 500 avg ˜ 7–10% inflation-adjusted",
+        hint: "Historical S&P 500 avg ï¿½ 7ï¿½10% inflation-adjusted",
         quickPicks: [3, 5, 7, 10, 12],
       },
       {
@@ -947,7 +947,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       },
       {
         key: "totalInvested", label: "Total invested", format: "currency",
-        sublabel: (i) => `$${Number(i.initial).toLocaleString()} initial + $${i.monthly}/mo × ${i.years} yrs`,
+        sublabel: (i) => `$${Number(i.initial).toLocaleString()} initial + $${i.monthly}/mo ï¿½ ${i.years} yrs`,
       },
       {
         key: "totalInterest", label: "Total interest earned", format: "currency",
@@ -973,7 +973,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `At ${i.rate}% for ${i.years} years, your $${Number(i.initial).toLocaleString()} grows to ` +
-      `$${(o.futureValue ?? 0).toLocaleString()} — $${(o.totalInterest ?? 0).toLocaleString()} in compound interest.`,
+      `$${(o.futureValue ?? 0).toLocaleString()} ï¿½ $${(o.totalInterest ?? 0).toLocaleString()} in compound interest.`,
   },
 
   // -- Savings Calculator -------------------------------------------------------
@@ -998,7 +998,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       {
         name: "rate", label: "Annual interest rate (%)", unit: "%", type: "slider",
         min: 0.5, max: 10, step: 0.25, default: 4.5,
-        hint: "HYSA rates currently 4–5% — use your account rate",
+        hint: "HYSA rates currently 4ï¿½5% ï¿½ use your account rate",
         quickPicks: [2, 3, 4, 4.5, 5],
       },
       {
@@ -1041,7 +1041,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     insight: (i, o) =>
       `Saving $${i.monthly}/mo at ${i.rate}% for ${i.years} years turns ` +
       `$${(o.totalDeposited ?? 0).toLocaleString()} deposited into ` +
-      `$${(o.balance ?? 0).toLocaleString()} — $${(o.interestEarned ?? 0).toLocaleString()} in interest.`,
+      `$${(o.balance ?? 0).toLocaleString()} ï¿½ $${(o.interestEarned ?? 0).toLocaleString()} in interest.`,
   },
 
   // -- Pay Raise Calculator ----------------------------------------------------
@@ -1060,7 +1060,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       {
         name: "raisePercent", label: "Raise percentage", unit: "%", type: "slider",
         min: 1, max: 30, step: 0.5, default: 5,
-        hint: "Typical raises are 3–5%; exceptional performers get 10%+",
+        hint: "Typical raises are 3ï¿½5%; exceptional performers get 10%+",
         quickPicks: [2, 3, 5, 8, 10],
       },
     ],
@@ -1081,7 +1081,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `A ${i.raisePercent}% raise on $${Number(i.currentSalary).toLocaleString()} adds ` +
-      `$${(o.annualIncrease ?? 0).toLocaleString()}/year — $${(o.monthlyIncrease ?? 0).toLocaleString()} more every month.`,
+      `$${(o.annualIncrease ?? 0).toLocaleString()}/year ï¿½ $${(o.monthlyIncrease ?? 0).toLocaleString()} more every month.`,
   },
 
   // -- Sales Tax Calculator ----------------------------------------------------
@@ -1118,7 +1118,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       };
     },
     insight: (i, o) =>
-      `$${i.price} at ${i.taxRate}% tax = $${(o.taxAmount ?? 0).toFixed(2)} in tax — $${(o.totalPrice ?? 0).toFixed(2)} total.`,
+      `$${i.price} at ${i.taxRate}% tax = $${(o.taxAmount ?? 0).toFixed(2)} in tax ï¿½ $${(o.totalPrice ?? 0).toFixed(2)} total.`,
   },
 
   // -- Profit Margin Calculator ------------------------------------------------
@@ -1158,7 +1158,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `On $${Number(i.revenue).toLocaleString()} revenue with $${Number(i.cost).toLocaleString()} cost, ` +
-      `margin is ${(o.marginPercent ?? 0).toFixed(1)}% — $${(o.grossProfit ?? 0).toLocaleString()} gross profit.`,
+      `margin is ${(o.marginPercent ?? 0).toFixed(1)}% ï¿½ $${(o.grossProfit ?? 0).toLocaleString()} gross profit.`,
   },
 
   // -- Markup Calculator -------------------------------------------------------
@@ -1177,7 +1177,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       {
         name: "markupPercent", label: "Markup percentage", unit: "%", type: "slider",
         min: 5, max: 200, step: 5, default: 50,
-        hint: "Retail typically 50–100%; SaaS often 80–90%+",
+        hint: "Retail typically 50ï¿½100%; SaaS often 80ï¿½90%+",
         quickPicks: [25, 50, 75, 100, 150],
       },
     ],
@@ -1199,7 +1199,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `A ${i.markupPercent}% markup on a $${i.costPrice} item gives a selling price of ` +
-      `$${(o.sellingPrice ?? 0).toFixed(2)} — ${(o.marginPercent ?? 0).toFixed(1)}% gross margin.`,
+      `$${(o.sellingPrice ?? 0).toFixed(2)} ï¿½ ${(o.marginPercent ?? 0).toFixed(1)}% gross margin.`,
   },
 
   // -- FIRE Calculator ---------------------------------------------------------
@@ -1235,7 +1235,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       },
     ],
     outputs: [
-      { key: "fireNumber",  label: "FIRE number",   format: "currency", highlight: true, sublabel: () => "25× annual expenses (4% rule)" },
+      { key: "fireNumber",  label: "FIRE number",   format: "currency", highlight: true, sublabel: () => "25ï¿½ annual expenses (4% rule)" },
       { key: "yearsToFire", label: "Years to FIRE", format: "decimal",  sublabel: () => "At your current savings rate" },
     ],
     calculate: (inputs) => {
@@ -1256,7 +1256,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       };
     },
     insight: (i, o) =>
-      `Your FIRE number is $${(o.fireNumber ?? 0).toLocaleString()} (25× your $${Number(i.monthlyExpenses).toLocaleString()}/mo expenses). ` +
+      `Your FIRE number is $${(o.fireNumber ?? 0).toLocaleString()} (25ï¿½ your $${Number(i.monthlyExpenses).toLocaleString()}/mo expenses). ` +
       `At your current savings rate, you hit it in ${o.yearsToFire} years.`,
   },
 
@@ -1310,7 +1310,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `Investing $${i.monthlySavings}/mo at ${i.annualReturn}% gets you to $1M in ${o.yearsToMillion} years. ` +
-      `You contribute $${(o.totalContributed ?? 0).toLocaleString()} — the market does the rest.`,
+      `You contribute $${(o.totalContributed ?? 0).toLocaleString()} ï¿½ the market does the rest.`,
   },
 
   // -- Car Affordability Calculator --------------------------------------------
@@ -1335,7 +1335,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       {
         name: "annualRate",      label: "Interest rate",    unit: "%",      type: "slider",
         min: 3, max: 20, step: 0.5, default: 7,
-        hint: "Average auto loan rate in 2026 is 7–9%",
+        hint: "Average auto loan rate in 2026 is 7ï¿½9%",
         quickPicks: [4, 5, 7, 9, 12],
       },
     ],
@@ -1358,7 +1358,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `On $${Number(i.monthlyIncome).toLocaleString()}/mo income, your max car payment is ` +
-      `$${(o.maxMonthlyPayment ?? 0).toLocaleString()}/mo — enough for a $${(o.recommendedCarPrice ?? 0).toLocaleString()} car with 20% down.`,
+      `$${(o.maxMonthlyPayment ?? 0).toLocaleString()}/mo ï¿½ enough for a $${(o.recommendedCarPrice ?? 0).toLocaleString()} car with 20% down.`,
   },
 
   // -- Salary to Hourly Calculator ---------------------------------------------
@@ -1391,7 +1391,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "hourlyRate",  label: "Hourly rate",   format: "currency", highlight: true, sublabel: () => "Per hour worked" },
       { key: "dailyRate",   label: "Daily rate",    format: "currency", sublabel: () => "Per workday" },
       { key: "weeklyRate",  label: "Weekly rate",   format: "currency", sublabel: (i) => `${i.hoursPerWeek}h work week` },
-      { key: "monthlyRate", label: "Monthly rate",  format: "currency", sublabel: () => "Annual ÷ 12" },
+      { key: "monthlyRate", label: "Monthly rate",  format: "currency", sublabel: () => "Annual ï¿½ 12" },
     ],
     calculate: (inputs) => {
       const annual  = Number(inputs.annualSalary);
@@ -1407,7 +1407,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `A $${Number(i.annualSalary).toLocaleString()} salary at ${i.hoursPerWeek}hrs/week = ` +
-      `$${(o.hourlyRate ?? 0).toFixed(2)}/hour — $${(o.monthlyRate ?? 0).toLocaleString()}/month.`,
+      `$${(o.hourlyRate ?? 0).toFixed(2)}/hour ï¿½ $${(o.monthlyRate ?? 0).toLocaleString()}/month.`,
   },
 
   // -- Meeting Cost Calculator -------------------------------------------------
@@ -1426,7 +1426,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       {
         name: "avgHourlyWage",   label: "Avg hourly wage",      unit: "$", type: "slider",
         min: 15, max: 200, step: 5, default: 50,
-        hint: "Average loaded rate including benefits (~1.3× salary)",
+        hint: "Average loaded rate including benefits (~1.3ï¿½ salary)",
         quickPicks: [25, 35, 50, 75, 100],
       },
       {
@@ -1437,7 +1437,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       },
     ],
     outputs: [
-      { key: "totalCost",          label: "Meeting cost",         format: "currency", highlight: true, sublabel: (i) => `${i.attendees} people × ${i.durationMinutes} min` },
+      { key: "totalCost",          label: "Meeting cost",         format: "currency", highlight: true, sublabel: (i) => `${i.attendees} people ï¿½ ${i.durationMinutes} min` },
       { key: "costPerMinute",      label: "Cost per minute",      format: "currency", sublabel: () => "Every minute has a price" },
       { key: "annualCostIfWeekly", label: "Annual (if weekly)",   format: "currency", sublabel: () => "If this meeting recurs weekly" },
     ],
@@ -1454,7 +1454,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `A ${i.durationMinutes}-min meeting with ${i.attendees} people at $${i.avgHourlyWage}/hr costs ` +
-      `$${(o.totalCost ?? 0).toLocaleString()} — $${(o.annualCostIfWeekly ?? 0).toLocaleString()}/year if weekly.`,
+      `$${(o.totalCost ?? 0).toLocaleString()} ï¿½ $${(o.annualCostIfWeekly ?? 0).toLocaleString()}/year if weekly.`,
   },
 
   // -- Commute Cost Calculator -------------------------------------------------
@@ -1485,12 +1485,12 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       {
         name: "workDaysPerYear", label: "Work days per year",              type: "slider",
         min: 50, max: 260, step: 5, default: 250,
-        hint: "Typical is 250 (5 days × 50 weeks)",
+        hint: "Typical is 250 (5 days ï¿½ 50 weeks)",
         quickPicks: [100, 150, 200, 250, 260],
       },
     ],
     outputs: [
-      { key: "annualCost",  label: "Annual fuel cost",  format: "currency", highlight: true, sublabel: () => "Gas only — excludes insurance and wear" },
+      { key: "annualCost",  label: "Annual fuel cost",  format: "currency", highlight: true, sublabel: () => "Gas only ï¿½ excludes insurance and wear" },
       { key: "monthlyCost", label: "Monthly cost",      format: "currency", sublabel: () => "Per month" },
       { key: "costPerDay",  label: "Cost per day",      format: "currency", sublabel: () => "Round trip" },
     ],
@@ -1508,7 +1508,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `Driving ${i.milesOneWay} miles each way at ${i.mpg}mpg costs ` +
-      `$${(o.costPerDay ?? 0).toFixed(2)}/day — $${(o.annualCost ?? 0).toLocaleString()} per year in fuel.`,
+      `$${(o.costPerDay ?? 0).toFixed(2)}/day ï¿½ $${(o.annualCost ?? 0).toLocaleString()} per year in fuel.`,
   },
 
   // -- PTO Calculator ----------------------------------------------------------
@@ -1521,7 +1521,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       {
         name: "hourlyRate",        label: "Hourly rate",          unit: "$",   type: "slider",
         min: 10, max: 200, step: 1, default: 35,
-        hint: "Your gross hourly rate (annual salary ÷ 2080)",
+        hint: "Your gross hourly rate (annual salary ï¿½ 2080)",
         quickPicks: [15, 25, 35, 50, 75],
       },
       {
@@ -1554,7 +1554,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `Your ${i.ptoHoursRemaining} hours of unused PTO is worth $${(o.cashValue ?? 0).toLocaleString()} ` +
-      `— ${o.daysRemaining} days at $${i.hourlyRate}/hr.`,
+      `ï¿½ ${o.daysRemaining} days at $${i.hourlyRate}/hr.`,
   },
 
   // -- Quit Smoking Calculator -------------------------------------------------
@@ -1601,7 +1601,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `${i.daysSinceQuit} smoke-free days has saved you $${(o.moneySaved ?? 0).toLocaleString()} ` +
-      `and ${o.daysOfLifeRegained} days of life — keep going.`,
+      `and ${o.daysOfLifeRegained} days of life ï¿½ keep going.`,
   },
 
   // -- Water Intake Calculator -------------------------------------------------
@@ -1660,7 +1660,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       {
         name: "weeklyLossGoal", label: "Weekly loss goal",  unit: "lbs", type: "slider",
         min: 0.5, max: 2, step: 0.5, default: 1,
-        hint: "Safe range is 0.5–2 lbs/week. 1–1.5 lbs is ideal.",
+        hint: "Safe range is 0.5ï¿½2 lbs/week. 1ï¿½1.5 lbs is ideal.",
         quickPicks: [0.5, 1, 1.5, 2],
       },
     ],
@@ -1682,7 +1682,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `To lose ${i.weeklyLossGoal} lbs/week, eat ~${o.targetDailyCalories?.toLocaleString()} calories/day ` +
-      `— a ${o.dailyDeficit} calorie daily deficit. 10 lbs takes ${o.weeksToLose10lbs} weeks at this rate.`,
+      `ï¿½ a ${o.dailyDeficit} calorie daily deficit. 10 lbs takes ${o.weeksToLose10lbs} weeks at this rate.`,
   },
 
   // -- Screen Time Impact Calculator ------------------------------------------
@@ -1712,8 +1712,8 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       },
     ],
     outputs: [
-      { key: "annualCost",     label: "Annual opportunity cost",  format: "currency", highlight: true,  sublabel: () => "Time × your hourly rate × 365 days" },
-      { key: "weeklyHours",    label: "Weekly hours on screens",  format: "decimal",  sublabel: (i) => `${i.hoursPerDay}h/day × 7 days` },
+      { key: "annualCost",     label: "Annual opportunity cost",  format: "currency", highlight: true,  sublabel: () => "Time ï¿½ your hourly rate ï¿½ 365 days" },
+      { key: "weeklyHours",    label: "Weekly hours on screens",  format: "decimal",  sublabel: (i) => `${i.hoursPerDay}h/day ï¿½ 7 days` },
       { key: "lifetimeDays",   label: "Days consumed over period",format: "decimal",  sublabel: (i) => `Over ${i.yearsAhead} years` },
     ],
     calculate: (inputs) => {
@@ -1728,6 +1728,6 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     },
     insight: (i, o) =>
       `${i.hoursPerDay}h/day of screen time costs you $${(o.annualCost ?? 0).toLocaleString()}/year ` +
-      `in opportunity cost — and ${o.lifetimeDays} full days over ${i.yearsAhead} years.`,
+      `in opportunity cost ï¿½ and ${o.lifetimeDays} full days over ${i.yearsAhead} years.`,
   },
 };
