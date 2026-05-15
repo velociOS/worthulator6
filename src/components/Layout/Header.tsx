@@ -98,7 +98,7 @@ function NavDropdown({ label, children }: { label: string; children: React.React
     >
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-white/75 transition-colors hover:bg-white/8 hover:text-white focus:outline-none"
+        className="flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-[15px] font-semibold text-white/75 transition-all hover:bg-white/10 hover:text-white active:scale-95 focus:outline-none"
         aria-expanded={open}
       >
         {label}
@@ -227,9 +227,9 @@ function ToolsMegaMenu() {
                     <Link
                       key={tool.slug}
                       href={tool.href ?? `/tools/${tool.slug}`}
-                      className="group flex items-center justify-between rounded-xl px-4 py-3.5 transition-all duration-150 hover:bg-white/7"
+                      className="group flex items-center justify-between rounded-2xl px-4 py-3.5 transition-all duration-150 hover:bg-white/10"
                     >
-                      <span className="text-[13px] font-medium text-white/70 transition-colors duration-150 group-hover:text-white">
+                      <span className="text-sm font-medium text-white/70 transition-colors duration-150 group-hover:text-white">
                         {pageTitle(tool)}
                       </span>
                       <div className="flex shrink-0 items-center gap-1.5">
@@ -276,7 +276,7 @@ function PopularMenu() {
           <Link
             key={tool.slug}
             href={tool.href ?? `/tools/${tool.slug}`}
-            className="group flex items-center gap-3.5 px-5 py-3.5 transition-all duration-150 hover:bg-white/6"
+            className="group flex items-center gap-3.5 mx-2 rounded-2xl px-3.5 py-3 transition-all duration-150 hover:bg-white/10"
           >
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/5 text-base leading-none transition-colors duration-150 group-hover:bg-white/10">
               {cat?.emoji ?? "🔧"}
@@ -309,7 +309,7 @@ function CategoriesMenu() {
           <Link
             key={cat.slug}
             href={`/tools?category=${cat.slug}`}
-            className={`group flex items-center gap-3.5 px-5 py-4 transition-all duration-150 hover:bg-white/6 ${
+            className={`group flex items-center gap-3.5 mx-2 rounded-2xl px-3.5 py-3.5 transition-all duration-150 hover:bg-white/10 ${
               i !== 0 ? "border-t border-white/5" : ""
             }`}
           >
