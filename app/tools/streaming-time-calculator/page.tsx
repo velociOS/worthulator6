@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The opportunity cost", body: "10,000 hours of deliberate practice is what separates novices from experts, according to Gladwell's popularisation of Ericsson's research. The average American reaches 10,000 hours of TV in under 3 years." },
-  { title: "Passive vs active leisure", body: "Research consistently shows that active leisure (exercise, hobbies, social activities, creative pursuits) produces more lasting happiness and life satisfaction than passive consumption like TV." },
-  { title: "Autoplay is designed for this", body: "Streaming services autoplay the next episode after 5 seconds and use psychological principles (cliffhangers, variable reward) to keep you watching. Passive consumption is the default — active consumption requires deliberate choice." },
+  { icon: "⏱️", title: "The opportunity cost", body: "10,000 hours of deliberate practice is what separates novices from experts, according to Gladwell's popularisation of Ericsson's research. The average American reaches 10,000 hours of TV in under 3 years." },
+  { icon: "🏃", title: "Passive vs active leisure", body: "Research consistently shows that active leisure (exercise, hobbies, social activities, creative pursuits) produces more lasting happiness and life satisfaction than passive consumption like TV." },
+  { icon: "📺", title: "Autoplay is designed for this", body: "Streaming services autoplay the next episode after 5 seconds and use psychological principles (cliffhangers, variable reward) to keep you watching. Passive consumption is the default — active consumption requires deliberate choice." },
 ];
 
 const RELATED_CALCS = [

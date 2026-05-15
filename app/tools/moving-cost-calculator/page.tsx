@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The hidden costs everyone forgets", body: "Moving company tip, extra boxes mid-pack, parking permits for trucks, reconnection fees, cleaning supplies for both homes, and the first grocery run at the new place. These add up fast." },
-  { title: "DIY vs professional movers", body: "DIY can save $1,000–$3,000 on labour but costs you time, physical effort, and the risk of damage. For moves over 2 bedrooms, professional movers often work out more cost-effectively than you'd expect." },
-  { title: "Overlap your leases", body: "Having even 2 weeks of lease overlap lets you move at a relaxed pace and clean the old place properly. The cost is usually worth avoiding the chaos of a same-day move-out/move-in." },
+  { icon: "🔍", title: "The hidden costs everyone forgets", body: "Moving company tip, extra boxes mid-pack, parking permits for trucks, reconnection fees, cleaning supplies for both homes, and the first grocery run at the new place. These add up fast." },
+  { icon: "🚛", title: "DIY vs professional movers", body: "DIY can save $1,000–$3,000 on labour but costs you time, physical effort, and the risk of damage. For moves over 2 bedrooms, professional movers often work out more cost-effectively than you'd expect." },
+  { icon: "📅", title: "Overlap your leases", body: "Having even 2 weeks of lease overlap lets you move at a relaxed pace and clean the old place properly. The cost is usually worth avoiding the chaos of a same-day move-out/move-in." },
 ];
 
 const RELATED_CALCS = [

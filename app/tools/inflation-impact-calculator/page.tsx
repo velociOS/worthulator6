@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The invisible tax", body: "Inflation doesn't announce itself — it slowly erodes the value of cash held in low-yield accounts. A $50,000 emergency fund earning 0.5% loses real purchasing power every year at 3%+ inflation." },
-  { title: "Inflation and long-term planning", body: "Retirement calculators that don't account for inflation dramatically understate the savings required. A $3,000/month budget today will need $5,400+/month in 20 years at just 3% inflation." },
-  { title: "The 72 rule", body: "Divide 72 by the inflation rate to find how many years it takes to cut purchasing power in half. At 3%: 24 years. At 7%: about 10 years. At 9.1% (2022 peak): less than 8 years." },
+  { icon: "👁️", title: "The invisible tax", body: "Inflation doesn't announce itself — it slowly erodes the value of cash held in low-yield accounts. A $50,000 emergency fund earning 0.5% loses real purchasing power every year at 3%+ inflation." },
+  { icon: "📅", title: "Inflation and long-term planning", body: "Retirement calculators that don't account for inflation dramatically understate the savings required. A $3,000/month budget today will need $5,400+/month in 20 years at just 3% inflation." },
+  { icon: "🔢", title: "The 72 rule", body: "Divide 72 by the inflation rate to find how many years it takes to cut purchasing power in half. At 3%: 24 years. At 7%: about 10 years. At 9.1% (2022 peak): less than 8 years." },
 ];
 
 const RELATED_CALCS = [

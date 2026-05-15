@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "It's an investment, not a cost", body: "Relationship spend creates real value: experiences, companionship, emotional wellbeing, and potentially a lifelong partner. The point isn't to minimise spend — it's to go in with open eyes." },
-  { title: "Where couples overspend", body: "Lifestyle inflation is the biggest culprit. Once you've established a $200 date night baseline, scaling back feels like a slight. Setting explicit expectations early prevents a lot of financial drift." },
-  { title: "The cost of a breakup", body: "Beyond the emotional toll, breakups involve splitting assets, potential relocation, furniture replacement, and legal costs for longer relationships. Relationship investment is a risk with real financial dimensions." },
+  { icon: "❤️", title: "It's an investment, not a cost", body: "Relationship spend creates real value: experiences, companionship, emotional wellbeing, and potentially a lifelong partner. The point isn't to minimise spend — it's to go in with open eyes." },
+  { icon: "💳", title: "Where couples overspend", body: "Lifestyle inflation is the biggest culprit. Once you've established a $200 date night baseline, scaling back feels like a slight. Setting explicit expectations early prevents a lot of financial drift." },
+  { icon: "💔", title: "The cost of a breakup", body: "Beyond the emotional toll, breakups involve splitting assets, potential relocation, furniture replacement, and legal costs for longer relationships. Relationship investment is a risk with real financial dimensions." },
 ];
 
 const RELATED_CALCS = [

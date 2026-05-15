@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The Income Shares Model", body: "Most states estimate what both parents together would spend on the child if they lived together, then divide that obligation proportionally based on income. The parent with less physical custody typically pays their share to the other." },
-  { title: "Deviations from guidelines", body: "Courts can deviate from the guideline amount for: extraordinary medical expenses, private school tuition, special needs, significant travel costs for parenting time, or if one parent has very high or very low income." },
-  { title: "Modifying an existing order", body: "Support orders can be modified if circumstances change significantly — job loss, income increase, change in custody, or the child moving in with the paying parent. You must file with the court; informal agreements aren't enforceable." },
+  { icon: "⚖️", title: "The Income Shares Model", body: "Most states estimate what both parents together would spend on the child if they lived together, then divide that obligation proportionally based on income. The parent with less physical custody typically pays their share to the other." },
+  { icon: "📝", title: "Deviations from guidelines", body: "Courts can deviate from the guideline amount for: extraordinary medical expenses, private school tuition, special needs, significant travel costs for parenting time, or if one parent has very high or very low income." },
+  { icon: "🔄", title: "Modifying an existing order", body: "Support orders can be modified if circumstances change significantly — job loss, income increase, change in custody, or the child moving in with the paying parent. You must file with the court; informal agreements aren't enforceable." },
 ];
 
 const RELATED_CALCS = [

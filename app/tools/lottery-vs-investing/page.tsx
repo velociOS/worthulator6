@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "Expected value is always negative", body: "Lottery tickets return about 50–60 cents per dollar on average. Every dollar you spend is a negative expected value bet. Investing the same dollar in a diversified index fund has historically turned it into $7+ over 30 years." },
-  { title: "The compound growth alternative", body: "$20/week invested at 7% for 20 years = over $108,000. The same $20/week on lottery tickets = $20,800 spent, likely with minimal return. The gap widens every year thanks to compounding." },
-  { title: "State lotteries are designed for states", body: "Lottery revenue funds state budgets — education and infrastructure in many states. The return to players is intentionally low. You're not gambling against other players; you're donating to government with a slim chance of a refund." },
+  { icon: "🎰", title: "Expected value is always negative", body: "Lottery tickets return about 50–60 cents per dollar on average. Every dollar you spend is a negative expected value bet. Investing the same dollar in a diversified index fund has historically turned it into $7+ over 30 years." },
+  { icon: "📈", title: "The compound growth alternative", body: "$20/week invested at 7% for 20 years = over $108,000. The same $20/week on lottery tickets = $20,800 spent, likely with minimal return. The gap widens every year thanks to compounding." },
+  { icon: "🏛️", title: "State lotteries are designed for states", body: "Lottery revenue funds state budgets — education and infrastructure in many states. The return to players is intentionally low. You're not gambling against other players; you're donating to government with a slim chance of a refund." },
 ];
 
 const RELATED_CALCS = [

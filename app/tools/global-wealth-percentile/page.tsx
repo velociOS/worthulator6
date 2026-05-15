@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The global 1%", body: "To be in the global top 1% requires a net worth of roughly $1 million. In the US alone, there are over 22 million millionaires — about 6.7% of the US population, and all of them are in the global top 1%." },
-  { title: "What this means for giving", body: "If you're in the global top 10–20%, you have significantly more capacity to donate and invest than you might feel. Even small amounts by US standards can have enormous impact globally." },
-  { title: "Relative vs absolute poverty", body: "The World Bank defines extreme poverty as under $2.15/day. About 700 million people live below this line. Understanding global wealth distribution helps contextualise debates about inequality." },
+  { icon: "🌍", title: "The global 1%", body: "To be in the global top 1% requires a net worth of roughly $1 million. In the US alone, there are over 22 million millionaires — about 6.7% of the US population, and all of them are in the global top 1%." },
+  { icon: "🤝", title: "What this means for giving", body: "If you're in the global top 10–20%, you have significantly more capacity to donate and invest than you might feel. Even small amounts by US standards can have enormous impact globally." },
+  { icon: "📊", title: "Relative vs absolute poverty", body: "The World Bank defines extreme poverty as under $2.15/day. About 700 million people live below this line. Understanding global wealth distribution helps contextualise debates about inequality." },
 ];
 
 const RELATED_CALCS = [

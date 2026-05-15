@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The break-even calculation", body: "Break-even = closing costs ÷ monthly savings. If it takes 36 months to break even and you plan to move in 2 years, refinancing costs you money overall." },
-  { title: "Cash-out vs rate-and-term", body: "Rate-and-term refis lower your rate or change your term. Cash-out refis let you borrow against equity — but increase your balance and reset amortisation." },
-  { title: "When NOT to refinance", body: "If you're 20+ years into a 30-year mortgage, most of your remaining payments are principal. A new 30-year refi at a lower rate can actually cost more total interest." },
+  { icon: "📐", title: "The break-even calculation", body: "Break-even = closing costs ÷ monthly savings. If it takes 36 months to break even and you plan to move in 2 years, refinancing costs you money overall." },
+  { icon: "💵", title: "Cash-out vs rate-and-term", body: "Rate-and-term refis lower your rate or change your term. Cash-out refis let you borrow against equity — but increase your balance and reset amortisation." },
+  { icon: "🚫", title: "When NOT to refinance", body: "If you're 20+ years into a 30-year mortgage, most of your remaining payments are principal. A new 30-year refi at a lower rate can actually cost more total interest." },
 ];
 
 const RELATED_CALCS = [

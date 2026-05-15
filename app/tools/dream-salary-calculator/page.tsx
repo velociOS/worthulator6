@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "Working backwards", body: "Most people set a salary goal arbitrarily — $100K, $200K. Working backwards from actual monthly needs produces a more honest target, often different (sometimes lower, sometimes much higher) than the round-number goal." },
-  { title: "Lifestyle inflation is real", body: "As income rises, expenses tend to rise proportionally. Raising your salary without controlling lifestyle inflation can leave you no closer to financial security. The budget you set today is as important as the salary you earn." },
-  { title: "The gap is actionable", body: "Knowing the gap between your current salary and your needed salary turns a vague anxiety into a specific target. That target can be a negotiation number, a career pivot trigger, or an invitation to audit whether your 'dream' life is actually what you want." },
+  { icon: "↩️", title: "Working backwards", body: "Most people set a salary goal arbitrarily — $100K, $200K. Working backwards from actual monthly needs produces a more honest target, often different (sometimes lower, sometimes much higher) than the round-number goal." },
+  { icon: "📈", title: "Lifestyle inflation is real", body: "As income rises, expenses tend to rise proportionally. Raising your salary without controlling lifestyle inflation can leave you no closer to financial security. The budget you set today is as important as the salary you earn." },
+  { icon: "🎯", title: "The gap is actionable", body: "Knowing the gap between your current salary and your needed salary turns a vague anxiety into a specific target. That target can be a negotiation number, a career pivot trigger, or an invitation to audit whether your 'dream' life is actually what you want." },
 ];
 
 const RELATED_CALCS = [

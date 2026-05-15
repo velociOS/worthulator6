@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The power of employer match", body: "A 50% match on 6% of salary is a 3% pay raise — completely free. Leaving this on the table is the single biggest retirement planning mistake most people make." },
-  { title: "Compound growth over time", body: "The difference between starting at 25 vs 35 is enormous. A $300/month contributor starting at 25 ends up with roughly double the balance of someone who starts at 35, at the same rate." },
-  { title: "The 4% rule", body: "At retirement, many planners use the 4% rule: you can withdraw 4% of your portfolio annually with a high probability of not running out of money over 30 years." },
+  { icon: "🎁", title: "The power of employer match", body: "A 50% match on 6% of salary is a 3% pay raise — completely free. Leaving this on the table is the single biggest retirement planning mistake most people make." },
+  { icon: "📈", title: "Compound growth over time", body: "The difference between starting at 25 vs 35 is enormous. A $300/month contributor starting at 25 ends up with roughly double the balance of someone who starts at 35, at the same rate." },
+  { icon: "📊", title: "The 4% rule", body: "At retirement, many planners use the 4% rule: you can withdraw 4% of your portfolio annually with a high probability of not running out of money over 30 years." },
 ];
 
 const RELATED_CALCS = [

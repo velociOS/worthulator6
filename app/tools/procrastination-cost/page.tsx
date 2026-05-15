@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The compound cost", body: "It's not just the lost hour — it's what that hour would have been worth invested. At 7% for 10 years, $15,000 lost annually becomes $207,000 in foregone compound wealth." },
-  { title: "Deep work is worth more", body: "Research by Cal Newport and others suggests focused, uninterrupted work is 2–4× more productive than fragmented attention. An hour of deep work often produces more than 3 hours of distracted work." },
-  { title: "The self-compassion paradox", body: "Paradoxically, being harsh on yourself about procrastinating tends to make it worse. Self-forgiveness about past procrastination — combined with a specific plan — is more effective for long-term change." },
+  { icon: "⏳", title: "The compound cost", body: "It's not just the lost hour — it's what that hour would have been worth invested. At 7% for 10 years, $15,000 lost annually becomes $207,000 in foregone compound wealth." },
+  { icon: "🧠", title: "Deep work is worth more", body: "Research by Cal Newport and others suggests focused, uninterrupted work is 2–4× more productive than fragmented attention. An hour of deep work often produces more than 3 hours of distracted work." },
+  { icon: "💙", title: "The self-compassion paradox", body: "Paradoxically, being harsh on yourself about procrastinating tends to make it worse. Self-forgiveness about past procrastination — combined with a specific plan — is more effective for long-term change." },
 ];
 
 const RELATED_CALCS = [

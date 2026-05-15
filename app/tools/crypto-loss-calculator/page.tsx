@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The survivorship bias problem", body: "You hear about the people who got rich on Bitcoin. You don't hear about the millions who lost money. Studies consistently show the majority of retail crypto participants lose money net of fees and timing mistakes." },
-  { title: "Volatility is not return", body: "High volatility doesn't mean high returns — it means high risk. A 10× gain followed by a 90% drawdown nets you 0. The sequence of returns matters enormously in volatile assets." },
-  { title: "Cost basis tracking matters", body: "The IRS requires accurate cost basis reporting for all crypto transactions. Many investors don't track this properly and face tax surprises. Software like Koinly, CoinTracker, or TaxBit can automate this." },
+  { icon: "🎲", title: "The survivorship bias problem", body: "You hear about the people who got rich on Bitcoin. You don't hear about the millions who lost money. Studies consistently show the majority of retail crypto participants lose money net of fees and timing mistakes." },
+  { icon: "📉", title: "Volatility is not return", body: "High volatility doesn't mean high returns — it means high risk. A 10× gain followed by a 90% drawdown nets you 0. The sequence of returns matters enormously in volatile assets." },
+  { icon: "📝", title: "Cost basis tracking matters", body: "The IRS requires accurate cost basis reporting for all crypto transactions. Many investors don't track this properly and face tax surprises. Software like Koinly, CoinTracker, or TaxBit can automate this." },
 ];
 
 const RELATED_CALCS = [

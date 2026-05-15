@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "You are the product", body: "When a service is free, the revenue model is almost always your attention and data. The $0 price tag on Facebook, Google, YouTube, and TikTok is subsidised by your behavioural data being packaged and sold to advertisers." },
-  { title: "Data compounds over time", body: "Unlike other commodities, data about you becomes more valuable as it accumulates. A year of location data is more valuable than a day. A decade of purchase history is vastly more valuable than a month. Your profile only deepens." },
-  { title: "The digital advertising machine", body: "Global digital advertising spend is $600B+/year. The entire machine is powered by personal data. Every targeted ad you see represents a micro-transaction where your attention and data profile were sold without your direct knowledge." },
+  { icon: "🏷️", title: "You are the product", body: "When a service is free, the revenue model is almost always your attention and data. The $0 price tag on Facebook, Google, YouTube, and TikTok is subsidised by your behavioural data being packaged and sold to advertisers." },
+  { icon: "📊", title: "Data compounds over time", body: "Unlike other commodities, data about you becomes more valuable as it accumulates. A year of location data is more valuable than a day. A decade of purchase history is vastly more valuable than a month. Your profile only deepens." },
+  { icon: "🎯", title: "The digital advertising machine", body: "Global digital advertising spend is $600B+/year. The entire machine is powered by personal data. Every targeted ad you see represents a micro-transaction where your attention and data profile were sold without your direct knowledge." },
 ];
 
 const RELATED_CALCS = [

@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "Progressive taxation explained", body: "You pay 10% on the first ~$11,900, then 12% on the next slice, then 22% and so on. Only the income above each threshold hits the next rate. No one actually pays 22% on everything." },
-  { title: "How to lower your effective rate", body: "Maximising pre-tax contributions (401k, HSA, FSA, traditional IRA) reduces your taxable income directly — every dollar contributed at 22% saves you 22 cents in tax." },
-  { title: "Capital gains are different", body: "Long-term capital gains (assets held 1+ year) are taxed at 0%, 15%, or 20% — separate from your ordinary income bracket. This is why investing can be more tax-efficient than earning wages." },
+  { icon: "📊", title: "Progressive taxation explained", body: "You pay 10% on the first ~$11,900, then 12% on the next slice, then 22% and so on. Only the income above each threshold hits the next rate. No one actually pays 22% on everything." },
+  { icon: "💡", title: "How to lower your effective rate", body: "Maximising pre-tax contributions (401k, HSA, FSA, traditional IRA) reduces your taxable income directly — every dollar contributed at 22% saves you 22 cents in tax." },
+  { icon: "📈", title: "Capital gains are different", body: "Long-term capital gains (assets held 1+ year) are taxed at 0%, 15%, or 20% — separate from your ordinary income bracket. This is why investing can be more tax-efficient than earning wages." },
 ];
 
 const RELATED_CALCS = [

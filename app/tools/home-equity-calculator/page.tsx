@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "Equity vs net worth", body: "Home equity is your single largest asset in most cases. But it's illiquid — you can't spend it without selling or borrowing against it. Don't confuse a high equity number with financial flexibility." },
-  { title: "Using equity wisely", body: "HELOCs and home equity loans typically have lower rates than personal loans or credit cards. They're best used for home improvements (which build more equity) not consumable spending." },
-  { title: "The risk of over-leveraging", body: "Borrowing against your home means your home is collateral. If property values drop or income changes, you could face negative equity — owing more than the home is worth." },
+  { icon: "🏠", title: "Equity vs net worth", body: "Home equity is your single largest asset in most cases. But it's illiquid — you can't spend it without selling or borrowing against it. Don't confuse a high equity number with financial flexibility." },
+  { icon: "💡", title: "Using equity wisely", body: "HELOCs and home equity loans typically have lower rates than personal loans or credit cards. They're best used for home improvements (which build more equity) not consumable spending." },
+  { icon: "⚠️", title: "The risk of over-leveraging", body: "Borrowing against your home means your home is collateral. If property values drop or income changes, you could face negative equity — owing more than the home is worth." },
 ];
 
 const RELATED_CALCS = [

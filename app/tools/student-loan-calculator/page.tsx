@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The interest trap", body: "On a $35,000 loan at 6.5% over 10 years, you'll pay over $12,000 in pure interest — about 35% more than you borrowed. The longer the term, the worse it gets." },
-  { title: "Income-driven repayment", body: "Federal IDR plans cap payments at 10–20% of discretionary income. After 20–25 years, remaining balances may be forgiven — but forgiven amounts are currently taxable." },
-  { title: "Refinancing pros & cons", body: "Refinancing to a lower private rate can save thousands, but you lose federal protections like IDR and PSLF. Only refinance if your income is stable and the rate drop is significant." },
+  { icon: "🪤", title: "The interest trap", body: "On a $35,000 loan at 6.5% over 10 years, you'll pay over $12,000 in pure interest — about 35% more than you borrowed. The longer the term, the worse it gets." },
+  { icon: "📋", title: "Income-driven repayment", body: "Federal IDR plans cap payments at 10–20% of discretionary income. After 20–25 years, remaining balances may be forgiven — but forgiven amounts are currently taxable." },
+  { icon: "⚖️", title: "Refinancing pros & cons", body: "Refinancing to a lower private rate can save thousands, but you lose federal protections like IDR and PSLF. Only refinance if your income is stable and the rate drop is significant." },
 ];
 
 const RELATED_CALCS = [

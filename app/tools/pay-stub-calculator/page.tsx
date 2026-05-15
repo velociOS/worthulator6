@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "What every line means", body: "Federal witholding = estimated income tax prepayment. State withholding = state equivalent. FICA = Social Security + Medicare. Benefits = your share of health/dental/vision premiums and any 401k contributions." },
-  { title: "Pre-tax vs post-tax contributions", body: "401k and HSA contributions reduce your taxable income. Roth 401k and after-tax contributions don't. Check your pay stub to see which type your contributions are — it matters at tax time." },
-  { title: "How to increase your take-home", body: "The legal ways: maximise pre-tax benefit contributions (lowers taxable income), adjust your W-4 withholding if over-withholding, or contribute to an HSA if you have a qualifying health plan." },
+  { icon: "📋", title: "What every line means", body: "Federal witholding = estimated income tax prepayment. State withholding = state equivalent. FICA = Social Security + Medicare. Benefits = your share of health/dental/vision premiums and any 401k contributions." },
+  { icon: "⚖️", title: "Pre-tax vs post-tax contributions", body: "401k and HSA contributions reduce your taxable income. Roth 401k and after-tax contributions don't. Check your pay stub to see which type your contributions are — it matters at tax time." },
+  { icon: "💰", title: "How to increase your take-home", body: "The legal ways: maximise pre-tax benefit contributions (lowers taxable income), adjust your W-4 withholding if over-withholding, or contribute to an HSA if you have a qualifying health plan." },
 ];
 
 const RELATED_CALCS = [

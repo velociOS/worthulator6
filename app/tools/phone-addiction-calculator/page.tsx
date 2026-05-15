@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The attention economy", body: "Every app on your phone employs teams of engineers and psychologists to maximise the time you spend on it. Your attention is the product being sold to advertisers. The more you understand this, the more intentional your usage can become." },
-  { title: "Compulsive checking vs deep use", body: "It's not the total hours that correlate most with negative outcomes — it's the frequency of checking. Checking your phone 86 times a day fragments attention in a way that 3 hours of deliberate use doesn't." },
-  { title: "The identity shift", body: "Research shows that saying 'I'm not a heavy phone user' (identity framing) is more effective than 'I'm trying to use my phone less' (willpower framing). Behaviour changes more reliably when it's tied to how you see yourself." },
+  { icon: "📱", title: "The attention economy", body: "Every app on your phone employs teams of engineers and psychologists to maximise the time you spend on it. Your attention is the product being sold to advertisers. The more you understand this, the more intentional your usage can become." },
+  { icon: "🔔", title: "Compulsive checking vs deep use", body: "It's not the total hours that correlate most with negative outcomes — it's the frequency of checking. Checking your phone 86 times a day fragments attention in a way that 3 hours of deliberate use doesn't." },
+  { icon: "🪞", title: "The identity shift", body: "Research shows that saying 'I'm not a heavy phone user' (identity framing) is more effective than 'I'm trying to use my phone less' (willpower framing). Behaviour changes more reliably when it's tied to how you see yourself." },
 ];
 
 const RELATED_CALCS = [

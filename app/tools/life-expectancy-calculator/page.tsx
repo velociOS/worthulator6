@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "Weeks, not years", body: "4,160 weeks sounds like a lot. But if you're 35, you've already used about 1,820 of them. The remaining ~2,340 weeks don't look as infinite when you see them in a grid — which is why tools like Life in Weeks are so powerful." },
-  { title: "The compression of morbidity", body: "The goal isn't just to live longer — it's to compress the period of decline into a short window at the end. Regular exercise, healthy diet, and non-smoking are the most evidence-based approaches to healthspan, not just lifespan." },
-  { title: "What changes behaviour more than knowing?", body: "Mortality salience — awareness of death — is well-documented as a driver of behaviour change when channelled positively. People who reflect on their remaining time report making more deliberate choices about relationships, work, and health." },
+  { icon: "📅", title: "Weeks, not years", body: "4,160 weeks sounds like a lot. But if you're 35, you've already used about 1,820 of them. The remaining ~2,340 weeks don't look as infinite when you see them in a grid — which is why tools like Life in Weeks are so powerful." },
+  { icon: "💪", title: "The compression of morbidity", body: "The goal isn't just to live longer — it's to compress the period of decline into a short window at the end. Regular exercise, healthy diet, and non-smoking are the most evidence-based approaches to healthspan, not just lifespan." },
+  { icon: "🧠", title: "What changes behaviour more than knowing?", body: "Mortality salience — awareness of death — is well-documented as a driver of behaviour change when channelled positively. People who reflect on their remaining time report making more deliberate choices about relationships, work, and health." },
 ];
 
 const RELATED_CALCS = [

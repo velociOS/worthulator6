@@ -32,9 +32,9 @@ const STATS = [
 ];
 
 const CONTENT_CARDS = [
-  { title: "The law of large numbers", body: "The more credits you have, the harder it is to move your GPA. With 120 credits completed, one semester of As might only move you from 3.2 to 3.25." },
-  { title: "Strategic course selection", body: "Some students take lighter elective loads during heavier semesters to protect their GPA. Withdrawing before a grade posts (check your deadline) is sometimes better than a C or D." },
-  { title: "Grade replacement policies", body: "Many universities allow grade forgiveness or replacement — retaking a course and replacing the grade. Check your school's policy; it can make a big GPA difference with the same credits." },
+  { icon: "🔢", title: "The law of large numbers", body: "The more credits you have, the harder it is to move your GPA. With 120 credits completed, one semester of As might only move you from 3.2 to 3.25." },
+  { icon: "🎯", title: "Strategic course selection", body: "Some students take lighter elective loads during heavier semesters to protect their GPA. Withdrawing before a grade posts (check your deadline) is sometimes better than a C or D." },
+  { icon: "🔄", title: "Grade replacement policies", body: "Many universities allow grade forgiveness or replacement — retaking a course and replacing the grade. Check your school's policy; it can make a big GPA difference with the same credits." },
 ];
 
 const RELATED_CALCS = [
