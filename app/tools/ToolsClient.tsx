@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { ChevronRight, Search, X } from "lucide-react";
 import { liveTools, liveCategories, popularTools } from "@/src/config/tools";
 
 // ── Category emoji lookup ────────────────────────────────────────────────────
@@ -57,12 +58,7 @@ function ToolCard({
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-xl leading-none">
             {emoji}
           </span>
-          <svg
-            className="mt-1 h-4 w-4 shrink-0 text-gray-200 group-hover:text-emerald-400 transition-colors"
-            viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" />
-          </svg>
+          <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-gray-200 group-hover:text-emerald-400 transition-colors" strokeWidth={2.5} />
         </div>
         <p className="text-sm font-semibold leading-snug text-gray-900 group-hover:text-emerald-700 transition-colors">
           {tool.name}
@@ -134,12 +130,7 @@ export default function ToolsClient() {
 
           {/* Search */}
           <div className="relative mt-5 max-w-lg">
-            <svg
-              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400"
-              fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-            </svg>
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" strokeWidth={2} />
             <input
               type="search"
               placeholder="Search calculators…"
@@ -153,7 +144,7 @@ export default function ToolsClient() {
                 className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-gray-400 active:scale-90 transition-transform"
                 aria-label="Clear search"
               >
-                ✕
+                <X className="h-3.5 w-3.5" />
               </button>
             )}
           </div>
