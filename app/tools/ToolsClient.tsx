@@ -30,7 +30,7 @@ const containerVariants = {
 
 const cardVariants = {
   hidden: { opacity: 0, y: 14 },
-  show:   { opacity: 1, y: 0, transition: { type: "spring", stiffness: 340, damping: 26 } },
+  show:   { opacity: 1, y: 0, transition: { type: "spring" as const, stiffness: 340, damping: 26 } },
 };
 
 // ── Tool Card ────────────────────────────────────────────────────────────────
