@@ -61,6 +61,9 @@ export default function DreamSalaryCalculator() {
       <ContentCardGrid title="How to set a salary goal that actually means something" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the required salary is calculated"
+        formula={`Monthly Net Needed    = Total Monthly Expenses + Savings Goal
+Required Gross Salary = (Monthly Net × 12) ÷ (1 − Effective Tax Rate)
+Gap vs Median         = Required Salary − $59,000 (US median)`}
         paragraphs={[
           "Monthly net needed = sum of all monthly expenses + savings goal. Required gross salary = (monthly net needed × 12) ÷ (1 − effective tax rate). This calculator assumes a 30% effective rate — adjust mentally for your state and filing status.",
           "Gap = required salary − $59,000 (US median). A positive gap tells you how far above median your lifestyle requires. A negative gap means your 'dream life' is within reach on a median salary.",

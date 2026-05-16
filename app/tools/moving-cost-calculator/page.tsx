@@ -61,6 +61,9 @@ export default function MovingCostCalculator() {
       <ContentCardGrid title="What to include in your moving budget" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How to budget your move accurately"
+        formula={`Total Cost    = Movers + Fuel + Packing + Storage + Tips & Misc
+Budget Buffer = Total × 1.15   (add 15% for unexpected costs)
+Cost per Mile = Fuel Cost ÷ Total Miles`}
         paragraphs={[
           "Total = truck/movers + fuel + packing supplies + storage + tips/food/misc. Add 15% to the total for unexpected expenses — parking permits, broken items, extra boxes, takeout during the chaos.",
           "Get 3 quotes from movers. The cheapest quote is often not the final invoice. Ask about stair fees, long-carry charges, and whether the quote is binding or non-binding.",

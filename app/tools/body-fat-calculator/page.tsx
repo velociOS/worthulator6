@@ -116,6 +116,10 @@ export default function BodyFatCalculator() {
       <ContentCardGrid title="Body fat: what the numbers mean"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Body Fat Calculator Works"
+        formula={`Body Fat% (male)   = 86.010 × log10(waist − neck) − 70.041 × log10(height) + 36.76
+Body Fat% (female) = 163.205 × log10(waist + hip − neck) − 97.684 × log10(height) − 78.387
+Fat Mass           = Weight × (Body Fat% ÷ 100)
+Lean Mass          = Weight − Fat Mass`}
         paragraphs={[
           "US Navy formula (male): body fat % = 86.010 × log10(waist − neck) − 70.041 × log10(height) + 36.76. All measurements in inches. Fat mass = weight × (body fat % ÷ 100). Lean mass = weight − fat mass.",
           "This calculator uses the male Navy formula. For women, the formula also includes hip measurement: % = 163.205 × log10(waist + hip − neck) − 97.684 × log10(height) − 78.387. Take all measurements in a relaxed state, tape parallel to the floor, at the end of a normal exhale.",

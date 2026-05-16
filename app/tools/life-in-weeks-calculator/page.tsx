@@ -112,6 +112,10 @@ export default function LifeInWeeksCalculator() {
       <ContentCardGrid title="Why think in weeks?" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Life in Weeks Calculator Works"
+        formula={`Weeks Lived     = Current Age × 52
+Total Weeks     = Life Expectancy × 52
+Weeks Remaining = Total Weeks − Weeks Lived
+% Used          = (Weeks Lived ÷ Total Weeks) × 100`}
         paragraphs={[
           "Enter your current age and your estimated life expectancy. The calculator multiplies each by 52 to convert to weeks. Weeks lived is your age × 52, total weeks is your life expectancy × 52, and weeks remaining is the difference.",
           "The percentage used shows how far through your expected lifespan you currently are. For most adults aged 30–40, this sits at 35–50% — a number that many find both humbling and motivating.",

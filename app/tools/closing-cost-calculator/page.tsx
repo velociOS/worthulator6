@@ -112,6 +112,9 @@ export default function ClosingCostCalculator() {
       <ContentCardGrid title="What to know before closing day" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Closing Cost Calculator Works"
+        formula={`Estimated Costs = Purchase Price × Rate%
+Low Estimate    = Estimated Costs × 0.80
+High Estimate   = Estimated Costs × 1.20`}
         paragraphs={[
           "Enter the home purchase price and your expected closing cost percentage (typically 2–5%). The calculator multiplies these to give you a central estimate. It then shows a low estimate at −20% of that figure and a high estimate at +20%, giving you a realistic planning range to account for variation in state taxes, lender fees, and negotiated concessions.",
           "Use 2–3% for a conservative estimate if you are in a low-tax state with a straightforward conventional loan. Use 4–5% if you are in a higher-tax state, using an FHA or VA loan, or if you have not yet compared lender fees. Your lender is required to provide a Loan Estimate within 3 business days of your application, which will give you the most accurate figure.",

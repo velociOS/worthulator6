@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Credit Card Payoff Calculator 2026 – How Long to Pay Off Your Debt?",
@@ -105,13 +107,18 @@ export default function CreditCardPayoffCalculator() {
         description="Enter your balance, APR, and monthly payment to see exactly how many months it takes to clear your debt and the total interest you will pay."
         chips={["Months to payoff", "Total interest", "Total cost"]}
       >
-        <CalculatorEngineLoader slug="credit-card-payoff-calculator" />
+        <CalculatorEngineLoader slug="credit-card-payoff-calculator" afterResults={<InsightsSection slug="credit-card-payoff-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Paying just $100 more per month can cut your payoff time by years." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Get out of credit card debt faster" cards={CONTENT_CARDS} />
+      <InsightTable slug="credit-card-payoff-calculator" />
       <SEOTextBlock
         title="How the Credit Card Payoff Calculator Works"
+        formula={`Monthly Interest = Balance × (APR ÷ 12 ÷ 100)
+New Balance      = Balance + Monthly Interest − Payment
+Repeat until Balance ≤ 0
+Total Interest   = sum of all monthly interest charges`}
         paragraphs={[
           "Enter your current balance, annual APR, and the fixed monthly payment you will make. The calculator applies monthly interest (APR ÷ 12) to the remaining balance each month, subtracts your payment, and repeats until the balance reaches zero — counting months and total interest.",
           "Try increasing the payment slider to see how dramatically extra payments reduce both the payoff period and total interest. Even small increases have a significant impact when compounded over years.",

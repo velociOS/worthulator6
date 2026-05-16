@@ -61,6 +61,9 @@ export default function MortgageRefinanceCalculator() {
       <ContentCardGrid title="Before you sign the refinance papers" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the break-even calculation works"
+        formula={`New Monthly Payment = standard amortisation formula at new rate
+Break-Even (months) = Closing Costs ÷ Monthly Payment Reduction
+Net Savings         = Monthly Reduction × Remaining Months − Closing Costs`}
         paragraphs={[
           "Break-even (months) = closing costs ÷ (old payment − new payment). Net savings = monthly savings × months remaining − closing costs.",
           "If you sell or move before the break-even month, you lose money on the refinance. The longer you stay after break-even, the better the deal becomes.",

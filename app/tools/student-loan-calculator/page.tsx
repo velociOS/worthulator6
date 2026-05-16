@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Student Loan Calculator 2026 – Monthly Payment & Total Interest",
@@ -54,13 +56,18 @@ export default function StudentLoanCalculator() {
         description="Enter your loan balance, interest rate, and repayment term to see your monthly payment, total interest, and true cost of your degree."
         chips={["Federal & private loans", "Monthly payment", "Total interest cost"]}
       >
-        <CalculatorEngineLoader slug="student-loan-calculator" />
+        <CalculatorEngineLoader slug="student-loan-calculator" afterResults={<InsightsSection slug="student-loan-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="On a $35,000 loan at 6.5%, you'll pay over $12,000 in interest alone — nearly 35% more than you borrowed." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="What every borrower should know" cards={CONTENT_CARDS} />
+      <InsightTable slug="student-loan-calculator" />
       <SEOTextBlock
         title="How student loan interest works"
+        formula={`r = Annual Rate ÷ 12 ÷ 100   (monthly rate)
+n = Loan Term × 12            (total payments)
+Monthly Payment = P × r(1+r)^n / ((1+r)^n − 1)
+Total Interest  = (Payment × n) − Principal`}
         paragraphs={[
           "Monthly payment = P × [r(1+r)ⁿ] / [(1+r)ⁿ - 1], where P is principal, r is monthly interest rate, and n is number of payments. This is the standard amortisation formula.",
           "Most of your early payments go toward interest. As the balance drops, more goes to principal. Paying extra targets the principal directly and collapses the amortisation schedule.",

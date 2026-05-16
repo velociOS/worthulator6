@@ -61,6 +61,10 @@ export default function ProcrastinationCostCalculator() {
       <ContentCardGrid title="The real price of putting things off" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the procrastination cost is calculated"
+        formula={`Daily Loss     = Wasted Hours × Hourly Rate
+Weekly Loss    = Daily Loss × 5
+Annual Loss    = Daily Loss × Working Days per Year
+10-Year FV     = Annual Loss × ((1.07^10 − 1) ÷ 0.07)`}
         paragraphs={[
           "Annual loss = daily wasted hours × hourly rate × working days per year. Weekly loss = daily hours × hourly rate × 5.",
           "10-year compound loss uses the annuity future value formula: annual loss × [(1.07¹⁰ − 1) / 0.07]. This shows what the lost earnings would have grown to if invested at 7%/year.",

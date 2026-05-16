@@ -61,6 +61,9 @@ export default function HomeEquityCalculator() {
       <ContentCardGrid title="Making the most of your home equity" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How home equity and LTV are calculated"
+        formula={`Equity          = Home Value − Mortgage Balance
+LTV (%)         = Mortgage Balance ÷ Home Value × 100
+Max Borrowable  = (Home Value × 0.80) − Mortgage Balance`}
         paragraphs={[
           "Equity = current home value − mortgage balance. LTV (%) = mortgage balance ÷ home value × 100. Max borrowable at 80% LTV = (home value × 0.80) − mortgage balance.",
           "Lenders typically require an appraisal to confirm market value. Your equity on paper may differ from what a lender will use if they appraise conservatively.",

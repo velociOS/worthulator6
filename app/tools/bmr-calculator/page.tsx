@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "BMR Calculator 2026 – Basal Metabolic Rate & Daily Calorie Needs",
@@ -105,11 +107,12 @@ export default function BmrCalculator() {
         description="Enter your sex, weight, height, and age to calculate your Basal Metabolic Rate using the Mifflin-St Jeor formula — and see your calorie needs at every activity level."
         chips={["Mifflin-St Jeor formula", "4 activity levels", "TDEE estimates shown"]}
       >
-        <CalculatorEngineLoader slug="bmr-calculator" />
+        <CalculatorEngineLoader slug="bmr-calculator" afterResults={<InsightsSection slug="bmr-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Your BMR accounts for <span class='font-semibold text-gray-900'>60–75%</span> of all calories you burn daily — even on a rest day." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Understanding your metabolism" cards={CONTENT_CARDS} />
+      <InsightTable slug="bmr-calculator" />
       <SEOTextBlock
         title="How the BMR Calculator Works"
         formula="Male BMR = (10 × kg) + (6.25 × cm) − (5 × age) + 5\nFemale BMR = (10 × kg) + (6.25 × cm) − (5 × age) − 161"

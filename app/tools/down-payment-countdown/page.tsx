@@ -117,6 +117,9 @@ export default function DownPaymentCountdown() {
       <ContentCardGrid title="How to save a down payment faster"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Down Payment Calculator Works"
+        formula={`Target Down Payment = Home Price × Down Payment%
+Savings Gap         = Target − Current Savings
+Monthly Needed      = Savings Gap ÷ Target Months`}
         paragraphs={[
           "The calculator finds your target down payment (home price × down payment %) then subtracts your current savings to get the remaining gap. That gap is divided by your target number of months to give your required monthly savings amount.",
           "Note: this assumes you're saving in a standard account without investment returns on the savings. If you're earning interest in a HYSA, your real monthly requirement will be slightly lower.",

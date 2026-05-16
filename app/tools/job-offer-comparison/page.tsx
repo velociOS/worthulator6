@@ -117,6 +117,9 @@ export default function JobOfferComparison() {
       <ContentCardGrid title="Beyond base salary: total compensation"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Job Offer Comparison Works"
+        formula={`Effective Comp = Salary + Benefits Value − Annual Commute Cost
+Annual Commute = Daily Cost × Working Days per Year
+Difference     = Effective Comp A − Effective Comp B`}
         paragraphs={[
           "Effective compensation for each job = annual salary + estimated benefits value − annual commute cost. The calculator then shows you both figures side-by-side and the dollar difference between them.",
           "This is a pre-tax comparison. For an after-tax comparison, apply your marginal tax rate to the salary portion. Benefits like health insurance and 401k matches are typically not taxed as income, which makes them even more valuable than the raw numbers suggest.",

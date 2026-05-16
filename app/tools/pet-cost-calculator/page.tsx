@@ -111,6 +111,9 @@ export default function PetCostCalculator() {
       <ContentCardGrid title="The true cost of pet ownership" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Pet Cost Calculator Works"
+        formula={`Annual Cost   = Food + Vet + Insurance + Misc
+Monthly Cost  = Annual Cost ÷ 12
+Lifetime Cost = Annual Cost × Expected Lifespan (years)`}
         paragraphs={[
           "Enter your estimated annual costs across four categories: food, vet bills, insurance, and miscellaneous expenses (grooming, boarding, toys). The calculator totals these to give your annual cost and multiplies by your pet's expected lifespan for a lifetime total.",
           "Use the quick-pick values as a starting point. If your pet has a chronic condition or needs specialist food, adjust the vet and food sliders upward. If you do not have insurance, set that slider to zero and consider adding an emergency vet buffer to the misc category.",

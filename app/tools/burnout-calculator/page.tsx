@@ -112,6 +112,10 @@ export default function BurnoutCalculator() {
       <ContentCardGrid title="Understanding your burnout risk" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Burnout Risk Calculator Works"
+        formula={`Score = (Hours Worked ÷ 60 × 40) + (Stress Level ÷ 10 × 30) + Sleep Penalty
+Sleep Penalty = 20 if Sleep < 6hrs/night, else 0
+Score capped at 100
+Risk: < 40 = Low, 40–70 = Moderate, > 70 = High`}
         paragraphs={[
           "The calculator weights three inputs: hours worked (40% of the score, scaled to a 60-hour maximum), stress level out of 10 (30% of the score), and a 20-point penalty for sleeping under 6 hours per night. The total is capped at 100.",
           "A score above 70 is high risk, 40–70 is moderate, and below 40 is low. These thresholds are informed by the Maslach Burnout Inventory — the most widely used clinical burnout assessment framework.",

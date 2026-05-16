@@ -61,6 +61,9 @@ export default function GPACalculator() {
       <ContentCardGrid title="GPA strategies that actually work" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How needed GPA is calculated"
+        formula={`Required GPA = (Target GPA × Total Credits − Current GPA × Credits Done)
+               ÷ Remaining Credits
+Remaining Credits = Total Credits − Credits Completed`}
         paragraphs={[
           "Required GPA = (target GPA × total credits − current GPA × credits completed) ÷ remaining credits.",
           "If the result exceeds 4.0, the target is mathematically impossible with remaining credits. If it's between 3.5–4.0, it's achievable but requires strong performance. Anything below 3.0 is very attainable.",

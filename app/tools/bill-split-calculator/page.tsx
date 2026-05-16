@@ -117,6 +117,9 @@ export default function BillSplitCalculator() {
       <ContentCardGrid title="Splitting bills the smart way"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Bill Split Calculator Works"
+        formula={`Tip Amount     = Bill × (Tip% ÷ 100)
+Total with Tip = Bill + Tip Amount
+Per Person     = Total with Tip ÷ Number of People`}
         paragraphs={[
           "Tip amount = bill × (tip % ÷ 100). Total with tip = bill + tip amount. Per person = total with tip ÷ number of people.",
           "This calculator assumes an equal split. For unequal splits (different items ordered), you'll need to calculate each person's proportional share of the tip based on what they ordered.",

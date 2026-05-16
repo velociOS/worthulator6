@@ -61,6 +61,10 @@ export default function LifeExpectancyCalculator() {
       <ContentCardGrid title="What actually determines how long you live" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the estimate is calculated"
+        formula={`Base Estimate  = 78.5 years (US average)
+               + smoking adjustment (−10 years)
+               + exercise adjustment (+0 to +6 years)
+               + BMI adjustment (0 to −3 years)`}
         paragraphs={[
           "Starting from the US average of 78.5 years, the calculator adjusts based on: smoking (−10), exercise frequency (+0 to +6), and BMI (−1 to −3 for outside healthy range).",
           "This is an illustrative estimate — not a medical or actuarial calculation. Actual lifespan is affected by genetics, environment, access to healthcare, and many factors not captured here.",

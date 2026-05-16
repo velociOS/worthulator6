@@ -117,6 +117,10 @@ export default function ApplianceEnergyCost() {
       <ContentCardGrid title="Where your electricity bill actually goes"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Appliance Energy Cost Calculator Works"
+        formula={`Daily kWh      = Watts ÷ 1,000 × Hours per Day
+Daily Cost     = Daily kWh × Rate ($/kWh)
+Monthly Cost   = Daily Cost × 30
+Annual Cost    = Daily Cost × 365`}
         paragraphs={[
           "Daily cost = (watts ÷ 1,000) × hours per day × electricity rate. Monthly cost = daily cost × 30. Annual cost = daily cost × 365.",
           "This calculator gives you a simple estimate based on average daily usage. Actual cost varies if usage fluctuates seasonally or the appliance cycles on and off (like a refrigerator). For accurate totals, use a plug-in energy monitor like the Kill-A-Watt meter.",

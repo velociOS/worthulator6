@@ -61,6 +61,9 @@ export default function RelationshipCostCalculator() {
       <ContentCardGrid title="The financial side of love" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the relationship cost is calculated"
+        formula={`Annual Cost  = (Dates/Month × Cost per Date × 12) + Annual Gifts + Annual Travel
+Total Cost   = Annual Cost × Years
+Monthly Avg  = Annual Cost ÷ 12`}
         paragraphs={[
           "Annual cost = (dates per month × avg cost × 12) + annual gifts + annual travel. Total = annual cost × years. Monthly average = annual ÷ 12.",
           "This calculation is for the variable and discretionary costs of the relationship — not shared fixed expenses like rent or utilities, which would be covered in a household budget calculator.",

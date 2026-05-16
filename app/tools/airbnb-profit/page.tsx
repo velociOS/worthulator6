@@ -117,6 +117,11 @@ export default function AirbnbProfit() {
       <ContentCardGrid title="What drives Airbnb profitability"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Airbnb Profit Calculator Works"
+        formula={`Gross Revenue   = Nightly Rate × (30 × Occupancy%)
+Platform Fee    = Gross Revenue × Fee%
+Net Revenue     = Gross Revenue − Platform Fee
+Monthly Profit  = Net Revenue − Monthly Expenses
+Annual Profit   = Monthly Profit × 12`}
         paragraphs={[
           "Monthly gross revenue = nightly rate × (30 days × occupancy rate). Net revenue = gross × (1 - platform fee %). Monthly net profit = net revenue - monthly expenses.",
           "This is a simplified estimate. Actual earnings vary based on seasonality, local regulations, listing quality, reviews, and response time. Use this as a starting point, then verify with local STR market data.",

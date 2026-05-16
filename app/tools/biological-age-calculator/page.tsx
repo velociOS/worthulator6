@@ -112,6 +112,12 @@ export default function BiologicalAgeCalculator() {
       <ContentCardGrid title="What drives biological ageing" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Biological Age Calculator Works"
+        formula={`Biological Age = Chronological Age
+               + penalty: sleep < 6hrs/night
+               + penalty: exercise < 2×/week
+               + penalty: smoking
+               + penalty: BMI > 30
+Ageing Risk Score = weighted sum of risk factors (0–100)`}
         paragraphs={[
           "This calculator uses an evidence-based lifestyle adjustment model. Starting from your chronological age, it adds years for known risk factors: sleeping under 6 hours per night, exercising fewer than 2 days per week, smoking, and having a BMI above 30. Each factor is supported by peer-reviewed longevity research.",
           "The ageing risk score (0–100) reflects the total lifestyle burden. A score of zero means all factors are in the optimal range. Improving any single factor — particularly sleep and smoking — produces the largest reductions.",

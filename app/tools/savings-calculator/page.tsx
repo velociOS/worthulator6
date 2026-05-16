@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Savings Calculator 2026 – Project Your Savings Growth",
@@ -137,7 +139,7 @@ export default function SavingsCalculatorPage() {
         description="See how your savings grow over time — enter your balance, monthly contributions, and interest rate for an instant projection."
         chips={["Compound interest", "Monthly contribution impact", "High-yield vs standard rates"]}
       >
-        <CalculatorEngineLoader slug="savings-calculator" />
+        <CalculatorEngineLoader slug="savings-calculator" afterResults={<InsightsSection slug="savings-calculator" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -151,6 +153,7 @@ export default function SavingsCalculatorPage() {
         subtitle="Small, consistent habits outperform one-time windfalls over time."
         cards={CONTENT_CARDS}
       />
+      <InsightTable slug="savings-calculator" />
 
       <SEOTextBlock
         title="How the Savings Calculator Works"

@@ -111,6 +111,9 @@ export default function WeddingCostCalculator() {
       <ContentCardGrid title="Plan your wedding budget wisely" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Wedding Cost Calculator Works"
+        formula={`Total Cost     = Venue + (Guests × Catering per Head) + Photography + Other
+Cost per Guest = Total Cost ÷ Number of Guests
+Monthly Save   = Total Cost ÷ Months to Wedding`}
         paragraphs={[
           "Enter the number of guests, your per-person catering cost, venue hire fee, photography budget, and any other costs (florals, cake, stationery, hair and makeup). The calculator totals all categories and divides by your guest count to show the all-in cost per head.",
           "Use this as a planning tool — adjust the sliders to see how reducing guest numbers or venue spend changes your total. The per-guest figure is particularly useful when comparing venue packages that include catering versus those that don't.",

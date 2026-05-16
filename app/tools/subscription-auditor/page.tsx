@@ -5,6 +5,8 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Subscription Auditor 2026 – How Much Are Your Subscriptions Costing?",
@@ -129,7 +131,7 @@ export default function SubscriptionAuditorPage() {
         description="Drag the sliders to your real monthly spend on each category. See your annual total — and what that money would be worth invested over 10 years."
         chips={["Monthly & annual total", "10-year spend", "Opportunity cost at 7%"]}
       >
-        <CalculatorEngineLoader slug="subscription-auditor" />
+        <CalculatorEngineLoader slug="subscription-auditor" afterResults={<InsightsSection slug="subscription-auditor" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -143,6 +145,7 @@ export default function SubscriptionAuditorPage() {
         subtitle="Free trials, price hikes, and annual renewals all exploit the same blind spot."
         cards={CONTENT_CARDS}
       />
+      <InsightTable slug="subscription-auditor" />
 
       <SEOTextBlock
         title="How the Subscription Auditor Works"

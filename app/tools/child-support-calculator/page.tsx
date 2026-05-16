@@ -61,6 +61,10 @@ export default function ChildSupportCalculator() {
       <ContentCardGrid title="Understanding the child support formula" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the income-share estimate works"
+        formula={`Payer's Income Share = Payer Income ÷ Combined Income
+Guideline Obligation = based on combined income table
+Payer's Share        = Income Share × Guideline Obligation
+Custody Adjustment   = Payer's Share × (1 − Custody% ÷ 50)`}
         paragraphs={[
           "Combined income → guideline table obligation → payer's proportional share → custody adjustment. The formula used here approximates the most common income-share model used in 40+ US states.",
           "This calculator does not account for state-specific tables, tax deductions, healthcare costs, childcare costs, or existing support orders — all of which courts consider. Use it to get a ballpark, not a verdict.",

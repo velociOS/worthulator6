@@ -61,6 +61,9 @@ export default function GlobalWealthPercentile() {
       <ContentCardGrid title="The global wealth picture" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the global percentile is estimated"
+        formula={`Percentile ≈ log-normal approximation of global wealth distribution
+Source: Credit Suisse Global Wealth Report + World Bank income data
+Higher income → higher percentile (0 = lowest, 100 = wealthiest)`}
         paragraphs={[
           "Estimates are based on Credit Suisse Global Wealth Report and World Bank income distribution data. The calculation uses a logarithmic approximation of the global wealth distribution curve.",
           "Results are estimates — precise global data on individual wealth is not available. The calculator gives a reasonable indication based on publicly available distributional data.",

@@ -112,6 +112,9 @@ export default function SalaryNegotiationCalculator() {
       <ContentCardGrid title="How to negotiate your salary" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Salary Negotiation Calculator Works"
+        formula={`Market Midpoint    = (Market Low + Market High) ÷ 2
+Leverage Score     = weighted sum of experience, skills match, and urgency
+Recommended Ask    = max(Market Midpoint, Current Offer × Leverage Multiplier)`}
         paragraphs={[
           "Enter your current offer, the market low and high for your role, your years of experience, how well your skills match the job, and whether the employer has urgent hiring needs. The calculator combines these into a leverage score and recommends a specific salary ask.",
           "The recommended ask is calculated as the higher of the market midpoint and your current offer multiplied by a leverage multiplier. The higher your leverage score, the more your ask sits above the baseline.",

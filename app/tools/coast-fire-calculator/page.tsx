@@ -112,6 +112,10 @@ export default function CoastFireCalculator() {
       <ContentCardGrid title="Understanding Coast FIRE" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Coast FIRE Calculator Works"
+        formula={`FIRE Target    = Annual Expenses × 25
+Coast Number   = FIRE Target ÷ (1 + r)^Years to Retirement
+r              = Annual Return Rate ÷ 100
+Projected Now  = Current Savings × (1 + r)^Years`}
         paragraphs={[
           "Enter your current savings, your FIRE target (typically 25× annual expenses), your expected annual return, and the number of years until retirement. The calculator uses the present value formula to find the lump sum needed today to compound to your target — your Coast FIRE number.",
           "It also shows what your current savings will grow to, letting you see the gap (or surplus) between where you are now and where you need to be to start coasting.",

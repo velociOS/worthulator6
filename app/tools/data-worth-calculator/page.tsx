@@ -61,6 +61,9 @@ export default function DataWorthCalculator() {
       <ContentCardGrid title="How your data generates revenue" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the data value is estimated"
+        formula={`Estimated Value = Base ARPU × Platform Multiplier × Engagement Multiplier
+Base ARPU ≈ $200/year   (Meta US average)
+Higher engagement → richer data → higher ad targeting value`}
         paragraphs={[
           "The estimate is based on Meta's published US ARPU (~$200/year as a base), adjusted for number of platforms used, daily time spent, and engagement level. Higher engagement = richer data = higher ad targeting value.",
           "This is an approximation — actual ARPU varies by platform, geography, and advertising cycle. The real value of your combined data across all platforms is likely higher than any single platform's ARPU suggests.",

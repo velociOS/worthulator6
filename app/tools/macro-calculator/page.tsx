@@ -116,6 +116,11 @@ export default function MacroCalculator() {
       <ContentCardGrid title="Understanding your macros"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Macro Calculator Works"
+        formula={`Protein (g)  = Weight (lbs) × Goal Multiplier (0.7–0.8 g/lb)
+Fat Cals     = Remaining Cals × Fat% (30–35%)
+Carb Cals    = Remaining Cals × Carb% (65–70%)
+Fat (g)      = Fat Cals ÷ 9
+Carbs (g)    = Carb Cals ÷ 4`}
         paragraphs={[
           "Protein = body weight (lbs) × goal multiplier (0.7g/lb fat loss, 0.6g/lb maintain, 0.8g/lb muscle gain). Protein calories = protein grams × 4. Remaining calories are split: fat loss (35% fat, 65% carbs of remainder), maintenance (40/60), muscle gain (30/70). Fat grams = fat calories ÷ 9. Carb grams = carb calories ÷ 4.",
           "These ratios are evidence-informed starting points. Individual results vary based on carbohydrate tolerance, training intensity, and personal preference. Adjust carbs and fat to taste while keeping protein constant — this is the most flexible and effective approach.",

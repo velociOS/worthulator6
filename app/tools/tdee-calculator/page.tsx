@@ -116,6 +116,10 @@ export default function TdeeCalculator() {
       <ContentCardGrid title="How to use your TDEE"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the TDEE Calculator Works"
+        formula={`BMR (male)   = 10×kg + 6.25×cm − 5×age + 5
+BMR (female) = 10×kg + 6.25×cm − 5×age − 161
+TDEE         = BMR × Activity Multiplier
+               (1.2 sedentary → 1.9 very active)`}
         paragraphs={[
           "BMR (Mifflin-St Jeor, male) = 10 × weight(kg) + 6.25 × height(cm) − 5 × age + 5. Convert: kg = lbs ÷ 2.205, cm = inches × 2.54. TDEE = BMR × activity multiplier. Weekly calorie budget = TDEE × 7.",
           "This calculator uses the male Mifflin-St Jeor formula with a default activity multiplier of 1.55 (moderately active). For women, subtract 166 from the result. For the most accurate results, use your weight and height in metric units and be honest about your true activity level.",

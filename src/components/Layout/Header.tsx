@@ -151,7 +151,7 @@ function ToolsMegaMenu() {
               }`}
             >
               <span className="w-5 text-center text-base leading-none">{cat.emoji}</span>
-              <span className="flex-1 text-[13px] leading-snug">{cat.name}</span>
+              <span className="flex-1 text-[15px] leading-snug">{cat.name}</span>
               {count > 0
                 ? <span className={`text-[10px] ${isActive && cat.primary ? "text-emerald-400/50" : "text-white/20"}`}>{count}</span>
                 : <span className="text-[9px] font-medium text-white/15 tracking-wide">Soon</span>
@@ -281,7 +281,7 @@ function PopularMenu() {
             <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/5 text-base leading-none transition-colors duration-150 group-hover:bg-white/10">
               {cat?.emoji ?? "🔧"}
             </span>
-            <span className="flex-1 text-[13px] font-medium text-white/70 transition-colors duration-150 group-hover:text-white">{pageTitle(tool)}</span>
+            <span className="flex-1 text-[15px] font-medium text-white/70 transition-colors duration-150 group-hover:text-white">{pageTitle(tool)}</span>
             <svg className="h-3 w-3 shrink-0 text-white/0 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-white/40" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </Link>
         )

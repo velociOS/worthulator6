@@ -112,6 +112,10 @@ export default function MealPrepCalculator() {
       <ContentCardGrid title="Why meal prepping is one of the best financial habits" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Meal Prep Calculator Works"
+        formula={`Cost per Home Meal = Weekly Groceries ÷ Meals Produced
+Saving per Meal    = Takeout Cost − Cost per Home Meal
+Weekly Savings     = Saving per Meal × Meals per Week
+Annual Savings     = Weekly Savings × 52`}
         paragraphs={[
           "Enter your total weekly grocery spend for meal prepping, the number of meals that spend produces, and the average cost of the takeout or restaurant meal you would otherwise have. The calculator divides your grocery total by meals to find your cost per home meal, then multiplies the saving per meal by weekly and annual frequency.",
           "The weekly and annual savings figures assume you would replace every prepped meal with a takeout equivalent. Adjust the takeout cost down if you typically eat at fast food rather than sit-down restaurants, or up if you tend to order from delivery apps (which add fees and tips on top of menu prices).",

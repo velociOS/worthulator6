@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "401k Calculator 2026 – Project Your Retirement Balance",
@@ -54,13 +56,18 @@ export default function FourOhOneKCalculator() {
         description="Project your 401k balance at retirement. Adjust your monthly contribution, employer match, expected return, and years to see what compound growth actually looks like."
         chips={["Employer match included", "Compound growth", "Projected balance"]}
       >
-        <CalculatorEngineLoader slug="401k-calculator" />
+        <CalculatorEngineLoader slug="401k-calculator" afterResults={<InsightsSection slug="401k-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Never leave an employer match on the table — it's a 50–100% instant return on your contribution, guaranteed." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="How to maximise your 401k" cards={CONTENT_CARDS} />
+      <InsightTable slug="401k-calculator" />
       <SEOTextBlock
         title="How the 401k projection works"
+        formula={`Monthly Contribution = Salary × (Your % + Employer Match%)
+New Balance = Old Balance × (1 + r/12) + Monthly Contribution
+r = Annual Return Rate ÷ 100
+Final Balance = compounded month by month to retirement`}
         paragraphs={[
           "Each month: new balance = old balance × (1 + monthly rate) + your contribution + employer match. This compounds continuously, which is why starting early has such a dramatic effect.",
           "The calculator uses your inputs to simulate month-by-month growth over your chosen time horizon. Real balances will vary based on fund performance, fees, and contribution changes.",

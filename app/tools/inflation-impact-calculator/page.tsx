@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Inflation Impact Calculator 2026 – Purchasing Power Calculator",
@@ -54,13 +56,17 @@ export default function InflationImpactCalculator() {
         description="See how much your money is really worth in the future after inflation. Enter any amount, choose an inflation rate, and see your future purchasing power — and what you've silently lost."
         chips={["Future buying power", "Purchasing power lost", "Value erosion %"]}
       >
-        <CalculatorEngineLoader slug="inflation-impact-calculator" />
+        <CalculatorEngineLoader slug="inflation-impact-calculator" afterResults={<InsightsSection slug="inflation-impact-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="At 3.5% inflation, $100,000 today will only buy $50,000 worth of goods in 20 years. Inflation is the tax nobody talks about." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="What inflation is doing to your money right now" cards={CONTENT_CARDS} />
+      <InsightTable slug="inflation-impact-calculator" />
       <SEOTextBlock
         title="The purchasing power formula"
+        formula={`Future Buying Power = Amount ÷ (1 + Inflation Rate)^Years
+Real Value Loss (%) = (1 − 1 ÷ (1 + r)^n) × 100
+Required Return     = Inflation Rate   (just to break even)`}
         paragraphs={[
           "Future buying power = today's amount ÷ (1 + inflation rate)ⁿ. If you have $10,000 today and inflation averages 3.5% per year, in 20 years that $10,000 only buys $4,975 worth of goods.",
           "To maintain purchasing power, your money must grow faster than inflation. Any savings vehicle returning less than the inflation rate is losing real value every year — even if the nominal balance rises.",

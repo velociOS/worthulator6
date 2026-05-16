@@ -61,6 +61,10 @@ export default function StreamingTimeCalculator() {
       <ContentCardGrid title="What your streaming habit actually costs you" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How streaming time is calculated"
+        formula={`Yearly Hours    = Daily Hours × 365
+Lifetime Hours  = Yearly Hours × Years
+Years of Life   = Lifetime Hours ÷ 8,760
+Total Sub Cost  = Monthly Cost × 12 × Years`}
         paragraphs={[
           "Total hours = daily hours × 365 × years. Years of life = total hours ÷ (24 × 365). Total subscription cost = monthly cost × 12 × years.",
           "This calculator doesn't include time on YouTube, social media, or other video platforms — which often add another 1–2 hours/day for heavy users.",

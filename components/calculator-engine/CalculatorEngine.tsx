@@ -19,6 +19,8 @@ export interface CalculatorEngineProps {
   /** Config registry key — e.g. "future-value", "car-loan-calculator" */
   slug: string;
   region?: "US" | "UK";
+  /** Optional content rendered below the calculator grid, only after the user hits Calculate */
+  afterResults?: React.ReactNode;
 }
 
 // â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -58,9 +60,11 @@ const CALC_STEPS = [
 function CalculatorEngineInner({
   config,
   region,
+  afterResults,
 }: {
   config: CalculatorConfig;
   region: "US" | "UK";
+  afterResults?: React.ReactNode;
 }) {
   const { values, setValue, outputs } = useCalculator(config);
 
@@ -149,7 +153,7 @@ function CalculatorEngineInner({
     <div className="grid gap-8 lg:grid-cols-[2fr_3fr] lg:gap-10">
 
       {/* â”€â”€ INPUTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
-      <div className="flex flex-col gap-6 lg:sticky lg:top-6 lg:self-start">
+      <div className="flex flex-col gap-6 lg:sticky lg:top-6 lg:self-start lg:max-h-[calc(100vh-3rem)] lg:overflow-y-auto [scrollbar-color:#e5e7eb_transparent] [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-200/60 [&::-webkit-scrollbar-track]:bg-transparent">
 
         {config.inputs.map((input) => {
           const sym  = currencySymbol(input.unit);
@@ -275,6 +279,8 @@ function CalculatorEngineInner({
               <FrequencyCards cards={freqCards} />
             )}
 
+            {afterResults}
+
             <CalcDisclaimer />
           </>
         )}
@@ -285,7 +291,7 @@ function CalculatorEngineInner({
 
 // â”€â”€ Public export â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-export default function CalculatorEngine({ slug, region = "US" }: CalculatorEngineProps) {
+export default function CalculatorEngine({ slug, region = "US", afterResults }: CalculatorEngineProps) {
   const key    = region === "UK" ? `${slug}-uk` : slug;
   const config = CALCULATOR_CONFIGS[key] ?? CALCULATOR_CONFIGS[slug];
 
@@ -298,7 +304,7 @@ export default function CalculatorEngine({ slug, region = "US" }: CalculatorEngi
     );
   }
 
-  return <CalculatorEngineInner config={config} region={region} />;
+  return <CalculatorEngineInner config={config} region={region} afterResults={afterResults} />;
 }
 
 

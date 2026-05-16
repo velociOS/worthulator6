@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Millionaire Calculator 2026 – Years to $1,000,000",
@@ -108,11 +110,12 @@ export default function MillionaireCalculatorPage() {
         description="See exactly how many years until your investments reach $1,000,000 — enter your savings, monthly investment, and expected return."
         chips={["Years to $1M", "Total contributed vs interest", "Return rate impact"]}
       >
-        <CalculatorEngineLoader slug="millionaire-calculator" />
+        <CalculatorEngineLoader slug="millionaire-calculator" afterResults={<InsightsSection slug="millionaire-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text='The first million is the hardest — after that, compounding accelerates and <span class="font-semibold text-gray-900">the second million arrives far faster.</span>' />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="The path to your first million" subtitle="How compounding and consistency build wealth." cards={CONTENT_CARDS} />
+      <InsightTable slug="millionaire-calculator" />
       <SEOTextBlock
         title="How the Millionaire Calculator Works"
         formula={`Compounds monthly until Balance ≥ $1,000,000:

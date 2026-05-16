@@ -117,6 +117,11 @@ export default function SelfEmployedTax() {
       <ContentCardGrid title="Taxes as a freelancer: what to know"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How Self-Employment Tax Is Calculated"
+        formula={`Net Income       = Gross Income − Business Expenses
+SE Tax           = Net Income × 0.9235 × 15.3%
+Deductible Half  = SE Tax ÷ 2
+Federal Tax      = (Net Income − Deductible Half) × Federal Rate
+Total Tax        = SE Tax + Federal Tax`}
         paragraphs={[
           "Net income = gross income − business expenses. SE tax = net income × 0.9235 × 0.153. Federal income tax = (net income − SE tax ÷ 2) × federal rate. Total tax = SE tax + federal income tax.",
           "This calculator provides a federal estimate only. Add your state income tax rate on top for total tax liability. Consult a CPA or tax professional for advice specific to your situation — especially if you have complex deductions or multiple income streams.",

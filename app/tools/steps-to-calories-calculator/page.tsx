@@ -112,6 +112,9 @@ export default function StepsToCaloriesCalculator() {
       <ContentCardGrid title="Make every step count" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Steps to Calories Calculator Works"
+        formula={`Calories/Day   = Steps × 0.04
+Calories/Week  = Calories/Day × 7
+Fat Loss/Week  = Calories/Week ÷ 3,500   (lbs per week)`}
         paragraphs={[
           "The calculator multiplies your daily steps by 0.04 — a widely accepted estimate of calories burned per step for an average adult. Weekly calories are the daily figure multiplied by 7.",
           "Weight-loss potential is calculated by dividing weekly calorie burn by 3,500 — the number of calories equivalent to one pound of body fat. This figure assumes no change in diet or other activity.",

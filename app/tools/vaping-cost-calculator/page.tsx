@@ -112,6 +112,9 @@ export default function VapingCostCalculator() {
       <ContentCardGrid title="The real cost of vaping" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Vaping Cost Calculator Works"
+        formula={`Annual Cost      = Daily Spend × 365
+5-Year Cost      = Annual Cost × 5
+If Invested (5y) = Annual Cost × ((1.07^5 − 1) ÷ 0.07)`}
         paragraphs={[
           "Enter your average daily spend on vaping — including pods, liquid, disposables, and a share of device costs. The calculator multiplies by 365 for the annual figure and by 5 for the 5-year total.",
           "The invested value uses the future value of an annuity formula at 7% per year over 5 years — showing what your annual vaping budget would grow to in a broad market index fund.",

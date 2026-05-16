@@ -61,6 +61,10 @@ export default function PhoneAddictionCalculator() {
       <ContentCardGrid title="What your phone habit is really costing you" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the phone time calculation works"
+        formula={`Yearly Hours     = Daily Hours × 365
+Lifetime Hours   = Yearly Hours × Years
+Years of Life    = Lifetime Hours ÷ 8,760
+Opportunity Cost = Lifetime Hours × Hourly Value`}
         paragraphs={[
           "Lifetime hours = daily hours × 365 × years. Years of life = lifetime hours ÷ (24 × 365). Opportunity cost = lifetime hours × your hourly value.",
           "This calculator shows future projection at current usage rates. Check your phone's Screen Time settings for your actual daily average to use as the input.",

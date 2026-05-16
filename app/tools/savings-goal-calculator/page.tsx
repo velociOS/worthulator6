@@ -5,6 +5,8 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Savings Goal Calculator 2026 – How Much to Save Per Month",
@@ -129,7 +131,7 @@ export default function SavingsGoalCalculatorPage() {
         description="Enter your goal, timeline, and current savings to see exactly how much you need to put away each month — with compound interest factored in."
         chips={["Monthly contribution needed", "Interest earned vs deposited", "Compound interest model"]}
       >
-        <CalculatorEngineLoader slug="savings-goal-calculator" />
+        <CalculatorEngineLoader slug="savings-goal-calculator" afterResults={<InsightsSection slug="savings-goal-calculator" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -143,6 +145,7 @@ export default function SavingsGoalCalculatorPage() {
         subtitle="Break it down. Pick a timeline. Hit the monthly number consistently."
         cards={CONTENT_CARDS}
       />
+      <InsightTable slug="savings-goal-calculator" />
 
       <SEOTextBlock
         title="How the Savings Goal Calculator Works"

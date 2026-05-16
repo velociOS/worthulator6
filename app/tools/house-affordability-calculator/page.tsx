@@ -112,6 +112,10 @@ export default function HouseAffordabilityCalculator() {
       <ContentCardGrid title="What really determines your buying power" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the House Affordability Calculator Works"
+        formula={`Max Monthly Payment = Gross Monthly Income × 28%
+r = Monthly Rate,  n = Loan Term in Months
+Max Loan Amount     = Payment × ((1 − (1+r)^−n) ÷ r)
+Max Home Price      = Max Loan Amount + Down Payment`}
         paragraphs={[
           "The calculator applies the 28% front-end ratio: your maximum monthly mortgage payment is 28% of your gross monthly income. It then uses the standard mortgage payment formula to back-calculate the maximum loan amount that fits within that payment at your chosen rate and term. Adding your down payment gives the maximum home price.",
           "This is a starting point, not a final answer. Actual lender approvals depend on your credit score, debt-to-income ratio, employment history, and the specific property. Use this number as a planning guide and consult a mortgage broker for a pre-approval figure.",

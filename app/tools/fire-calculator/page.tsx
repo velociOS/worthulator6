@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "FIRE Calculator 2026 – Your Number & Years to Financial Independence",
@@ -112,11 +114,12 @@ export default function FireCalculatorPage() {
         description="Calculate your FIRE number and see how many years until work becomes optional — enter your expenses, savings, and monthly investment."
         chips={["4% rule FIRE number", "Years to independence", "Savings rate impact"]}
       >
-        <CalculatorEngineLoader slug="fire-calculator" />
+        <CalculatorEngineLoader slug="fire-calculator" afterResults={<InsightsSection slug="fire-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text='Your savings rate matters more than your salary — <span class="font-semibold text-gray-900">saving 50% of income reaches FIRE in ~17 years at any income level.</span>' />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="The math behind financial independence" subtitle="Why FIRE is a savings rate game, not an income game." cards={CONTENT_CARDS} />
+      <InsightTable slug="fire-calculator" />
       <SEOTextBlock
         title="How the FIRE Calculator Works"
         formula={`FIRE Number   = Monthly Expenses × 12 × 25

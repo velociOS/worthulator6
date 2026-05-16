@@ -61,6 +61,9 @@ export default function CryptoLossCalculator() {
       <ContentCardGrid title="The honest crypto math" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the crypto P&L is calculated"
+        formula={`P&L             = Current Value − Total Invested
+Return %        = P&L ÷ Total Invested × 100
+S&P Alternative = Invested × (1.07)^Years   (7% inflation-adj. return)`}
         paragraphs={[
           "P&L = current value − total invested. Return % = P&L ÷ invested × 100. S&P 500 alternative = invested × (1.07)^years, using 7% as the inflation-adjusted annual return.",
           "This is a simplified view. Real P&L calculations should include gas fees, exchange fees, staking rewards, and accurate cost basis tracking across all transactions.",

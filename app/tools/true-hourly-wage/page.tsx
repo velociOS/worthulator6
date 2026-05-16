@@ -117,6 +117,9 @@ export default function TrueHourlyWage() {
       <ContentCardGrid title="Why your true hourly rate matters"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How Your True Hourly Wage Is Calculated"
+        formula={`Total Work Hours = Contract Hours + Commute Hours + Decompression Hours
+Commute Hours    = (One-Way Mins × 2 ÷ 60) × Office Days per Year
+True Hourly Wage = Annual Salary ÷ Total Work Hours`}
         paragraphs={[
           "This calculator adds commute time (both directions × 5 days × 52 weeks) and daily decompression time (× 5 days × 52 weeks) to your contracted work hours. Your salary is then divided by this total to give your true effective hourly rate.",
           "For example: $65,000/year with a 30-min each-way commute and 30-min decompression adds 260 unpaid hours/year, reducing your effective rate from $31.25/hr to approximately $26/hr.",

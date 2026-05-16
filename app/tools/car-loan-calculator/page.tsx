@@ -5,6 +5,8 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Car Loan Calculator 2026 – Monthly Payment & Total Interest",
@@ -129,7 +131,7 @@ export default function CarLoanCalculatorPage() {
         description="Enter the vehicle price, down payment, trade-in, interest rate, and loan term to see your exact monthly payment and total interest."
         chips={["Monthly payment", "Total interest paid", "True cost of vehicle"]}
       >
-        <CalculatorEngineLoader slug="car-loan-calculator" />
+        <CalculatorEngineLoader slug="car-loan-calculator" afterResults={<InsightsSection slug="car-loan-calculator" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -143,6 +145,7 @@ export default function CarLoanCalculatorPage() {
         subtitle="Monthly payment is only one number. Here are the three that actually matter."
         cards={CONTENT_CARDS}
       />
+      <InsightTable slug="car-loan-calculator" />
 
       <SEOTextBlock
         title="How the Car Loan Calculator Works"

@@ -112,6 +112,10 @@ export default function AlcoholCostCalculator() {
       <ContentCardGrid title="The real cost of drinking" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Alcohol Cost Calculator Works"
+        formula={`Weekly Spend   = Drinks per Week × Cost per Drink
+Annual Spend   = Weekly Spend × 52
+Decade Spend   = Annual Spend × 10
+If Invested    = Annual Spend × ((1.07^10 − 1) ÷ 0.07)`}
         paragraphs={[
           "Enter how many drinks you have per week and your average cost per drink (blending home and out-of-home costs). The calculator multiplies weekly spend by 52 to give your annual total and by 10 for a decade view.",
           "The invested value uses the future value of an annuity formula at 7% annual return — showing what your annual alcohol budget would grow to if invested in a broad market index fund over 10 years.",

@@ -117,6 +117,10 @@ export default function DripCalculator() {
       <ContentCardGrid title="The power of stopping the drip"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the DRIP Calculator Works"
+        formula={`Monthly Rate = (Dividend Yield + Price Growth) ÷ 12 ÷ 100
+FV = Initial × (1 + r)^n + Monthly × ((1 + r)^n − 1) ÷ r
+r  = monthly rate,  n = months invested
+Total Gain = Final Value − All Contributions`}
         paragraphs={[
           "The calculator combines dividend yield and price growth into a total annual return rate. It then calculates the future value of both your lump-sum initial investment and monthly contributions compounded at that rate.",
           "Formula: FV = initial × (1 + monthlyRate)^months + monthlyContrib × ((1 + monthlyRate)^months − 1) / monthlyRate. The total gain is the final value minus all contributions made.",

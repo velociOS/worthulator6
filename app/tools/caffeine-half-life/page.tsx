@@ -116,6 +116,10 @@ export default function CaffeineHalfLife() {
       <ContentCardGrid title="Caffeine and sleep: the science"  cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the Caffeine Half-Life Calculator Works"
+        formula={`Total Caffeine      = Cups × 95mg
+Remaining at Time T = Total × 0.5^((T − Last Cup) ÷ Half-Life)
+Clearance Time      = Last Cup + Half-Life × log(Total ÷ 10) ÷ log(2)
+Default Half-Life   = 5 hours`}
         paragraphs={[
           "Total caffeine = cups × 95mg. Remaining at bedtime = total × 0.5^((bedtime − last cup) / 5). The clearance time is calculated as: last cup hour + 5 × log(total / 10) / log(2), which gives the time when caffeine drops below 10mg.",
           "This uses an average 5-hour half-life. Individual metabolism varies — some people clear caffeine in 3 hours, others take 9. If you find you're very caffeine-sensitive, try using 7–8 hours as your effective personal half-life.",

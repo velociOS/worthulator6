@@ -61,6 +61,10 @@ export default function LotteryVsInvesting() {
       <ContentCardGrid title="The math of the lucky habit" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How the opportunity cost is calculated"
+        formula={`Total Spent   = Weekly Spend × 52 × Years
+FV Invested   = Weekly Spend × [(1 + r)^n − 1] ÷ r
+r = weekly return rate,  n = total weeks
+Opportunity Cost = FV Invested − Total Spent`}
         paragraphs={[
           "Invested value = weekly contribution × [(1+r)ⁿ − 1] / r, where r = weekly return rate and n = total weeks. This is standard future value of regular contributions formula.",
           "Total spent = weekly × 52 × years. The gap = invested value − spent. This gap represents the real opportunity cost of the lottery habit over your chosen time period.",

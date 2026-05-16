@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Budget Calculator 2026 – Monthly Budget Planner with Savings Rate",
@@ -105,11 +107,12 @@ export default function BudgetCalculator() {
         description="Enter your take-home income and all expenses to see your monthly leftover, savings rate, and whether your budget is healthy or heading toward overspending."
         chips={["Savings rate shown", "Expense ratio calculated", "Overspend warning"]}
       >
-        <CalculatorEngineLoader slug="budget-calculator" />
+        <CalculatorEngineLoader slug="budget-calculator" afterResults={<InsightsSection slug="budget-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="A healthy budget has a savings rate above <span class='font-semibold text-gray-900'>20%</span>. Most overspending traces back to housing — not coffee." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="How to actually improve your budget" cards={CONTENT_CARDS} />
+      <InsightTable slug="budget-calculator" />
       <SEOTextBlock
         title="How the Budget Calculator Works"
         formula="Leftover = Income − (Housing + Food + Transport + Debt + Other)"

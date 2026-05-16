@@ -61,6 +61,9 @@ export default function TaxBracketCalculator() {
       <ContentCardGrid title="Tax rates most people misunderstand" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="Marginal vs effective rate formula"
+        formula={`Tax Owed       = sum of (income in each bracket × bracket rate)
+Effective Rate = Total Tax ÷ Gross Income × 100
+Marginal Rate  = rate applied to your highest dollar of income`}
         paragraphs={[
           "Effective rate (%) = (total taxes ÷ gross income) × 100. This is your true tax burden — the number that actually matters for budgeting.",
           "Marginal rate = the rate that applies to your highest dollar of income. It only applies to income above the bracket threshold, not your entire income.",

@@ -61,6 +61,10 @@ export default function PayStubCalculator() {
       <ContentCardGrid title="Decoding your pay stub" cards={CONTENT_CARDS} />
       <SEOTextBlock
         title="How your paycheck is calculated"
+        formula={`Gross Pay      = Annual Salary ÷ Pay Periods
+FICA           = Gross Pay × 7.65%  (6.2% SS + 1.45% Medicare)
+Net Pay        = Gross Pay − Federal Tax − State Tax − FICA − Benefits
+Effective Rate = Total Taxes ÷ Gross Pay × 100`}
         paragraphs={[
           "Net pay = gross pay − federal tax − state tax − FICA − benefits deductions. FICA = 6.2% Social Security + 1.45% Medicare = 7.65% of gross.",
           "Effective rate = total taxes ÷ gross pay × 100. This is the rate that matters for budgeting — not your marginal bracket, which applies only to your highest dollars earned.",
