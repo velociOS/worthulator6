@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Pay Stub Calculator 2026 – Decode Your Paycheck",
@@ -59,6 +60,8 @@ export default function PayStubCalculator() {
       <InsightStrip text="The gap between your salary and your take-home can be 25–35%. Knowing exactly where every dollar goes is the first step to managing it." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Decoding your pay stub" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="pay-stub-calculator" />
       <SEOTextBlock
         title="How your paycheck is calculated"
         formula={`Gross Pay      = Annual Salary ÷ Pay Periods

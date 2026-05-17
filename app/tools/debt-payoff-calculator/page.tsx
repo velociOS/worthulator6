@@ -5,6 +5,7 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Debt Payoff Calculator 2026 – Avalanche vs Snowball, Debt-Free Date",
@@ -147,6 +148,63 @@ export default function DebtPayoffCalculatorPage() {
         subtitle="The right approach depends on your psychology as much as the math."
         cards={CONTENT_CARDS}
       />
+
+      <section className="border-t border-gray-100 bg-white px-5 py-10 sm:px-8 lg:px-16">
+        <div className="mx-auto max-w-5xl">
+          <div className="rounded-2xl border border-white/8 bg-gray-900 p-6 sm:p-8">
+            <p className="mb-1 text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">Example scenario</p>
+            <h2 className="mt-3 text-xl font-bold text-white">How credit card debt grows on minimum payments</h2>
+            <p className="mt-2 text-sm text-gray-400 mb-6">
+              At 19.99% APR, paying the minimum means most of each payment goes to interest — barely denting the balance.
+            </p>
+            <div className="overflow-x-auto mb-6">
+              <table className="w-full text-sm text-left">
+                <thead>
+                  <tr className="border-b border-white/10 text-gray-500">
+                    <th className="pb-3 pr-6 text-xs font-semibold uppercase tracking-wide">Balance</th>
+                    <th className="pb-3 pr-6 text-xs font-semibold uppercase tracking-wide">APR</th>
+                    <th className="pb-3 pr-6 text-xs font-semibold uppercase tracking-wide">Min payment</th>
+                    <th className="pb-3 pr-6 text-xs font-semibold uppercase tracking-wide">Time to pay off</th>
+                    <th className="pb-3 text-xs font-semibold uppercase tracking-wide">Total interest</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-t border-white/5">
+                    <td className="py-3 pr-6 font-semibold text-white">$5,000</td>
+                    <td className="py-3 pr-6 text-gray-400">19.99%</td>
+                    <td className="py-3 pr-6 text-gray-400">$100/mo</td>
+                    <td className="py-3 pr-6 text-gray-400">~9 years</td>
+                    <td className="py-3 font-semibold text-red-400">$4,300</td>
+                  </tr>
+                  <tr className="border-t border-white/5">
+                    <td className="py-3 pr-6 font-semibold text-white">$10,000</td>
+                    <td className="py-3 pr-6 text-gray-400">19.99%</td>
+                    <td className="py-3 pr-6 text-gray-400">$200/mo</td>
+                    <td className="py-3 pr-6 text-gray-400">~20 years</td>
+                    <td className="py-3 font-semibold text-red-400">$14,000+</td>
+                  </tr>
+                  <tr className="border-t border-white/5">
+                    <td className="py-3 pr-6 font-semibold text-white">$20,000</td>
+                    <td className="py-3 pr-6 text-gray-400">19.99%</td>
+                    <td className="py-3 pr-6 text-gray-400">$400/mo</td>
+                    <td className="py-3 pr-6 text-gray-400">~28 years</td>
+                    <td className="py-3 font-semibold text-red-400">$31,000+</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-sm text-gray-400 leading-relaxed">
+              The avalanche method — targeting the highest-rate debt first — eliminates interest at its source. Switching from minimum payments to a fixed $500/month on $15,000 at 22% APR saves over $5,000 in interest and cuts payoff time from 47 months to 27.
+            </p>
+            <details className="mt-5">
+              <summary className="cursor-pointer text-sm text-emerald-400 hover:text-emerald-300">How does monthly interest work on credit cards?</summary>
+              <p className="mt-3 text-sm text-gray-500 leading-relaxed">
+                Each month, your lender calculates interest as: <span className="font-mono text-gray-300">Balance × (APR ÷ 12)</span>. On a $10,000 balance at 20% APR, that&apos;s $167 in interest every month. A $200 minimum payment only reduces your balance by $33. That&apos;s why debt at high APRs can take decades to clear on minimums alone.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
 
       <SEOTextBlock
         title="How the Debt Payoff Calculator Works"

@@ -5,6 +5,8 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Road Trip Cost Calculator 2026 – Gas Cost Estimator",
@@ -129,7 +131,7 @@ export default function RoadTripCostPage() {
         description="Enter your trip distance, car's fuel efficiency, and local gas price to instantly calculate one-way and round-trip fuel cost — split by passenger."
         chips={["One-way and round-trip cost", "Per-person split", "Total gallons used"]}
       >
-        <CalculatorEngineLoader slug="road-trip-cost" />
+        <CalculatorEngineLoader slug="road-trip-cost" afterResults={<InsightsSection slug="road-trip-cost" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -143,6 +145,8 @@ export default function RoadTripCostPage() {
         subtitle="Three things that affect your real-world fuel cost."
         cards={CONTENT_CARDS}
       />
+
+      <InsightTable slug="road-trip-cost" />
 
       <SEOTextBlock
         title="How the Road Trip Cost Calculator Works"

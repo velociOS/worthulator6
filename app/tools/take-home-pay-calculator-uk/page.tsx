@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
 import TakeHomePayCalculator from "../take-home-pay-calculator/TakeHomePayCalculatorLoader";
 import LocaleSetter from "@/components/LocaleSetter";
-import RegionToggle from "@/components/RegionToggle";
+import RegionToggle from "@/components/RegionToggle";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Take Home Pay Calculator UK – Work Out Your Net Pay After Tax Instantly",
@@ -600,7 +601,8 @@ export default function TakeHomePayUKPage() {
         </section>
 
         {/* RELATED TOOLS */}
-        <RelatedTools currentTool="take-home-pay-calculator" bg="bg-gray-50" />
+              <InsightTable slug="take-home-pay-calculator-uk" />
+      <RelatedTools currentTool="take-home-pay-calculator" bg="bg-gray-50" />
       </main>
     </>
   );

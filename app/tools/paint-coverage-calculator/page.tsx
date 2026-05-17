@@ -5,6 +5,8 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Paint Coverage Calculator 2026 – How Many Gallons Do You Need?",
@@ -129,7 +131,7 @@ export default function PaintCoverageCalculatorPage() {
         description="Calculate exactly how many gallons of paint to buy for any room — accounting for doors, windows, coats, and a 10% waste buffer."
         chips={["Net wall area after deductions", "Multi-coat support", "10% buffer included"]}
       >
-        <CalculatorEngineLoader slug="paint-coverage-calculator" />
+        <CalculatorEngineLoader slug="paint-coverage-calculator" afterResults={<InsightsSection slug="paint-coverage-calculator" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -143,6 +145,8 @@ export default function PaintCoverageCalculatorPage() {
         subtitle="Simple area calculators miss doors, windows, and coating factors — this one doesn't."
         cards={CONTENT_CARDS}
       />
+
+      <InsightTable slug="paint-coverage-calculator" />
 
       <SEOTextBlock
         title="How the Paint Coverage Calculator Works"

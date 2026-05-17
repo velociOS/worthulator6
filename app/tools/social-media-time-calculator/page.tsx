@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Social Media Time Calculator 2026 – Hours Per Year & Years of Life Lost",
@@ -110,6 +111,8 @@ export default function SocialMediaTimeCalculator() {
       <InsightStrip text="The average person spends <span class='font-semibold text-gray-900'>2.5 hours/day</span> on social media — that's 38 full days every year, and 5+ years over a lifetime." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="What your scrolling time really costs" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="social-media-time-calculator" />
       <SEOTextBlock
         title="How the Social Media Time Calculator Works"
         formula="Yearly Hours = Daily Hours × 365\nLifetime Hours = Yearly Hours × Years\nYears of Life = Lifetime Hours ÷ 24 ÷ 365"

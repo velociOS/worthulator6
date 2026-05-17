@@ -5,6 +5,7 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "ROI Calculator 2026 – Calculate Real Returns After Fees & Inflation",
@@ -144,6 +145,8 @@ export default function ROICalculatorPage() {
         cards={CONTENT_CARDS}
       />
 
+
+      <InsightTable slug="roi-calculator" />
       <SEOTextBlock
         title="How the ROI Calculator Works"
         formula={`Gross ROI = (Final Value − Total Invested) / Total Invested × 100

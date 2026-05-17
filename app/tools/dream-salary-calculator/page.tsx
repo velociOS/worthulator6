@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Dream Salary Calculator 2026 – What Salary Do You Actually Need?",
@@ -59,6 +60,7 @@ export default function DreamSalaryCalculator() {
       <InsightStrip text="Most people name a salary goal without checking the math. Working backwards from your real monthly needs produces a far more honest — and actionable — target." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="How to set a salary goal that actually means something" cards={CONTENT_CARDS} />
+      <InsightTable slug="dream-salary-calculator" />
       <SEOTextBlock
         title="How the required salary is calculated"
         formula={`Monthly Net Needed    = Total Monthly Expenses + Savings Goal

@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Steps to Calories Calculator 2026 – How Many Calories Do You Burn Walking?",
@@ -105,11 +113,13 @@ export default function StepsToCaloriesCalculator() {
         description="Enter your daily step count to see calories burned, weekly totals, and your weight-loss potential from walking alone."
         chips={["Calories burned", "Weekly total", "Weight loss estimate"]}
       >
-        <CalculatorEngineLoader slug="steps-to-calories-calculator" />
+        <CalculatorEngineLoader slug="steps-to-calories-calculator" afterResults={<InsightsSection slug="steps-to-calories-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="10,000 steps/day burns ~400 calories — enough to lose 1 lb every 9 days." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Make every step count" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="steps-to-calories-calculator" />
       <SEOTextBlock
         title="How the Steps to Calories Calculator Works"
         formula={`Calories/Day   = Steps × 0.04

@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Macro Calculator 2026 – Daily Protein, Carbs, and Fat Targets",
@@ -109,11 +117,13 @@ export default function MacroCalculator() {
         description="Get your personalised macro targets based on your daily calories, body weight, and goal — fat loss, maintenance, or muscle gain."
         chips={["Goal-based splits", "Protein by body weight", "Carbs + fat auto-calculated"]}
       >
-        <CalculatorEngineLoader slug="macro-calculator" />
+        <CalculatorEngineLoader slug="macro-calculator" afterResults={<InsightsSection slug="macro-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Hitting your protein target is the single most impactful macro habit — carbs and fat matter less than most people think." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Understanding your macros"  cards={CONTENT_CARDS} />
+
+      <InsightTable slug="macro-calculator" />
       <SEOTextBlock
         title="How the Macro Calculator Works"
         formula={`Protein (g)  = Weight (lbs) × Goal Multiplier (0.7–0.8 g/lb)

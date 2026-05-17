@@ -5,6 +5,7 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Freelance Rate Calculator 2026 – What Should You Charge Per Hour?",
@@ -144,6 +145,7 @@ export default function FreelanceRateCalculatorPage() {
         cards={CONTENT_CARDS}
       />
 
+            <InsightTable slug="freelance-rate-calculator" />
       <SEOTextBlock
         title="How the Freelance Rate Calculator Works"
         formula={`Billable Hours/Year = Billable Hours/Week × (52 − Weeks Off)

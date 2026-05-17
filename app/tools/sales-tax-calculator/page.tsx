@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Sales Tax Calculator 2026 – Instant Tax & Total Price",
@@ -108,11 +110,14 @@ export default function SalesTaxCalculatorPage() {
         description="Enter the price and your state tax rate to instantly see the tax amount and total price."
         chips={["Tax amount", "Total with tax", "State rate presets"]}
       >
-        <CalculatorEngineLoader slug="sales-tax" />
+        <CalculatorEngineLoader slug="sales-tax" afterResults={<InsightsSection slug="sales-tax" />} />
       </SimpleCalculatorHero>
       <InsightStrip text='Sales tax rates vary by over 10 percentage points across the US — <span class="font-semibold text-gray-900">knowing yours matters on every big purchase.</span>' />
       <StatChipsRow stats={STATS} />
-      <ContentCardGrid title="Sales tax — what you need to know" subtitle="The hidden cost on every price tag." cards={CONTENT_CARDS} />
+      <ContentCardGrid title="Sales tax — what you need to know" subtitle="The hidden cost on every price tag." cards={CONTENT_CARDS}
+      />
+
+      <InsightTable slug="sales-tax" />
       <SEOTextBlock
         title="How the Sales Tax Calculator Works"
         formula={`Tax Amount  = Price × (Tax Rate ÷ 100)

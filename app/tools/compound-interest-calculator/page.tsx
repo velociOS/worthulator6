@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import CompoundInterestCalculator from "@/components/calculators/CompoundInterestCalculator";
 import CompoundInterestLeadGen from "@/components/calculators/CompoundInterestLeadGen";
-import RelatedTools from "@/components/RelatedTools";
+import RelatedTools from "@/components/RelatedTools";
+import InsightTable from "@/components/insights/InsightTable";
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
@@ -374,6 +375,7 @@ export default function CompoundInterestCalculatorPage() {
         </div>
       </section>
 
+            <InsightTable slug="compound-interest-calculator" />
       {/* ── FAQ ──────────────────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">

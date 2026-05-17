@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Time Between Dates Calculator 2026 – Days, Weeks & Months",
@@ -110,6 +111,8 @@ export default function TimeBetweenDatesCalculator() {
       <InsightStrip text="An average month is <span class='font-semibold text-gray-900'>30.44 days</span> — not 30. Using 30 introduces a 5-day error over a full year." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Thinking about time more clearly" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="time-between-dates-calculator" />
       <SEOTextBlock
         title="How the Time Between Dates Calculator Works"
         formula="Weeks = Days ÷ 7\nMonths = Days ÷ 30.44"

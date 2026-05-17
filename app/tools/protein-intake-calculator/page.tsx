@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Protein Intake Calculator 2026 – Daily Protein Target by Weight & Activity",
@@ -110,6 +111,8 @@ export default function ProteinIntakeCalculator() {
       <InsightStrip text="For muscle building, aim for <span class='font-semibold text-gray-900'>1.6–2.0g of protein per kg</span> of body weight per day — spread across 3–5 meals." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Getting protein right for your goals" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="protein-intake-calculator" />
       <SEOTextBlock
         title="How the Protein Intake Calculator Works"
         formula="Daily Protein (g) = Body Weight (kg) × Multiplier (g/kg)\nCalories from Protein = Protein Grams × 4"

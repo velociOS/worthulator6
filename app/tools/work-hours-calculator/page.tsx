@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Work Hours Calculator 2026 – Total Hours from Daily Hours & Days",
@@ -110,6 +111,8 @@ export default function WorkHoursCalculator() {
       <InsightStrip text="A standard full-time year is <span class='font-semibold text-gray-900'>2,080 hours</span> — but most workers log closer to 1,900 effective hours after leave and holidays." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Getting the most from your hours" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="work-hours-calculator" />
       <SEOTextBlock
         title="How the Work Hours Calculator Works"
         formula="Total Hours = Hours Per Day × Days Worked\nAverage Per Day = Total Hours ÷ Days Worked"

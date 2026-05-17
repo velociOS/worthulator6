@@ -5,6 +5,7 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Salary Increase Calculator 2026 – Calculate the Real Value of Your Raise",
@@ -144,6 +145,8 @@ export default function SalaryIncreaseCalculatorPage() {
         cards={CONTENT_CARDS}
       />
 
+
+      <InsightTable slug="salary-increase-calculator" />
       <SEOTextBlock
         title="How the Salary Increase Calculator Works"
         formula={`New Salary = Current Salary + Raise Amount

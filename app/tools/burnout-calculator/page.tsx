@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Burnout Risk Calculator 2026 – Are You Heading for Burnout?",
@@ -105,11 +113,13 @@ export default function BurnoutCalculator() {
         description="Enter your weekly work hours, stress level, and nightly sleep to get a burnout risk score out of 100 — and know whether to act now or monitor."
         chips={["Risk score /100", "Low / Moderate / High", "Evidence-based"]}
       >
-        <CalculatorEngineLoader slug="burnout-calculator" />
+        <CalculatorEngineLoader slug="burnout-calculator" afterResults={<InsightsSection slug="burnout-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="77% of workers experience burnout — catching it early makes recovery far easier." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Understanding your burnout risk" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="burnout-calculator" />
       <SEOTextBlock
         title="How the Burnout Risk Calculator Works"
         formula={`Score = (Hours Worked ÷ 60 × 40) + (Stress Level ÷ 10 × 30) + Sleep Penalty

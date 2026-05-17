@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Global Wealth Percentile Calculator 2026 – Where Do You Rank?",
@@ -59,6 +60,7 @@ export default function GlobalWealthPercentile() {
       <InsightStrip text="Over half the world's adults have a net worth under $10,000. Your position may be more global-top-tier than you realise." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="The global wealth picture" cards={CONTENT_CARDS} />
+      <InsightTable slug="global-wealth-percentile" />
       <SEOTextBlock
         title="How the global percentile is estimated"
         formula={`Percentile ≈ log-normal approximation of global wealth distribution

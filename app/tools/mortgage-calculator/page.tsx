@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import MortgageCalculator from "@/components/calculators/MortgageCalculator";
 import MortgageLeadGen from "@/components/calculators/MortgageLeadGen";
-import RelatedTools from "@/components/RelatedTools";
+import RelatedTools from "@/components/RelatedTools";
+import InsightTable from "@/components/insights/InsightTable";
 
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
@@ -315,6 +316,7 @@ export default function MortgageCalculatorPage() {
         </div>
       </section>
 
+            <InsightTable slug="mortgage-calculator" />
       {/* ── FAQ section ───────────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">

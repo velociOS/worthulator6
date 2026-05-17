@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Commute Cost Calculator 2026 – Annual Fuel Cost of Your Drive",
@@ -108,11 +110,14 @@ export default function CommuteCostCalculatorPage() {
         description="Enter your one-way miles, MPG, gas price, and work days to see your annual fuel cost — and what working from home one day saves."
         chips={["Annual fuel cost", "Monthly & daily breakdown", "Gas price impact"]}
       >
-        <CalculatorEngineLoader slug="commute-cost" />
+        <CalculatorEngineLoader slug="commute-cost" afterResults={<InsightsSection slug="commute-cost" />} />
       </SimpleCalculatorHero>
       <InsightStrip text='Your commute costs money and time — <span class="font-semibold text-gray-900">most people underestimate both by a factor of 2 or more.</span>' />
       <StatChipsRow stats={STATS} />
-      <ContentCardGrid title="The real cost of getting to work" subtitle="Fuel is only part of what your commute takes from you." cards={CONTENT_CARDS} />
+      <ContentCardGrid title="The real cost of getting to work" subtitle="Fuel is only part of what your commute takes from you." cards={CONTENT_CARDS}
+      />
+
+      <InsightTable slug="commute-cost" />
       <SEOTextBlock
         title="How the Commute Cost Calculator Works"
         formula={`Daily Miles    = Miles One Way × 2

@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Tile Calculator 2026 – How Many Tiles Do I Need? Area & Tile Count",
@@ -110,6 +111,8 @@ export default function TileCalculator() {
       <InsightStrip text="Always add <span class='font-semibold text-gray-900'>10% for waste</span> — cuts, breakages, and future repairs. This calculator includes it automatically." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Tiling tips to get it right first time" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="tile-calculator" />
       <SEOTextBlock
         title="How the Tile Calculator Works"
         formula="Room Area = Room Length × Room Width\nTile Area = Tile Length × Tile Width\nTiles Needed = ⌈(Room Area ÷ Tile Area) × 1.10⌉"

@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Self-Employed Tax Calculator 2026 – 1099 Quarterly Tax Estimator",
@@ -110,11 +118,13 @@ export default function SelfEmployedTax() {
         description="Estimate your self-employment tax, federal income tax, quarterly payment amount, and exactly how much to set aside each month."
         chips={["SE tax formula", "Quarterly payments", "Monthly reserve"]}
       >
-        <CalculatorEngineLoader slug="self-employed-tax" />
+        <CalculatorEngineLoader slug="self-employed-tax" afterResults={<InsightsSection slug="self-employed-tax" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Self-employed workers pay 15.3% SE tax on top of income tax — most first-year freelancers underestimate this." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Taxes as a freelancer: what to know"  cards={CONTENT_CARDS} />
+
+      <InsightTable slug="self-employed-tax" />
       <SEOTextBlock
         title="How Self-Employment Tax Is Calculated"
         formula={`Net Income       = Gross Income − Business Expenses

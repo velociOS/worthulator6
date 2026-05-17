@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Salary Negotiation Calculator 2026 – Find Your Perfect Ask",
@@ -105,11 +113,13 @@ export default function SalaryNegotiationCalculator() {
         description="Enter your current offer, market range, years of experience, and skill match to get a data-driven recommended salary ask — before you walk into the room."
         chips={["Market-based", "Leverage score", "Recommended ask"]}
       >
-        <CalculatorEngineLoader slug="salary-negotiation-calculator" />
+        <CalculatorEngineLoader slug="salary-negotiation-calculator" afterResults={<InsightsSection slug="salary-negotiation-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Negotiating your salary once can add $500,000+ to lifetime earnings." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="How to negotiate your salary" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="salary-negotiation-calculator" />
       <SEOTextBlock
         title="How the Salary Negotiation Calculator Works"
         formula={`Market Midpoint    = (Market Low + Market High) ÷ 2

@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Pay Raise Calculator 2026 – See Your New Salary Instantly",
@@ -108,11 +110,14 @@ export default function PayRaiseCalculatorPage() {
         description="Enter your current salary and raise percentage to see your new salary, annual increase, and monthly boost instantly."
         chips={["New salary", "Annual & monthly increase", "Quick raise presets"]}
       >
-        <CalculatorEngineLoader slug="pay-raise" />
+        <CalculatorEngineLoader slug="pay-raise" afterResults={<InsightsSection slug="pay-raise" />} />
       </SimpleCalculatorHero>
       <InsightStrip text='Negotiating your base salary is one of the highest-ROI moves you can make — <span class="font-semibold text-gray-900">it compounds every year for the rest of your career.</span>' />
       <StatChipsRow stats={STATS} />
-      <ContentCardGrid title="What your raise really means" subtitle="Context that makes the number matter." cards={CONTENT_CARDS} />
+      <ContentCardGrid title="What your raise really means" subtitle="Context that makes the number matter." cards={CONTENT_CARDS}
+      />
+
+      <InsightTable slug="pay-raise" />
       <SEOTextBlock
         title="How the Pay Raise Calculator Works"
         formula={`New Salary      = Current Salary × (1 + Raise% ÷ 100)

@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Down Payment Calculator 2026 – Monthly Savings to Buy a Home",
@@ -110,11 +118,13 @@ export default function DownPaymentCountdown() {
         description="Enter your target home price, down payment percentage, current savings, and timeline. Get your exact monthly savings target."
         chips={["Any down payment %", "Subtract current savings", "Monthly goal shown"]}
       >
-        <CalculatorEngineLoader slug="down-payment-countdown" />
+        <CalculatorEngineLoader slug="down-payment-countdown" afterResults={<InsightsSection slug="down-payment-countdown" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="The typical US first-time buyer takes ~7 years to save their down payment. Here's how to speed that up." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="How to save a down payment faster"  cards={CONTENT_CARDS} />
+
+      <InsightTable slug="down-payment-countdown" />
       <SEOTextBlock
         title="How the Down Payment Calculator Works"
         formula={`Target Down Payment = Home Price × Down Payment%

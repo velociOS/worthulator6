@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Meal Prep Calculator 2026 – How Much Do You Save Meal Prepping?",
@@ -110,6 +111,7 @@ export default function MealPrepCalculator() {
       <InsightStrip text="The average American spends $14 per restaurant meal — home-cooked meals average $4–$6. That gap adds up to thousands per year." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Why meal prepping is one of the best financial habits" cards={CONTENT_CARDS} />
+      <InsightTable slug="meal-prep-calculator" />
       <SEOTextBlock
         title="How the Meal Prep Calculator Works"
         formula={`Cost per Home Meal = Weekly Groceries ÷ Meals Produced

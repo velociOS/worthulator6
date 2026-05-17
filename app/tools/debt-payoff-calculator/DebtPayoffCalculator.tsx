@@ -339,6 +339,7 @@ export default function DebtPayoffCalculator() {
             <CalcDisclaimer text="Debt payoff projections are estimates based on your inputs and assume fixed interest rates and consistent payments. Actual payoff times may vary due to variable rates, missed payments, or other factors. This tool is for illustrative purposes only and does not constitute financial or debt advice." />
           </>
         )}
+
       </div>
     </div>
   );

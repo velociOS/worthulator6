@@ -5,6 +5,8 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Percentage Calculator 2026 – What is X% of Y?",
@@ -129,7 +131,7 @@ export default function PercentageOfCalculatorPage() {
         description="Instantly calculate X% of any number — plus the discounted value and the total with percentage added. Three results, zero effort."
         chips={["X% of Y", "Value minus percentage", "Value plus percentage"]}
       >
-        <CalculatorEngineLoader slug="percentage-of-calculator" />
+        <CalculatorEngineLoader slug="percentage-of-calculator" afterResults={<InsightsSection slug="percentage-of-calculator" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -143,6 +145,8 @@ export default function PercentageOfCalculatorPage() {
         subtitle="Discounts, tips, tax — all the same math, shown all at once."
         cards={CONTENT_CARDS}
       />
+
+      <InsightTable slug="percentage-of-calculator" />
 
       <SEOTextBlock
         title="How the Percentage Calculator Works"

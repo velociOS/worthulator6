@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RentVsBuyCalculator from "@/components/calculators/RentVsBuyCalculator";
-import RelatedTools from "@/components/RelatedTools";
+import RelatedTools from "@/components/RelatedTools";
+import InsightTable from "@/components/insights/InsightTable";
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
@@ -488,6 +489,7 @@ export default function RentVsBuyCalculatorPage() {
         </div>
       </section>
 
+            <InsightTable slug="rent-vs-buy-calculator" />
       {/* ── Related Tools ─────────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 bg-gray-50 px-5 py-10 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">

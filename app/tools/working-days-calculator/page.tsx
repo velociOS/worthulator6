@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Working Days Calculator 2026 – Business Days Between Two Dates",
@@ -110,6 +111,8 @@ export default function WorkingDaysCalculator() {
       <InsightStrip text="A standard US work year has <span class='font-semibold text-gray-900'>249 working days</span> — never assume a calendar month means 22 business days." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Working days in planning and contracts" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="working-days-calculator" />
       <SEOTextBlock
         title="How the Working Days Calculator Works"
         formula="Working Days ≈ (Calendar Days × 5/7) − Public Holidays"

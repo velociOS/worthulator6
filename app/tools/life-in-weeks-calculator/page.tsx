@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Life in Weeks Calculator 2026 – How Many Weeks Do You Have Left?",
@@ -110,6 +111,7 @@ export default function LifeInWeeksCalculator() {
       <InsightStrip text="An 80-year life is just 4,160 weeks. Make each one count." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Why think in weeks?" cards={CONTENT_CARDS} />
+      <InsightTable slug="life-in-weeks-calculator" />
       <SEOTextBlock
         title="How the Life in Weeks Calculator Works"
         formula={`Weeks Lived     = Current Age × 52

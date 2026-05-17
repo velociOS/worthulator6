@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Moving Cost Calculator 2026 – Total Relocation Budget",
@@ -59,6 +60,7 @@ export default function MovingCostCalculator() {
       <InsightStrip text="Most people budget for the truck and forget everything else. The real cost of moving is usually 30–50% higher than the initial quote." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="What to include in your moving budget" cards={CONTENT_CARDS} />
+      <InsightTable slug="moving-cost-calculator" />
       <SEOTextBlock
         title="How to budget your move accurately"
         formula={`Total Cost    = Movers + Fuel + Packing + Storage + Tips & Misc

@@ -5,6 +5,8 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Grocery Unit Price Calculator 2026 – Find the Best Deal",
@@ -129,7 +131,7 @@ export default function GroceryUnitPricePage() {
         description="Enter the price and size of two items to instantly find out which one gives you more for your money — down to the penny per ounce."
         chips={["Price per ounce", "Percentage difference", "Best deal highlighted"]}
       >
-        <CalculatorEngineLoader slug="grocery-unit-price" />
+        <CalculatorEngineLoader slug="grocery-unit-price" afterResults={<InsightsSection slug="grocery-unit-price" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -143,6 +145,8 @@ export default function GroceryUnitPricePage() {
         subtitle="Unit price is the only metric that makes different sizes directly comparable."
         cards={CONTENT_CARDS}
       />
+
+      <InsightTable slug="grocery-unit-price" />
 
       <SEOTextBlock
         title="How the Grocery Unit Price Calculator Works"

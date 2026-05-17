@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Vaping Cost Calculator 2026 – What Does Vaping Really Cost?",
@@ -105,11 +113,13 @@ export default function VapingCostCalculator() {
         description="Enter your daily vaping spend to see your annual cost, 5-year total, and what that money would grow to if invested at 7% instead."
         chips={["Annual cost", "5-year total", "Investment opportunity cost"]}
       >
-        <CalculatorEngineLoader slug="vaping-cost-calculator" />
+        <CalculatorEngineLoader slug="vaping-cost-calculator" afterResults={<InsightsSection slug="vaping-cost-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="A $5/day vaping habit costs $9,125 over 5 years — or $10,600+ if invested." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="The real cost of vaping" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="vaping-cost-calculator" />
       <SEOTextBlock
         title="How the Vaping Cost Calculator Works"
         formula={`Annual Cost      = Daily Spend × 365

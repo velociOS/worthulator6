@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Future Value Calculator 2026 – See What Your Money Grows To",
@@ -138,7 +140,7 @@ export default function FutureValuePage() {
         description="See exactly what your money grows to — enter your deposit, monthly contributions, and expected return rate."
         chips={["Monthly compounding", "Interest vs contributions split", "What-if scenarios"]}
       >
-        <CalculatorEngineLoader slug="future-value" />
+        <CalculatorEngineLoader slug="future-value" afterResults={<InsightsSection slug="future-value" />} />
       </SimpleCalculatorHero>
 
       {/* INSIGHT STRIP */}
@@ -157,6 +159,8 @@ export default function FutureValuePage() {
       />
 
       {/* HOW IT WORKS + FORMULA */}
+
+      <InsightTable slug="future-value" />
       <SEOTextBlock
         title="How the Future Value Calculator Works"
         formula={`FV = PV × (1 + r)ⁿ + PMT × (((1 + r)ⁿ − 1) / r)

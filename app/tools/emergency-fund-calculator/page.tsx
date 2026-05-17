@@ -5,6 +5,7 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Emergency Fund Calculator 2026 – How Much Do You Need?",
@@ -144,6 +145,7 @@ export default function EmergencyFundCalculatorPage() {
         cards={CONTENT_CARDS}
       />
 
+            <InsightTable slug="emergency-fund-calculator" />
       <SEOTextBlock
         title="How the Emergency Fund Calculator Works"
         formula={`Total Monthly Expenses = Rent + Food + Utilities + Transport + Insurance + Subscriptions + Other

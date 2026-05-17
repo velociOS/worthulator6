@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Procrastination Cost Calculator 2026 – The Price of Putting Things Off",
@@ -59,6 +60,8 @@ export default function ProcrastinationCostCalculator() {
       <InsightStrip text="Two hours of daily procrastination at $40/hr costs $20,000/year in lost earnings — and $207,000 over 10 years when compounded." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="The real price of putting things off" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="procrastination-cost" />
       <SEOTextBlock
         title="How the procrastination cost is calculated"
         formula={`Daily Loss     = Wasted Hours × Hourly Rate

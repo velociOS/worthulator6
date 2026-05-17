@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
-import SalaryBreakdownCalculatorLoader from "../salary-breakdown-calculator/SalaryBreakdownCalculatorLoader";
+import SalaryBreakdownCalculatorLoader from "../salary-breakdown-calculator/SalaryBreakdownCalculatorLoader";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Salary Breakdown Calculator UK – Work Out Your Tax and Take-Home Pay Instantly",
@@ -432,6 +433,7 @@ export default function SalaryBreakdownCalculatorUKPage() {
         </div>
       </section>
 
+            <InsightTable slug="salary-breakdown-calculator-uk" />
       {/* ── FAQ ──────────────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">

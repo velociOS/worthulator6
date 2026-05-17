@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "TDEE Calculator 2026 – Daily Calorie Needs to Maintain, Lose, or Gain Weight",
@@ -109,11 +117,13 @@ export default function TdeeCalculator() {
         description="Calculate your Total Daily Energy Expenditure using the Mifflin-St Jeor formula. Get your BMR, maintenance calories, and weekly calorie budget."
         chips={["Mifflin-St Jeor formula", "BMR + activity factor", "Weekly budget"]}
       >
-        <CalculatorEngineLoader slug="tdee-calculator" />
+        <CalculatorEngineLoader slug="tdee-calculator" afterResults={<InsightsSection slug="tdee-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Most adults overestimate their activity level by one category — which means eating 200–400 more calories than they think." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="How to use your TDEE"  cards={CONTENT_CARDS} />
+
+      <InsightTable slug="tdee-calculator" />
       <SEOTextBlock
         title="How the TDEE Calculator Works"
         formula={`BMR (male)   = 10×kg + 6.25×cm − 5×age + 5

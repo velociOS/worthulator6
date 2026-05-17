@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Data Worth Calculator 2026 – How Much Are You Worth to Big Tech?",
@@ -59,6 +60,7 @@ export default function DataWorthCalculator() {
       <InsightStrip text="Meta earns ~$230/year from each US user. You don't see that money — but it's generated from your attention, behaviour, and personal data." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="How your data generates revenue" cards={CONTENT_CARDS} />
+      <InsightTable slug="data-worth-calculator" />
       <SEOTextBlock
         title="How the data value is estimated"
         formula={`Estimated Value = Base ARPU × Platform Multiplier × Engagement Multiplier

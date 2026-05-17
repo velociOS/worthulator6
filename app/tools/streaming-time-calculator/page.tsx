@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Streaming Time Calculator 2026 – How Many Years on Netflix?",
@@ -59,6 +60,8 @@ export default function StreamingTimeCalculator() {
       <InsightStrip text="At 4 hours/day, you'll spend over 8 years watching TV over a 40-year adult life. That's time you can't get back." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="What your streaming habit actually costs you" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="streaming-time-calculator" />
       <SEOTextBlock
         title="How streaming time is calculated"
         formula={`Yearly Hours    = Daily Hours × 365

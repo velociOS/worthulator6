@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Time to Retirement Calculator 2026 – FIRE Number & Years to Financial Independence",
@@ -110,6 +111,8 @@ export default function TimeToRetirementCalculator() {
       <InsightStrip text="Your retirement target = <span class='font-semibold text-gray-900'>annual expenses × 25</span> — that's the portfolio that can sustain you indefinitely on the 4% rule." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="The math behind financial independence" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="time-to-retirement-calculator" />
       <SEOTextBlock
         title="How the Time to Retirement Calculator Works"
         formula="FIRE Number = Monthly Expenses × 12 × 25\nMonthly Return = Annual Return ÷ 12\nBalance grows month by month until ≥ FIRE Number"

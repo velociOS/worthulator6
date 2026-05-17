@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Tax Bracket Calculator 2026 – Effective vs Marginal Rate",
@@ -59,6 +60,8 @@ export default function TaxBracketCalculator() {
       <InsightStrip text="Most people overestimate their tax rate. Your effective rate is almost always several points below your marginal bracket." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Tax rates most people misunderstand" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="tax-bracket-calculator" />
       <SEOTextBlock
         title="Marginal vs effective rate formula"
         formula={`Tax Owed       = sum of (income in each bracket × bracket rate)

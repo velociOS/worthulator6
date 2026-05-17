@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Profit Margin Calculator 2026 – Gross Profit & Margin %",
@@ -108,11 +110,14 @@ export default function ProfitMarginCalculatorPage() {
         description="Enter your revenue and cost to instantly see gross profit, margin percentage, and markup."
         chips={["Gross profit", "Margin %", "Markup %"]}
       >
-        <CalculatorEngineLoader slug="profit-margin" />
+        <CalculatorEngineLoader slug="profit-margin" afterResults={<InsightsSection slug="profit-margin" />} />
       </SimpleCalculatorHero>
       <InsightStrip text='Margin and markup are not the same thing — <span class="font-semibold text-gray-900">confusing them is one of the most common pricing mistakes in business.</span>' />
       <StatChipsRow stats={STATS} />
-      <ContentCardGrid title="Pricing and margin — what really matters" subtitle="The numbers behind every profitable business." cards={CONTENT_CARDS} />
+      <ContentCardGrid title="Pricing and margin — what really matters" subtitle="The numbers behind every profitable business." cards={CONTENT_CARDS}
+      />
+
+      <InsightTable slug="profit-margin" />
       <SEOTextBlock
         title="How the Profit Margin Calculator Works"
         formula={`Gross Profit   = Revenue − Cost

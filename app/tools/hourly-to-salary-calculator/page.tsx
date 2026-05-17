@@ -3,7 +3,8 @@ import Image from "next/image";
 import RelatedTools from "@/components/RelatedTools";
 import HourlyToSalaryCalculator from "./HourlyToSalaryCalculatorLoader";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
-import RegionToggle from "@/components/RegionToggle";
+import RegionToggle from "@/components/RegionToggle";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Hourly to Salary Calculator – Work Out Your Annual Salary Instantly",
@@ -284,6 +285,7 @@ export default function HourlyToSalaryPage() {
       </section>
 
       {/* RELATED TOOLS */}
+            <InsightTable slug="hourly-to-salary-calculator" />
       <RelatedTools currentTool="hourly-to-salary-calculator" />
 
     </main>

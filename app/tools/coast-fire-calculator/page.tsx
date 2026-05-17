@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Coast FIRE Calculator 2026 – Find Your Coast FIRE Number",
@@ -105,11 +113,13 @@ export default function CoastFireCalculator() {
         description="Find your Coast FIRE number — the savings balance where compound growth alone will fund your retirement, with no further contributions needed."
         chips={["Coast FIRE number", "Projected portfolio", "Years to retire"]}
       >
-        <CalculatorEngineLoader slug="coast-fire-calculator" />
+        <CalculatorEngineLoader slug="coast-fire-calculator" afterResults={<InsightsSection slug="coast-fire-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Hit your Coast FIRE number and your money does all the retirement saving for you." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Understanding Coast FIRE" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="coast-fire-calculator" />
       <SEOTextBlock
         title="How the Coast FIRE Calculator Works"
         formula={`FIRE Target    = Annual Expenses × 25

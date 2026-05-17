@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "DRIP Calculator 2026 – Dividend Reinvestment Growth Calculator",
@@ -110,11 +118,13 @@ export default function DripCalculator() {
         description="Model the compounding power of reinvesting dividends alongside regular contributions. Set your yield, price growth, and time horizon."
         chips={["Dividend yield + price growth", "Monthly contributions", "25-year projection"]}
       >
-        <CalculatorEngineLoader slug="drip-calculator" />
+        <CalculatorEngineLoader slug="drip-calculator" afterResults={<InsightsSection slug="drip-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Reinvested dividends account for nearly half of the stock market's total historical return." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="The power of stopping the drip"  cards={CONTENT_CARDS} />
+
+      <InsightTable slug="drip-calculator" />
       <SEOTextBlock
         title="How the DRIP Calculator Works"
         formula={`Monthly Rate = (Dividend Yield + Price Growth) ÷ 12 ÷ 100

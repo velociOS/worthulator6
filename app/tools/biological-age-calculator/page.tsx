@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Biological Age Calculator 2026 – Find Your Real Age",
@@ -105,11 +113,13 @@ export default function BiologicalAgeCalculator() {
         description="Answer a few lifestyle questions about sleep, exercise, BMI, and smoking to get an estimate of your biological age — and an ageing risk score you can actually improve."
         chips={["Lifestyle-based", "Biological age estimate", "Risk score"]}
       >
-        <CalculatorEngineLoader slug="biological-age-calculator" />
+        <CalculatorEngineLoader slug="biological-age-calculator" afterResults={<InsightsSection slug="biological-age-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Your biological age is not fixed — lifestyle changes can measurably reverse it." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="What drives biological ageing" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="biological-age-calculator" />
       <SEOTextBlock
         title="How the Biological Age Calculator Works"
         formula={`Biological Age = Chronological Age

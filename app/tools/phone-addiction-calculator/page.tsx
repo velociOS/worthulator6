@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Phone Addiction Calculator 2026 – Your Screen Time in Years",
@@ -59,6 +60,8 @@ export default function PhoneAddictionCalculator() {
       <InsightStrip text="At 4 hours/day, you'll spend over 6 years of your life on your phone over the next 40 years. Check Screen Time to see your real number." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="What your phone habit is really costing you" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="phone-addiction-calculator" />
       <SEOTextBlock
         title="How the phone time calculation works"
         formula={`Yearly Hours     = Daily Hours × 365

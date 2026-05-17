@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Flooring Cost Calculator 2026 – Materials & Labour Estimate",
@@ -110,6 +111,7 @@ export default function FlooringCostCalculator() {
       <InsightStrip text="Labour typically adds <span class='font-semibold text-gray-900'>40–100% on top of material cost</span> — budget for the full installed price, not just the material price per square foot." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Planning your flooring project" cards={CONTENT_CARDS} />
+      <InsightTable slug="flooring-cost-calculator" />
       <SEOTextBlock
         title="How the Flooring Cost Calculator Works"
         formula="Area = Room Length × Room Width\nMaterial Cost = Area × Cost Per Sq Ft\nLabour Cost = Material Cost × 40%\nTotal Cost = Material Cost + Labour Cost"

@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Time Clock Calculator 2026 – Daily Hours, Weekly Total & Overtime",
@@ -110,6 +111,8 @@ export default function TimeClockCalculator() {
       <InsightStrip text="Overtime kicks in at <span class='font-semibold text-gray-900'>40 hours</span> per week under FLSA — and must be paid at 1.5× your regular rate." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Time tracking that protects your pay" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="time-clock-calculator" />
       <SEOTextBlock
         title="How the Time Clock Calculator Works"
         formula="Daily Hours = (Clock-Out − Clock-In) − Break Hours\nWeekly Hours = Daily Hours × Days Worked\nOvertime = max(0, Weekly Hours − 40)"

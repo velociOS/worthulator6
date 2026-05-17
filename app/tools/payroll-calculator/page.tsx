@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Payroll Calculator 2026 – True Employer Cost Per Employee",
@@ -110,6 +111,8 @@ export default function PayrollCalculator() {
       <InsightStrip text="A $60,000 salary typically costs the employer <span class='font-semibold text-gray-900'>$75,000–$84,000</span> all-in once taxes, insurance, and benefits are added." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Understanding the true cost of hiring" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="payroll-calculator" />
       <SEOTextBlock
         title="How the Payroll Calculator Works"
         formula="Total Cost = (Employees × Salary) + (Payroll × Tax%) + (Employees × Benefits)"

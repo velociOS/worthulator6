@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Discount Calculator 2026 – Find Your Final Price Instantly",
@@ -152,6 +153,7 @@ export default function DiscountCalculatorPage() {
         cards={CONTENT_CARDS}
       />
 
+            <InsightTable slug="discount-calculator" />
       <SEOTextBlock
         title="How the Discount Calculator Works"
         formula={`Percentage off:

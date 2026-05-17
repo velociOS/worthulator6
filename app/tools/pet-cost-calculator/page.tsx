@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Pet Cost Calculator 2026 – True Annual & Lifetime Cost of a Pet",
@@ -104,11 +112,13 @@ export default function PetCostCalculator() {
         description="Enter your pet's food, vet, insurance, and miscellaneous costs to see the true annual expense — and the full lifetime commitment."
         chips={["Annual cost", "Lifetime total", "All-in estimate"]}
       >
-        <CalculatorEngineLoader slug="pet-cost-calculator" />
+        <CalculatorEngineLoader slug="pet-cost-calculator" afterResults={<InsightsSection slug="pet-cost-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="The average dog costs $29,000 over its lifetime — budget before you adopt." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="The true cost of pet ownership" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="pet-cost-calculator" />
       <SEOTextBlock
         title="How the Pet Cost Calculator Works"
         formula={`Annual Cost   = Food + Vet + Insurance + Misc

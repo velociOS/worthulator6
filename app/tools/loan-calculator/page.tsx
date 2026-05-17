@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import LoanCalculator from "@/components/calculators/LoanCalculator";
 import LoanLeadGen from "@/components/calculators/LoanLeadGen";
-import RelatedTools from "@/components/RelatedTools";
+import RelatedTools from "@/components/RelatedTools";
+import InsightTable from "@/components/insights/InsightTable";
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
@@ -311,6 +312,7 @@ export default function LoanCalculatorPage() {
         </div>
       </section>
 
+            <InsightTable slug="loan-calculator" />
       {/* ── FAQ ───────────────────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">

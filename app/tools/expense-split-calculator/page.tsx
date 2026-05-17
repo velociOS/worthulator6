@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Expense Split Calculator 2026 – Split Bills, Tips & Group Costs Fairly",
@@ -110,6 +111,7 @@ export default function ExpenseSplitCalculator() {
       <InsightStrip text="No more phone-calculator fumbling — get the <span class='font-semibold text-gray-900'>exact per-person amount with tip</span> in one step." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="When and how to split shared costs" cards={CONTENT_CARDS} />
+      <InsightTable slug="expense-split-calculator" />
       <SEOTextBlock
         title="How the Expense Split Calculator Works"
         formula="Per Person = Total ÷ People\nTotal with Tip = Total × (1 + Tip% ÷ 100)\nPer Person with Tip = Total with Tip ÷ People"

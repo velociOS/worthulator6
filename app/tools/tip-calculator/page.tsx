@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Tip Calculator 2026 – Split the Bill Instantly",
@@ -141,7 +143,7 @@ export default function TipCalculatorPage() {
         description="Calculate the tip and split any bill instantly — enter the total, your tip percentage, and number of people."
         chips={["Per-person split", "Round up for cash", "Quick tip presets"]}
       >
-        <CalculatorEngineLoader slug="tip-calculator" />
+        <CalculatorEngineLoader slug="tip-calculator" afterResults={<InsightsSection slug="tip-calculator" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -155,6 +157,8 @@ export default function TipCalculatorPage() {
         subtitle="The unwritten rules of tipping — simplified."
         cards={CONTENT_CARDS}
       />
+
+      <InsightTable slug="tip-calculator" />
 
       <SEOTextBlock
         title="How the Tip Calculator Works"

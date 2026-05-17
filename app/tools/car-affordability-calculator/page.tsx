@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Car Affordability Calculator 2026 – Max Car Price for Your Income",
@@ -108,11 +110,14 @@ export default function CarAffordabilityCalculatorPage() {
         description="Find the maximum car payment, loan amount, and target price you can afford — based on your income and loan terms."
         chips={["15% income rule", "Max loan amount", "Target car price with 20% down"]}
       >
-        <CalculatorEngineLoader slug="car-affordability" />
+        <CalculatorEngineLoader slug="car-affordability" afterResults={<InsightsSection slug="car-affordability" />} />
       </SimpleCalculatorHero>
       <InsightStrip text='The loan payment is just the beginning — <span class="font-semibold text-gray-900">insurance, fuel, and maintenance often double the true monthly cost of a car.</span>' />
       <StatChipsRow stats={STATS} />
-      <ContentCardGrid title="What car ownership really costs" subtitle="The numbers dealerships don't show you." cards={CONTENT_CARDS} />
+      <ContentCardGrid title="What car ownership really costs" subtitle="The numbers dealerships don't show you." cards={CONTENT_CARDS}
+      />
+
+      <InsightTable slug="car-affordability" />
       <SEOTextBlock
         title="How the Car Affordability Calculator Works"
         formula={`Max Monthly Payment = Monthly Income × 0.15

@@ -5,6 +5,8 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Laundry Cost Calculator 2026 – Cost Per Load",
@@ -129,7 +131,7 @@ export default function LaundryCostCalculatorPage() {
         description="Enter your electricity rate, weekly loads, and detergent cost to see the real price per load — and your annual laundry bill."
         chips={["Cost per load", "Weekly and annual totals", "Electricity cost breakdown"]}
       >
-        <CalculatorEngineLoader slug="laundry-cost-calculator" />
+        <CalculatorEngineLoader slug="laundry-cost-calculator" afterResults={<InsightsSection slug="laundry-cost-calculator" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -143,6 +145,8 @@ export default function LaundryCostCalculatorPage() {
         subtitle="Electricity, water, and detergent — here's what each actually costs."
         cards={CONTENT_CARDS}
       />
+
+      <InsightTable slug="laundry-cost-calculator" />
 
       <SEOTextBlock
         title="How the Laundry Cost Calculator Works"

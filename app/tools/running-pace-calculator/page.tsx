@@ -5,6 +5,8 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Running Pace Calculator 2026 – Pace Per Mile & Km",
@@ -129,7 +131,7 @@ export default function RunningPaceCalculatorPage() {
         description="Enter your target distance and finish time to instantly get your required pace per mile and per kilometre."
         chips={["Min/mile and min/km", "Works for 5K to marathon", "Target finish time"]}
       >
-        <CalculatorEngineLoader slug="running-pace-calculator" />
+        <CalculatorEngineLoader slug="running-pace-calculator" afterResults={<InsightsSection slug="running-pace-calculator" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -143,6 +145,8 @@ export default function RunningPaceCalculatorPage() {
         subtitle="A time goal without a pace target is just a wish."
         cards={CONTENT_CARDS}
       />
+
+      <InsightTable slug="running-pace-calculator" />
 
       <SEOTextBlock
         title="How the Running Pace Calculator Works"

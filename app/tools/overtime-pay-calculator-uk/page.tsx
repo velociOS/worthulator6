@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import OvertimePayCalculator from "../overtime-pay-calculator/OvertimePayCalculatorLoader";
 import LocaleSetter from "@/components/LocaleSetter";
-import RegionToggle from "@/components/RegionToggle";
+import RegionToggle from "@/components/RegionToggle";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Overtime Pay Calculator UK – Work Out Your Overtime Earnings Instantly",
@@ -520,6 +521,7 @@ export default function OvertimePayCalculatorUKPage() {
             </div>
           </div>
         </section>
+      <InsightTable slug="overtime-pay-calculator-uk" />
       </main>
     </>
   );

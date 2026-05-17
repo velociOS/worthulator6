@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
-import InflationCalculatorLoader from "./InflationCalculatorLoader";
+import InflationCalculatorLoader from "./InflationCalculatorLoader";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Inflation Calculator – See How Inflation Erodes Your Purchasing Power",
@@ -374,7 +375,8 @@ export default function InflationCalculatorPage() {
       {/* RELATED TOOLS */}
       <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
-          <RelatedTools currentTool="inflation-calculator" />
+                <InsightTable slug="inflation-calculator" />
+      <RelatedTools currentTool="inflation-calculator" />
         </div>
       </section>
 

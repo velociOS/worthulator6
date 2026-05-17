@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Job Offer Comparison Calculator 2026 – Compare Two Job Offers Side by Side",
@@ -110,11 +118,13 @@ export default function JobOfferComparison() {
         description="Go beyond base salary. Compare two job offers on total effective compensation — including benefits value, commute costs, and real take-home."
         chips={["Salary + benefits", "Commute costs deducted", "True gap shown"]}
       >
-        <CalculatorEngineLoader slug="job-offer-comparison" />
+        <CalculatorEngineLoader slug="job-offer-comparison" afterResults={<InsightsSection slug="job-offer-comparison" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="A job with lower salary but no commute and better benefits often wins on total compensation." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Beyond base salary: total compensation"  cards={CONTENT_CARDS} />
+
+      <InsightTable slug="job-offer-comparison" />
       <SEOTextBlock
         title="How the Job Offer Comparison Works"
         formula={`Effective Comp = Salary + Benefits Value − Annual Commute Cost

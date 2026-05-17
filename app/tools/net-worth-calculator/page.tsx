@@ -5,6 +5,7 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Net Worth Calculator 2026 – Track Your Total Financial Picture",
@@ -144,6 +145,8 @@ export default function NetWorthCalculatorPage() {
         cards={CONTENT_CARDS}
       />
 
+
+      <InsightTable slug="net-worth-calculator" />
       <SEOTextBlock
         title="How the Net Worth Calculator Works"
         formula={`Net Worth = Total Assets − Total Liabilities

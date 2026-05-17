@@ -4,7 +4,8 @@ import RelatedTools from "@/components/RelatedTools";
 import HourlyToSalaryCalculator from "../hourly-to-salary-calculator/HourlyToSalaryCalculatorLoader";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import LocaleSetter from "@/components/LocaleSetter";
-import RegionToggle from "@/components/RegionToggle";
+import RegionToggle from "@/components/RegionToggle";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Hourly to Salary Calculator UK – Work Out Your Annual Salary Instantly",
@@ -426,7 +427,8 @@ export default function HourlyToSalaryUKPage() {
         </section>
 
         {/* RELATED TOOLS */}
-        <RelatedTools currentTool="hourly-to-salary-calculator" />
+              <InsightTable slug="hourly-to-salary-calculator-uk" />
+      <RelatedTools currentTool="hourly-to-salary-calculator" />
 
       </main>
     </>

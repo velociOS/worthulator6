@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Meeting Cost Calculator 2026 – The True Dollar Cost of Meetings",
@@ -108,11 +110,14 @@ export default function MeetingCostCalculatorPage() {
         description="See the real dollar cost of any meeting — enter the number of people, average hourly wage, and how long it runs."
         chips={["Total meeting cost", "Cost per minute", "Annual cost if weekly"]}
       >
-        <CalculatorEngineLoader slug="meeting-cost" />
+        <CalculatorEngineLoader slug="meeting-cost" afterResults={<InsightsSection slug="meeting-cost" />} />
       </SimpleCalculatorHero>
       <InsightStrip text='A 1-hour meeting with 10 people isn&apos;t 1 hour lost — <span class="font-semibold text-gray-900">it&apos;s 10 hours of collective time and often $500+ in salary cost.</span>' />
       <StatChipsRow stats={STATS} />
-      <ContentCardGrid title="The hidden cost of meeting culture" subtitle="Why time spent in meetings is money spent by the business." cards={CONTENT_CARDS} />
+      <ContentCardGrid title="The hidden cost of meeting culture" subtitle="Why time spent in meetings is money spent by the business." cards={CONTENT_CARDS}
+      />
+
+      <InsightTable slug="meeting-cost" />
       <SEOTextBlock
         title="How the Meeting Cost Calculator Works"
         formula={`Total Cost          = Attendees × Hourly Wage × (Duration ÷ 60)

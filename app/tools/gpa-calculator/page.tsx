@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "GPA Calculator 2026 – What Grade Do You Need?",
@@ -59,6 +60,7 @@ export default function GPACalculator() {
       <InsightStrip text="Know the number before the exam. Most students overestimate or underestimate what's needed to hit their target GPA." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="GPA strategies that actually work" cards={CONTENT_CARDS} />
+      <InsightTable slug="gpa-calculator" />
       <SEOTextBlock
         title="How needed GPA is calculated"
         formula={`Required GPA = (Target GPA × Total Credits − Current GPA × Credits Done)

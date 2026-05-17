@@ -1,7 +1,8 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import RelatedTools from "@/components/RelatedTools";
-import InvestmentCalculator from "@/components/calculators/InvestmentCalculatorLoader";
+import InvestmentCalculator from "@/components/calculators/InvestmentCalculatorLoader";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Investment Calculator – Project Your Future Wealth Instantly",
@@ -442,6 +443,7 @@ export default function InvestmentCalculatorPage() {
         </div>
       </section>
 
+            <InsightTable slug="investment-calculator" />
       {/* ── FAQ ───────────────────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-3xl">

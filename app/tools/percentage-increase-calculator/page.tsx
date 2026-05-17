@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
-import PercentageIncreaseCalculator from "@/components/calculators/PercentageIncreaseCalculator";
+import PercentageIncreaseCalculator from "@/components/calculators/PercentageIncreaseCalculator";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Percentage Increase Calculator – Calculate % Change Instantly",
@@ -321,6 +322,7 @@ export default function PercentageIncreaseCalculatorPage() {
       </section>
 
       {/* ── RELATED TOOLS ────────────────────────────────────────────────── */}
+            <InsightTable slug="percentage-increase-calculator" />
       <RelatedTools currentTool="percentage-increase-calculator" bg="bg-white" />
     </main>
   );

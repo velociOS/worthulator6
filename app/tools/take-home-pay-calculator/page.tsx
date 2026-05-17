@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import RelatedTools from "@/components/RelatedTools";
 import TakeHomePayCalculator from "./TakeHomePayCalculatorLoader";
-import RegionToggle from "@/components/RegionToggle";
+import RegionToggle from "@/components/RegionToggle";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Take Home Pay Calculator (US) – See Your Exact Net Salary Instantly",
@@ -449,6 +450,7 @@ export default function TakeHomePayPage() {
       </section>
 
       {/* RELATED TOOLS */}
+            <InsightTable slug="take-home-pay-calculator" />
       <RelatedTools currentTool="take-home-pay-calculator" bg="bg-gray-50" />
 
     </main>

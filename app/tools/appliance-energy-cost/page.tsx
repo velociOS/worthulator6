@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Appliance Energy Cost Calculator 2026 – How Much Does It Cost to Run?",
@@ -110,11 +118,13 @@ export default function ApplianceEnergyCost() {
         description="Enter wattage, hours per day, and your electricity rate. Instantly see daily, monthly, and annual running costs for any device."
         chips={["Watts to cost", "Daily / monthly / annual", "Any electricity rate"]}
       >
-        <CalculatorEngineLoader slug="appliance-energy-cost" />
+        <CalculatorEngineLoader slug="appliance-energy-cost" afterResults={<InsightsSection slug="appliance-energy-cost" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="The average US home spends ~$1,500/year on electricity — most of it heating, cooling, and appliances you barely notice." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Where your electricity bill actually goes"  cards={CONTENT_CARDS} />
+
+      <InsightTable slug="appliance-energy-cost" />
       <SEOTextBlock
         title="How the Appliance Energy Cost Calculator Works"
         formula={`Daily kWh      = Watts ÷ 1,000 × Hours per Day

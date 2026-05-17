@@ -219,10 +219,6 @@ export default function InsightsSection({ slug }: { slug: string }) {
         <Block key={i} block={block} />
       ))}
 
-      {/* Disclaimer */}
-      <p className="pt-1 text-center text-[11px] leading-relaxed text-gray-400">
-        Estimates only — not financial advice. Results are projections based on standard formulas and do not account for inflation, taxes, fees, or real-world variables.
-      </p>
     </div>
   );
 }

@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "True Hourly Wage Calculator 2026 – Your Real Pay After Commute & Prep Time",
@@ -110,11 +112,14 @@ export default function TrueHourlyWage() {
         description="Factor in your commute, work prep, and decompression time to find your real hourly rate — not just your salary divided by 40 hours."
         chips={["Commute included", "Decompression time", "True vs advertised rate"]}
       >
-        <CalculatorEngineLoader slug="true-hourly-wage" />
+        <CalculatorEngineLoader slug="true-hourly-wage" afterResults={<InsightsSection slug="true-hourly-wage" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="Your contract says 40 hours. Your job demands more. Here's what you're really earning." />
       <StatChipsRow stats={STATS} />
-      <ContentCardGrid title="Why your true hourly rate matters"  cards={CONTENT_CARDS} />
+      <ContentCardGrid title="Why your true hourly rate matters"  cards={CONTENT_CARDS}
+      />
+
+      <InsightTable slug="true-hourly-wage" />
       <SEOTextBlock
         title="How Your True Hourly Wage Is Calculated"
         formula={`Total Work Hours = Contract Hours + Commute Hours + Decompression Hours

@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Heart Rate Zone Calculator 2026 – Max HR, Fat Burn & Cardio Zones",
@@ -110,6 +111,7 @@ export default function HeartRateZoneCalculator() {
       <InsightStrip text="Train in the right zone — <span class='font-semibold text-gray-900'>Zone 2 (60–70% max HR)</span> builds the aerobic base that all other training depends on." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Training smarter with heart rate zones" cards={CONTENT_CARDS} />
+      <InsightTable slug="heart-rate-zone-calculator" />
       <SEOTextBlock
         title="How the Heart Rate Zone Calculator Works"
         formula="Max HR = 220 − Age\nFat Burn Zone = Max HR × 60% to 70%\nCardio Zone = Max HR × 70% to 85%\nPeak Zone = Max HR × 85%+"

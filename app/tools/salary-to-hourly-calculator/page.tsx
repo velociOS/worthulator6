@@ -9,6 +9,8 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Salary to Hourly Calculator 2026 – Convert Annual Salary Instantly",
@@ -108,11 +110,14 @@ export default function SalaryToHourlyCalculatorPage() {
         description="Convert your annual salary to hourly, daily, weekly, and monthly rates — enter your salary and hours per week for an instant breakdown."
         chips={["Hourly rate", "Daily & weekly rates", "Adjustable hours & weeks"]}
       >
-        <CalculatorEngineLoader slug="salary-to-hourly" />
+        <CalculatorEngineLoader slug="salary-to-hourly" afterResults={<InsightsSection slug="salary-to-hourly" />} />
       </SimpleCalculatorHero>
       <InsightStrip text='Your stated hours matter — if you regularly work 50 hours on a 40-hour salary, <span class="font-semibold text-gray-900">your real hourly rate is 20% lower than it looks.</span>' />
       <StatChipsRow stats={STATS} />
-      <ContentCardGrid title="Understanding your true hourly value" subtitle="What your salary really means per hour." cards={CONTENT_CARDS} />
+      <ContentCardGrid title="Understanding your true hourly value" subtitle="What your salary really means per hour." cards={CONTENT_CARDS}
+      />
+
+      <InsightTable slug="salary-to-hourly" />
       <SEOTextBlock
         title="How the Salary to Hourly Calculator Works"
         formula={`Hourly Rate  = Annual Salary ÷ (Hours/Week × Weeks/Year)

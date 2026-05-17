@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Relationship Cost Calculator 2026 – What Has Love Cost You?",
@@ -59,6 +60,8 @@ export default function RelationshipCostCalculator() {
       <InsightStrip text="The average committed couple spends $8,000–$12,000 per year together. Over 5 years, that's $40,000–$60,000 in shared experiences." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="The financial side of love" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="relationship-cost-calculator" />
       <SEOTextBlock
         title="How the relationship cost is calculated"
         formula={`Annual Cost  = (Dates/Month × Cost per Date × 12) + Annual Gifts + Annual Travel

@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Lottery vs Investing Calculator 2026 – The Real Math",
@@ -59,6 +60,7 @@ export default function LotteryVsInvesting() {
       <InsightStrip text="$20/week on lottery tickets over 20 years costs $20,800. The same amount invested at 7% becomes over $108,000." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="The math of the lucky habit" cards={CONTENT_CARDS} />
+      <InsightTable slug="lottery-vs-investing" />
       <SEOTextBlock
         title="How the opportunity cost is calculated"
         formula={`Total Spent   = Weekly Spend × 52 × Years

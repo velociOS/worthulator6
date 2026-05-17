@@ -5,6 +5,8 @@ import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection
 import {
   StatChipsRow, ContentCardGrid, SEOTextBlock, InsightStrip, RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Sleep Cycle Optimizer 2026 – Find the Perfect Bedtime",
@@ -129,7 +131,7 @@ export default function SleepCycleOptimizerPage() {
         description="Find the perfect bedtime to wake up refreshed — calculated around your natural 90-minute sleep cycles and personal sleep onset time."
         chips={["4, 5 or 6 full cycles", "Accounts for sleep onset", "Beat morning grogginess"]}
       >
-        <CalculatorEngineLoader slug="sleep-cycle-optimizer" />
+        <CalculatorEngineLoader slug="sleep-cycle-optimizer" afterResults={<InsightsSection slug="sleep-cycle-optimizer" />} />
       </SimpleCalculatorHero>
 
       <InsightStrip
@@ -143,6 +145,8 @@ export default function SleepCycleOptimizerPage() {
         subtitle="It's not about 8 hours. It's about waking at the right moment in your cycle."
         cards={CONTENT_CARDS}
       />
+
+      <InsightTable slug="sleep-cycle-optimizer" />
 
       <SEOTextBlock
         title="How the Sleep Cycle Optimizer Works"

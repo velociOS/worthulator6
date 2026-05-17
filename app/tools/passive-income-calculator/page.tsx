@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import PassiveIncomeCalculatorLoader from "./PassiveIncomeCalculatorLoader";
-import RegionToggle from "@/components/RegionToggle";
+import RegionToggle from "@/components/RegionToggle";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Passive Income Calculator – Work Out Your Investment Income Instantly",
@@ -385,6 +386,7 @@ export default function PassiveIncomeCalculatorPage() {
         </div>
       </section>
 
+            <InsightTable slug="passive-income-calculator" />
       {/* ── FAQ ──────────────────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">

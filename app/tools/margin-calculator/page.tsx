@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
-import MarginCalculator from "./MarginCalculator";
+import MarginCalculator from "./MarginCalculator";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Margin Calculator – Instantly Calculate Profit Margin, Markup & Revenue",
@@ -370,7 +371,8 @@ export default function MarginCalculatorPage() {
       {/* RELATED TOOLS */}
       <section className="border-t border-gray-100 bg-gray-50 px-5 py-14 sm:px-8 lg:px-16">
         <div className="mx-auto max-w-5xl">
-          <RelatedTools currentTool="margin-calculator" />
+                <InsightTable slug="margin-calculator" />
+      <RelatedTools currentTool="margin-calculator" />
         </div>
       </section>
 

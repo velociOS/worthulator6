@@ -9,6 +9,14 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightsSection from "@/components/insights/InsightsSection";
+import InsightTable from "@/components/insights/InsightTable";
+
+
+
+
+
+
 
 export const metadata: Metadata = {
   title: "Body Fat Calculator 2026 – Estimate Body Fat % Using the Navy Method",
@@ -109,11 +117,13 @@ export default function BodyFatCalculator() {
         description="Estimate body fat % using the US Navy circumference method. Enter your weight, height, waist, and neck measurements — no gym equipment needed."
         chips={["Navy formula", "Fat mass + lean mass", "No equipment needed"]}
       >
-        <CalculatorEngineLoader slug="body-fat-calculator" />
+        <CalculatorEngineLoader slug="body-fat-calculator" afterResults={<InsightsSection slug="body-fat-calculator" />} />
       </SimpleCalculatorHero>
       <InsightStrip text="The US Navy method gives body fat estimates within ±3–4% of DEXA scan accuracy — from just a tape measure." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Body fat: what the numbers mean"  cards={CONTENT_CARDS} />
+
+      <InsightTable slug="body-fat-calculator" />
       <SEOTextBlock
         title="How the Body Fat Calculator Works"
         formula={`Body Fat% (male)   = 86.010 × log10(waist − neck) − 70.041 × log10(height) + 36.76

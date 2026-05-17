@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Pomodoro Calculator 2026 – Deep Work Sessions & Focused Hours Per Day",
@@ -110,6 +111,8 @@ export default function PomodoroCalculator() {
       <InsightStrip text="Most knowledge workers max out at <span class='font-semibold text-gray-900'>4 hours</span> of genuine deep work per day — quality beats quantity every time." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Getting the most from focused work sessions" cards={CONTENT_CARDS} />
+
+      <InsightTable slug="pomodoro-calculator" />
       <SEOTextBlock
         title="How the Pomodoro Calculator Works"
         formula="Sessions = floor(Hours Available ÷ (Session Minutes ÷ 60))\nDeep Work Hours = Sessions × (Session Minutes ÷ 60)\nWeekly Output = Deep Work Hours × Days per Week"

@@ -9,6 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
+import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
   title: "Child Support Calculator 2026 – Monthly Estimate",
@@ -59,6 +60,7 @@ export default function ChildSupportCalculator() {
       <InsightStrip text="This is a starting estimate only — actual court orders vary by state, income type, and many other factors. Always consult a family law attorney." />
       <StatChipsRow stats={STATS} />
       <ContentCardGrid title="Understanding the child support formula" cards={CONTENT_CARDS} />
+      <InsightTable slug="child-support-calculator" />
       <SEOTextBlock
         title="How the income-share estimate works"
         formula={`Payer's Income Share = Payer Income ÷ Combined Income
