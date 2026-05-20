@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import LotteryVsInvestingWithInsights from "@/components/worthcore/LotteryVsInvestingWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -55,7 +55,7 @@ export default function LotteryVsInvesting() {
         description="Enter your weekly lottery spend and see what that same money would be worth if invested instead. The math is uncomfortable — but it's worth knowing."
         chips={["If invested instead", "Total spent on tickets", "The real opportunity cost"]}
       >
-        <CalculatorEngineLoader slug="lottery-vs-investing" />
+        <LotteryVsInvestingWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="$20/week on lottery tickets over 20 years costs $20,800. The same amount invested at 7% becomes over $108,000." />
       <StatChipsRow stats={STATS} />

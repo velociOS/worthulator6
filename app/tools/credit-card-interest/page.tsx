@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import CreditCardInterestWithInsights from "@/components/worthcore/CreditCardInterestWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -122,7 +121,7 @@ export default function CreditCardInterestPage() {
         description="Enter your balance, APR, and monthly payment to see exactly how long payoff takes and how much interest you'll pay in total."
         chips={["Months to pay off", "Total interest cost", "Warning if payment is too low"]}
       >
-        <CalculatorEngineLoader slug="credit-card-interest" afterResults={<InsightsSection slug="credit-card-interest" />} />
+        <CreditCardInterestWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text='At 22% APR, a $3,000 balance on minimum payments costs over <span class="font-semibold text-gray-900">$2,500 in interest</span> and takes 8 years to clear.' />
       <StatChipsRow stats={STATS} />

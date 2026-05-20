@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { getFinanceValue } from "@/lib/dataStore";
 import { CalcDisclaimer } from "@/src/templates/take-home-pay";
 import {
   AreaChart, Area, BarChart, Bar, LineChart, Line,
@@ -180,9 +181,10 @@ const DEFAULT_INPUTS: InvestmentInputs = {
   initialAmount: 5000,
   monthlyContribution: 200,
   annualContribution: 0,
-  annualReturnRate: 7,
+  // ── Centralised via dataStore ─────────────────────────────────────────────
+  annualReturnRate: getFinanceValue("stockMarketReturn"),  // dataStore.finance.stockMarketReturn
   years: 20,
-  inflationRate: 2.5,
+  inflationRate: getFinanceValue("inflationRate"),         // dataStore.finance.inflationRate
   compoundFrequency: "monthly",
 };
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import { MealPrepWithInsights } from "@/components/worthcore/MealPrepWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -103,10 +103,10 @@ export default function MealPrepCalculator() {
         eyebrowIcon="🥗"
         eyebrowText="Food · Savings"
         title="How Much Do You Save Meal Prepping?"
-        description="Enter your weekly grocery spend, number of meals prepped, and the cost of takeout alternatives to see your cost per home meal, weekly savings, and yearly total."
+        description="Select your dining habits, choose your state, and enter how many meals you plan to cook per week. Worthulator calibrates local food costs to show your real cost per home meal, weekly savings, and yearly total."
         chips={["Cost per meal", "Weekly savings", "Annual savings"]}
       >
-        <CalculatorEngineLoader slug="meal-prep-calculator" />
+        <MealPrepWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The average American spends $14 per restaurant meal — home-cooked meals average $4–$6. That gap adds up to thousands per year." />
       <StatChipsRow stats={STATS} />
@@ -114,13 +114,14 @@ export default function MealPrepCalculator() {
       <InsightTable slug="meal-prep-calculator" />
       <SEOTextBlock
         title="How the Meal Prep Calculator Works"
-        formula={`Cost per Home Meal = Weekly Groceries ÷ Meals Produced
-Saving per Meal    = Takeout Cost − Cost per Home Meal
-Weekly Savings     = Saving per Meal × Meals per Week
+        formula={`Dining Baseline  = Regional avg cost for your selected eating style(s)
+Cost per Home Meal = Regional grocery benchmark ÷ 60 meals/month
+Saving per Meal    = Dining Baseline − Cost per Home Meal
+Weekly Savings     = Saving per Meal × Meals Planned per Week
 Annual Savings     = Weekly Savings × 52`}
         paragraphs={[
-          "Enter your total weekly grocery spend for meal prepping, the number of meals that spend produces, and the average cost of the takeout or restaurant meal you would otherwise have. The calculator divides your grocery total by meals to find your cost per home meal, then multiplies the saving per meal by weekly and annual frequency.",
-          "The weekly and annual savings figures assume you would replace every prepped meal with a takeout equivalent. Adjust the takeout cost down if you typically eat at fast food rather than sit-down restaurants, or up if you tend to order from delivery apps (which add fees and tips on top of menu prices).",
+          "Select your state and one or more dining habits — delivery, restaurant, fast food, or a mix. Worthulator looks up real regional food-cost data to set your dining baseline and your local home-meal cost, so the numbers reflect what eating actually costs where you live.",
+          "Tell the calculator how many meals you plan to cook per week. Every meal cooked instead of ordered saves you the gap between the baseline and your home-meal cost. Annual savings is simply that weekly gap multiplied by 52.",
         ]}
       />
       <StandardFAQSection faqs={FAQS} />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import SocialMediaTimeWithInsights from "@/components/worthcore/SocialMediaTimeWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -106,7 +106,7 @@ export default function SocialMediaTimeCalculator() {
         description="Enter your daily social media hours and projection period to see your total hours per year, lifetime hours, and equivalent years of life spent scrolling."
         chips={["Hours per year", "Lifetime hours", "Years of life shown"]}
       >
-        <CalculatorEngineLoader slug="social-media-time-calculator" />
+        <SocialMediaTimeWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The average person spends <span class='font-semibold text-gray-900'>2.5 hours/day</span> on social media — that's 38 full days every year, and 5+ years over a lifetime." />
       <StatChipsRow stats={STATS} />

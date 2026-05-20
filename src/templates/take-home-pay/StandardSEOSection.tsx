@@ -59,7 +59,7 @@ interface InsightStripProps {
 export function InsightStrip({ text }: InsightStripProps) {
   return (
     <div className="border-t border-gray-100 bg-emerald-50 px-5 py-8 sm:px-8 lg:px-16">
-      <div className="mx-auto max-w-5xl flex items-start gap-4">
+      <div className="mx-auto max-w-3xl flex items-start gap-4">
         {/* Left emerald accent bar */}
         <div className="shrink-0 mt-1 w-0.75 self-stretch rounded-full bg-emerald-500" />
         <p
@@ -180,7 +180,7 @@ interface SEOTextBlockProps {
 export function SEOTextBlock({ title, paragraphs, formula, steps }: SEOTextBlockProps) {
   return (
     <section className="border-t border-gray-100 bg-white px-5 py-14 sm:px-8 lg:px-16">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-3xl">
         <h2 className="text-2xl font-bold tracking-tight text-gray-950 mb-8">{title}</h2>
 
         {/* Formula block */}
@@ -211,7 +211,7 @@ export function SEOTextBlock({ title, paragraphs, formula, steps }: SEOTextBlock
         )}
 
         {/* Prose paragraphs */}
-        <div className="space-y-4 max-w-3xl">
+        <div className="space-y-4">
           {paragraphs.map((p, i) => (
             <p key={i} className="text-sm leading-[1.85] text-gray-600">{p}</p>
           ))}

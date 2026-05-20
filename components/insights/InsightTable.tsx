@@ -10,8 +10,8 @@ export default function InsightTable({ slug }: { slug: string }) {
 
   return (
     <section className="border-t border-gray-100 bg-white px-5 py-10 sm:px-8 lg:px-16">
-      <div className="mx-auto max-w-5xl">
-        <div className="rounded-2xl border border-white/8 bg-gray-900 p-6 sm:p-8">
+      <div className="mx-auto max-w-3xl">
+        <div className="rounded-2xl border border-white/8 bg-gray-900 p-5 sm:p-6">
           <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-gray-500">
             {table.caption}
           </p>

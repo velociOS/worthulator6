@@ -1,6 +1,6 @@
 // ─── Calculator Engine — Type definitions ────────────────────────────────────
 
-export type InputType = "slider" | "select" | "number";
+export type InputType = "slider" | "select" | "number" | "dropdown" | "multiselect";
 export type OutputFormat = "integer" | "decimal" | "currency" | "percent";
 export type Region = "US" | "UK";
 

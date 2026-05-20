@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import SalaryNegotiationWithInsights from "@/components/worthcore/SalaryNegotiationWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -113,7 +112,7 @@ export default function SalaryNegotiationCalculator() {
         description="Enter your current offer, market range, years of experience, and skill match to get a data-driven recommended salary ask — before you walk into the room."
         chips={["Market-based", "Leverage score", "Recommended ask"]}
       >
-        <CalculatorEngineLoader slug="salary-negotiation-calculator" afterResults={<InsightsSection slug="salary-negotiation-calculator" />} />
+        <SalaryNegotiationWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Negotiating your salary once can add $500,000+ to lifetime earnings." />
       <StatChipsRow stats={STATS} />

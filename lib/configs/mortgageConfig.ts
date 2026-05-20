@@ -1,4 +1,5 @@
 // ─── Mortgage Calculator Config ────────────────────────────────────────────
+import { getFinanceValue } from "@/lib/dataStore";
 
 export interface MortgageConfig {
   defaultRates: {
@@ -72,11 +73,13 @@ export interface MortgageConfig {
 
 export const mortgageConfig: MortgageConfig = {
   defaultRates: {
-    thirtyYear: 6.99,
-    fifteenYear: 6.39,
-    tenYear: 6.19,
+    // ── Centralised via dataStore — update dataStore to change these defaults ──
+    thirtyYear:   getFinanceValue("mortgageRate"),      // dataStore.finance.mortgageRate
+    fifteenYear:  getFinanceValue("mortgageRate15yr"),  // dataStore.finance.mortgageRate15yr
+    // ── Not yet in dataStore — update here until added ────────────────────────
+    tenYear:      6.19,
     sevenYearArm: 6.59,
-    fiveYearArm: 6.29,
+    fiveYearArm:  6.29,
   },
 
   locationMultipliers: {

@@ -1,4 +1,5 @@
 // ─── Loan Calculator Config ──────────────────────────────────────────────────
+import { getFinanceValue } from "@/lib/dataStore";
 
 export type LoanMode = "standard" | "car" | "personal" | "student";
 
@@ -27,7 +28,8 @@ export const loanModes: Record<LoanMode, LoanModeConfig> = {
   car: {
     label: "Car Loan",
     icon: "🚗",
-    defaults: { amount: 35000, annualRatePct: 6.89, termMonths: 60 },
+    // ── Centralised via dataStore ─────────────────────────────────────────────
+    defaults: { amount: 35000, annualRatePct: getFinanceValue("autoLoanRateNew"), termMonths: 60 },
     rateHint: "National avg new car rate: ~6.9% (2025)",
     amountLabel: "Vehicle price",
     amountStep: 1000,
@@ -35,7 +37,8 @@ export const loanModes: Record<LoanMode, LoanModeConfig> = {
   personal: {
     label: "Personal Loan",
     icon: "👤",
-    defaults: { amount: 10000, annualRatePct: 11.5, termMonths: 36 },
+    // ── Centralised via dataStore ─────────────────────────────────────────────
+    defaults: { amount: 10000, annualRatePct: getFinanceValue("personalLoanRate"), termMonths: 36 },
     rateHint: "Average personal loan rate: 11–12%",
     amountLabel: "Loan amount",
     amountStep: 500,
@@ -43,7 +46,8 @@ export const loanModes: Record<LoanMode, LoanModeConfig> = {
   student: {
     label: "Student Loan",
     icon: "🎓",
-    defaults: { amount: 27000, annualRatePct: 6.53, termMonths: 120 },
+    // ── Centralised via dataStore ─────────────────────────────────────────────
+    defaults: { amount: 27000, annualRatePct: getFinanceValue("studentLoanRate"), termMonths: 120 },
     rateHint: "Federal undergrad rate 2025: 6.53%",
     amountLabel: "Total loan balance",
     amountStep: 1000,

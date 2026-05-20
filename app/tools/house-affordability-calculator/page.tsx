@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import HouseAffordabilityWithInsights from "@/components/worthcore/HouseAffordabilityWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -106,7 +106,7 @@ export default function HouseAffordabilityCalculator() {
         description="Enter your gross monthly income, down payment, mortgage rate, and loan term to find your maximum home price using the 28% income rule."
         chips={["Max home price", "Monthly payment cap", "28% income rule"]}
       >
-        <CalculatorEngineLoader slug="house-affordability-calculator" />
+        <HouseAffordabilityWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Most lenders cap your mortgage payment at 28% of gross income — but conservative buyers target 25% of take-home pay." />
       <StatChipsRow stats={STATS} />

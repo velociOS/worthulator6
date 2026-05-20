@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import LifeInWeeksWithInsights from "@/components/worthcore/LifeInWeeksWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -106,7 +106,7 @@ export default function LifeInWeeksCalculator() {
         description="Enter your age and life expectancy to see your life broken down into weeks — how many you have lived, how many remain, and what percentage of your life you have used."
         chips={["Weeks remaining", "Weeks lived", "% of life used"]}
       >
-        <CalculatorEngineLoader slug="life-in-weeks-calculator" />
+        <LifeInWeeksWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="An 80-year life is just 4,160 weeks. Make each one count." />
       <StatChipsRow stats={STATS} />

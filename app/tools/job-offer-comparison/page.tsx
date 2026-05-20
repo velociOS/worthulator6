@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import JobOfferComparisonWithInsights from "@/components/worthcore/JobOfferComparisonWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -118,7 +117,7 @@ export default function JobOfferComparison() {
         description="Go beyond base salary. Compare two job offers on total effective compensation — including benefits value, commute costs, and real take-home."
         chips={["Salary + benefits", "Commute costs deducted", "True gap shown"]}
       >
-        <CalculatorEngineLoader slug="job-offer-comparison" afterResults={<InsightsSection slug="job-offer-comparison" />} />
+        <JobOfferComparisonWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="A job with lower salary but no commute and better benefits often wins on total compensation." />
       <StatChipsRow stats={STATS} />

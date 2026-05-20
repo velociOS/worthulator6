@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import EvVsGasWithInsights from "@/components/worthcore/EvVsGasWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -112,7 +112,7 @@ export default function EvVsGas() {
         description="Compare annual fuel costs between your current gas car and an EV. Enter your miles driven, MPG, gas price, and local electricity rate."
         chips={["Miles-based calculation", "Real electricity rate", "Annual savings"]}
       >
-        <CalculatorEngineLoader slug="ev-vs-gas" afterResults={<InsightsSection slug="ev-vs-gas" />} />
+        <EvVsGasWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The average EV driver saves $900–$1,500 per year in fuel vs a comparable gas car." />
       <StatChipsRow stats={STATS} />

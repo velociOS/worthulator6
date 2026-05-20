@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import SolarRoiWithInsights from "@/components/worthcore/SolarRoiWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -112,7 +111,7 @@ export default function SolarRoi() {
         description="Calculate your solar payback period, first-year savings, and 25-year total savings. Factors in utility inflation for an accurate long-term picture."
         chips={["Payback period", "Year 1 savings", "25-year total"]}
       >
-        <CalculatorEngineLoader slug="solar-roi" afterResults={<InsightsSection slug="solar-roi" />} />
+        <SolarRoiWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="With the 30% federal tax credit, a typical solar system pays itself back in 6–9 years — then saves money for 15+ more." />
       <StatChipsRow stats={STATS} />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import MissedInvestmentWithInsights from "@/components/worthcore/MissedInvestmentWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -120,7 +119,7 @@ export default function MissedInvestmentCalculatorPage() {
         description="Enter any past purchase and see what it would be worth today if you had invested it instead — powered by real compound interest math."
         chips={["Worth today", "Total gain missed", "Multiplier on original amount"]}
       >
-        <CalculatorEngineLoader slug="missed-investment" afterResults={<InsightsSection slug="missed-investment" />} />
+        <MissedInvestmentWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text='Every dollar spent is a dollar not compounding — <span class="font-semibold text-gray-900">at 10% annual return, $1,000 spent today costs you $17,000 over 30 years.</span>' />
       <StatChipsRow stats={STATS} />

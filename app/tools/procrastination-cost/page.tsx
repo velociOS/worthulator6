@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import ProcrastinationCostWithInsights from "@/components/worthcore/ProcrastinationCostWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -55,7 +55,7 @@ export default function ProcrastinationCostCalculator() {
         description="Enter your daily wasted hours and hourly value to see the real annual cost of putting things off — plus what that money would be worth invested over 10 years."
         chips={["Annual earnings lost", "Weekly cost", "10-year compound loss"]}
       >
-        <CalculatorEngineLoader slug="procrastination-cost" />
+        <ProcrastinationCostWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Two hours of daily procrastination at $40/hr costs $20,000/year in lost earnings — and $207,000 over 10 years when compounded." />
       <StatChipsRow stats={STATS} />

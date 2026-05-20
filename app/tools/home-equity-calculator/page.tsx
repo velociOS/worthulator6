@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import HomeEquityWithInsights from "@/components/worthcore/HomeEquityWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -55,7 +55,7 @@ export default function HomeEquityCalculator() {
         description="Enter your home's current value and mortgage balance to see how much equity you've built, your LTV ratio, and how much you could potentially borrow."
         chips={["Equity amount", "Loan-to-value ratio", "Max borrowable"]}
       >
-        <CalculatorEngineLoader slug="home-equity-calculator" />
+        <HomeEquityWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Homeowners currently hold a record $32 trillion in equity — but most don't know exactly how much they own or what they could access." />
       <StatChipsRow stats={STATS} />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import SelfEmployedTaxWithInsights from "@/components/worthcore/SelfEmployedTaxWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -118,7 +117,7 @@ export default function SelfEmployedTax() {
         description="Estimate your self-employment tax, federal income tax, quarterly payment amount, and exactly how much to set aside each month."
         chips={["SE tax formula", "Quarterly payments", "Monthly reserve"]}
       >
-        <CalculatorEngineLoader slug="self-employed-tax" afterResults={<InsightsSection slug="self-employed-tax" />} />
+        <SelfEmployedTaxWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Self-employed workers pay 15.3% SE tax on top of income tax — most first-year freelancers underestimate this." />
       <StatChipsRow stats={STATS} />

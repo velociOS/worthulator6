@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import { WeddingCostWithInsights } from "@/components/worthcore/WeddingCostWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -105,7 +105,7 @@ export default function WeddingCostCalculator() {
         description="Enter your guest count, catering, venue, photography, and extras to see your total wedding cost and all-in price per guest."
         chips={["Total wedding cost", "Cost per guest", "Full budget breakdown"]}
       >
-        <CalculatorEngineLoader slug="wedding-cost-calculator" />
+        <WeddingCostWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The average US wedding costs $33,000 — guest count is the single biggest lever on your budget." />
       <StatChipsRow stats={STATS} />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import SalaryToHourlyWithInsights from "@/components/worthcore/SalaryToHourlyWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -110,7 +109,7 @@ export default function SalaryToHourlyCalculatorPage() {
         description="Convert your annual salary to hourly, daily, weekly, and monthly rates — enter your salary and hours per week for an instant breakdown."
         chips={["Hourly rate", "Daily & weekly rates", "Adjustable hours & weeks"]}
       >
-        <CalculatorEngineLoader slug="salary-to-hourly" afterResults={<InsightsSection slug="salary-to-hourly" />} />
+        <SalaryToHourlyWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text='Your stated hours matter — if you regularly work 50 hours on a 40-hour salary, <span class="font-semibold text-gray-900">your real hourly rate is 20% lower than it looks.</span>' />
       <StatChipsRow stats={STATS} />

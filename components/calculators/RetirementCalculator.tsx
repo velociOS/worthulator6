@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { getFinanceValue } from "@/lib/dataStore";
 import {
   AreaChart, Area, BarChart, Bar, LineChart, Line, ComposedChart,
   XAxis, YAxis, CartesianGrid, Tooltip, Legend,
@@ -266,9 +267,10 @@ const DEFAULT_INPUTS: RetirementInputs = {
   lifeExpectancy: 90,
   currentSavings: 25000,
   monthlyContribution: 600,
-  annualReturnRate: 7,
-  retirementReturnRate: 5,
-  inflationRate: 2.5,
+  // ── Centralised via dataStore ─────────────────────────────────────────────
+  annualReturnRate: getFinanceValue("stockMarketReturn"),  // dataStore.finance.stockMarketReturn
+  retirementReturnRate: 5,   // conservative post-retirement rate — not yet in dataStore
+  inflationRate: getFinanceValue("inflationRate"),         // dataStore.finance.inflationRate
   monthlyRetirementGoal: 4000,
   annualBonus: 0,
   socialSecurityMonthly: 0,

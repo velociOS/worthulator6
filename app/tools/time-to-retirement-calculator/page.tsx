@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import TimeToRetirementWithInsights from "@/components/worthcore/TimeToRetirementWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -106,7 +106,7 @@ export default function TimeToRetirementCalculator() {
         description="Enter your monthly expenses, savings, monthly savings, and expected return rate to calculate your FIRE number and exactly how many years until you can retire."
         chips={["FIRE number calculated", "Years to retire shown", "4% rule based"]}
       >
-        <CalculatorEngineLoader slug="time-to-retirement-calculator" />
+        <TimeToRetirementWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Your retirement target = <span class='font-semibold text-gray-900'>annual expenses × 25</span> — that's the portfolio that can sustain you indefinitely on the 4% rule." />
       <StatChipsRow stats={STATS} />

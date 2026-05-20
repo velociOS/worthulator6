@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import BiologicalAgeWithInsights from "@/components/worthcore/BiologicalAgeWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -113,7 +112,7 @@ export default function BiologicalAgeCalculator() {
         description="Answer a few lifestyle questions about sleep, exercise, BMI, and smoking to get an estimate of your biological age — and an ageing risk score you can actually improve."
         chips={["Lifestyle-based", "Biological age estimate", "Risk score"]}
       >
-        <CalculatorEngineLoader slug="biological-age-calculator" afterResults={<InsightsSection slug="biological-age-calculator" />} />
+        <BiologicalAgeWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Your biological age is not fixed — lifestyle changes can measurably reverse it." />
       <StatChipsRow stats={STATS} />

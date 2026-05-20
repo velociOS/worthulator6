@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import AlcoholCostWithInsights from "@/components/worthcore/AlcoholCostWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -113,7 +112,7 @@ export default function AlcoholCostCalculator() {
         description="Enter your weekly drinks and average cost per drink to see your annual spend, 10-year total, and what that money would be worth invested instead."
         chips={["Annual spend", "10-year total", "Investment opportunity cost"]}
       >
-        <CalculatorEngineLoader slug="alcohol-cost-calculator" afterResults={<InsightsSection slug="alcohol-cost-calculator" />} />
+        <AlcoholCostWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The true cost of drinking is what you spend, plus what you never invest." />
       <StatChipsRow stats={STATS} />

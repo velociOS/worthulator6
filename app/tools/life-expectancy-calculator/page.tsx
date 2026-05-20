@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import LifeExpectancyWithInsights from "@/components/worthcore/LifeExpectancyWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -55,7 +55,7 @@ export default function LifeExpectancyCalculator() {
         description="See your estimated life expectancy based on age, smoking status, exercise habits, and BMI. Not a medical tool — a planning tool. Use it to make the years count."
         chips={["Estimated lifespan", "Years remaining", "Weeks remaining"]}
       >
-        <CalculatorEngineLoader slug="life-expectancy-calculator" />
+        <LifeExpectancyWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Regular exercise adds 3–7 years of life expectancy. Not smoking adds 10. The choices compound just like money does." />
       <StatChipsRow stats={STATS} />

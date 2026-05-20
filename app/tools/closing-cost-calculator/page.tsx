@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import ClosingCostWithInsights from "@/components/worthcore/ClosingCostWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -106,7 +106,7 @@ export default function ClosingCostCalculator() {
         description="Enter the home purchase price and a closing cost percentage to instantly see your estimated closing costs and a realistic low-to-high range."
         chips={["Estimated closing costs", "Low estimate", "High estimate"]}
       >
-        <CalculatorEngineLoader slug="closing-cost-calculator" />
+        <ClosingCostWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Closing costs catch many first-time buyers off guard — budget 2–5% of the purchase price on top of your down payment." />
       <StatChipsRow stats={STATS} />

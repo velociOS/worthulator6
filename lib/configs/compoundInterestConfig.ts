@@ -1,4 +1,5 @@
 // ─── Compound Interest Calculator Config ────────────────────────────────────
+import { getFinanceValue } from "@/lib/dataStore";
 
 export interface CompoundInterestConfig {
   defaults: {
@@ -15,7 +16,8 @@ export const compoundInterestConfig: CompoundInterestConfig = {
   defaults: {
     principal: 10000,
     monthlyContribution: 200,
-    annualRatePct: 7,
+    // ── Centralised via dataStore ───────────────────────────────────────────
+    annualRatePct: getFinanceValue("stockMarketReturn"),  // dataStore.finance.stockMarketReturn
     years: 20,
   },
   compoundingOptions: [

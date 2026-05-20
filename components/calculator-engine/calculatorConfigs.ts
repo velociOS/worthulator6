@@ -22,6 +22,12 @@ import { US_CONSTRUCTION_PRICING } from "@/data/us/construction/pricing";
 import { UK_BAG_YIELDS, MM_TO_METRES_DIVISOR, M3_DIVISOR, GRAVEL_DENSITY_KG_PER_M3, KG_PER_TONNE } from "@/data/uk/construction/constants";
 import { UK_CONSTRUCTION_PRICING } from "@/data/uk/construction/pricing";
 
+// ─── WorthCore assumption defaults ───────────────────────────────────────────
+import { WCD } from "@/lib/worthcoreDefaults";
+
+// ─── Regional benchmarks (contextual intelligence) ───────────────────────────
+import { getRegionalBenchmarks, US_STATE_OPTIONS } from "@/lib/datasets/regional/usRegionalBenchmarks";
+
 // ─── Shared formatting helpers ───────────────────────────────────────────────
 
 /** Converts decimal hours (e.g. 22.75) to "10:45 pm" */
@@ -440,10 +446,14 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
         remaining = remaining + interest - payment;
         months++;
       }
-      const totalPaid      = months < 600 ? months * payment : 0;
-      const totalInterest  = months < 600 ? totalPaid - balance : 0;
-      const interestOfTotal = totalPaid > 0 ? (totalInterest / totalPaid) * 100 : 0;
-      return { monthsToPayoff: months, totalInterest, totalPaid, interestOfTotal };
+      const totalPaid           = months < 600 ? months * payment : 0;
+      const totalInterest       = months < 600 ? totalPaid - balance : 0;
+      const interestOfTotal     = totalPaid > 0 ? (totalInterest / totalPaid) * 100 : 0;
+      const interestToBalanceRatio = balance > 0 ? totalInterest / balance : 0;
+      const yearsToPayoff       = months < 600 ? months / 12 : 0;
+      const dailyInterestCost   = (balance * Number(inputs.apr) / 100) / 365;
+      return { monthsToPayoff: months, totalInterest, totalPaid, interestOfTotal,
+               interestToBalanceRatio, yearsToPayoff, dailyInterestCost };
     },
     insight: (i, o) => {
       if ((o.monthsToPayoff ?? 0) >= 600)
@@ -479,12 +489,16 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const years   = Number(inputs.yearsAgo);
       const fv      = amount * Math.pow(1 + rate, years);
       const gain    = fv - amount;
+      const futureProjection = Math.round(fv * Math.pow(1 + rate, 20));
+      const weeklyLoss       = Math.round(gain / Math.max(years * 52, 1));
       return {
-        currentValue:      fv,
-        totalGain:         gain,
-        multiplier:        fv / amount,
-        growthLostPct:     (gain / amount) * 100,
-        monthlyEquivalent: gain / Math.max(years * 12, 1),
+        currentValue:      Math.round(fv),
+        totalGain:         Math.round(gain),
+        multiplier:        Math.round(fv / amount * 100) / 100,
+        growthLostPct:     Math.round((gain / amount) * 100 * 10) / 10,
+        monthlyEquivalent: Math.round(gain / Math.max(years * 12, 1)),
+        futureProjection,
+        weeklyLoss,
       };
     },
     insight: (i, o) =>
@@ -671,7 +685,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { name: "goalAmount",     label: "Savings goal",      unit: "$", type: "slider", min: 1000,  max: 100000, step: 1000, default: 20000, hint: "e.g. down payment, emergency fund, holiday", quickPicks: [5000, 10000, 20000, 50000] },
       { name: "currentSavings", label: "Current savings",   unit: "$", type: "slider", min: 0,     max: 50000,  step: 500,  default: 2000,  quickPicks: [0, 1000, 5000, 10000] },
       { name: "years",          label: "Years to goal",                type: "slider", min: 1,     max: 30,     step: 1,    default: 3,     quickPicks: [1, 2, 3, 5, 10] },
-      { name: "annualReturn",   label: "Annual return",     unit: "%", type: "slider", min: 0,     max: 15,     step: 0.5,  default: 4,     hint: "High-yield savings: 4-5%  Stocks: 7-10%", quickPicks: [0, 2, 4, 7, 10] },
+      { name: "annualReturn",   label: "Annual return",     unit: "%", type: "slider", min: 0,     max: 15,     step: 0.5,  default: WCD.savingsRate,        hint: "High-yield savings: 4-5%  Stocks: 7-10%", quickPicks: [0, 2, 4, 7, 10] },
     ],
     outputs: [
       { key: "monthlyContribution", label: "Monthly savings needed",   format: "currency",                  highlight: true, sublabel: (i) => `Over ${i.years} yr(s) at ${i.annualReturn}% return` },
@@ -690,11 +704,16 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       else { mc = Math.max(0, (fv - pvGrown) / ((Math.pow(1 + r, n) - 1) / r)); }
       const totalContributed = mc * n;
       const interestEarned   = Math.max(0, fv - pv - totalContributed);
+      const interestToContribRatio = totalContributed > 0 ? interestEarned / totalContributed : 0;
       return {
         monthlyContribution: mc,
         totalContributed,
         interestEarned,
         interestSharePct: fv > 0 ? (interestEarned / fv) * 100 : 0,
+        // ── WorthCore intelligence outputs ──
+        interestToContribRatio: Math.round(interestToContribRatio * 100) / 100,
+        annualSavingsRequired:  Math.round(mc * 12),
+        goalYears:              Number(inputs.years),
       };
     },
     insight: (i, o) =>
@@ -712,7 +731,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { name: "vehiclePrice",  label: "Vehicle price",         unit: "$", type: "slider", min: 5000, max: 100000, step: 500,  default: 28000, quickPicks: [15000, 20000, 28000, 40000, 60000] },
       { name: "downPayment",   label: "Down payment",          unit: "$", type: "slider", min: 0,    max: 20000,  step: 500,  default: 3000,  hint: "Larger down = lower payments", quickPicks: [0, 1000, 3000, 5000, 10000] },
       { name: "tradeIn",       label: "Trade-in value",        unit: "$", type: "slider", min: 0,    max: 20000,  step: 500,  default: 0,     quickPicks: [0, 2000, 5000, 8000] },
-      { name: "interestRate",  label: "Annual interest rate",  unit: "%", type: "slider", min: 0.5,  max: 25,     step: 0.5,  default: 7,     hint: "Avg new car APR 2026 is ~7-9%", quickPicks: [3, 5, 7, 9, 12] },
+      { name: "interestRate",  label: "Annual interest rate",  unit: "%", type: "slider", min: 0.5,  max: 25,     step: 0.5,  default: WCD.autoLoanRate,       hint: "Avg new car APR 2026 is ~7-9%", quickPicks: [3, 5, 7, 9, 12] },
       {
         name: "termMonths", label: "Loan term", unit: "months", type: "select", default: 60,
         options: [
@@ -736,9 +755,17 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const totalPaid     = mp * n;
       const totalInterest = totalPaid - loanAmount;
       const totalCost     = totalPaid + Number(inputs.downPayment) + Number(inputs.tradeIn);
+      // ── Phase 6C: structured intelligence outputs ──────────────────────────
+      const downPaymentRatio   = Number(inputs.vehiclePrice) > 0
+        ? (Number(inputs.downPayment) / Number(inputs.vehiclePrice)) * 100 : 0;
+      const interestMultiplier = loanAmount > 0 ? totalPaid / loanAmount : 1;
+      const annualPaymentBurden = mp * 12;
       return {
         loanAmount, monthlyPayment: mp, totalInterest, totalCost,
-        interestPct: totalCost > 0 ? (totalInterest / totalCost) * 100 : 0,
+        interestPct:          totalCost > 0 ? (totalInterest / totalCost) * 100 : 0,
+        downPaymentRatio:     Math.round(downPaymentRatio * 10) / 10,
+        interestMultiplier:   Math.round(interestMultiplier * 1000) / 1000,
+        annualPaymentBurden:  Math.round(annualPaymentBurden),
       };
     },
     insight: (i, o) =>
@@ -770,12 +797,16 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
                       Number(inputs.fitness) + Number(inputs.newsMedia) + Number(inputs.other);
       const r = 0.07 / 12;
       const n10 = 120;
+      const n20 = 240;
       const investedValue10 = monthly * ((Math.pow(1 + r, n10) - 1) / r);
+      const investedValue20 = Math.round(monthly * ((Math.pow(1 + r, n20) - 1) / r));
+      const dailyCost       = Math.round(monthly / 30 * 100) / 100;
       return {
         monthlyTotal:    monthly,
         annualTotal:     monthly * 12,
         twentyYearCost:  monthly * 12 * 20,
         investedValue10,
+        investedValue20, dailyCost,
       };
     },
     insight: (_, o) =>
@@ -792,7 +823,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     inputs: [
       { name: "distanceMiles", label: "One-way distance",    unit: "miles",  type: "slider", min: 10,  max: 3000, step: 10,   default: 300, hint: "One-way — we calculate both directions", quickPicks: [100, 200, 300, 500, 1000] },
       { name: "mpg",           label: "Fuel efficiency",     unit: "MPG",    type: "slider", min: 10,  max: 60,   step: 1,    default: 30,  hint: "Use your real-world average (not EPA)", quickPicks: [15, 20, 25, 30, 35, 40] },
-      { name: "fuelPrice",     label: "Gas price",           unit: "$/gal",  type: "slider", min: 2,   max: 7,    step: 0.05, default: 3.5, hint: "Current average US gas price", quickPicks: [2.5, 3.0, 3.5, 4.0, 4.5] },
+      { name: "fuelPrice",     label: "Gas price",           unit: "$/gal",  type: "slider", min: 2,   max: 7,    step: 0.05, default: WCD.fuelPricePerGallon, hint: "Current average US gas price", quickPicks: [2.5, 3.0, 3.5, 4.0, 4.5] },
       { name: "tolls",         label: "Estimated tolls",     unit: "$",      type: "slider", min: 0,   max: 100,  step: 5,    default: 0,   hint: "Round-trip toll estimate", quickPicks: [0, 10, 20, 40, 60] },
       { name: "passengers",    label: "Passengers for split",               type: "slider", min: 1,   max: 6,    step: 1,    default: 1,   quickPicks: [1, 2, 3, 4] },
     ],
@@ -1070,13 +1101,24 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "monthlyIncrease", label: "Monthly increase", format: "currency", sublabel: () => "More per month" },
     ],
     calculate: (inputs) => {
-      const current = Number(inputs.currentSalary);
-      const pct     = Number(inputs.raisePercent);
+      const current   = Number(inputs.currentSalary);
+      const pct       = Number(inputs.raisePercent);
       const newSalary = current * (1 + pct / 100);
+      const annualIncrease    = Math.round(newSalary - current);
+      const monthlyIncrease   = Math.round((newSalary - current) / 12);
+      const US_INFLATION      = 3.5;
+      const realRaisePercent  = Math.round((pct - US_INFLATION) * 10) / 10;
+      const inflationAdjustedGain = Math.round(annualIncrease - current * (US_INFLATION / 100));
+      const fiveYearCumulativeLoss = realRaisePercent < 0
+        ? Math.round(Math.abs(inflationAdjustedGain) * 5)
+        : 0;
       return {
         newSalary:       Math.round(newSalary),
-        annualIncrease:  Math.round(newSalary - current),
-        monthlyIncrease: Math.round((newSalary - current) / 12),
+        annualIncrease,
+        monthlyIncrease,
+        realRaisePercent,
+        inflationAdjustedGain,
+        fiveYearCumulativeLoss,
       };
     },
     insight: (i, o) =>
@@ -1246,13 +1288,19 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const fireNum  = monthly * 12 * 25;
       let balance    = savings;
       let months     = 0;
-      while (balance < fireNum && months < 1200) {
-        balance = balance * (1 + r) + contrib;
-        months++;
-      }
+      while (balance < fireNum && months < 1200) { balance = balance * (1 + r) + contrib; months++; }
+      const yearsToFire = months >= 1200 ? 100 : Math.round((months / 12) * 10) / 10;
+      // milestone outputs
+      const progressPercent  = fireNum > 0 ? Math.round(savings / fireNum * 1000) / 10 : 0;
+      const passiveIncomeNow = Math.round(savings * 0.04 / 12);
+      const annualReturnNow  = Math.round(savings * Number(inputs.annualReturn) / 100);
+      // faster-path: $500 extra/month
+      let bal3 = savings, mo3 = 0;
+      while (bal3 < fireNum && mo3 < 1200) { bal3 = bal3 * (1 + r) + contrib + 500; mo3++; }
+      const yearsFasterWith500 = months < 1200 ? Math.max(0, Math.round(((months - mo3) / 12) * 10) / 10) : 0;
       return {
-        fireNumber:  Math.round(fireNum),
-        yearsToFire: months >= 1200 ? 100 : Math.round((months / 12) * 10) / 10,
+        fireNumber: Math.round(fireNum), yearsToFire,
+        progressPercent, passiveIncomeNow, annualReturnNow, yearsFasterWith500,
       };
     },
     insight: (i, o) =>
@@ -1297,15 +1345,19 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const r       = Number(inputs.annualReturn) / 100 / 12;
       let balance   = savings;
       let months    = 0;
-      while (balance < 1_000_000 && months < 1200) {
-        balance = balance * (1 + r) + contrib;
-        months++;
-      }
+      while (balance < 1_000_000 && months < 1200) { balance = balance * (1 + r) + contrib; months++; }
       const totalContributed = savings + contrib * months;
+      const interestEarned   = Math.round(Math.max(0, balance - totalContributed));
+      const yearsToMillion   = months >= 1200 ? 100 : Math.round((months / 12) * 10) / 10;
+      const progressPercent  = Math.round(savings / 10000) / 10;
+      const marketContribPct = Math.round(interestEarned / 10000) / 10;
+      // $200 extra/month scenario
+      let bal2 = savings, mo2 = 0;
+      while (bal2 < 1_000_000 && mo2 < 1200) { bal2 = bal2 * (1 + r) + contrib + 200; mo2++; }
+      const yearsFasterWith200 = months < 1200 ? Math.max(0, Math.round(((months - mo2) / 12) * 10) / 10) : 0;
       return {
-        yearsToMillion:   months >= 1200 ? 100 : Math.round((months / 12) * 10) / 10,
-        totalContributed: Math.round(totalContributed),
-        interestEarned:   Math.round(Math.max(0, balance - totalContributed)),
+        yearsToMillion, totalContributed: Math.round(totalContributed), interestEarned,
+        progressPercent, marketContribPct, yearsFasterWith200,
       };
     },
     insight: (i, o) =>
@@ -1403,6 +1455,10 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
         dailyRate:   Math.round(hourly * (hrs / 5) * 100) / 100,
         weeklyRate:  Math.round(hourly * hrs),
         monthlyRate: Math.round(annual / 12),
+        // ── WorthCore intelligence outputs ──
+        hoursPerYear:   Math.round(hrs * wks),
+        perMinuteRate:  Math.round((hourly / 60) * 1000) / 1000,
+        minutesPerDollar: hourly > 0 ? Math.round((60 / hourly) * 10) / 10 : 0,
       };
     },
     insight: (i, o) =>
@@ -1478,7 +1534,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       },
       {
         name: "gasPrice",       label: "Gas price",           unit: "$",   type: "slider",
-        min: 2, max: 7, step: 0.1, default: 3.5,
+        min: 2, max: 7, step: 0.1, default: WCD.fuelPricePerGallon,
         hint: "Current price per gallon at your local station",
         quickPicks: [2.5, 3, 3.5, 4, 5],
       },
@@ -1546,10 +1602,14 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const rate   = Number(inputs.hourlyRate);
       const hours  = Number(inputs.ptoHoursRemaining);
       const perDay = Number(inputs.hoursPerDay);
+      const daysRemaining  = Math.round((hours / perDay) * 10) / 10;
       return {
         cashValue:         Math.round(rate * hours),
-        daysRemaining:     Math.round((hours / perDay) * 10) / 10,
+        daysRemaining,
         weeklyEarningRate: Math.round(rate * perDay * 5),
+        // ── WorthCore intelligence outputs ──
+        dailyCashValue:  Math.round(rate * perDay),
+        ptoDaysAsWeeks:  Math.round((daysRemaining / 5) * 10) / 10,
       };
     },
     insight: (i, o) =>
@@ -1572,7 +1632,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       },
       {
         name: "packCost",      label: "Cost per pack",       unit: "$",   type: "slider",
-        min: 5, max: 20, step: 0.5, default: 10,
+        min: 5, max: 20, step: 0.5, default: WCD.cigarettePackPrice,
         hint: "Average cigarette pack price in your area",
         quickPicks: [6, 8, 10, 12, 15],
       },
@@ -1720,10 +1780,15 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const hours = Number(inputs.hoursPerDay);
       const rate  = Number(inputs.hourlyRate);
       const years = Number(inputs.yearsAhead);
+      const annualCost            = Math.round(hours * 365 * rate);
+      const totalCost             = annualCost * years;
+      const weeklyOpportunityCost = Math.round(hours * 7 * rate);
+      const investedValue         = Math.round(annualCost * ((Math.pow(1.07, years) - 1) / 0.07));
       return {
-        annualCost:   Math.round(hours * 365 * rate),
+        annualCost,
         weeklyHours:  Math.round(hours * 7 * 10) / 10,
         lifetimeDays: Math.round((hours * 365 * years) / 24 * 10) / 10,
+        totalCost, weeklyOpportunityCost, investedValue,
       };
     },
     insight: (i, o) =>
@@ -1739,7 +1804,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     label: "Latte Factor Calculator",
     inputs: [
       { name: "dailySpend",   label: "Daily spend",          unit: "$",   type: "slider", min: 1,  max: 20,     step: 0.5, default: 6,    hint: "Coffee, snacks, or any small daily habit",               quickPicks: [3, 5, 6, 8, 10] },
-      { name: "annualReturn", label: "Annual return",        unit: "%",   type: "slider", min: 3,  max: 12,     step: 0.5, default: 7,    hint: "Historical S&P 500 avg ~7% inflation-adjusted",           quickPicks: [4, 5, 7, 9, 10] },
+      { name: "annualReturn", label: "Annual return",        unit: "%",   type: "slider", min: 3,  max: 12,     step: 0.5, default: WCD.stockMarketReturn,  hint: "Historical S&P 500 avg ~7% inflation-adjusted",           quickPicks: [4, 5, 7, 9, 10] },
       { name: "years",        label: "Investment horizon",   unit: "yrs", type: "slider", min: 1,  max: 40,     step: 1,   default: 30,   hint: "How long you'd invest instead of spending",               quickPicks: [10, 15, 20, 30, 40] },
     ],
     outputs: [
@@ -1775,9 +1840,26 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "extraHoursPerYear", label: "Unpaid hours/year",   format: "integer",                   sublabel: () => "Commute + decompression annually" },
     ],
     calculate: (inputs) => {
-      const s = Number(inputs.salary), c = Number(inputs.hoursPerWeek) * 52;
-      const comm = Number(inputs.commuteHrsDay) * 2 * 5 * 52, dec = Number(inputs.decompressHrs) * 5 * 52;
-      return { trueHourly: Math.round(s / (c + comm + dec) * 100) / 100, advertisedHourly: Math.round(s / c * 100) / 100, extraHoursPerYear: Math.round(comm + dec) };
+      const s = Number(inputs.salary);
+      const c = Number(inputs.hoursPerWeek) * 52;
+      const comm = Number(inputs.commuteHrsDay) * 2 * 5 * 52;
+      const dec  = Number(inputs.decompressHrs) * 5 * 52;
+      const trueHourly       = Math.round(s / (c + comm + dec) * 100) / 100;
+      const advertisedHourly = Math.round(s / c * 100) / 100;
+      const extraHoursPerYear = Math.round(comm + dec);
+      const hourlyLoss = Math.round((advertisedHourly - trueHourly) * 100) / 100;
+      const trueVsAdvertisedRatio = advertisedHourly > 0
+        ? Math.round((trueHourly / advertisedHourly) * 100) / 100 : 1;
+      const timeRobbedWeeks = Math.round((extraHoursPerYear / 40) * 10) / 10;
+      return {
+        trueHourly,
+        advertisedHourly,
+        extraHoursPerYear,
+        // ── WorthCore intelligence outputs ──
+        hourlyLoss,
+        trueVsAdvertisedRatio,
+        timeRobbedWeeks,
+      };
     },
     insight: (i, o) =>
       `Paid $${o.advertisedHourly}/hr on paper — true rate is $${o.trueHourly}/hr once ${o.extraHoursPerYear} unpaid hours/year are counted.`,
@@ -1792,7 +1874,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     inputs: [
       { name: "milesPerYear", label: "Miles per year",       unit: "mi",        type: "slider", min: 1000, max: 30000, step: 500,  default: 12000, hint: "Average US driver ~13,500 miles/year",       quickPicks: [6000, 10000, 12000, 15000, 20000] },
       { name: "mpg",          label: "Gas car MPG",                             type: "slider", min: 10,   max: 55,    step: 1,    default: 28,    hint: "Average new car ~28 MPG",                   quickPicks: [15, 22, 28, 35, 45] },
-      { name: "gasPrice",     label: "Gas price",            unit: "$/gal",     type: "slider", min: 2,    max: 6,     step: 0.1,  default: 3.5,   hint: "Current price per gallon",                  quickPicks: [2.5, 3.0, 3.5, 4.0, 4.5] },
+      { name: "gasPrice",     label: "Gas price",            unit: "$/gal",     type: "slider", min: 2,    max: 6,     step: 0.1,  default: WCD.fuelPricePerGallon, hint: "Current price per gallon",                  quickPicks: [2.5, 3.0, 3.5, 4.0, 4.5] },
       { name: "kwhPer100mi",  label: "EV efficiency",        unit: "kWh/100mi", type: "slider", min: 20,   max: 50,    step: 1,    default: 30,    hint: "Most EVs use 25-35 kWh per 100 miles",      quickPicks: [24, 28, 30, 34, 40] },
       { name: "electricRate", label: "Electricity rate",     unit: "$/kWh",     type: "slider", min: 0.08, max: 0.40,  step: 0.01, default: 0.15,  hint: "US avg ~$0.13-0.16/kWh",                   quickPicks: [0.10, 0.13, 0.15, 0.18, 0.25] },
     ],
@@ -1802,9 +1884,36 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "annualEvCost",  label: "Annual EV fuel cost",    format: "currency",                  sublabel: () => "Home charging cost only" },
     ],
     calculate: (inputs) => {
-      const gas = (Number(inputs.milesPerYear) / Number(inputs.mpg)) * Number(inputs.gasPrice);
-      const ev  = (Number(inputs.milesPerYear) / 100) * Number(inputs.kwhPer100mi) * Number(inputs.electricRate);
-      return { annualSavings: Math.round(gas - ev), annualGasCost: Math.round(gas), annualEvCost: Math.round(ev) };
+      const miles = Number(inputs.milesPerYear);
+      const gas   = (miles / Number(inputs.mpg)) * Number(inputs.gasPrice);
+      const ev    = (miles / 100) * Number(inputs.kwhPer100mi) * Number(inputs.electricRate);
+      const annualSavings = Math.round(gas - ev);
+      // ── Phase 6C: structured intelligence outputs ──────────────────────────
+      const gasCostPerMile  = Number(inputs.mpg) > 0
+        ? Math.round((Number(inputs.gasPrice) / Number(inputs.mpg)) * 10000) / 10000 : 0;
+      const evCostPerMile   = miles > 0
+        ? Math.round((ev / miles) * 10000) / 10000 : 0;
+      const breakEvenYears  = annualSavings > 0
+        ? Math.round((7500 / annualSavings) * 10) / 10 : 99;
+      // ── Phase 7D: inflation + maintenance advantage ───────────────────────
+      let fuelInflated10yr = 0;
+      for (let i = 0; i < 10; i++) { fuelInflated10yr += Math.max(0, (gas * Math.pow(1.04, i)) - ev); }
+      const fuelInflationSavings10yr = Math.round(fuelInflated10yr);
+      const maintenanceSavings10yr   = 8000; // EV saves ~$800/yr vs ICE on maintenance
+      const totalAdvantage10yr       = fuelInflationSavings10yr + maintenanceSavings10yr;
+      return {
+        annualSavings,
+        annualGasCost:   Math.round(gas),
+        annualEvCost:    Math.round(ev),
+        fiveYearSavings: annualSavings * 5,
+        tenYearSavings:  annualSavings * 10,
+        breakEvenYears,
+        gasCostPerMile,
+        evCostPerMile,
+        fuelInflationSavings10yr,
+        maintenanceSavings10yr,
+        totalAdvantage10yr,
+      };
     },
     insight: (i, o) =>
       `Driving ${Number(i.milesPerYear).toLocaleString()} miles/yr in an EV saves $${(o.annualSavings ?? 0).toLocaleString()} vs a ${i.mpg} MPG gas car at $${i.gasPrice}/gal.`,
@@ -1829,11 +1938,26 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "totalGain",        label: "Total gain",         format: "currency",                  sublabel: () => "Growth and reinvested dividends combined" },
     ],
     calculate: (inputs) => {
-      const mr = (Number(inputs.dividendYield) + Number(inputs.priceGrowth)) / 100 / 12;
-      const mo = Number(inputs.years) * 12;
-      const fv = Number(inputs.initial) * Math.pow(1 + mr, mo) + (Number(inputs.monthlyAdd) > 0 ? Number(inputs.monthlyAdd) * ((Math.pow(1 + mr, mo) - 1) / mr) : 0);
-      const contrib = Math.round(Number(inputs.initial) + Number(inputs.monthlyAdd) * mo);
-      return { finalValue: Math.round(fv), totalContributed: contrib, totalGain: Math.round(fv) - contrib };
+      const totalRate  = (Number(inputs.dividendYield) + Number(inputs.priceGrowth)) / 100;
+      const mr         = totalRate / 12;
+      const mo         = Number(inputs.years) * 12;
+      const initial    = Number(inputs.initial);
+      const monthlyAdd = Number(inputs.monthlyAdd);
+      const fv = initial * Math.pow(1 + mr, mo) + (monthlyAdd > 0 ? monthlyAdd * ((Math.pow(1 + mr, mo) - 1) / mr) : 0);
+      const contrib = Math.round(initial + monthlyAdd * mo);
+      const totalGain  = Math.round(fv) - contrib;
+      const returnMultiple      = contrib > 0 ? Math.round((fv / contrib) * 100) / 100 : 1;
+      const annualDividendAtEnd = Math.round(fv * Number(inputs.dividendYield) / 100);
+      const doubleTimeYears     = totalRate > 0 ? Math.round((72 / (totalRate * 100)) * 10) / 10 : 0;
+      return {
+        finalValue:      Math.round(fv),
+        totalContributed: contrib,
+        totalGain,
+        // ── WorthCore intelligence outputs ──
+        returnMultiple,
+        annualDividendAtEnd,
+        doubleTimeYears,
+      };
     },
     insight: (i, o) =>
       `$${Number(i.initial).toLocaleString()} with $${i.monthlyAdd}/mo at ${i.dividendYield}% yield + ${i.priceGrowth}% growth compounds to $${(o.finalValue ?? 0).toLocaleString()} in ${i.years} years.`,
@@ -1857,9 +1981,26 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "remaining",      label: "Still to save",        format: "currency",                  sublabel: () => "After subtracting current savings" },
     ],
     calculate: (inputs) => {
-      const target = Number(inputs.homePrice) * Number(inputs.downPct) / 100;
-      const rem    = Math.max(0, target - Number(inputs.currentSaved));
-      return { monthlySavings: Math.round(rem / Number(inputs.months)), targetDown: Math.round(target), remaining: Math.round(rem) };
+      const homePrice    = Number(inputs.homePrice);
+      const downPct      = Number(inputs.downPct);
+      const currentSaved = Number(inputs.currentSaved);
+      const months       = Number(inputs.months);
+      const target   = homePrice * downPct / 100;
+      const rem      = Math.max(0, target - currentSaved);
+      const monthlySavings  = Math.round(rem / months);
+      const progressPercent = target > 0 ? Math.round((currentSaved / target) * 1000) / 10 : 100;
+      const fasterMonthsWith200 = rem > 0 && monthlySavings > 0
+        ? Math.max(0, months - Math.ceil(rem / (monthlySavings + 200)))
+        : 0;
+      const opportunityCostOfWaiting = Math.round(rem * 0.07 / 12 * months);
+      return {
+        monthlySavings,
+        targetDown:  Math.round(target),
+        remaining:   Math.round(rem),
+        progressPercent,
+        fasterMonthsWith200,
+        opportunityCostOfWaiting,
+      };
     },
     insight: (i, o) =>
       `A ${i.downPct}% down on $${Number(i.homePrice).toLocaleString()} = $${(o.targetDown ?? 0).toLocaleString()}. Save $${(o.monthlySavings ?? 0).toLocaleString()}/month for ${i.months} months.`,
@@ -1883,9 +2024,19 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "annualProfit",   label: "Annual profit",         format: "currency",                  sublabel: () => "Monthly net x 12" },
     ],
     calculate: (inputs) => {
-      const gross = Number(inputs.nightlyRate) * 30 * Number(inputs.occupancyPct) / 100;
-      const net   = gross * (1 - Number(inputs.platformFeePct) / 100) - Number(inputs.monthlyExpenses);
-      return { monthlyRevenue: Math.round(gross), monthlyProfit: Math.round(net), annualProfit: Math.round(net * 12) };
+      const gross    = Number(inputs.nightlyRate) * 30 * Number(inputs.occupancyPct) / 100;
+      const net      = gross * (1 - Number(inputs.platformFeePct) / 100) - Number(inputs.monthlyExpenses);
+      const breakEvenOcc     = Number(inputs.monthlyExpenses) /
+        Math.max(0.01, Number(inputs.nightlyRate) * 30 * (1 - Number(inputs.platformFeePct) / 100)) * 100;
+      const profitMarginPct  = gross > 0 ? Math.round(net / gross * 1000) / 10 : 0;
+      const tenYearProfit    = Math.round(net * 12 * 10);
+      const revenueToExpenseRatio = Number(inputs.monthlyExpenses) > 0
+        ? Math.round(gross / Number(inputs.monthlyExpenses) * 10) / 10 : 0;
+      return {
+        monthlyRevenue: Math.round(gross), monthlyProfit: Math.round(net), annualProfit: Math.round(net * 12),
+        breakEvenOcc: Math.round(breakEvenOcc * 10) / 10,
+        profitMarginPct, tenYearProfit, revenueToExpenseRatio,
+      };
     },
     insight: (i, o) =>
       `At $${i.nightlyRate}/night with ${i.occupancyPct}% occupancy, nets $${(o.monthlyProfit ?? 0).toLocaleString()}/month — $${(o.annualProfit ?? 0).toLocaleString()}/year.`,
@@ -1908,11 +2059,20 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "annualTaxEstimate", label: "Annual tax estimate",  format: "currency",                  sublabel: () => "Income + 15.3% self-employment tax" },
     ],
     calculate: (inputs) => {
-      const net   = Math.max(0, Number(inputs.grossIncome) - Number(inputs.businessExpenses));
-      const seTax = net * 0.9235 * 0.153;
-      const fed   = (net - seTax / 2) * Number(inputs.federalRate) / 100;
-      const total = Math.round(seTax + fed);
-      return { annualTaxEstimate: total, quarterlyPayment: Math.round(total / 4), monthlyReserve: Math.round(total / 12) };
+      const net          = Math.max(0, Number(inputs.grossIncome) - Number(inputs.businessExpenses));
+      const seTax        = net * 0.9235 * 0.153;
+      const fed          = (net - seTax / 2) * Number(inputs.federalRate) / 100;
+      const total        = seTax + fed;
+      const effectiveTaxRate = net > 0 ? Math.round(total / net * 1000) / 10 : 0;
+      const netAfterTax  = Math.round(net - total);
+      const netMonthly   = Math.round((net - total) / 12);
+      const seTaxAmount  = Math.round(seTax);
+      return {
+        annualTaxEstimate: Math.round(total),
+        quarterlyPayment:  Math.round(total / 4),
+        monthlyReserve:    Math.round(total / 12),
+        effectiveTaxRate, netAfterTax, netMonthly, seTaxAmount,
+      };
     },
     insight: (i, o) =>
       `On $${Number(i.grossIncome).toLocaleString()} gross with $${Number(i.businessExpenses).toLocaleString()} expenses, set aside $${(o.monthlyReserve ?? 0).toLocaleString()}/month for ~$${(o.annualTaxEstimate ?? 0).toLocaleString()} annual tax.`,
@@ -1938,9 +2098,18 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "difference",  label: "Annual gap (A minus B)",  format: "currency",                  sublabel: () => "Positive = Job A wins; negative = Job B" },
     ],
     calculate: (inputs) => {
-      const effA = Number(inputs.salaryA) + Number(inputs.benefitsValueA) - Number(inputs.commuteCostA);
-      const effB = Number(inputs.salaryB) + Number(inputs.benefitsValueB) - Number(inputs.commuteCostB);
-      return { effectiveA: Math.round(effA), effectiveB: Math.round(effB), difference: Math.round(effA - effB) };
+      const effA  = Number(inputs.salaryA) + Number(inputs.benefitsValueA) - Number(inputs.commuteCostA);
+      const effB  = Number(inputs.salaryB) + Number(inputs.benefitsValueB) - Number(inputs.commuteCostB);
+      const diff  = effA - effB;
+      const monthlyGap    = Math.round(diff / 12);
+      const fiveYearGap   = Math.round(diff * 5);
+      const tenYearGap    = Math.round(diff * 10);
+      const benefitsGap   = Math.round(Number(inputs.benefitsValueA) - Number(inputs.benefitsValueB));
+      const commuteGap    = Math.round(Number(inputs.commuteCostA) - Number(inputs.commuteCostB));
+      return {
+        effectiveA: Math.round(effA), effectiveB: Math.round(effB), difference: Math.round(diff),
+        monthlyGap, fiveYearGap, tenYearGap, benefitsGap, commuteGap,
+      };
     },
     insight: (i, o) =>
       `Job A: $${(o.effectiveA ?? 0).toLocaleString()} effective comp vs Job B: $${(o.effectiveB ?? 0).toLocaleString()} — $${Math.abs(o.difference ?? 0).toLocaleString()} in favour of ${(o.difference ?? 0) >= 0 ? "Job A" : "Job B"}.`,
@@ -1996,7 +2165,18 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const y1   = bill * 12 * off;
       let t25 = 0, a = y1;
       for (let y = 0; y < 25; y++) { t25 += a; a *= 1 + inf; }
-      return { paybackMonths: Math.round(cost / (y1 / 12)), year1Savings: Math.round(y1), savings25yr: Math.round(t25) };
+      const paybackMonths             = Math.round(cost / (y1 / 12));
+      const paybackYears              = Math.round(paybackMonths / 12 * 10) / 10;
+      const roiMultiple               = Math.round(t25 / cost * 100) / 100;
+      const profitYears               = Math.max(0, Math.round((25 - paybackYears) * 10) / 10);
+      const co2TonsPerYear            = Math.round(y1 / 0.15 * 0.85 / 2000 * 10) / 10;
+      const inflationProtectionValue  = Math.round(t25 - y1 * 25);
+      const gridIndependenceScore     = Math.round(Number(inputs.solarOffset));
+      const utilityBillIn10yrs        = Math.round(bill * Math.pow(1 + inf, 10));
+      const year25MonthlySaving       = Math.round(y1 / 12 * Math.pow(1 + inf, 24));
+      return { paybackMonths, year1Savings: Math.round(y1), savings25yr: Math.round(t25),
+               paybackYears, roiMultiple, profitYears, co2TonsPerYear,
+               inflationProtectionValue, gridIndependenceScore, utilityBillIn10yrs, year25MonthlySaving };
     },
     insight: (i, o) =>
       `A $${Number(i.systemCost).toLocaleString()} solar system pays back in ${o.paybackMonths} months and saves $${(o.savings25yr ?? 0).toLocaleString()} over 25 years.`,
@@ -2019,8 +2199,19 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "annualCost",  label: "Annual cost",  format: "currency",                  sublabel: () => "365 days" },
     ],
     calculate: (inputs) => {
-      const d = Number(inputs.watts) / 1000 * Number(inputs.hoursPerDay) * Number(inputs.electricRate);
-      return { dailyCost: Math.round(d * 100) / 100, monthlyCost: Math.round(d * 30 * 100) / 100, annualCost: Math.round(d * 365 * 100) / 100 };
+      const watts       = Number(inputs.watts);
+      const hoursPerDay = Number(inputs.hoursPerDay);
+      const rate        = Number(inputs.electricRate);
+      const d           = watts / 1000 * hoursPerDay * rate;
+      const annualCost  = Math.round(d * 365 * 100) / 100;
+      const tenYearCost = Math.round(annualCost * 10 * 100) / 100;
+      const coffeeEquivalent    = Math.round(annualCost / 5);
+      const asPercentMedianBill = Math.round(d * 30 / 150 * 1000) / 10;
+      let iAcc = 0, iYr = annualCost;
+      for (let i = 0; i < 10; i++) { iAcc += iYr; iYr *= 1.03; }
+      const inflatedCost10yr = Math.round(iAcc * 100) / 100;
+      return { dailyCost: Math.round(d * 100) / 100, monthlyCost: Math.round(d * 30 * 100) / 100,
+               annualCost, tenYearCost, coffeeEquivalent, asPercentMedianBill, inflatedCost10yr };
     },
     insight: (i, o) =>
       `Your ${i.watts}W device at ${i.hoursPerDay}h/day costs $${o.monthlyCost}/month — $${(o.annualCost ?? 0)} per year.`,
@@ -2170,17 +2361,25 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "confidenceScore", label: "Leverage score",      format: "decimal",  decimalPlaces: 0, unit: "/100", sublabel: () => "Based on experience, fit, and urgency" },
     ],
     calculate: (inputs) => {
-      const marketLow = Number(inputs.marketLow), marketHigh = Number(inputs.marketHigh);
-      const marketMid = (marketLow + marketHigh) / 2;
+      const marketLow  = Number(inputs.marketLow);
+      const marketHigh = Number(inputs.marketHigh);
+      const currentOffer = Number(inputs.currentOffer);
+      const marketMid  = (marketLow + marketHigh) / 2;
       const leverageScore =
         (Number(inputs.experienceYears) / 10) +
         (Number(inputs.skillMatch) / 100) +
         (inputs.offerUrgency === "high" ? 0.2 : 0);
-      const recommendedAsk = Math.max(marketMid, Number(inputs.currentOffer) * (1.1 + leverageScore * 0.05));
+      const recommendedAsk = Math.max(marketMid, currentOffer * (1.1 + leverageScore * 0.05));
+      const annualGap          = Math.round(recommendedAsk - currentOffer);
+      const percentageGap      = currentOffer > 0 ? Math.round((annualGap / currentOffer) * 1000) / 10 : 0;
+      const gapToMarketHigh    = Math.round(Math.max(0, marketHigh - currentOffer));
       return {
         marketMid: Math.round(marketMid),
         recommendedAsk: Math.round(recommendedAsk),
         confidenceScore: Math.min(leverageScore * 100, 100),
+        annualGap,
+        percentageGap,
+        gapToMarketHigh,
       };
     },
     insight: (i, o) =>
@@ -2209,10 +2408,15 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const expenses = monthlyRevenue * (Number(inputs.expensePct) / 100);
       const tax = (monthlyRevenue - expenses) * (Number(inputs.taxRate) / 100);
       const net = monthlyRevenue - expenses - tax;
+      const annualTaxPaid  = Math.round(tax * 12);
+      const fiveYearNet    = Math.round(net * 12 * 5);
       return {
-        netMonthly: Math.round(net),
-        yearlyNet: Math.round(net * 12),
+        netMonthly:      Math.round(net),
+        yearlyNet:       Math.round(net * 12),
         hourlyEffective: Math.round((net / (Number(inputs.hoursPerWeek) * 4.33)) * 100) / 100,
+        monthlyRevenue:  Math.round(monthlyRevenue),
+        annualTaxPaid,
+        fiveYearNet,
       };
     },
     insight: (i, o) =>
@@ -2235,13 +2439,16 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "investedValue", label: "Invested instead (10yr)", format: "currency",                  sublabel: () => "At 7% annual return over 10 years" },
     ],
     calculate: (inputs) => {
-      const weekly = Number(inputs.drinksPerWeek) * Number(inputs.costPerDrink);
-      const yearly = weekly * 52;
-      const tenYear = yearly * 10;
+      const weekly  = Number(inputs.drinksPerWeek) * Number(inputs.costPerDrink);
+      const yearly  = weekly * 52;
+      const weeklySpend          = Math.round(weekly);
+      const dailyCost            = Math.round(weekly / 7 * 100) / 100;
+      const twentyYearInvested   = Math.round(yearly * ((Math.pow(1.07, 20) - 1) / 0.07));
       return {
-        yearlyCost: Math.round(yearly),
-        tenYearCost: Math.round(tenYear),
+        yearlyCost:    Math.round(yearly),
+        tenYearCost:   Math.round(yearly * 10),
         investedValue: Math.round(yearly * ((Math.pow(1.07, 10) - 1) / 0.07)),
+        weeklySpend, dailyCost, twentyYearInvested,
       };
     },
     insight: (i, o) =>
@@ -2269,10 +2476,15 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const commuteCost = Number(inputs.dailyCommuteCost) * Number(inputs.officeDays) * 52;
       const foodCost = Number(inputs.dailyFood) * Number(inputs.officeDays) * 52;
       const yearly = commuteCost + foodCost;
+      const timeSavedHours = Math.round(Number(inputs.commuteMinutes) * 2 * Number(inputs.officeDays) * 52 / 60);
+      const tenYearSavings     = Math.round(yearly * 10);
+      const investedSavings10yr = Math.round(yearly * ((Math.pow(1.07, 10) - 1) / 0.07));
+      const hourlyValueRecovered = timeSavedHours > 0 ? Math.round(yearly / timeSavedHours) : 0;
       return {
         yearlySavings: Math.round(yearly),
         monthlySavings: Math.round(yearly / 12),
-        timeSavedHours: Math.round(Number(inputs.commuteMinutes) * 2 * Number(inputs.officeDays) * 52 / 60),
+        timeSavedHours,
+        tenYearSavings, investedSavings10yr, hourlyValueRecovered,
       };
     },
     insight: (i, o) =>
@@ -2304,9 +2516,22 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       if (Number(inputs.exercise) < 2) adjustment += 4;
       if (Number(inputs.smoker) === 1) adjustment += 8;
       if (Number(inputs.bmi) > 30)     adjustment += 6;
+      const biologicalAge = Number(inputs.age) + adjustment;
+      const ageDelta   = adjustment; // years older than chronological
+      const riskFactorCount =
+        (Number(inputs.sleep) < 6 ? 1 : 0) +
+        (Number(inputs.exercise) < 2 ? 1 : 0) +
+        (Number(inputs.smoker) === 1 ? 1 : 0) +
+        (Number(inputs.bmi) > 30 ? 1 : 0);
+      let improvementPotential = 0;
+      if (Number(inputs.sleep) < 6)    improvementPotential += 5;
+      if (Number(inputs.exercise) < 2) improvementPotential += 4;
+      if (Number(inputs.smoker) === 1) improvementPotential += 8;
+      if (Number(inputs.bmi) > 30)     improvementPotential += 6;
       return {
-        biologicalAge: Number(inputs.age) + adjustment,
+        biologicalAge,
         riskScore: Math.min(adjustment * 10, 100),
+        ageDelta, riskFactorCount, improvementPotential,
       };
     },
     insight: (i, o) =>
@@ -2358,9 +2583,14 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     ],
     calculate: (inputs) => {
       const yearly = Number(inputs.food) + Number(inputs.vet) + Number(inputs.insurance) + Number(inputs.misc);
+      const years  = Number(inputs.years);
+      const monthlyCost         = Math.round(yearly / 12);
+      const dailyCost           = Math.round(yearly / 365 * 100) / 100;
+      const investedAlternative = Math.round(yearly * ((Math.pow(1.07, years) - 1) / 0.07));
       return {
-        yearlyCost: yearly,
-        lifetimeCost: yearly * Number(inputs.years),
+        yearlyCost:   yearly,
+        lifetimeCost: yearly * years,
+        monthlyCost, dailyCost, investedAlternative,
       };
     },
     insight: (i, o) =>
@@ -2376,7 +2606,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     inputs: [
       { name: "current",  label: "Current savings",     unit: "$",  type: "slider", min: 0,      max: 2000000, step: 5000,  default: 100000,  hint: "Total invested assets today",                          quickPicks: [25000, 50000, 100000, 250000, 500000] },
       { name: "target",   label: "FIRE target",         unit: "$",  type: "slider", min: 100000, max: 5000000, step: 25000, default: 1500000, hint: "Your final retirement number (25× annual expenses)",   quickPicks: [500000, 1000000, 1500000, 2000000, 3000000] },
-      { name: "rate",     label: "Annual return",       unit: "%",  type: "slider", min: 1,      max: 15,      step: 0.5,   default: 7,       hint: "Expected annual investment return (7% is conservative)", quickPicks: [5, 6, 7, 8, 10] },
+      { name: "rate",     label: "Annual return",       unit: "%",  type: "slider", min: 1,      max: 15,      step: 0.5,   default: WCD.stockMarketReturn,  hint: "Expected annual investment return (7% is conservative)", quickPicks: [5, 6, 7, 8, 10] },
       { name: "years",    label: "Years until retirement", unit: "yrs", type: "slider", min: 1, max: 50,      step: 1,     default: 25,      hint: "How many years until your target retirement age",        quickPicks: [10, 15, 20, 25, 30, 35] },
     ],
     outputs: [
@@ -2386,11 +2616,20 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     calculate: (inputs) => {
       const r = Number(inputs.rate) / 100;
       const y = Number(inputs.years);
-      const coastValue = Number(inputs.current) * Math.pow(1 + r, y);
-      const requiredNow = Number(inputs.target) / Math.pow(1 + r, y);
+      const current = Number(inputs.current);
+      const target  = Number(inputs.target);
+      const coastValue  = current * Math.pow(1 + r, y);
+      const requiredNow = target  / Math.pow(1 + r, y);
+      const coastShortfall = Math.max(0, requiredNow - current);
+      const coastSurplus   = Math.max(0, current - requiredNow);
+      const coastRatio     = requiredNow > 0 ? current / requiredNow : 1;
       return {
-        coastValue: Math.round(coastValue),
-        requiredNow: Math.round(requiredNow),
+        coastValue:    Math.round(coastValue),
+        requiredNow:   Math.round(requiredNow),
+        // ── WorthCore intelligence outputs ──
+        coastShortfall: Math.round(coastShortfall),
+        coastSurplus:   Math.round(coastSurplus),
+        coastRatio:     Math.round(coastRatio * 100) / 100,
       };
     },
     insight: (i, o) =>
@@ -2405,7 +2644,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     label: "Credit Card Payoff Calculator",
     inputs: [
       { name: "balance", label: "Current balance",    unit: "$",  type: "slider", min: 100,   max: 100000, step: 100,  default: 5000,  hint: "Total credit card balance today",                              quickPicks: [1000, 2500, 5000, 10000, 20000] },
-      { name: "apr",     label: "Annual interest rate", unit: "%",type: "slider", min: 1,     max: 40,     step: 0.25, default: 22,    hint: "Your card's annual percentage rate (APR)",                      quickPicks: [15, 18, 22, 25, 30] },
+      { name: "apr",     label: "Annual interest rate", unit: "%",type: "slider", min: 1,     max: 40,     step: 0.25, default: WCD.creditCardAPR,      hint: "Your card's annual percentage rate (APR)",                      quickPicks: [15, 18, 22, 25, 30] },
       { name: "payment", label: "Monthly payment",    unit: "$",  type: "slider", min: 10,    max: 5000,   step: 10,   default: 200,   hint: "Fixed monthly payment above the minimum",                       quickPicks: [100, 150, 200, 300, 500] },
     ],
     outputs: [
@@ -2419,17 +2658,25 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       let interest = 0;
       const r = Number(inputs.apr) / 100 / 12;
       const pmt = Number(inputs.payment);
+      const originalBalance = Number(inputs.balance);
+      let firstMonthInterest = originalBalance * r;
       while (balance > 0 && months < 600) {
         const interestMonth = balance * r;
         interest += interestMonth;
         balance = balance + interestMonth - pmt;
         months++;
       }
-      const principalPaid = Number(inputs.balance);
+      const interestToBalanceRatio = originalBalance > 0 ? interest / originalBalance : 0;
+      const dailyInterestCost = (firstMonthInterest * 12) / 365;
       return {
         months,
-        interest: Math.round(interest),
-        totalPaid: Math.round(interest + principalPaid),
+        interest:               Math.round(interest),
+        totalPaid:              Math.round(interest + originalBalance),
+        // ── WorthCore intelligence outputs ──
+        dailyInterestCost:      Math.round(dailyInterestCost * 100) / 100,
+        monthlyInterestFirst:   Math.round(firstMonthInterest * 100) / 100,
+        interestToBalanceRatio: Math.round(interestToBalanceRatio * 100) / 100,
+        payoffYears:            Math.round((months / 12) * 10) / 10,
       };
     },
     insight: (i, o) =>
@@ -2452,11 +2699,18 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
         sublabel: (_, o) => o.burnoutRisk > 70 ? "⚠ High risk — act immediately" : o.burnoutRisk > 40 ? "Moderate risk — monitor your load" : "✓ Low risk — healthy balance" },
     ],
     calculate: (inputs) => {
+      const hours = Number(inputs.hours);
+      const stress = Number(inputs.stress);
+      const sleep  = Number(inputs.sleep);
       const score =
-        (Number(inputs.hours) / 60) * 40 +
-        (Number(inputs.stress) / 10) * 30 +
-        (Number(inputs.sleep) < 6 ? 20 : 0);
-      return { burnoutRisk: Math.min(Math.round(score), 100) };
+        (hours / 60) * 40 +
+        (stress / 10) * 30 +
+        (sleep < 6 ? 20 : 0);
+      const burnoutRisk          = Math.min(Math.round(score), 100);
+      const overworkHoursPerYear = Math.max(0, hours - 40) * 52;
+      const sleepDebtWeekly      = Math.max(0, 8 - sleep) * 7;
+      const recoveryWeeksNeeded  = Math.round(burnoutRisk / 25);
+      return { burnoutRisk, overworkHoursPerYear, sleepDebtWeekly, recoveryWeeksNeeded };
     },
     insight: (i, o) =>
       `At ${i.hours} hours/week, stress level ${i.stress}/10, and ${i.sleep}hrs sleep — your burnout risk score is ${o.burnoutRisk}/100.`,
@@ -2477,11 +2731,17 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "invested",   label: "Invested instead (5yr)",   format: "currency",                  sublabel: () => "At 7% annual return over 5 years" },
     ],
     calculate: (inputs) => {
-      const yearly = Number(inputs.dailyCost) * 365;
+      const daily  = Number(inputs.dailyCost);
+      const yearly = daily * 365;
+      const weeklySpend  = Math.round(daily * 7);
+      const monthlySpend = Math.round(daily * 30);
+      const tenYear      = Math.round(yearly * 10);
+      const invested10yr = Math.round(yearly * ((Math.pow(1.07, 10) - 1) / 0.07));
       return {
         yearlyCost: Math.round(yearly),
-        fiveYear: Math.round(yearly * 5),
-        invested: Math.round(yearly * ((Math.pow(1.07, 5) - 1) / 0.07)),
+        fiveYear:   Math.round(yearly * 5),
+        invested:   Math.round(yearly * ((Math.pow(1.07, 5) - 1) / 0.07)),
+        weeklySpend, monthlySpend, tenYear, invested10yr,
       };
     },
     insight: (i, o) =>
@@ -2504,12 +2764,17 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "percentUsed",    label: "Life used",        format: "decimal", decimalPlaces: 1, unit: "%", sublabel: () => "Percentage of expected lifespan elapsed" },
     ],
     calculate: (inputs) => {
-      const totalWeeks = Number(inputs.lifeExpectancy) * 52;
-      const lived = Number(inputs.age) * 52;
+      const totalWeeks    = Number(inputs.lifeExpectancy) * 52;
+      const lived         = Number(inputs.age) * 52;
+      const weeksRemaining = Math.round(totalWeeks - lived);
+      const yearsRemaining  = Math.floor(weeksRemaining / 52);
+      const daysRemaining   = weeksRemaining * 7;
+      const summerWeeksRemaining = Math.round(yearsRemaining * 13); // ~13 weeks of summer per year
       return {
         weeksLived: Math.round(lived),
-        weeksRemaining: Math.round(totalWeeks - lived),
+        weeksRemaining,
         percentUsed: Math.round((lived / totalWeeks) * 1000) / 10,
+        yearsRemaining, daysRemaining, summerWeeksRemaining,
       };
     },
     insight: (i, o) =>
@@ -2534,14 +2799,16 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "allInPerGuest",  label: "All-in cost per guest", format: "currency",                  sublabel: () => "Total cost divided by guest count" },
     ],
     calculate: (inputs) => {
-      const total =
-        Number(inputs.guests) * Number(inputs.costPerGuest) +
-        Number(inputs.venue) +
-        Number(inputs.photography) +
-        Number(inputs.misc);
+      const cateringTotal    = Number(inputs.guests) * Number(inputs.costPerGuest);
+      const nonCateringTotal = Number(inputs.venue) + Number(inputs.photography) + Number(inputs.misc);
+      const total            = cateringTotal + nonCateringTotal;
+      const investedAlternative = Math.round(total * Math.pow(1.07, 5));
       return {
         total: Math.round(total),
         allInPerGuest: Math.round(total / Number(inputs.guests)),
+        cateringTotal: Math.round(cateringTotal),
+        nonCateringTotal: Math.round(nonCateringTotal),
+        investedAlternative,
       };
     },
     insight: (i, o) =>
@@ -2557,7 +2824,7 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     inputs: [
       { name: "income",      label: "Gross monthly income",  unit: "$",  type: "slider", min: 1000,  max: 50000, step: 500,   default: 7000,   hint: "Before-tax monthly income for all applicants",         quickPicks: [3000, 5000, 7000, 10000, 15000, 20000] },
       { name: "downPayment", label: "Down payment",          unit: "$",  type: "slider", min: 0,     max: 500000, step: 5000, default: 60000,  hint: "Cash available for the down payment",                  quickPicks: [10000, 30000, 60000, 100000, 150000] },
-      { name: "rate",        label: "Mortgage rate",         unit: "%",  type: "slider", min: 2,     max: 12,     step: 0.1,  default: 7,      hint: "Current annual mortgage interest rate",                quickPicks: [4, 5, 6, 7, 8, 10] },
+      { name: "rate",        label: "Mortgage rate",         unit: "%",  type: "slider", min: 2,     max: 12,     step: 0.1,  default: WCD.mortgageRate,       hint: "Current annual mortgage interest rate",                quickPicks: [4, 5, 6, 7, 8, 10] },
       { name: "term",        label: "Loan term",             unit: "mo", type: "select",              default: 360,
         options: [{ label: "15 years", value: 180 }, { label: "20 years", value: 240 }, { label: "30 years", value: 360 }],
         hint: "Length of the mortgage in years" },
@@ -2567,13 +2834,28 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "monthlyBudget",  label: "Monthly payment cap", format: "currency",                 sublabel: () => "28% of gross monthly income" },
     ],
     calculate: (inputs) => {
-      const maxMonthly = Number(inputs.income) * 0.28;
-      const r = Number(inputs.rate) / 100 / 12;
-      const n = Number(inputs.term);
-      const loan = maxMonthly * ((Math.pow(1 + r, n) - 1) / (r * Math.pow(1 + r, n)));
+      const maxMonthly  = Number(inputs.income) * 0.28;
+      const r           = Number(inputs.rate) / 100 / 12;
+      const n           = Number(inputs.term);
+      const loan        = maxMonthly * ((Math.pow(1 + r, n) - 1) / (r * Math.pow(1 + r, n)));
+      const maxHomePrice = Math.round(loan + Number(inputs.downPayment));
+      // ── Phase 6D: structured intelligence outputs ──────────────────────────
+      const totalPaid            = maxMonthly * n;
+      const totalInterestEstimate = Math.round(totalPaid - loan);
+      const annualIncome         = Number(inputs.income) * 12;
+      const affordabilityRatio   = annualIncome > 0
+        ? Math.round((maxHomePrice / annualIncome) * 100) / 100 : 0;
+      const downPaymentRatio     = maxHomePrice > 0
+        ? Math.round((Number(inputs.downPayment) / maxHomePrice) * 1000) / 10 : 0;
       return {
-        maxHomePrice: Math.round(loan + Number(inputs.downPayment)),
-        monthlyBudget: Math.round(maxMonthly),
+        maxHomePrice,
+        monthlyBudget:        Math.round(maxMonthly),
+        loanAmount:           Math.round(loan),
+        totalInterestEstimate,
+        totalCostEstimate:    Math.round(totalPaid + Number(inputs.downPayment)),
+        affordabilityRatio,
+        downPaymentRatio,
+        annualMortgageBurden: Math.round(maxMonthly * 12),
       };
     },
     insight: (i, o) =>
@@ -2587,26 +2869,81 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     description: "Calculate how much you save by meal prepping versus buying takeout or eating out.",
     label: "Meal Prep Savings Calculator",
     inputs: [
-      { name: "totalCost",   label: "Weekly grocery spend",  unit: "$", type: "slider", min: 10,  max: 300, step: 5,   default: 60,  hint: "Weekly cost of groceries for your meal prep",       quickPicks: [30, 45, 60, 80, 100, 150] },
-      { name: "meals",       label: "Meals prepped/week",    unit: "",  type: "slider", min: 1,   max: 21,  step: 1,   default: 10,  hint: "Number of meals you prep per week",                 quickPicks: [5, 7, 10, 14, 21] },
-      { name: "takeoutCost", label: "Takeout cost per meal", unit: "$", type: "slider", min: 5,   max: 60,  step: 1,   default: 15,  hint: "Average price of a takeout meal (delivery included)", quickPicks: [8, 12, 15, 20, 30] },
+      {
+        name: "diningRegion",
+        label: "Your state",
+        type: "dropdown",
+        default: "National",
+        hint: "Worthulator calibrates your savings to local food costs",
+        options: US_STATE_OPTIONS,
+      },
+      {
+        name: "diningStyle",
+        label: "What best describes your eating habits?",
+        type: "multiselect",
+        default: "takeout",
+        hint: "Select one or more — Worthulator blends your dining baseline",
+        options: [
+          { label: "📱 Delivery apps (Uber Eats, DoorDash)", value: "delivery" },
+          { label: "🍽️ Restaurant dining",                   value: "restaurant" },
+          { label: "🥡 Takeout / casual dining",             value: "takeout" },
+          { label: "🚗 Fast food / drive-through",           value: "fastfood" },
+          { label: "🥣 Convenience / ready meals",           value: "convenience" },
+          { label: "🥗 Mixed lifestyle",                     value: "mixed" },
+        ],
+      },
+      { name: "meals",        label: "Meals you plan to cook per week",  unit: "", type: "slider", min: 1, max: 21, step: 1, default: 10, hint: "Home-cooked or prepped meals each week",         quickPicks: [3, 5, 7, 10, 14, 21] },
     ],
     outputs: [
-      { key: "costPerMeal",   label: "Cost per home meal",  format: "currency", highlight: true, sublabel: () => "Your prep cost per meal" },
-      { key: "weeklySavings", label: "Weekly savings",      format: "currency",                  sublabel: () => "vs buying takeout for the same meals" },
-      { key: "yearlySavings", label: "Annual savings",      format: "currency",                  sublabel: () => "Weekly savings × 52" },
+      { key: "costPerMeal",   label: "Cost per home meal",  format: "currency", decimalPlaces: 2, highlight: true, sublabel: () => "Your prep cost per meal" },
+      { key: "weeklySavings", label: "Weekly savings",      format: "currency", decimalPlaces: 2,                  sublabel: () => "vs your selected dining baseline" },
+      { key: "yearlySavings", label: "Annual savings",      format: "currency", decimalPlaces: 2,                  sublabel: () => "Weekly savings × 52" },
     ],
     calculate: (inputs) => {
-      const costPerMeal = Number(inputs.totalCost) / Number(inputs.meals);
-      const weeklySavings = (Number(inputs.takeoutCost) - costPerMeal) * Number(inputs.meals);
+      // Regional benchmark lookup — falls back to national if unset
+      const regional = getRegionalBenchmarks(String(inputs.diningRegion ?? "National"));
+      const DINING_COSTS: Record<string, number> = {
+        fastfood:    regional.fastFoodCombo,
+        delivery:    regional.deliveryMeal,
+        restaurant:  regional.restaurantMeal,
+        takeout:     Math.round((regional.restaurantMeal * 0.8 + regional.fastFoodCombo) / 2 * 100) / 100,
+        convenience: Math.round(regional.fastFoodCombo * 1.1 * 100) / 100,
+        mixed:       Math.round((regional.restaurantMeal + regional.fastFoodCombo) / 2 * 100) / 100,
+      };
+      const takeoutCostDerived = (() => {
+        const diningStyles = String(inputs.diningStyle ?? "takeout").split(",").filter(Boolean);
+        const costs = diningStyles.map((s) => DINING_COSTS[s] ?? 15);
+        return Math.round(costs.reduce((a, b) => a + b, 0) / costs.length * 100) / 100;
+      })();
+      // Home meal cost: USDA moderate food plan — grocery budget covers ~2 cooked meals/day
+      // $300/mo ÷ 60 meals = $5.00/meal nationally; scales with state food index via groceryMonthly
+      const homeMealCost    = Math.round(regional.groceryMonthly / 60 * 100) / 100;
+      const meals           = Number(inputs.meals ?? 10);
+      const weeklySavings   = meals * (takeoutCostDerived - homeMealCost);
+      const yearlySavings   = Math.round(weeklySavings * 52 * 100) / 100;
+      // FV annuity @ 7% / 10 yr: ((1.07^10 - 1) / 0.07) ≈ 13.8164
+      const tenYearIfInvested   = Math.round(yearlySavings * 13.8164 * 100) / 100;
+      const weeklyEatingOutCost = Math.round(meals * takeoutCostDerived * 100) / 100;
+      const monthlyFoodCost     = Math.round(meals * homeMealCost * (52 / 12) * 100) / 100;
       return {
-        costPerMeal: Math.round(costPerMeal * 100) / 100,
-        weeklySavings: Math.round(weeklySavings),
-        yearlySavings: Math.round(weeklySavings * 52),
+        costPerMeal:          homeMealCost,
+        weeklySavings:        Math.round(weeklySavings * 100) / 100,
+        yearlySavings,
+        tenYearIfInvested,
+        weeklyEatingOutCost,
+        monthlyFoodCost,
+        takeoutCostDerived,   // exposed for WorthCore insight generator — not shown as output card
       };
     },
-    insight: (i, o) =>
-      `Prepping ${i.meals} meals at $${o.costPerMeal}/meal vs $${i.takeoutCost} takeout saves you $${o.weeklySavings}/week — $${o.yearlySavings.toLocaleString()} per year.`,
+    insight: (i, o) => {
+      const STYLE_LABEL: Record<string, string> = {
+        fastfood: "fast food", delivery: "delivery app", restaurant: "restaurant",
+        takeout: "takeout", convenience: "convenience meals", mixed: "dining out",
+      };
+      const styles = String(i.diningStyle ?? "takeout").split(",").filter(Boolean);
+      const label = styles.map((s) => STYLE_LABEL[s] ?? "takeout").join(" & ");
+      return `Cooking ${i.meals} meals/week saves $${o.weeklySavings}/week — $${o.yearlySavings.toLocaleString()}/year vs your ${label} habit.`;
+    },
   },
 
   // ── Closing Cost Estimator ───────────────────────────────────────────────
@@ -2626,10 +2963,16 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     ],
     calculate: (inputs) => {
       const total = Number(inputs.homePrice) * (Number(inputs.percent) / 100);
+      const asMonthsRent   = Math.round(total / 2000 * 10) / 10;
+      const asWeeksIncome  = Math.round(total / (65000 / 52) * 10) / 10;
+      const breakEvenMonths = Math.round(total / (Number(inputs.homePrice) * 0.03 / 12));
       return {
-        closingCost: Math.round(total),
-        rangeLow: Math.round(total * 0.8),
-        rangeHigh: Math.round(total * 1.2),
+        closingCost:    Math.round(total),
+        rangeLow:       Math.round(total * 0.8),
+        rangeHigh:      Math.round(total * 1.2),
+        asMonthsRent,
+        asWeeksIncome,
+        breakEvenMonths,
       };
     },
     insight: (i, o) =>
@@ -2692,10 +3035,15 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     calculate: (inputs) => {
       const expenses = Number(inputs.housing) + Number(inputs.food) + Number(inputs.transport) + Number(inputs.debt) + Number(inputs.other);
       const leftover = Number(inputs.income) - expenses;
+      const annualLeftover      = Math.round(leftover * 12);
+      const housingRatio        = Math.round(Number(inputs.housing) / Number(inputs.income) * 1000) / 10;
+      const debtRatio           = Math.round(Number(inputs.debt)    / Number(inputs.income) * 1000) / 10;
+      const tenYearIfInvested   = Math.round(leftover * 12 * ((Math.pow(1.07, 10) - 1) / 0.07));
       return {
         leftover: Math.round(leftover),
-        savingsRate: Math.round((leftover / Number(inputs.income)) * 1000) / 10,
+        savingsRate:  Math.round((leftover / Number(inputs.income)) * 1000) / 10,
         expenseRatio: Math.round((expenses / Number(inputs.income)) * 1000) / 10,
+        annualLeftover, housingRatio, debtRatio, tenYearIfInvested,
       };
     },
     insight: (i, o) =>
@@ -2956,13 +3304,17 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "opportunityCost", label: "Opportunity cost", format: "currency",                  sublabel: () => "Difference: invested value minus total spent" },
     ],
     calculate: (inputs) => {
-      const yearly = Number(inputs.weeklySpend) * 52;
-      const total = yearly * Number(inputs.years);
+      const yearly  = Number(inputs.weeklySpend) * 52;
+      const total   = yearly * Number(inputs.years);
       const invested = yearly * ((Math.pow(1.07, Number(inputs.years)) - 1) / 0.07);
+      const weeklyInMonthlyTerms = Math.round(Number(inputs.weeklySpend) * 52 / 12);
+      const dailyCost            = Math.round(Number(inputs.weeklySpend) / 7 * 100) / 100;
+      const returnMultiple       = Math.round(invested / Math.max(total, 1) * 10) / 10;
       return {
-        totalLoss: Math.round(total),
-        investedValue: Math.round(invested),
+        totalLoss:       Math.round(total),
+        investedValue:   Math.round(invested),
         opportunityCost: Math.round(invested - total),
+        weeklyInMonthlyTerms, dailyCost, returnMultiple,
       };
     },
     insight: (i, o) =>
@@ -2985,12 +3337,16 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "yearsLost",     label: "Years of life",   format: "integer",                  sublabel: () => "Equivalent years spent scrolling" },
     ],
     calculate: (inputs) => {
-      const yearly = Number(inputs.dailyHours) * 365;
+      const yearly   = Number(inputs.dailyHours) * 365;
       const lifetime = yearly * Number(inputs.years);
+      const daysLost          = Math.round(lifetime / 24);
+      const workingYearsLost  = Math.round(lifetime / 2080 * 10) / 10;
+      const yearsLostDecimal  = Math.round(lifetime / (24 * 365) * 100) / 100;
       return {
-        yearlyHours: Math.round(yearly),
+        yearlyHours:   Math.round(yearly),
         lifetimeHours: Math.round(lifetime),
-        yearsLost: Math.round(lifetime / 24 / 365 * 100) / 100,
+        yearsLost:     Math.round(lifetime / 24 / 365 * 100) / 100,
+        daysLost, workingYearsLost, yearsLostDecimal,
       };
     },
     insight: (i, o) =>
@@ -3014,17 +3370,31 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "retirementTarget", label: "Retirement target", format: "currency",                  sublabel: () => "25× annual expenses (4% safe withdrawal rule)" },
     ],
     calculate: (inputs) => {
-      const target = Number(inputs.expenses) * 12 * 25;
-      let balance = Number(inputs.current);
-      let months = 0;
-      const r = Number(inputs.returnRate) / 100 / 12;
+      const target  = Number(inputs.expenses) * 12 * 25;
+      const current = Number(inputs.current);
+      const monthly = Number(inputs.monthlySavings);
+      const r       = Number(inputs.returnRate) / 100 / 12;
+      let balance = current;
+      let months  = 0;
+      // project 10-year balance independently
+      let balance10yr = current;
+      for (let m = 0; m < 120; m++) {
+        balance10yr = balance10yr * (1 + r) + monthly;
+      }
       while (balance < target && months < 1200) {
-        balance = balance * (1 + r) + Number(inputs.monthlySavings);
+        balance = balance * (1 + r) + monthly;
         months++;
       }
+      const retirementGap  = Math.max(0, target - current);
+      const savingsProgress = target > 0 ? Math.round((current / target) * 100) / 100 : 1;
       return {
-        yearsToRetire: Math.round(months / 12 * 10) / 10,
-        retirementTarget: Math.round(target),
+        yearsToRetire:       Math.round(months / 12 * 10) / 10,
+        retirementTarget:    Math.round(target),
+        // ── WorthCore intelligence outputs ──
+        retirementGap:        Math.round(retirementGap),
+        savingsProgress:      savingsProgress,
+        projectedBalance10yr: Math.round(balance10yr),
+        annualContribution:   Math.round(monthly * 12),
       };
     },
     insight: (i, o) =>
@@ -3143,7 +3513,11 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const payment = r > 0 ? p * (r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1) : p / n;
       const totalPaid = payment * n;
       const interest = totalPaid - p;
-      return { payment: Math.round(payment * 100) / 100, totalPaid: Math.round(totalPaid), interest: Math.round(interest) };
+      const interestToLoanRatio = p > 0 ? interest / p : 0;
+      const totalCostMultiple   = p > 0 ? totalPaid / p : 1;
+      const dailyInterestCost   = (p * Number(inputs.rate) / 100) / 365;
+      return { payment: Math.round(payment * 100) / 100, totalPaid: Math.round(totalPaid), interest: Math.round(interest),
+               interestToLoanRatio, totalCostMultiple, dailyInterestCost };
     },
     insight: (i, o) =>
       `On a $${Number(i.loan).toLocaleString()} loan at ${i.rate}% over ${Number(i.term) / 12} years, you'll pay $${(o.interest ?? 0).toLocaleString()} in interest — ${Math.round((o.interest ?? 0) / Number(i.loan) * 100)}% extra on top of what you borrowed.`,
@@ -3168,9 +3542,14 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
     ],
     calculate: (inputs) => {
       const savingsPerMonth = Number(inputs.oldPayment) - Number(inputs.newPayment);
-      const breakEvenMonths = savingsPerMonth > 0 ? Math.round(Number(inputs.closingCosts) / savingsPerMonth) : 9999;
-      const totalSavings = Math.round(savingsPerMonth * Number(inputs.years) * 12 - Number(inputs.closingCosts));
-      return { savingsPerMonth: Math.round(savingsPerMonth), breakEvenMonths, totalSavings };
+      const closingCosts    = Number(inputs.closingCosts);
+      const breakEvenMonths = savingsPerMonth > 0 ? Math.round(closingCosts / savingsPerMonth) : 9999;
+      const totalSavings    = Math.round(savingsPerMonth * Number(inputs.years) * 12 - closingCosts);
+      const breakEvenYears  = breakEvenMonths < 9999 ? breakEvenMonths / 12 : 9999;
+      const savingsRatio    = closingCosts > 0 ? totalSavings / closingCosts : 0;
+      const annualSavings   = Math.round(savingsPerMonth * 12);
+      return { savingsPerMonth: Math.round(savingsPerMonth), breakEvenMonths, totalSavings,
+               breakEvenYears, savingsRatio, annualSavings };
     },
     insight: (i, o) =>
       `Saving $${(o.savingsPerMonth ?? 0).toLocaleString()}/month, you break even after ${o.breakEvenMonths} months — total net savings over ${i.years} years: $${(o.totalSavings ?? 0).toLocaleString()}.`,
@@ -3310,11 +3689,17 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "borrowable",    label: "Max borrowable (80%)",  format: "currency",                   sublabel: () => "Equity you can access at 80% LTV" },
     ],
     calculate: (inputs) => {
-      const equity = Number(inputs.homeValue) - Number(inputs.mortgage);
-      const ltv = Number(inputs.mortgage) / Number(inputs.homeValue) * 100;
-      const maxDebt = Number(inputs.homeValue) * 0.8;
-      const borrowable = Math.max(0, maxDebt - Number(inputs.mortgage));
-      return { equity: Math.round(equity), ltv: Math.round(ltv * 10) / 10, borrowable: Math.round(borrowable) };
+      const homeValue = Number(inputs.homeValue);
+      const mortgage  = Number(inputs.mortgage);
+      const equity    = homeValue - mortgage;
+      const ltv       = mortgage / homeValue * 100;
+      const maxDebt   = homeValue * 0.8;
+      const borrowable = Math.max(0, maxDebt - mortgage);
+      const equityPercent   = (equity / homeValue) * 100;
+      const toHeloc80ltv    = Math.max(0, homeValue * 0.2 - equity);
+      const equityAnnualSalaries = Math.round(equity / 65000 * 10) / 10;
+      return { equity: Math.round(equity), ltv: Math.round(ltv * 10) / 10, borrowable: Math.round(borrowable),
+               equityPercent, toHeloc80ltv: Math.round(toHeloc80ltv), equityAnnualSalaries };
     },
     insight: (i, o) =>
       `Your home is worth $${Number(i.homeValue).toLocaleString()} with $${Number(i.mortgage).toLocaleString()} owed — you own ${Math.round(100 - (o.ltv ?? 0))}% of it and could potentially borrow up to $${(o.borrowable ?? 0).toLocaleString()}.`,
@@ -3397,10 +3782,23 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       { key: "lossPercent",  label: "Value eroded",          format: "decimal",                   sublabel: () => "% of original value destroyed" },
     ],
     calculate: (inputs) => {
-      const futureValue = Number(inputs.amount) / Math.pow(1 + Number(inputs.rate) / 100, Number(inputs.years));
-      const loss = Number(inputs.amount) - futureValue;
-      const lossPercent = loss / Number(inputs.amount) * 100;
-      return { futureValue: Math.round(futureValue), loss: Math.round(loss), lossPercent: Math.round(lossPercent * 10) / 10 };
+      const amount = Number(inputs.amount);
+      const rate   = Number(inputs.rate);
+      const years  = Number(inputs.years);
+      const futureValue  = amount / Math.pow(1 + rate / 100, years);
+      const loss         = amount - futureValue;
+      const lossPercent  = loss / amount * 100;
+      const realValueRatio = futureValue / amount;
+      const yearsToHalve   = rate > 0 ? Math.round(70 / rate * 10) / 10 : 9999;
+      const dailyLoss      = loss / (years * 365);
+      return {
+        futureValue: Math.round(futureValue),
+        loss: Math.round(loss),
+        lossPercent: Math.round(lossPercent * 10) / 10,
+        realValueRatio,
+        yearsToHalve,
+        dailyLoss,
+      };
     },
     insight: (i, o) =>
       `At ${i.rate}% inflation, $${Number(i.amount).toLocaleString()} today will only buy $${(o.futureValue ?? 0).toLocaleString()} worth of goods in ${i.years} years — inflation quietly destroys ${o.lossPercent}% of your money.`,
@@ -3468,7 +3866,11 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const n      = years * 52;
       const invested = weekly * ((Math.pow(1 + r, n) - 1) / r);
       const spent    = weekly * n;
-      return { invested: Math.round(invested), spent: Math.round(spent), gap: Math.round(invested - spent) };
+      const lossMultiple  = Math.round(invested / Math.max(spent, 1) * 10) / 10;
+      const monthlySpend  = Math.round(weekly * 52 / 12);
+      const dailyCost     = Math.round(weekly / 7 * 100) / 100;
+      return { invested: Math.round(invested), spent: Math.round(spent), gap: Math.round(invested - spent),
+               lossMultiple, monthlySpend, dailyCost };
     },
     insight: (i, o) =>
       `Spending $${i.weekly}/week on lottery for ${i.years} years costs $${(o.spent ?? 0).toLocaleString()} — the same money invested at ${i.return}% would be worth $${(o.invested ?? 0).toLocaleString()}.`,
@@ -3495,7 +3897,13 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const annual   = daily * Number(inputs.daysPerYear);
       const weekly   = daily * 5;
       const tenYear  = annual * ((Math.pow(1.07, 10) - 1) / 0.07);
-      return { annualLoss: Math.round(annual), weeklyLoss: Math.round(weekly), tenYearLoss: Math.round(tenYear) };
+      const monthlyLoss  = Math.round(annual / 12);
+      const dailyLoss    = Math.round(daily * 100) / 100;
+      const careerLoss   = Math.round(annual * ((Math.pow(1.07, 20) - 1) / 0.07));
+      return {
+        annualLoss: Math.round(annual), weeklyLoss: Math.round(weekly), tenYearLoss: Math.round(tenYear),
+        monthlyLoss, dailyLoss, careerLoss,
+      };
     },
     insight: (i, o) =>
       `Wasting ${i.hoursPerDay} hours/day at $${i.hourlyRate}/hr costs $${(o.annualLoss ?? 0).toLocaleString()}/year — over 10 years, that's $${(o.tenYearLoss ?? 0).toLocaleString()} in lost and uninvested earnings.`,
@@ -3562,7 +3970,20 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       else if (bmi > 25) base -= 1;
       const age = Number(inputs.age);
       const yearsRemaining = Math.max(0, Math.round(base - age));
-      return { lifeExpectancy: Math.round(base), yearsRemaining, weeksRemaining: Math.round(yearsRemaining * 52) };
+      // Improvement potential: what if all factors were optimised?
+      let improved = 78.5 + 3 * 2; // exercise = 3 (middle: 3–4x/week)
+      // bmi in healthy range = no penalty
+      const improvementPotential = Math.round(improved - base);
+      const daysRemaining         = yearsRemaining * 365;
+      const productiveYearsRemaining = Math.max(0, Math.min(65 - age, yearsRemaining));
+      return {
+        lifeExpectancy: Math.round(base),
+        yearsRemaining,
+        weeksRemaining: Math.round(yearsRemaining * 52),
+        improvementPotential: Math.max(0, improvementPotential),
+        daysRemaining,
+        productiveYearsRemaining,
+      };
     },
     insight: (i, o) =>
       `Based on your lifestyle, your estimated life expectancy is ${o.lifeExpectancy} — you have roughly ${o.yearsRemaining} years (${(o.weeksRemaining ?? 0).toLocaleString()} weeks) left. Use them well.`,
@@ -3615,7 +4036,13 @@ export const CALCULATOR_CONFIGS: CalculatorRegistry = {
       const pnl = Number(inputs.currentValue) - Number(inputs.invested);
       const pnlPercent = (pnl / Number(inputs.invested)) * 100;
       const indexAlternative = Number(inputs.invested) * Math.pow(1.07, Number(inputs.yearsHeld));
-      return { pnl: Math.round(pnl), pnlPercent: Math.round(pnlPercent * 10) / 10, indexAlternative: Math.round(indexAlternative) };
+      const opportunityGap   = Math.round(indexAlternative - Number(inputs.currentValue));
+      const breakEvenMultiple = Math.round(Number(inputs.invested) / Math.max(Number(inputs.currentValue), 1) * 10) / 10;
+      const indexGainPercent  = Math.round(((indexAlternative / Number(inputs.invested)) - 1) * 1000) / 10;
+      return {
+        pnl: Math.round(pnl), pnlPercent: Math.round(pnlPercent * 10) / 10, indexAlternative: Math.round(indexAlternative),
+        opportunityGap, breakEvenMultiple, indexGainPercent,
+      };
     },
     insight: (i, o) =>
       `You invested $${Number(i.invested).toLocaleString()} and it's now worth $${Number(i.currentValue).toLocaleString()} — a ${o.pnlPercent}% ${(o.pnl ?? 0) >= 0 ? "gain" : "loss"}. The same money in the S&P 500 would be $${(o.indexAlternative ?? 0).toLocaleString()}.`,

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import MortgageRefinanceWithInsights from "@/components/worthcore/MortgageRefinanceWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -55,7 +55,7 @@ export default function MortgageRefinanceCalculator() {
         description="Compare your current and new monthly payments, see how quickly you break even on closing costs, and find out if refinancing actually saves you money."
         chips={["Break-even month", "Monthly savings", "Net lifetime savings"]}
       >
-        <CalculatorEngineLoader slug="mortgage-refinance-calculator" />
+        <MortgageRefinanceWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Refinancing only saves money if you stay in the home long enough to recoup closing costs — always calculate the break-even first." />
       <StatChipsRow stats={STATS} />

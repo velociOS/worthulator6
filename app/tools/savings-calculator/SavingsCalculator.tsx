@@ -20,6 +20,10 @@ import {
   balanceAtYear,
   type CompoundFrequency,
 } from "@/lib/calculators/savingsCalculatorEngine";
+import { getFinanceValue } from "@/lib/dataStore";
+
+// ─── WorthCore defaults (module-level — evaluated once at load, never in render) ─
+const INITIAL_SAVINGS_RATE = getFinanceValue("savingsRate"); // dataStore.finance.savingsRate
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
@@ -41,7 +45,7 @@ export default function SavingsCalculator() {
   const [initialInput, setInitialInput] = useState("5000");
   const [monthly,      setMonthly]      = useState(300);
   const [monthlyInput, setMonthlyInput] = useState("300");
-  const [rate,         setRate]         = useState(4.5);
+  const [rate,         setRate]         = useState(INITIAL_SAVINGS_RATE);
   const [years,        setYears]        = useState(10);
   const [yearsInput,   setYearsInput]   = useState("10");
   const [frequency,    setFrequency]    = useState<CompoundFrequency>("monthly");

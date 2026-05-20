@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import PtoWithInsights from "@/components/worthcore/PtoWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -110,7 +109,7 @@ export default function PtoCalculatorPage() {
         description="Calculate the cash value of your unused PTO or vacation days — enter your hourly rate and remaining hours for an instant result."
         chips={["Cash value of PTO", "Days remaining", "Weekly earning rate"]}
       >
-        <CalculatorEngineLoader slug="pto-calculator" afterResults={<InsightsSection slug="pto-calculator" />} />
+        <PtoWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text='Unused PTO is compensation you already earned — <span class="font-semibold text-gray-900">if you don&apos;t use it and it isn&apos;t paid out, you worked for less than agreed.</span>' />
       <StatChipsRow stats={STATS} />

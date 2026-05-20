@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import ApplianceEnergyWithInsights from "@/components/worthcore/ApplianceEnergyWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -118,7 +117,7 @@ export default function ApplianceEnergyCost() {
         description="Enter wattage, hours per day, and your electricity rate. Instantly see daily, monthly, and annual running costs for any device."
         chips={["Watts to cost", "Daily / monthly / annual", "Any electricity rate"]}
       >
-        <CalculatorEngineLoader slug="appliance-energy-cost" afterResults={<InsightsSection slug="appliance-energy-cost" />} />
+        <ApplianceEnergyWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The average US home spends ~$1,500/year on electricity — most of it heating, cooling, and appliances you barely notice." />
       <StatChipsRow stats={STATS} />

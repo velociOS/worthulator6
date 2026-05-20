@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import AirbnbProfitWithInsights from "@/components/worthcore/AirbnbProfitWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -114,7 +113,7 @@ export default function AirbnbProfit() {
         description="Estimate your monthly and annual net profit from short-term rentals. Set your nightly rate, occupancy, platform fee, and monthly expenses."
         chips={["Occupancy-based revenue", "Platform fee deducted", "Monthly + annual profit"]}
       >
-        <CalculatorEngineLoader slug="airbnb-profit" afterResults={<InsightsSection slug="airbnb-profit" />} />
+        <AirbnbProfitWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The average US Airbnb host earns ~$1,900/month — but location and management make the real difference." />
       <StatChipsRow stats={STATS} />

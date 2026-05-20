@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import TrueHourlyWithInsights from "@/components/worthcore/TrueHourlyWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -112,7 +111,7 @@ export default function TrueHourlyWage() {
         description="Factor in your commute, work prep, and decompression time to find your real hourly rate — not just your salary divided by 40 hours."
         chips={["Commute included", "Decompression time", "True vs advertised rate"]}
       >
-        <CalculatorEngineLoader slug="true-hourly-wage" afterResults={<InsightsSection slug="true-hourly-wage" />} />
+        <TrueHourlyWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Your contract says 40 hours. Your job demands more. Here's what you're really earning." />
       <StatChipsRow stats={STATS} />

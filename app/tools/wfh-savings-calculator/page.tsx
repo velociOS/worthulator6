@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import { WfhSavingsWithInsights } from "@/components/worthcore/WfhSavingsWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
+
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -107,7 +107,7 @@ export default function WfhSavingsCalculator() {
         description="Enter your commute cost, food spend, and office days to see your annual savings in money and the hours you reclaim by working remotely."
         chips={["Annual savings", "Monthly savings", "Hours reclaimed"]}
       >
-        <CalculatorEngineLoader slug="wfh-savings-calculator" afterResults={<InsightsSection slug="wfh-savings-calculator" />} />
+        <WfhSavingsWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Remote workers save an average of $4,000/year in commuting and food costs alone." />
       <StatChipsRow stats={STATS} />

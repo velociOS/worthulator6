@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import GamblingLossWithInsights from "@/components/worthcore/GamblingLossWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -106,7 +106,7 @@ export default function GamblingLossCalculator() {
         description="Enter your weekly gambling spend and how many years to project to see your total losses — and what that same money would be worth if invested at 7% instead."
         chips={["Total losses shown", "Investment comparison", "Opportunity cost calculated"]}
       >
-        <CalculatorEngineLoader slug="gambling-loss-calculator" />
+        <GamblingLossWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The real cost of gambling isn't just what you lose — it's the <span class='font-semibold text-gray-900'>wealth you give up</span> by not investing that money instead." />
       <StatChipsRow stats={STATS} />

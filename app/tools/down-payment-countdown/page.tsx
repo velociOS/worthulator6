@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import DownPaymentWithInsights from "@/components/worthcore/DownPaymentWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -118,7 +117,7 @@ export default function DownPaymentCountdown() {
         description="Enter your target home price, down payment percentage, current savings, and timeline. Get your exact monthly savings target."
         chips={["Any down payment %", "Subtract current savings", "Monthly goal shown"]}
       >
-        <CalculatorEngineLoader slug="down-payment-countdown" afterResults={<InsightsSection slug="down-payment-countdown" />} />
+        <DownPaymentWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The typical US first-time buyer takes ~7 years to save their down payment. Here's how to speed that up." />
       <StatChipsRow stats={STATS} />

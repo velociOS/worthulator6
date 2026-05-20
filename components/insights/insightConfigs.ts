@@ -3867,14 +3867,24 @@ export const INSIGHT_CONFIGS: Record<string, InsightConfig> = {
   "meal-prep-calculator": (() => {
     const c = CALCULATOR_CONFIGS["meal-prep-calculator"];
 
-    const r = c.calculate({ totalCost: 80, meals: 10, takeoutCost: 18 });
+    // Hero: restaurant habit, 10 meals/week cooked, national baseline
+    const r = c.calculate({ timesPerWeek: 10, meals: 10, diningStyle: "restaurant", diningRegion: "National" });
 
-    const tableRows = [10, 15, 18, 25].map((takeoutCost) => {
-      const res = c.calculate({ totalCost: 75, meals: 10, takeoutCost });
+    // Table: 4 dining habits, each replaced by cooking 10 meals/week at home (national avg)
+    const scenarios = [
+      { style: "fastfood",   label: "Fast food"    },
+      { style: "takeout",    label: "Takeout"      },
+      { style: "restaurant", label: "Restaurant"   },
+      { style: "delivery",   label: "Delivery app" },
+    ] as const;
+
+    const tableRows = scenarios.map(({ style, label }) => {
+      const res = c.calculate({ timesPerWeek: 10, meals: 10, diningStyle: style, diningRegion: "National" });
       return [
-        `$${takeoutCost}/meal takeout`,
-        `$${res.costPerMeal.toFixed(2)}`,
-        fmtK(res.weeklySavings * 52),
+        label,
+        `$${Number(res.takeoutCostDerived).toFixed(2)}/meal`,
+        `$${Number(res.costPerMeal).toFixed(2)}/meal`,
+        `$${Number(res.weeklySavings).toFixed(2)}/wk`,
         fmtK(res.yearlySavings),
       ];
     });
@@ -3884,24 +3894,24 @@ export const INSIGHT_CONFIGS: Record<string, InsightConfig> = {
         {
           type: "hero",
           stat: fmtK(r.yearlySavings),
-          label: "annual savings — meal prepping 10 meals/week vs $18 takeout average",
-          subStat: `Cost per prepped meal: $${r.costPerMeal.toFixed(2)}. Weekly savings: $${r.weeklySavings}.`,
+          label: "annual savings — cooking 10 meals/week instead of eating out at restaurants",
+          subStat: `Home meal cost: $${Number(r.costPerMeal).toFixed(2)}/meal. Weekly savings: $${Number(r.weeklySavings).toFixed(2)}.`,
           accent: "emerald",
         } satisfies HeroInsightBlock,
         {
           type: "comparison",
-          title: "Meal prep cost vs takeout — 10 meals/week, $75 groceries",
-          left:  { label: "Meal prep",   value: `$${r.costPerMeal.toFixed(2)}/meal`,  note: "$75 groceries for 10 meals", highlight: true },
-          right: { label: "Takeout avg", value: "$18/meal",                            note: "US fast casual average" },
+          title: "Home cooking vs eating out — 10 meals/week, national average",
+          left:  { label: "Home cooking", value: `$${Number(r.costPerMeal).toFixed(2)}/meal`,  note: "USDA moderate food plan", highlight: true },
+          right: { label: "Restaurant",   value: `$${Number(r.takeoutCostDerived).toFixed(2)}/meal`, note: "US casual dining average" },
         } satisfies ComparisonBlock,
         {
           type: "explanation",
-          text: "Meal prepping consistently is one of the highest-ROI habits for household budgets. A $75 grocery run that yields 10 meals costs $7.50/meal — vs $15–25 for casual dining out. Over a year, the savings compound significantly. The real barrier is time, not money.",
+          text: "Cooking at home consistently is one of the highest-ROI habits for household budgets. At the US average of ~$5/meal home-cooked vs $10–22 eating out, replacing 10 meals per week adds up to thousands per year. The real barrier is time — the math is straightforward.",
         } satisfies ExplanationBlock,
       ],
       table: {
-        caption: "Annual meal prep savings — vs different takeout price points ($75 for 10 meals)",
-        headers: ["Takeout avg cost", "Prep cost/meal", "Weekly savings", "Yearly savings"],
+        caption: "Savings from cooking 10 meals/week at home vs different dining habits (national avg)",
+        headers: ["Eating habit", "Their cost/meal", "Home cost/meal", "Weekly savings", "Yearly savings"],
         rows: tableRows,
       },
     };

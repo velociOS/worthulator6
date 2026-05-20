@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import BurnoutWithInsights from "@/components/worthcore/BurnoutWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -113,7 +112,7 @@ export default function BurnoutCalculator() {
         description="Enter your weekly work hours, stress level, and nightly sleep to get a burnout risk score out of 100 — and know whether to act now or monitor."
         chips={["Risk score /100", "Low / Moderate / High", "Evidence-based"]}
       >
-        <CalculatorEngineLoader slug="burnout-calculator" afterResults={<InsightsSection slug="burnout-calculator" />} />
+        <BurnoutWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="77% of workers experience burnout — catching it early makes recovery far easier." />
       <StatChipsRow stats={STATS} />

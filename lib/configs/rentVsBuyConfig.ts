@@ -1,6 +1,7 @@
 // ─── Rent vs Buy Calculator — Config & Calculation Engine ───────────────────
 // Pure TypeScript — zero React / UI dependencies.
 // All functions are deterministic and testable in isolation.
+import { getFinanceValue } from "@/lib/dataStore";
 
 // ─── Config ──────────────────────────────────────────────────────────────────
 
@@ -46,13 +47,15 @@ export const rentVsBuyConfig: RentVsBuyConfig = {
     homePrice: 400000,
     monthlyRent: 2000,
     downPaymentPct: 20,
-    mortgageRate: 6.99,
+    // ── Centralised via dataStore ───────────────────────────────────────────
+    mortgageRate: getFinanceValue("mortgageRate"),         // dataStore.finance.mortgageRate
     loanTermYears: 30,
     propertyTaxPct: 1.1,
     homeInsurancePct: 0.5,
     hoaMonthly: 0,
     maintenancePct: 1.0,
-    homeAppreciationPct: 3.5,
+    // ── Centralised via dataStore ───────────────────────────────────────────
+    homeAppreciationPct: getFinanceValue("homeAppreciation"), // dataStore.finance.homeAppreciation
     rentIncreasePct: 3.0,
     investmentReturnPct: 0,
     yearsToStay: 10,

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import StudentLoanWithInsights from "@/components/worthcore/StudentLoanWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -56,7 +55,7 @@ export default function StudentLoanCalculator() {
         description="Enter your loan balance, interest rate, and repayment term to see your monthly payment, total interest, and true cost of your degree."
         chips={["Federal & private loans", "Monthly payment", "Total interest cost"]}
       >
-        <CalculatorEngineLoader slug="student-loan-calculator" afterResults={<InsightsSection slug="student-loan-calculator" />} />
+        <StudentLoanWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="On a $35,000 loan at 6.5%, you'll pay over $12,000 in interest alone — nearly 35% more than you borrowed." />
       <StatChipsRow stats={STATS} />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import PayRaiseWithInsights from "@/components/worthcore/PayRaiseWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -110,7 +109,7 @@ export default function PayRaiseCalculatorPage() {
         description="Enter your current salary and raise percentage to see your new salary, annual increase, and monthly boost instantly."
         chips={["New salary", "Annual & monthly increase", "Quick raise presets"]}
       >
-        <CalculatorEngineLoader slug="pay-raise" afterResults={<InsightsSection slug="pay-raise" />} />
+        <PayRaiseWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text='Negotiating your base salary is one of the highest-ROI moves you can make — <span class="font-semibold text-gray-900">it compounds every year for the rest of your career.</span>' />
       <StatChipsRow stats={STATS} />

@@ -133,6 +133,10 @@ const slugs = [
 
 const urls = slugs.map((s) => `${BASE}/tools/${s}`);
 
-console.log(`Submitting ${urls.length} URLs to IndexNow...`);
-await submitToIndexNow(urls);
-console.log("Done.");
+async function main() {
+  console.log(`Submitting ${urls.length} URLs to IndexNow...`);
+  await submitToIndexNow(urls);
+  console.log("Done.");
+}
+
+main();

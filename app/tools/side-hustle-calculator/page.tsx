@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import SideHustleWithInsights from "@/components/worthcore/SideHustleWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -107,7 +106,7 @@ export default function SideHustleCalculator() {
         description="Enter your hours, rate, expenses, and tax rate to see your real net monthly income and true effective hourly rate — not just gross revenue."
         chips={["After tax", "After expenses", "True hourly rate"]}
       >
-        <CalculatorEngineLoader slug="side-hustle-calculator" afterResults={<InsightsSection slug="side-hustle-calculator" />} />
+        <SideHustleWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Your gross rate and your effective rate can differ by 40% or more." />
       <StatChipsRow stats={STATS} />

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import CryptoLossWithInsights from "@/components/worthcore/CryptoLossWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -55,7 +55,7 @@ export default function CryptoLossCalculator() {
         description="Enter your total invested and current portfolio value to see your real P&L, your return percentage, and what the same money would have grown to in the S&P 500."
         chips={["Total profit or loss", "Return percentage", "S&P 500 comparison"]}
       >
-        <CalculatorEngineLoader slug="crypto-loss-calculator" />
+        <CryptoLossWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The question isn't just 'did I make money?' — it's 'did I beat what I could have made with boring index investing?'" />
       <StatChipsRow stats={STATS} />

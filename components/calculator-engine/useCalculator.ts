@@ -15,9 +15,12 @@ interface UseCalculatorReturn {
  * no side effects, no subscriptions. The config reference must be stable
  * (module-level constant) to avoid unnecessary recalculations.
  */
-export function useCalculator(config: CalculatorConfig): UseCalculatorReturn {
+export function useCalculator(
+  config: CalculatorConfig,
+  overrides?: Record<string, number>,
+): UseCalculatorReturn {
   const [values, setValues] = useState<CalculatorValues>(() =>
-    Object.fromEntries(config.inputs.map((i) => [i.name, i.default]))
+    Object.fromEntries(config.inputs.map((i) => [i.name, overrides?.[i.name] ?? i.default]))
   );
 
   function setValue(name: string, value: number | string) {

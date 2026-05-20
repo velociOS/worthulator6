@@ -1,7 +1,11 @@
 "use client";
 
 import { useState, useMemo, useId, lazy, Suspense } from "react";
+import { getFinanceValue } from "@/lib/dataStore";
 import { CalcDisclaimer } from "@/src/templates/take-home-pay";
+
+// ─── WorthCore defaults (module-level — evaluated once at load, never in render) ─
+const INITIAL_INFLATION_RATE = getFinanceValue("inflationRate"); // dataStore.finance.inflationRate
 import {
   compoundInterestConfig,
   buildCompoundSchedule,
@@ -313,7 +317,7 @@ export default function CompoundInterestCalculator() {
 
   // ── Advanced inputs ──────────────────────────────────────────────────────
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const [inflationRate, setInflationRate] = useState(2.5);
+  const [inflationRate, setInflationRate] = useState(INITIAL_INFLATION_RATE);
   const [contribGrowthPct, setContribGrowthPct] = useState(0);
   const [taxEnabled, setTaxEnabled] = useState(false);
   const [taxRate, setTaxRate] = useState(22);

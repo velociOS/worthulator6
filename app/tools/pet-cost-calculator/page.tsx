@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import { PetCostWithInsights } from "@/components/worthcore/PetCostWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,7 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
+
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -112,7 +112,7 @@ export default function PetCostCalculator() {
         description="Enter your pet's food, vet, insurance, and miscellaneous costs to see the true annual expense — and the full lifetime commitment."
         chips={["Annual cost", "Lifetime total", "All-in estimate"]}
       >
-        <CalculatorEngineLoader slug="pet-cost-calculator" afterResults={<InsightsSection slug="pet-cost-calculator" />} />
+        <PetCostWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="The average dog costs $29,000 over its lifetime — budget before you adopt." />
       <StatChipsRow stats={STATS} />

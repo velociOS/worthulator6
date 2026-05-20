@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import CoastFireWithInsights from "@/components/worthcore/CoastFireWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -113,7 +112,7 @@ export default function CoastFireCalculator() {
         description="Find your Coast FIRE number — the savings balance where compound growth alone will fund your retirement, with no further contributions needed."
         chips={["Coast FIRE number", "Projected portfolio", "Years to retire"]}
       >
-        <CalculatorEngineLoader slug="coast-fire-calculator" afterResults={<InsightsSection slug="coast-fire-calculator" />} />
+        <CoastFireWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Hit your Coast FIRE number and your money does all the retirement saving for you." />
       <StatChipsRow stats={STATS} />

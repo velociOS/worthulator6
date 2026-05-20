@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import CreditCardPayoffWithInsights from "@/components/worthcore/CreditCardPayoffWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 export const metadata: Metadata = {
@@ -107,7 +106,7 @@ export default function CreditCardPayoffCalculator() {
         description="Enter your balance, APR, and monthly payment to see exactly how many months it takes to clear your debt and the total interest you will pay."
         chips={["Months to payoff", "Total interest", "Total cost"]}
       >
-        <CalculatorEngineLoader slug="credit-card-payoff-calculator" afterResults={<InsightsSection slug="credit-card-payoff-calculator" />} />
+        <CreditCardPayoffWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Paying just $100 more per month can cut your payoff time by years." />
       <StatChipsRow stats={STATS} />

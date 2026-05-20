@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import CalculatorEngineLoader from "@/components/calculator-engine/CalculatorEngineLoader";
+import DripWithInsights from "@/components/worthcore/DripWithInsights";
 import SimpleCalculatorHero from "@/src/templates/take-home-pay/SimpleCalculatorHero";
 import StandardFAQSection from "@/src/templates/take-home-pay/StandardFAQSection";
 import {
@@ -9,7 +9,6 @@ import {
   InsightStrip,
   RelatedCalcCards,
 } from "@/src/templates/take-home-pay/StandardSEOSection";
-import InsightsSection from "@/components/insights/InsightsSection";
 import InsightTable from "@/components/insights/InsightTable";
 
 
@@ -118,7 +117,7 @@ export default function DripCalculator() {
         description="Model the compounding power of reinvesting dividends alongside regular contributions. Set your yield, price growth, and time horizon."
         chips={["Dividend yield + price growth", "Monthly contributions", "25-year projection"]}
       >
-        <CalculatorEngineLoader slug="drip-calculator" afterResults={<InsightsSection slug="drip-calculator" />} />
+        <DripWithInsights />
       </SimpleCalculatorHero>
       <InsightStrip text="Reinvested dividends account for nearly half of the stock market's total historical return." />
       <StatChipsRow stats={STATS} />
